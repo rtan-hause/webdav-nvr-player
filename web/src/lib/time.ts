@@ -56,6 +56,16 @@ export function dayBounds(date: string, tz: string): { start: number; end: numbe
   return { start: fromLocal(Date.UTC(y, m - 1, d), tz), end: fromLocal(Date.UTC(y, m - 1, d + 1), tz) }
 }
 
+/** The instant of a local wall-clock time ("17:42" or "17:42:05") on a YYYY-MM-DD day, or null if it isn't one. */
+export function atLocalTime(date: string, hms: string, tz: string): number | null {
+  const m = /^(\d{1,2}):(\d{2})(?::(\d{2}))?$/.exec(hms.trim())
+  if (!m) return null
+  const [h, mi, sec] = [Number(m[1]), Number(m[2]), Number(m[3] ?? 0)]
+  if (h > 23 || mi > 59 || sec > 59) return null
+  const [y, mo, d] = date.split('-').map(Number)
+  return fromLocal(Date.UTC(y, mo - 1, d, h, mi, sec), tz)
+}
+
 /** Instants inside [from, to] where local time is a multiple of step (for timeline ticks). */
 export function localTicks(from: number, to: number, step: number, tz: string): number[] {
   const out: number[] = []

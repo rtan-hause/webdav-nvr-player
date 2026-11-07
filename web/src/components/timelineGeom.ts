@@ -1,6 +1,6 @@
 // Timeline canvas geometry, shared by the canvas and the dock that sizes it.
 export const AXIS = 20 // time labels at the bottom
-export const MINI = 14 // overview strip at the top
+export const MINI = 24 // overview strip at the top
 export const LGAP = 3 // between lanes
 export const LANE_H = 24 // default lane height; the user can drag the timeline taller or shorter
 export const MIN_LANE = 14

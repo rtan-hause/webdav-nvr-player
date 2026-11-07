@@ -6,7 +6,7 @@ A web player for security-camera recordings stored on a WebDAV server. Cameras u
 
 Planned highlights:
 
-- Continuous day timeline with one lane per camera, zoom, and drag-to-scrub across clips
+- Continuous day timeline with one lane per camera, zoom, drag-to-pan, and a draggable playhead that scrubs across clips
 - HEVC and H.264 passthrough (no transcoding)
 - Thumbnails from the camera's own snapshots, with an ffmpeg fallback
 - New clips indexed as soon as the upload finishes (webhook), with periodic rescans as a safety net

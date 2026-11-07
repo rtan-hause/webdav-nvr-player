@@ -1,14 +1,17 @@
-import { useRef, useState, type KeyboardEvent, type PointerEvent } from 'react'
-import { app, camClips, cameraName, jumpClip, togglePlay, zoomStep } from '../app/state'
+import { useEffect, useRef, useState, type KeyboardEvent, type PointerEvent } from 'react'
+import { app, camClips, cameraName, goToTime, jumpClip, jumpToLatest, togglePlay, zoomStep } from '../app/state'
 import { itemAt } from '../lib/clips'
 import { useStore } from '../lib/store'
-import { fmtTime } from '../lib/time'
+import { dateOf, fmtTime } from '../lib/time'
 import { Icon } from './Icon'
 import { Timeline } from './Timeline'
 import { LANE_H, MAX_LANE, MIN_LANE, timelineHeight } from './timelineGeom'
 
-// Under the video: clip transport, the wall-clock time at the playhead, zoom,
-// and the day timeline.
+// Under the video: clip transport, the wall-clock time at the playhead, jumps
+// to a date and time or to the newest recording, zoom, and the day timeline.
+
+const pill =
+  'rounded-full border border-line bg-ink-2 px-3 py-1.5 font-display text-[13px] font-semibold tracking-[0.08em] uppercase hover:border-sodium hover:text-sodium focus-visible:outline-2 focus-visible:outline-sodium aria-expanded:border-sodium aria-expanded:text-sodium'
 
 function zoomLabel(span: number) {
   return span >= 3600_000 ? `${Math.round(span / 360_000) / 10} h` : `${Math.round(span / 60_000)} min`
@@ -51,6 +54,10 @@ export function Dock() {
           <span className="truncate text-[13px] text-muted">{file ?? `${name} · no recording`}</span>
         </div>
         <div className="ml-auto flex items-center gap-2">
+          <GoTo />
+          <button type="button" title="Go to the newest recording (End)" onClick={() => void jumpToLatest()} className={pill}>
+            Latest
+          </button>
           <div className="inline-flex items-center rounded-full border border-line bg-ink-1">
             <button type="button" className="grid size-8 place-items-center rounded-full text-lg font-semibold hover:bg-ink-2 focus-visible:outline-2 focus-visible:outline-sodium" aria-label="Zoom out (−)" title="Zoom out (−)" onClick={() => zoomStep(-1)}>
               −
@@ -76,6 +83,60 @@ export function Dock() {
       </div>
       <ResizableTimeline cameras={cameras} />
     </>
+  )
+}
+
+// "Go to" opens a small panel above the button with a date and a time,
+// filled in with the playhead's; Go (or Enter) jumps there. Escape or a click
+// outside closes it.
+function GoTo() {
+  const [open, setOpen] = useState(false)
+  const wrap = useRef<HTMLDivElement>(null)
+  const tz = useStore(app, (s) => s.tz)
+  const today = useStore(app, (s) => s.today)
+
+  useEffect(() => {
+    if (!open) return
+    const away = (e: globalThis.PointerEvent) => {
+      if (!wrap.current?.contains(e.target as Node)) setOpen(false)
+    }
+    document.addEventListener('pointerdown', away)
+    return () => document.removeEventListener('pointerdown', away)
+  }, [open])
+
+  const t = app.get().t
+  const field = 'rounded-md border border-line bg-ink-1 px-2 py-1.5 font-mono text-sm [color-scheme:dark] focus:border-sodium focus:outline-none'
+  return (
+    <div ref={wrap} className="relative">
+      <button type="button" aria-expanded={open} aria-haspopup="dialog" title="Go to a date and time" onClick={() => setOpen((o) => !o)} className={pill}>
+        Go to
+      </button>
+      {open && (
+        <form
+          role="dialog"
+          aria-label="Go to a date and time"
+          className="absolute right-0 bottom-full z-20 mb-2 flex w-max max-w-[calc(100vw-2rem)] flex-wrap items-center gap-2 rounded-xl border border-line bg-ink-2 p-2.5 shadow-lg shadow-black/40"
+          onSubmit={(e) => {
+            e.preventDefault()
+            const f = new FormData(e.currentTarget)
+            goToTime(String(f.get('date')), String(f.get('time')))
+            setOpen(false)
+          }}
+          onKeyDown={(e) => {
+            if (e.key !== 'Escape') return
+            e.preventDefault()
+            e.stopPropagation() // not the player's Escape (leave theater)
+            setOpen(false)
+          }}
+        >
+          <input name="date" type="date" aria-label="Date" required max={today} defaultValue={dateOf(t, tz)} className={field} />
+          <input name="time" type="time" aria-label="Time" required step={1} defaultValue={fmtTime(t, tz)} autoFocus className={field} />
+          <button type="submit" className="rounded-md bg-sodium px-3 py-1.5 text-sm font-semibold text-sodium-ink hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sodium">
+            Go
+          </button>
+        </form>
+      )}
+    </div>
   )
 }
 

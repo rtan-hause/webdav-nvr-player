@@ -1,7 +1,7 @@
 import { fetchClips, fetchDays, getJSON, HttpError, type Camera, type Clip, type IndexStatus } from '../lib/api'
 import { itemAt, lastStartLE, mergeSpans, nextAfter } from '../lib/clips'
 import { createStore } from '../lib/store'
-import { addDays, dateOf, dayBounds, fmtDur } from '../lib/time'
+import { addDays, atLocalTime, dateOf, dayBounds, fmtDay, fmtDur } from '../lib/time'
 
 // App state for the player: one playhead (t) on one day for the selected
 // camera. Built around a single clock so a synced multi-camera grid can be
@@ -208,6 +208,43 @@ export function playOnFrom(t: number, endedClip?: Clip) {
   const gap = next.start - (endedClip ? endedClip.end : t)
   if (gap > 2000) toast(`Skipped ${fmtDur(gap)} with no recording`)
   seekTo(next.start)
+}
+
+/** Go to a wall-clock time ("17:42:05") on a day (YYYY-MM-DD), loading that day if needed; never past now. */
+export function goToTime(date: string, hms: string) {
+  const s = app.get()
+  const t = /^\d{4}-\d{2}-\d{2}$/.test(date) ? atLocalTime(date, hms, s.tz) : null
+  if (t === null) return toast('Pick a date and a time')
+  const tt = Math.min(t, Date.now())
+  const day = dateOf(tt, s.tz)
+  if (day === s.day?.date) seekTo(tt)
+  else void loadDay(day, { at: tt })
+}
+
+/**
+ * Go to the newest recording: the start of the selected camera's latest clip
+ * on the newest day with footage. If that camera has nothing that day, switch
+ * to the camera that recorded most recently.
+ */
+export async function jumpToLatest() {
+  const s0 = app.get()
+  const date = [s0.days.at(-1), s0.day?.date].filter((d): d is string => !!d).sort().at(-1)
+  if (!date) return
+  if (date !== s0.day?.date) await loadDay(date)
+  else if (date === s0.today) await loadDay(date, { quiet: true }) // pick up clips from the last few seconds
+  const s = app.get()
+  if (s.day?.date !== date) return // another day was picked meanwhile, or loading failed
+  let latest = camClips(s).at(-1)
+  if (!latest) {
+    for (const arr of s.day.byCam.values()) {
+      const c = arr.at(-1)
+      if (c && (!latest || c.start > latest.start)) latest = c
+    }
+    if (!latest) return toast(`No recordings on ${date === s.today ? 'today' : fmtDay(date)}`)
+    toast(`No recordings from ${cameraName(s)}; showing ${cameraName(s, latest.camera_id)}`)
+    app.set({ cam: latest.camera_id })
+  }
+  seekTo(latest.start)
 }
 
 export function selectCamera(id: number) {

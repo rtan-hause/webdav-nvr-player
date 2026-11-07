@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { app, endScrub, scrubTo, selectCamera, setView, zoomAround } from '../app/state'
+import { app, endScrub, scrubTo, seekTo, selectCamera, setView, zoomAround } from '../app/state'
 import { lastStartLE } from '../lib/clips'
 import { fmtHM, fmtTime, localTicks } from '../lib/time'
 import { AXIS, LGAP, MINI } from './timelineGeom'
@@ -9,8 +9,9 @@ import { AXIS, LGAP, MINI } from './timelineGeom'
 // a thousand clips.
 //
 //  - camera names sit in their own column on the left; the day starts after it
-//  - lanes: press or drag to move the playhead; a tap also picks that camera
-//    (so does a tap on the name)
+//  - lanes: a tap moves the playhead there and picks that camera (so does a
+//    tap on the name); drag the playhead to scrub; drag anywhere else to pan
+//    (when zoomed all the way out there's nothing to pan, so a drag scrubs)
 //  - overview strip (top) and time axis (bottom): drag to move along the day
 //  - wheel zooms around the pointer; shift+wheel or a sideways swipe pans;
 //    two fingers pinch-zoom and pan
@@ -64,6 +65,14 @@ export function Timeline() {
       const s = app.get()
       return s.view0 + ((x - gutter) * s.span) / plotW()
     }
+    const xOf = (t: number) => {
+      const s = app.get()
+      return gutter + ((t - s.view0) * plotW()) / s.span
+    }
+    const canPan = () => {
+      const s = app.get()
+      return !!s.day && s.span < s.day.end - s.day.start - 1000
+    }
     const narrowNames = () => canvas.clientWidth < 560
     const label = (name: string) => (narrowNames() ? name.split(/\s+/)[0] : name)
 
@@ -107,21 +116,23 @@ export function Timeline() {
 
       // Overview strip: the whole day, the selected camera's activity, the visible window.
       const mx = (t: number) => L + 4 + ((t - day.start) / dayLen) * (PW - 8)
+      // Bar from y=4 to MINI-4; the window outline and playhead tick stand a little proud of it.
+      const barH = MINI - 8
       ctx.fillStyle = C.ink2
       ctx.beginPath()
-      ctx.roundRect(L + 4, 3, PW - 8, 8, 4)
+      ctx.roundRect(L + 4, 4, PW - 8, barH, 4)
       ctx.fill()
       ctx.fillStyle = 'rgba(140,195,223,.5)'
-      for (const sp of day.spans.get(s.cam) ?? []) ctx.fillRect(mx(sp.start), 4, Math.max(1, mx(sp.end) - mx(sp.start)), 6)
+      for (const sp of day.spans.get(s.cam) ?? []) ctx.fillRect(mx(sp.start), 6, Math.max(1, mx(sp.end) - mx(sp.start)), barH - 4)
       if (s.span < dayLen - 1000) {
         ctx.strokeStyle = C.sodium
         ctx.lineWidth = 1.5
         ctx.beginPath()
-        ctx.roundRect(mx(s.view0), 1.5, Math.max(4, mx(s.view0 + s.span) - mx(s.view0)), 11, 3)
+        ctx.roundRect(mx(s.view0), 2.5, Math.max(6, mx(s.view0 + s.span) - mx(s.view0)), barH + 3, 4)
         ctx.stroke()
       }
       ctx.fillStyle = C.sodium
-      ctx.fillRect(mx(s.t) - 1, 1, 2, 12)
+      ctx.fillRect(mx(s.t) - 1, 2, 2, barH + 4)
 
       // Everything time-based below stays right of the name column.
       ctx.save()
@@ -217,13 +228,16 @@ export function Timeline() {
 
     // ---------- input ----------
     type Gesture =
-      | { kind: 'scrub'; x0: number; moved: boolean }
+      | { kind: 'scrub'; x0: number; off: number; moved: boolean } // dragging the playhead
+      | { kind: 'lane'; x0: number; v0: number; panning: boolean } // a tap, or a drag that pans
       | { kind: 'pan'; x0: number; v0: number }
       | { kind: 'mini' }
       | { kind: 'name' } // tap on a camera name
       | { kind: 'pinch'; d0: number; span0: number; anchorT: number }
     const ptrs = new Map<number, { x: number; y: number }>()
     let g: Gesture | null = null
+    // How close to the playhead a press must be to grab it; fingers get more room.
+    const grabR = (e: PointerEvent) => (e.pointerType === 'mouse' ? 8 : 18)
     const region = (y: number) => (y < MINI + 2 ? 'mini' : y > canvas.clientHeight - AXIS ? 'axis' : 'lane')
     const miniPan = (x: number) => {
       const s = app.get()
@@ -235,7 +249,7 @@ export function Timeline() {
       canvas.setPointerCapture(e.pointerId)
       ptrs.set(e.pointerId, { x: e.offsetX, y: e.offsetY })
       if (ptrs.size === 2) {
-        if (g?.kind === 'scrub') endScrub()
+        if (g?.kind === 'scrub' && g.moved) endScrub()
         const [a, b] = [...ptrs.values()]
         g = { kind: 'pinch', d0: Math.hypot(a.x - b.x, a.y - b.y) || 1, span0: app.get().span, anchorT: T((a.x + b.x) / 2) }
         app.set({ viewLocked: true })
@@ -253,15 +267,25 @@ export function Timeline() {
         g = { kind: 'pan', x0: e.offsetX, v0: app.get().view0 }
         app.set({ viewLocked: true })
       } else {
-        g = { kind: 'scrub', x0: e.offsetX, moved: false }
-        scrubTo(T(e.offsetX))
+        const px = xOf(app.get().t)
+        if (Math.abs(e.offsetX - px) <= grabR(e)) g = { kind: 'scrub', x0: e.offsetX, off: px - e.offsetX, moved: false }
+        else g = { kind: 'lane', x0: e.offsetX, v0: app.get().view0, panning: false }
       }
     }
 
     const move = (e: PointerEvent) => {
       if (!ptrs.has(e.pointerId)) {
         const r = region(e.offsetY)
-        canvas.style.cursor = r === 'lane' || e.offsetX < gutter ? 'pointer' : app.get().span < (app.get().day ? app.get().day!.end - app.get().day!.start : 0) ? 'grab' : 'default'
+        canvas.style.cursor =
+          e.offsetX < gutter
+            ? 'pointer'
+            : r === 'lane' && Math.abs(e.offsetX - xOf(app.get().t)) <= grabR(e)
+              ? 'ew-resize'
+              : canPan()
+                ? 'grab'
+                : r === 'lane'
+                  ? 'pointer'
+                  : 'default'
         return
       }
       ptrs.set(e.pointerId, { x: e.offsetX, y: e.offsetY })
@@ -277,17 +301,32 @@ export function Timeline() {
         miniPan(e.offsetX)
       } else if (g.kind === 'pan') {
         setView(g.v0 - ((e.offsetX - g.x0) * app.get().span) / PW)
-      } else if (g.kind === 'scrub') {
-        if (Math.abs(e.offsetX - g.x0) > 4) g.moved = true
-        scrubTo(T(Math.min(W, Math.max(gutter, e.offsetX))))
+      } else if (g.kind === 'lane') {
+        if (!g.panning && Math.abs(e.offsetX - g.x0) > 4) {
+          if (canPan()) {
+            g.panning = true
+            app.set({ viewLocked: true })
+            canvas.style.cursor = 'grabbing'
+          } else {
+            g = { kind: 'scrub', x0: g.x0, off: 0, moved: false } // nothing to pan: scrub instead
+          }
+        }
+        if (g.kind === 'lane' && g.panning) setView(g.v0 - ((e.offsetX - g.x0) * app.get().span) / PW)
+      }
+      if (g.kind === 'scrub') {
+        if (!g.moved && Math.abs(e.offsetX - g.x0) <= 4) return
+        g.moved = true
+        scrubTo(T(Math.min(W, Math.max(gutter, e.offsetX + g.off))))
       }
     }
 
     const up = (e: PointerEvent) => {
       if (!ptrs.has(e.pointerId)) return
       ptrs.delete(e.pointerId)
-      if (g?.kind === 'scrub' || g?.kind === 'name') {
-        if ((g.kind === 'name' || !g.moved) && e.type === 'pointerup') {
+      if (g?.kind === 'scrub' || g?.kind === 'lane' || g?.kind === 'name') {
+        const tap = g.kind === 'name' || (g.kind === 'scrub' ? !g.moved : !g.panning)
+        if (tap && e.type === 'pointerup') {
+          if (g.kind !== 'name') seekTo(T(Math.min(canvas.clientWidth, Math.max(gutter, e.offsetX))))
           const { laneH, y } = geom()
           const cams = app.get().cameras
           for (let i = 0; i < cams.length; i++) {
@@ -297,7 +336,8 @@ export function Timeline() {
             }
           }
         }
-        if (g.kind === 'scrub') endScrub()
+        if (g.kind === 'scrub' && g.moved) endScrub()
+        if (g.kind === 'lane' && g.panning) canvas.style.cursor = 'grab'
         g = null
       }
       if (g?.kind === 'pinch' && ptrs.size < 2) g = null
@@ -357,5 +397,5 @@ export function Timeline() {
     }
   }, [])
 
-  return <canvas ref={ref} className="block size-full touch-none" aria-label="Timeline. Click or drag on a lane to move the playhead; tap a lane to switch camera. Scroll to zoom." />
+  return <canvas ref={ref} className="block size-full touch-none" aria-label="Timeline. Click a lane to move the playhead there and switch to that camera; drag the playhead to scrub; drag elsewhere to pan. Scroll to zoom." />
 }

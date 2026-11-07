@@ -5,6 +5,7 @@ import {
   boot,
   exitTheater,
   jumpClip,
+  jumpToLatest,
   refresh,
   selectCamera,
   setRoot,
@@ -167,6 +168,9 @@ function Player() {
           break
         case 'ArrowRight':
           skip(e.shiftKey ? 60 : 5)
+          break
+        case 'End':
+          void jumpToLatest()
           break
         case '[':
           jumpClip(-1)

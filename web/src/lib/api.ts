@@ -107,7 +107,9 @@ export const thumbURL = (id: number) => `/api/clips/${id}/thumb`
 export const fetchClips = (from: number, to: number, signal?: AbortSignal) =>
   getJSON<{ clips: Clip[]; snapshots: Snapshot[] }>(`/api/clips?from=${from}&to=${to}`, signal)
 
-export const fetchDays = (from: string, to: string, signal?: AbortSignal) => getJSON<string[]>(`/api/days?from=${from}&to=${to}`, signal)
+/** Days (YYYY-MM-DD, oldest first) in [from, to] with footage from any camera. */
+export const fetchDays = async (from: string, to: string, signal?: AbortSignal) =>
+  (await getJSON<{ days: string[] }>(`/api/days?from=${from}&to=${to}`, signal)).days
 
 // Can this browser decode the codec? Checked once per codec.
 const playable = new Map<string, boolean>()
