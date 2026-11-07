@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.1](https://github.com/rtan-hause/webdav-nvr-player/compare/webdav-nvr-player-chart-v0.1.0...webdav-nvr-player-chart-v0.1.1) (2026-11-07)
+
+
+### Bug Fixes
+
+* **helm-chart:** Allowing oidc clientid as secret ([743eb9a](https://github.com/rtan-hause/webdav-nvr-player/commit/743eb9a0039c18838b8b807f5a7238c324c302d8))
+
 ## 0.1.0 (2026-11-07)
 
 
