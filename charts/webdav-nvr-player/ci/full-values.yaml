@@ -11,8 +11,9 @@ auth:
   publicURL: https://nvr.example.com
   oidc:
     issuer: https://auth.example.com
-    clientID: nvr
     existingSecret: nvr-oidc
+    clientIDKey: attribute.client_id
+    clientSecretKey: attribute.client_secret
     providerName: Zitadel
 database:
   url: postgres://nvr:pw@db:5432/nvr?sslmode=disable

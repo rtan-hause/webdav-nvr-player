@@ -57,8 +57,8 @@ database-url: {{ .Values.database.url | b64enc | quote }}
 {{- fail (printf "auth.mode must be password, oidc or none (got %q)" .Values.auth.mode) }}
 {{- end }}
 {{- if eq .Values.auth.mode "oidc" }}
-{{- if or (not .Values.auth.oidc.issuer) (not .Values.auth.oidc.clientID) }}
-{{- fail "auth.mode=oidc needs auth.oidc.issuer and auth.oidc.clientID" }}
+{{- if or (not .Values.auth.oidc.issuer) (not (or .Values.auth.oidc.clientID .Values.auth.oidc.existingSecret)) }}
+{{- fail "auth.mode=oidc needs auth.oidc.issuer, and auth.oidc.clientID or auth.oidc.existingSecret" }}
 {{- end }}
 {{- if not .Values.auth.publicURL }}
 {{- fail "auth.mode=oidc needs auth.publicURL (the address people open; the sign-in callback is <publicURL>/auth/oidc/callback)" }}

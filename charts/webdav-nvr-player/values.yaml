@@ -57,7 +57,10 @@ auth:
     clientID: ""
     # Leave empty for a PKCE-only public client.
     clientSecret: ""
+    # Read the client secret, and the client ID when clientID is empty, from an
+    # existing Secret (for example one written by Crossplane for a Zitadel app).
     existingSecret: ""
+    clientIDKey: client-id
     clientSecretKey: client-secret
     scopes: openid email profile
     # Label on the sign-in button.

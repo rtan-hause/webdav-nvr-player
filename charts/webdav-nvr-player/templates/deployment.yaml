@@ -106,7 +106,14 @@ spec:
             - name: OIDC_ISSUER
               value: {{ .issuer | quote }}
             - name: OIDC_CLIENT_ID
+              {{- if and .existingSecret (not .clientID) }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .existingSecret }}
+                  key: {{ .clientIDKey }}
+              {{- else }}
               value: {{ .clientID | quote }}
+              {{- end }}
             - name: OIDC_SCOPES
               value: {{ .scopes | quote }}
             {{- with .providerName }}

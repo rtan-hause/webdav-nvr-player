@@ -57,6 +57,7 @@
             "clientID": { "type": "string" },
             "clientSecret": { "type": "string" },
             "existingSecret": { "type": "string" },
+            "clientIDKey": { "type": "string" },
             "clientSecretKey": { "type": "string" },
             "scopes": { "type": "string" },
             "providerName": { "type": "string" }

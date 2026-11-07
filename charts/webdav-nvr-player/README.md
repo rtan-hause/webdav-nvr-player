@@ -36,7 +36,7 @@ httpRoute:
 - `auth.mode: password` (default): one user, `admin`. Its first password is printed once in the log:
   `kubectl -n nvr logs deploy/nvr-webdav-nvr-player | grep "created the admin user"`.
   Change it under Settings. To print a new one: `kubectl -n nvr exec deploy/nvr-webdav-nvr-player -- nvr reset-password`.
-- `auth.mode: oidc`: set `auth.publicURL`, `auth.oidc.issuer`, `auth.oidc.clientID` and the client secret (`auth.oidc.clientSecret` or `auth.oidc.existingSecret`). Register `<publicURL>/auth/oidc/callback` as the redirect URL.
+- `auth.mode: oidc`: set `auth.publicURL`, `auth.oidc.issuer`, the client ID and the client secret, either inline (`auth.oidc.clientID`, `auth.oidc.clientSecret`) or from `auth.oidc.existingSecret` (keys `clientIDKey`, `clientSecretKey`; an inline `clientID` wins). Register `<publicURL>/auth/oidc/callback` as the redirect URL.
 - `auth.mode: none`: no sign-in; only behind a proxy that already signs people in.
 
 ## Upload webhook
@@ -71,7 +71,7 @@ The pod keeps its SQLite index and thumbnails on a ReadWriteOnce volume (`persis
 | `indexing.workers` | `2` | Clips probed at once |
 | `auth.mode` | `password` | `password`, `oidc` or `none` |
 | `auth.publicURL` | `""` | Address people open; required for OIDC |
-| `auth.oidc.*` | | `issuer`, `clientID`, `clientSecret` or `existingSecret`/`clientSecretKey`, `scopes`, `providerName` |
+| `auth.oidc.*` | | `issuer`, `clientID`/`clientSecret` or `existingSecret` + `clientIDKey`/`clientSecretKey`, `scopes`, `providerName` |
 | `database.url` | `""` | Postgres URL (or `existingSecret` + `urlKey`); empty uses SQLite on the volume |
 | `persistence.enabled` / `size` / `storageClass` / `existingClaim` | `true` / `5Gi` / `""` / `""` | Data volume |
 | `logLevel` | `info` | `debug`, `info`, `warn`, `error` |
