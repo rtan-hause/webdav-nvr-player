@@ -1,8 +1,10 @@
 name: chart-release
 
 # Helm chart releases, versioned separately from the app. release-please keeps
-# a release PR open for charts/webdav-nvr-player (feat/fix/chore commits that
-# touch the chart, including each app release updating appVersion). Merging it
+# a release PR open for charts/webdav-nvr-player (feat/fix commits that touch
+# the chart). App release PRs are titled "fix(main): release X.Y.Z" (see
+# pull-request-title-pattern in release-please-config.json) so that their
+# appVersion bump counts as a chart fix and cuts a chart release. Merging it
 # bumps Chart.yaml, tags webdav-nvr-player-chart-vX.Y.Z, and the publish job
 # pushes the chart to oci://ghcr.io/<owner>/charts.
 on:

@@ -7,6 +7,7 @@
       "component": "webdav-nvr-player",
       "include-component-in-tag": false,
       "initial-version": "0.1.0",
+      "pull-request-title-pattern": "fix${scope}: release${component} ${version}",
       "exclude-paths": [
         "charts",
         "release-please-config.chart.json",
