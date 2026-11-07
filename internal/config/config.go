@@ -28,6 +28,31 @@ type Config struct {
 	ScanEvery     time.Duration // SCAN_INTERVAL: rescan today+yesterday (default 5m)
 	FullScanEvery time.Duration // FULL_SCAN_INTERVAL: crawl everything (default 24h)
 	FFmpeg        string        // FFMPEG_PATH (default "ffmpeg" on PATH)
+
+	Auth      AuthMode // AUTH: password (default), oidc or none
+	PublicURL string   // PUBLIC_URL: where users reach the app, e.g. https://nvr.example.com (required for oidc)
+	OIDC      OIDC
+}
+
+// AuthMode is how people sign in.
+type AuthMode string
+
+const (
+	// AuthPassword is a local "admin" user; its first password is generated and logged.
+	AuthPassword AuthMode = "password"
+	// AuthOIDC signs in through an OpenID Connect provider (Zitadel, Authentik, Keycloak, Google...).
+	AuthOIDC AuthMode = "oidc"
+	// AuthNone turns sign-in off, for use behind a proxy that already handles it.
+	AuthNone AuthMode = "none"
+)
+
+// OIDC describes the identity provider for AUTH=oidc.
+type OIDC struct {
+	Issuer       string   // OIDC_ISSUER, e.g. https://auth.example.com
+	ClientID     string   // OIDC_CLIENT_ID
+	ClientSecret string   // OIDC_CLIENT_SECRET or OIDC_CLIENT_SECRET_FILE; empty for a public client (PKCE only)
+	Scopes       []string // OIDC_SCOPES (default "openid email profile")
+	Name         string   // OIDC_PROVIDER_NAME: shown on the sign-in button (default "single sign-on")
 }
 
 // WebDAV describes the server holding the camera uploads.
@@ -131,7 +156,65 @@ func FromEnv(getenv func(string) string) (Config, error) {
 	if cfg.FFmpeg == "" {
 		cfg.FFmpeg = "ffmpeg"
 	}
+	if err := readAuth(&cfg, getenv); err != nil {
+		return Config{}, err
+	}
 	return cfg, nil
+}
+
+func readAuth(cfg *Config, getenv func(string) string) error {
+	get := func(k string) string { return strings.TrimSpace(getenv(k)) }
+	switch m := AuthMode(strings.ToLower(get("AUTH"))); m {
+	case "", AuthPassword:
+		cfg.Auth = AuthPassword
+	case AuthOIDC, AuthNone:
+		cfg.Auth = m
+	default:
+		return fmt.Errorf("AUTH must be password, oidc or none, got %q", m)
+	}
+
+	if u := get("PUBLIC_URL"); u != "" {
+		parsed, err := url.Parse(u)
+		if err != nil || (parsed.Scheme != "http" && parsed.Scheme != "https") || parsed.Host == "" || (parsed.Path != "" && parsed.Path != "/") {
+			return fmt.Errorf("PUBLIC_URL must be the app's address like https://nvr.example.com (no path), got %q", u)
+		}
+		cfg.PublicURL = strings.TrimSuffix(u, "/")
+	}
+
+	if cfg.Auth != AuthOIDC {
+		return nil
+	}
+	o := &cfg.OIDC
+	o.Issuer = strings.TrimSuffix(get("OIDC_ISSUER"), "/")
+	o.ClientID = get("OIDC_CLIENT_ID")
+	o.ClientSecret = getenv("OIDC_CLIENT_SECRET")
+	if f := get("OIDC_CLIENT_SECRET_FILE"); f != "" {
+		if o.ClientSecret != "" {
+			return fmt.Errorf("set OIDC_CLIENT_SECRET or OIDC_CLIENT_SECRET_FILE, not both")
+		}
+		b, err := os.ReadFile(f)
+		if err != nil {
+			return fmt.Errorf("reading OIDC_CLIENT_SECRET_FILE: %w", err)
+		}
+		o.ClientSecret = strings.TrimRight(string(b), "\r\n")
+	}
+	o.Scopes = strings.Fields(get("OIDC_SCOPES"))
+	if len(o.Scopes) == 0 {
+		o.Scopes = []string{"openid", "email", "profile"}
+	}
+	o.Name = get("OIDC_PROVIDER_NAME")
+	if o.Name == "" {
+		o.Name = "single sign-on"
+	}
+	switch {
+	case o.Issuer == "" || o.ClientID == "":
+		return fmt.Errorf("AUTH=oidc needs OIDC_ISSUER and OIDC_CLIENT_ID")
+	case !strings.HasPrefix(o.Issuer, "https://") && !strings.HasPrefix(o.Issuer, "http://"):
+		return fmt.Errorf("OIDC_ISSUER must be an https:// URL, got %q", o.Issuer)
+	case cfg.PublicURL == "":
+		return fmt.Errorf("AUTH=oidc needs PUBLIC_URL (the address users open, used for the sign-in callback)")
+	}
+	return nil
 }
 
 func duration(v string, def, minimum time.Duration) (time.Duration, error) {

@@ -30,7 +30,7 @@ func backends(t *testing.T, fn func(t *testing.T, s *Store)) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		for _, tbl := range []string{"snapshots", "clips", "cameras", "schema_migrations"} {
+		for _, tbl := range []string{"sessions", "users", "settings", "snapshots", "clips", "cameras", "schema_migrations"} {
 			if _, err := s.db.Exec(`DROP TABLE IF EXISTS ` + tbl + ` CASCADE`); err != nil {
 				t.Fatal(err)
 			}

@@ -113,3 +113,34 @@ func TestFromEnvRejectsBadValues(t *testing.T) {
 		})
 	}
 }
+
+func TestFromEnvAuth(t *testing.T) {
+	cfg, err := FromEnv(env(nil))
+	if err != nil || cfg.Auth != AuthPassword {
+		t.Fatalf("default auth = %q, %v", cfg.Auth, err)
+	}
+	cfg, err = FromEnv(env(map[string]string{"AUTH": "None"}))
+	if err != nil || cfg.Auth != AuthNone {
+		t.Fatalf("AUTH=None: %q, %v", cfg.Auth, err)
+	}
+	cfg, err = FromEnv(env(map[string]string{
+		"AUTH": "oidc", "OIDC_ISSUER": "https://auth.example.com/", "OIDC_CLIENT_ID": "nvr",
+		"OIDC_CLIENT_SECRET": "s3cret", "PUBLIC_URL": "https://nvr.example.com/",
+	}))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if cfg.OIDC.Issuer != "https://auth.example.com" || cfg.PublicURL != "https://nvr.example.com" || cfg.OIDC.Name != "single sign-on" || len(cfg.OIDC.Scopes) != 3 {
+		t.Fatalf("oidc config = %+v, public %q", cfg.OIDC, cfg.PublicURL)
+	}
+	for name, e := range map[string]map[string]string{
+		"unknown mode":     {"AUTH": "ldap"},
+		"oidc no issuer":   {"AUTH": "oidc", "OIDC_CLIENT_ID": "x", "PUBLIC_URL": "https://n.example.com"},
+		"oidc no public":   {"AUTH": "oidc", "OIDC_ISSUER": "https://a.example.com", "OIDC_CLIENT_ID": "x"},
+		"public with path": {"PUBLIC_URL": "https://n.example.com/nvr"},
+	} {
+		if _, err := FromEnv(env(e)); err == nil {
+			t.Errorf("%s: expected an error", name)
+		}
+	}
+}

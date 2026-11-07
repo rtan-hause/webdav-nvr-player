@@ -15,6 +15,8 @@ import (
 	"testing"
 	"time"
 
+	"github.com/rtan-hause/webdav-nvr-player/internal/auth"
+	"github.com/rtan-hause/webdav-nvr-player/internal/config"
 	"github.com/rtan-hause/webdav-nvr-player/internal/ingest"
 	"github.com/rtan-hause/webdav-nvr-player/internal/media"
 	"github.com/rtan-hause/webdav-nvr-player/internal/profile"
@@ -80,6 +82,7 @@ type fixture struct {
 	signer  *signedurl.Signer
 	clip    store.Clip
 	pending store.Clip
+	index   Index
 }
 
 func newFixture(t *testing.T) fixture {
@@ -115,11 +118,12 @@ func newFixture(t *testing.T) fixture {
 
 	ing := &fakeIngest{}
 	signer := signedurl.New()
-	h := New(Options{UI: testUI(), Index: &Index{
+	idx := &Index{
 		Store: st, Ingest: ing, Thumbs: tm, Signer: signer, Location: la, IngestSecret: "s3cret",
 		Source: fakeStream{files: map[string][]byte{ready.Path: []byte("0123456789")}},
-	}})
-	return fixture{h: h, ing: ing, signer: signer, clip: ready, pending: pending}
+	}
+	h := New(Options{UI: testUI(), Index: idx})
+	return fixture{h: h, ing: ing, signer: signer, clip: ready, pending: pending, index: *idx}
 }
 
 func do(h http.Handler, method, target string, hdr map[string]string, body string) *httptest.ResponseRecorder {
@@ -350,5 +354,41 @@ func TestStreamRemuxesFragmentedClip(t *testing.T) {
 	rec = do(h, "HEAD", url, nil, "")
 	if rec.Code != 200 || rec.Header().Get("Content-Length") != strconv.Itoa(len(virtual)) {
 		t.Fatalf("HEAD: %d, length %q", rec.Code, rec.Header().Get("Content-Length"))
+	}
+}
+
+// TestSignInGuardsTheAPI checks the wiring: with sign-in on, clip routes need a
+// session while health, version, the web UI and the webhook (its own secret) don't.
+func TestSignInGuardsTheAPI(t *testing.T) {
+	f := newFixture(t)
+	st, err := store.Open(context.Background(), "", t.TempDir())
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Cleanup(func() { st.Close() })
+	am := auth.New(auth.Options{Mode: config.AuthPassword, Store: st})
+	h := New(Options{UI: testUI(), Auth: am, Index: &Index{Store: f.index.Store, Ingest: f.ing, Source: f.index.Source, Thumbs: f.index.Thumbs, Signer: f.signer, Location: la, IngestSecret: "s3cret"}})
+
+	for _, tc := range []struct {
+		method, path string
+		hdr          map[string]string
+		want         int
+	}{
+		{"GET", "/api/cameras", nil, 401},
+		{"GET", "/api/clips/" + itoa(f.clip.ID) + "/stream", nil, 401},
+		{"GET", "/api/settings", nil, 401},
+		{"GET", "/healthz", nil, 200},
+		{"GET", "/api/version", nil, 200},
+		{"GET", "/api/auth", nil, 200},
+		{"GET", "/", nil, 200},
+		{"POST", "/api/ingest", map[string]string{"X-NVR-Secret": "s3cret", "Content-Type": "application/json"}, 202},
+	} {
+		body := ""
+		if tc.method == "POST" {
+			body = `{"path":"2026/11/06/Living Room_00_20261106215852.mp4"}`
+		}
+		if rec := do(h, tc.method, tc.path, tc.hdr, body); rec.Code != tc.want {
+			t.Errorf("%s %s = %d, want %d (%s)", tc.method, tc.path, rec.Code, tc.want, rec.Body.String())
+		}
 	}
 }

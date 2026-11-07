@@ -1,0 +1,152 @@
+# Default values for webdav-nvr-player.
+# Every setting maps to an environment variable documented in the app's .env.example.
+
+image:
+  repository: ghcr.io/rtan-hause/webdav-nvr-player
+  # Defaults to the chart's appVersion.
+  tag: ""
+  pullPolicy: IfNotPresent
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+# The WebDAV server the cameras upload to. The account only needs read access.
+webdav:
+  # e.g. https://sftpgo.example.com/dav/ (no credentials in the URL)
+  url: ""
+  # Folder inside the share where the date folders (2026/11/06/...) start.
+  root: /
+  # Read the username and password from an existing Secret (for example one
+  # copied into this namespace by reflector). Leave empty to use the values below.
+  existingSecret: ""
+  usernameKey: username
+  passwordKey: password
+  # Used when existingSecret is empty. The password goes into a Secret the chart creates.
+  username: ""
+  password: ""
+
+camera:
+  # How file names and folders are laid out. Supported: reolink
+  profile: reolink
+  # Time zone the cameras use in their file names (IANA name).
+  timeZone: UTC
+
+indexing:
+  # Shared secret for the upload webhook (POST /api/ingest with header X-NVR-Secret).
+  # Empty turns the webhook off; periodic rescans still find new uploads.
+  webhookSecret: ""
+  # Or read it from an existing Secret.
+  existingSecret: ""
+  webhookSecretKey: ingest-secret
+  # Rescan today's and yesterday's folders, and crawl everything.
+  scanInterval: 5m
+  fullScanInterval: 24h
+  # Clips probed / thumbnails made at the same time.
+  workers: 2
+
+auth:
+  # password: one user, "admin"; its first password is printed in the pod log.
+  # oidc: sign in through an OpenID Connect provider (Zitadel, Authentik, Keycloak...).
+  # none: no sign-in; only behind a proxy that already signs people in.
+  mode: password
+  # Where people open the app, e.g. https://nvr.example.com. Required for oidc
+  # (the redirect URL is <publicURL>/auth/oidc/callback); makes cookies Secure on https.
+  publicURL: ""
+  oidc:
+    issuer: ""
+    clientID: ""
+    # Leave empty for a PKCE-only public client.
+    clientSecret: ""
+    existingSecret: ""
+    clientSecretKey: client-secret
+    scopes: openid email profile
+    # Label on the sign-in button.
+    providerName: ""
+
+# Postgres instead of SQLite on the data volume, e.g. postgres://nvr:pw@db:5432/nvr?sslmode=disable
+database:
+  url: ""
+  existingSecret: ""
+  urlKey: database-url
+
+# The data volume holds the SQLite index (unless database.url is set) and thumbnails.
+# Thumbnails are about 25 KB per clip: 1,300 clips a day is roughly 1 GB a month.
+# They are removed when the recording disappears from the WebDAV server.
+persistence:
+  enabled: true
+  existingClaim: ""
+  storageClass: ""
+  accessModes: [ReadWriteOnce]
+  size: 5Gi
+  annotations: {}
+
+logLevel: info
+
+# Extra environment variables, as name: value.
+env: {}
+# Extra environment variables in Kubernetes form (valueFrom etc.).
+extraEnv: []
+extraEnvFrom: []
+
+service:
+  type: ClusterIP
+  port: 8080
+  annotations: {}
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+  hosts:
+    - host: nvr.example.com
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: []
+  #  - secretName: nvr-tls
+  #    hosts: [nvr.example.com]
+
+# Gateway API route (gateway.networking.k8s.io/v1).
+httpRoute:
+  enabled: false
+  annotations: {}
+  # e.g. [{ name: my-gateway, namespace: gateway, sectionName: https }]
+  parentRefs: []
+  hostnames: []
+  #  - nvr.example.com
+
+serviceAccount:
+  create: true
+  name: ""
+  annotations: {}
+
+podAnnotations: {}
+podLabels: {}
+
+podSecurityContext:
+  runAsNonRoot: true
+  runAsUser: 1000
+  runAsGroup: 1000
+  fsGroup: 1000
+  fsGroupChangePolicy: OnRootMismatch
+  seccompProfile:
+    type: RuntimeDefault
+
+securityContext:
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: true
+  capabilities:
+    drop: [ALL]
+
+# ffmpeg grabbing a frame from a 4K HEVC clip briefly needs a few hundred MB.
+resources:
+  requests:
+    cpu: 50m
+    memory: 128Mi
+  limits:
+    memory: 1Gi
+
+nodeSelector: {}
+tolerations: []
+affinity: {}
+priorityClassName: ""

@@ -1,0 +1,189 @@
+{{- include "nvr.validate" . }}
+{{- $fullname := include "nvr.fullname" . }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $fullname }}
+  labels:
+    {{- include "nvr.labels" . | nindent 4 }}
+spec:
+  # One replica: the SQLite index lives on a ReadWriteOnce volume and the
+  # indexing queue runs in-process. Recreate so two pods never share the volume.
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      {{- include "nvr.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      annotations:
+        checksum/secret: {{ include "nvr.secretData" . | sha256sum }}
+        {{- with .Values.podAnnotations }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+      labels:
+        {{- include "nvr.labels" . | nindent 8 }}
+        {{- with .Values.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      serviceAccountName: {{ include "nvr.serviceAccountName" . }}
+      automountServiceAccountToken: false
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.priorityClassName }}
+      priorityClassName: {{ . }}
+      {{- end }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: nvr
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          env:
+            - name: PORT
+              value: "8080"
+            - name: DATA_DIR
+              value: /data
+            - name: LOG_LEVEL
+              value: {{ .Values.logLevel | quote }}
+            {{- with .Values.webdav }}
+            {{- if .url }}
+            - name: WEBDAV_URL
+              value: {{ .url | quote }}
+            - name: WEBDAV_ROOT
+              value: {{ .root | quote }}
+            - name: WEBDAV_USERNAME
+              {{- if and .existingSecret (not .username) }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .existingSecret }}
+                  key: {{ .usernameKey }}
+              {{- else }}
+              value: {{ .username | quote }}
+              {{- end }}
+            - name: WEBDAV_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .existingSecret | default $fullname }}
+                  key: {{ ternary .passwordKey "webdav-password" (not (empty .existingSecret)) }}
+            {{- end }}
+            {{- end }}
+            - name: CAMERA_PROFILE
+              value: {{ .Values.camera.profile | quote }}
+            - name: CAMERA_TZ
+              value: {{ .Values.camera.timeZone | quote }}
+            - name: SCAN_INTERVAL
+              value: {{ .Values.indexing.scanInterval | quote }}
+            - name: FULL_SCAN_INTERVAL
+              value: {{ .Values.indexing.fullScanInterval | quote }}
+            - name: INGEST_WORKERS
+              value: {{ .Values.indexing.workers | quote }}
+            {{- if or .Values.indexing.existingSecret .Values.indexing.webhookSecret }}
+            - name: INGEST_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.indexing.existingSecret | default $fullname }}
+                  key: {{ ternary .Values.indexing.webhookSecretKey "ingest-secret" (not (empty .Values.indexing.existingSecret)) }}
+            {{- end }}
+            - name: AUTH
+              value: {{ .Values.auth.mode | quote }}
+            {{- with .Values.auth.publicURL }}
+            - name: PUBLIC_URL
+              value: {{ . | quote }}
+            {{- end }}
+            {{- if eq .Values.auth.mode "oidc" }}
+            {{- with .Values.auth.oidc }}
+            - name: OIDC_ISSUER
+              value: {{ .issuer | quote }}
+            - name: OIDC_CLIENT_ID
+              value: {{ .clientID | quote }}
+            - name: OIDC_SCOPES
+              value: {{ .scopes | quote }}
+            {{- with .providerName }}
+            - name: OIDC_PROVIDER_NAME
+              value: {{ . | quote }}
+            {{- end }}
+            {{- if or .existingSecret .clientSecret }}
+            - name: OIDC_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .existingSecret | default $fullname }}
+                  key: {{ ternary .clientSecretKey "oidc-client-secret" (not (empty .existingSecret)) }}
+            {{- end }}
+            {{- end }}
+            {{- end }}
+            {{- if or .Values.database.existingSecret .Values.database.url }}
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.database.existingSecret | default $fullname }}
+                  key: {{ ternary .Values.database.urlKey "database-url" (not (empty .Values.database.existingSecret)) }}
+            {{- end }}
+            {{- range $k, $v := .Values.env }}
+            - name: {{ $k }}
+              value: {{ $v | quote }}
+            {{- end }}
+            {{- with .Values.extraEnv }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+          {{- with .Values.extraEnvFrom }}
+          envFrom:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          startupProbe:
+            httpGet:
+              path: /healthz
+              port: http
+            periodSeconds: 2
+            failureThreshold: 30
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+            periodSeconds: 20
+            timeoutSeconds: 3
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+            periodSeconds: 10
+            timeoutSeconds: 3
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - name: data
+              mountPath: /data
+            - name: tmp
+              mountPath: /tmp
+      volumes:
+        - name: data
+          {{- if .Values.persistence.enabled }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.persistence.existingClaim | default (printf "%s-data" $fullname) }}
+          {{- else }}
+          emptyDir: {}
+          {{- end }}
+        - name: tmp
+          emptyDir: {}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

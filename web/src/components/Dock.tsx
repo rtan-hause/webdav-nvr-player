@@ -1,10 +1,11 @@
+import { useRef, useState, type KeyboardEvent, type PointerEvent } from 'react'
 import { app, camClips, cameraName, jumpClip, togglePlay, zoomStep } from '../app/state'
 import { itemAt } from '../lib/clips'
 import { useStore } from '../lib/store'
 import { fmtTime } from '../lib/time'
 import { Icon } from './Icon'
 import { Timeline } from './Timeline'
-import { timelineHeight } from './timelineGeom'
+import { LANE_H, MAX_LANE, MIN_LANE, timelineHeight } from './timelineGeom'
 
 // Under the video: clip transport, the wall-clock time at the playhead, zoom,
 // and the day timeline.
@@ -73,9 +74,92 @@ export function Dock() {
           )}
         </div>
       </div>
-      <div className="tl-wrap border-t border-line" style={{ height: timelineHeight(cameras) }}>
-        <Timeline />
-      </div>
+      <ResizableTimeline cameras={cameras} />
     </>
+  )
+}
+
+// The timeline's height is set by dragging the handle along its top edge (or
+// with the arrow keys when the handle has focus); double-click resets it. The
+// lane height is what's remembered, so it still fits when cameras are added.
+
+const LANE_KEY = 'nvr.laneHeight'
+
+function savedLane(): number {
+  try {
+    const v = Number(localStorage.getItem(LANE_KEY))
+    return v >= MIN_LANE && v <= MAX_LANE ? v : LANE_H
+  } catch {
+    return LANE_H
+  }
+}
+
+function ResizableTimeline({ cameras }: { cameras: number }) {
+  const n = Math.max(1, cameras)
+  const [lane, setLane] = useState(savedLane)
+  const latest = useRef(lane)
+  const drag = useRef<{ y: number; lane: number } | null>(null)
+
+  // Never more than 60% of the window, so the video keeps most of the screen.
+  const maxLane = () => Math.max(MIN_LANE, Math.min(MAX_LANE, (window.innerHeight * 0.6 - timelineHeight(n, 0)) / n))
+  const clamp = (v: number) => Math.round(Math.min(maxLane(), Math.max(MIN_LANE, v)))
+  const update = (v: number, save: boolean) => {
+    latest.current = v
+    setLane(v)
+    if (!save) return
+    try {
+      localStorage.setItem(LANE_KEY, String(v))
+    } catch {
+      // private window: the height just isn't remembered
+    }
+  }
+  const finish = () => {
+    if (!drag.current) return
+    drag.current = null
+    update(latest.current, true)
+  }
+
+  const onKeyDown = (e: KeyboardEvent) => {
+    const step = e.shiftKey ? 16 : 4
+    if (e.key === 'ArrowUp') update(clamp(lane + step), true)
+    else if (e.key === 'ArrowDown') update(clamp(lane - step), true)
+    else if (e.key === 'Home') update(LANE_H, true)
+    else return
+    e.preventDefault()
+    e.stopPropagation() // not the player's own arrow-key skipping
+  }
+
+  const shown = Math.min(lane, maxLane())
+  return (
+    <div className="tl-wrap relative border-t border-line" style={{ height: timelineHeight(n, shown) }}>
+      <div
+        role="separator"
+        aria-orientation="horizontal"
+        aria-label="Timeline height. Drag, or use the up and down arrow keys; double-click to reset."
+        title="Drag to resize the timeline (double-click to reset)"
+        aria-valuemin={MIN_LANE}
+        aria-valuemax={MAX_LANE}
+        aria-valuenow={Math.round(shown)}
+        tabIndex={0}
+        onPointerDown={(e: PointerEvent<HTMLDivElement>) => {
+          e.currentTarget.setPointerCapture(e.pointerId)
+          drag.current = { y: e.clientY, lane: shown }
+        }}
+        onPointerMove={(e) => {
+          if (drag.current) update(clamp(drag.current.lane - (e.clientY - drag.current.y) / n), false)
+        }}
+        onPointerUp={finish}
+        onPointerCancel={finish}
+        onDoubleClick={() => update(LANE_H, true)}
+        onKeyDown={onKeyDown}
+        className="group/resize absolute inset-x-0 -top-2.5 z-10 h-3.5 cursor-row-resize touch-none focus-visible:outline-none"
+      >
+        <span
+          aria-hidden
+          className="mx-auto mt-2 block h-[3px] w-12 rounded-full bg-faint opacity-0 transition-opacity group-hover/resize:opacity-100 group-focus-visible/resize:bg-sodium group-focus-visible/resize:opacity-100 pointer-coarse:opacity-60"
+        />
+      </div>
+      <Timeline />
+    </div>
   )
 }

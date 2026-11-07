@@ -62,8 +62,18 @@ export class HttpError extends Error {
   }
 }
 
-export async function getJSON<T>(url: string, signal?: AbortSignal): Promise<T> {
-  const r = await fetch(url, { signal })
+export type AuthStatus = {
+  mode: 'password' | 'oidc' | 'none'
+  signed_in: boolean
+  user?: string
+  provider?: string // OIDC button label
+}
+
+/** Fired when the server says the session is gone; the app shows the sign-in page. */
+export const SIGNED_OUT = 'nvr:signed-out'
+
+async function check(r: Response): Promise<Response> {
+  if (r.status === 401) window.dispatchEvent(new Event(SIGNED_OUT))
   if (!r.ok) {
     let msg = `HTTP ${r.status}`
     try {
@@ -74,6 +84,18 @@ export async function getJSON<T>(url: string, signal?: AbortSignal): Promise<T> 
     }
     throw new HttpError(r.status, msg)
   }
+  return r
+}
+
+export async function getJSON<T>(url: string, signal?: AbortSignal): Promise<T> {
+  const r = await check(await fetch(url, { signal }))
+  return r.json() as Promise<T>
+}
+
+/** POST/PUT a JSON body; resolves to the parsed reply, or null for an empty one. */
+export async function sendJSON<T = unknown>(method: 'POST' | 'PUT', url: string, body?: unknown): Promise<T | null> {
+  const r = await check(await fetch(url, { method, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body ?? {}) }))
+  if (r.status === 204) return null
   return r.json() as Promise<T>
 }
 

@@ -5,7 +5,7 @@ IMAGE ?= webdav-nvr-player:dev
 # web/node_modules can contain stray Go packages, so never use ./...
 GOPKGS := ./cmd/... ./internal/...
 
-.PHONY: all web build test lint run dev docker clean
+.PHONY: all web build test lint run dev reset-password docker clean
 
 all: web build
 
@@ -36,6 +36,10 @@ lint: web/node_modules
 ## run: build the UI and server, then start it with the settings in .env
 run: .env all
 	@set -a && . ./.env && set +a && exec ./bin/nvr
+
+## reset-password: print a new password for the admin user (signs it out everywhere)
+reset-password: .env build
+	@set -a && . ./.env && set +a && exec ./bin/nvr reset-password
 
 ## dev: run the Go server with .env; start `npm run dev` in web/ separately for hot reload
 dev: .env

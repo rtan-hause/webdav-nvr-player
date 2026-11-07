@@ -1,0 +1,59 @@
+name: chart-release
+
+# Helm chart releases, versioned separately from the app. release-please keeps
+# a release PR open for charts/webdav-nvr-player (feat/fix/chore commits that
+# touch the chart, including each app release updating appVersion). Merging it
+# bumps Chart.yaml, tags webdav-nvr-player-chart-vX.Y.Z, and the publish job
+# pushes the chart to oci://ghcr.io/<owner>/charts.
+on:
+  push:
+    branches: [main]
+    paths:
+      - charts/**
+      - release-please-config.chart.json
+      - .release-please-manifest.chart.json
+      - .github/workflows/chart-release.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  packages: write
+
+concurrency:
+  group: chart-release
+  cancel-in-progress: false
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    outputs:
+      release_created: ${{ steps.release.outputs['charts/webdav-nvr-player--release_created'] }}
+      tag_name: ${{ steps.release.outputs['charts/webdav-nvr-player--tag_name'] }}
+      version: ${{ steps.release.outputs['charts/webdav-nvr-player--version'] }}
+    steps:
+      - id: release
+        uses: googleapis/release-please-action@v5
+        with:
+          config-file: release-please-config.chart.json
+          manifest-file: .release-please-manifest.chart.json
+
+  publish:
+    needs: release-please
+    if: needs.release-please.outputs.release_created == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ needs.release-please.outputs.tag_name }}
+      - uses: azure/setup-helm@v4
+      - name: Lint
+        run: helm lint charts/webdav-nvr-player
+      - name: Package
+        run: |
+          helm package charts/webdav-nvr-player -d dist
+          test -f "dist/webdav-nvr-player-${{ needs.release-please.outputs.version }}.tgz"
+      - name: Push to GHCR
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | helm registry login ghcr.io -u "${{ github.actor }}" --password-stdin
+          helm push "dist/webdav-nvr-player-${{ needs.release-please.outputs.version }}.tgz" "oci://ghcr.io/${{ github.repository_owner }}/charts"

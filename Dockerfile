@@ -10,7 +10,7 @@ COPY web/ ./
 COPY internal/webui/dist/README.md ../internal/webui/dist/README.md
 RUN npm run build
 
-FROM --platform=$BUILDPLATFORM golang:1.26-alpine AS go
+FROM --platform=$BUILDPLATFORM golang:1.27-alpine AS go
 ARG TARGETOS TARGETARCH VERSION=dev
 WORKDIR /src
 COPY go.mod go.sum ./
@@ -20,7 +20,7 @@ COPY --from=web /src/internal/webui/dist ./internal/webui/dist
 RUN CGO_ENABLED=0 GOOS=$TARGETOS GOARCH=$TARGETARCH \
     go build -trimpath -ldflags "-s -w -X main.version=${VERSION}" -o /out/nvr ./cmd/nvr
 
-FROM alpine:3.22
+FROM alpine:3.24
 # ffmpeg: thumbnail frame grabs and resizing. tzdata: camera-local file name times.
 RUN apk add --no-cache ffmpeg tzdata ca-certificates \
     && addgroup -S -g 1000 nvr && adduser -S -u 1000 -G nvr -h /data nvr \

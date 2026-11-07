@@ -1,0 +1,19 @@
+{
+  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "separate-pull-requests": true,
+  "packages": {
+    "charts/webdav-nvr-player": {
+      "release-type": "helm",
+      "component": "webdav-nvr-player-chart",
+      "include-component-in-tag": true,
+      "initial-version": "0.1.0",
+      "changelog-sections": [
+        { "type": "feat", "section": "Features" },
+        { "type": "fix", "section": "Bug Fixes" },
+        { "type": "perf", "section": "Performance" },
+        { "type": "deps", "section": "Dependencies" },
+        { "type": "chore", "section": "Miscellaneous" }
+      ]
+    }
+  }
+}

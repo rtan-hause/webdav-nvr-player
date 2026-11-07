@@ -1,0 +1,32 @@
+# Rendered in CI: everything switched on.
+webdav:
+  url: https://sftpgo.example.com/dav/
+  existingSecret: sftpgo-nvr
+camera:
+  timeZone: America/Los_Angeles
+indexing:
+  webhookSecret: 0123456789abcdef0123
+auth:
+  mode: oidc
+  publicURL: https://nvr.example.com
+  oidc:
+    issuer: https://auth.example.com
+    clientID: nvr
+    existingSecret: nvr-oidc
+    providerName: Zitadel
+database:
+  url: postgres://nvr:pw@db:5432/nvr?sslmode=disable
+ingress:
+  enabled: true
+  className: nginx
+  tls:
+    - secretName: nvr-tls
+      hosts: [nvr.example.com]
+httpRoute:
+  enabled: true
+  parentRefs:
+    - name: gateway
+      namespace: gateway
+  hostnames: [nvr.example.com]
+env:
+  TZ: America/Los_Angeles

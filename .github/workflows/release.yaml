@@ -1,7 +1,9 @@
 name: release
 
-# release-please keeps a release PR open on main. Merging it tags the release,
-# and the image job below publishes multi-arch images to GHCR for that tag.
+# App releases. release-please keeps a release PR open on main for the app
+# (everything except charts/, which has its own release in chart-release.yaml).
+# Merging it tags vX.Y.Z and the image job publishes multi-arch images to GHCR.
+# The release also sets the chart's appVersion, which starts a chart release.
 on:
   push:
     branches: [main]
@@ -22,14 +24,15 @@ jobs:
       - id: release
         uses: googleapis/release-please-action@v5
         with:
-          release-type: simple
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
 
   image:
     needs: release-please
     if: needs.release-please.outputs.release_created == 'true'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
         with:
           ref: ${{ needs.release-please.outputs.tag_name }}
       - uses: docker/setup-qemu-action@v4

@@ -37,8 +37,8 @@ export function Header() {
         })}
       </div>
       <DayNav />
-      <a href="#/status" className="grid size-9 place-items-center rounded-lg text-muted hover:bg-ink-2 hover:text-text focus-visible:outline-2 focus-visible:outline-sodium" aria-label="Server and index status" title="Server and index status">
-        <Icon.Status />
+      <a href="#/settings" className="grid size-9 place-items-center rounded-lg text-muted hover:bg-ink-2 hover:text-text focus-visible:outline-2 focus-visible:outline-sodium" aria-label="Settings" title="Settings">
+        <Icon.Settings />
       </a>
     </header>
   )

@@ -1,0 +1,31 @@
+webdav-nvr-player is starting.
+
+{{- if .Values.httpRoute.enabled }}
+Open: https://{{ first .Values.httpRoute.hostnames | default "<your hostname>" }}
+{{- else if .Values.ingress.enabled }}
+Open: http{{ if .Values.ingress.tls }}s{{ end }}://{{ (first .Values.ingress.hosts).host }}
+{{- else }}
+Open it with a port-forward:
+  kubectl -n {{ .Release.Namespace }} port-forward svc/{{ include "nvr.fullname" . }} 8080:{{ .Values.service.port }}
+  then http://localhost:8080
+{{- end }}
+{{ if eq .Values.auth.mode "password" }}
+Sign in as "admin". On first start the password is printed once in the log:
+  kubectl -n {{ .Release.Namespace }} logs deploy/{{ include "nvr.fullname" . }} | grep "created the admin user"
+Change it under Settings. If it's lost, print a new one:
+  kubectl -n {{ .Release.Namespace }} exec deploy/{{ include "nvr.fullname" . }} -- nvr reset-password
+{{- else if eq .Values.auth.mode "oidc" }}
+Sign-in goes through {{ .Values.auth.oidc.issuer }}. Register this redirect URL with the provider:
+  {{ .Values.auth.publicURL }}/auth/oidc/callback
+{{- else }}
+Sign-in is OFF (auth.mode=none): anyone who can reach the app can watch the cameras.
+{{- end }}
+{{ if not .Values.webdav.url }}
+No recordings server is set yet: set webdav.url and the credentials, then upgrade.
+{{- end }}
+{{- if or .Values.indexing.webhookSecret .Values.indexing.existingSecret }}
+
+Upload webhook for SFTPGo's Event Manager (inside the cluster):
+  POST http://{{ include "nvr.fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.service.port }}/api/ingest
+  header X-NVR-Secret: <the webhook secret>, body {"path": "{{ "{{" }}.VirtualPath{{ "}}" }}"}
+{{- end }}

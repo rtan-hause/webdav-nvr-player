@@ -1,0 +1,25 @@
+{
+  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "separate-pull-requests": true,
+  "packages": {
+    ".": {
+      "release-type": "simple",
+      "component": "webdav-nvr-player",
+      "include-component-in-tag": false,
+      "initial-version": "0.1.0",
+      "exclude-paths": [
+        "charts",
+        "release-please-config.chart.json",
+        ".release-please-manifest.chart.json",
+        ".github/workflows/chart-release.yaml"
+      ],
+      "extra-files": [
+        {
+          "type": "yaml",
+          "path": "charts/webdav-nvr-player/Chart.yaml",
+          "jsonpath": "$.appVersion"
+        }
+      ]
+    }
+  }
+}

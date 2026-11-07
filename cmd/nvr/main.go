@@ -16,6 +16,7 @@ import (
 	"time"
 	_ "time/tzdata" // camera time zones work even on hosts without zoneinfo
 
+	"github.com/rtan-hause/webdav-nvr-player/internal/auth"
 	"github.com/rtan-hause/webdav-nvr-player/internal/config"
 	"github.com/rtan-hause/webdav-nvr-player/internal/httpapi"
 	"github.com/rtan-hause/webdav-nvr-player/internal/ingest"
@@ -32,10 +33,49 @@ import (
 var version = "dev"
 
 func main() {
-	if err := run(); err != nil {
+	var err error
+	switch {
+	case len(os.Args) > 1 && os.Args[1] == "reset-password":
+		err = resetPassword(os.Args[2:])
+	case len(os.Args) > 1:
+		fmt.Fprintf(os.Stderr, "usage: nvr                         start the server (settings come from the environment)\n       nvr reset-password [username]  give the user (default admin) a new password and sign it out everywhere\n")
+		os.Exit(2)
+	default:
+		err = run()
+	}
+	if err != nil {
 		slog.Error("fatal", "err", err)
 		os.Exit(1)
 	}
+}
+
+// resetPassword is for when the admin password is lost: it prints a new one.
+// Run it where the server runs (same DATA_DIR or DATABASE_URL), for example
+// `docker exec nvr nvr reset-password`.
+func resetPassword(args []string) error {
+	cfg, err := config.FromEnv(os.Getenv)
+	if err != nil {
+		return err
+	}
+	if cfg.Auth != config.AuthPassword {
+		return fmt.Errorf("AUTH=%s: passwords are only used with AUTH=password", cfg.Auth)
+	}
+	user := auth.AdminUser
+	if len(args) > 0 {
+		user = args[0]
+	}
+	ctx := context.Background()
+	st, err := store.Open(ctx, cfg.DatabaseURL, cfg.DataDir)
+	if err != nil {
+		return err
+	}
+	defer st.Close()
+	pw, err := auth.ResetPassword(ctx, st, user, time.Now())
+	if err != nil {
+		return err
+	}
+	fmt.Printf("New password for %s: %s\nAll of %s's sessions were signed out. Change the password in Settings after signing in.\n", user, pw, user)
+	return nil
 }
 
 func run() error {
@@ -59,7 +99,32 @@ func run() error {
 	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
 	defer stop()
 
-	opts := httpapi.Options{Version: version, UI: webui.FS()}
+	// The database holds the index and sign-in, so it's needed even without a recordings server.
+	st, err := store.Open(ctx, cfg.DatabaseURL, cfg.DataDir)
+	if err != nil {
+		return err
+	}
+	defer st.Close()
+
+	authm := auth.New(auth.Options{Mode: cfg.Auth, Store: st, PublicURL: cfg.PublicURL, OIDC: cfg.OIDC})
+	switch cfg.Auth {
+	case config.AuthPassword:
+		pw, err := authm.Bootstrap(ctx)
+		if err != nil {
+			return fmt.Errorf("creating the admin user: %w", err)
+		}
+		if pw != "" {
+			slog.Warn("created the admin user; sign in with this password, then change it in Settings. It isn't shown again (nvr reset-password makes a new one)",
+				"username", auth.AdminUser, "password", pw)
+		}
+	case config.AuthOIDC:
+		slog.Info("sign-in through OpenID Connect", "issuer", cfg.OIDC.Issuer, "callback", cfg.PublicURL+"/auth/oidc/callback")
+	case config.AuthNone:
+		slog.Warn("AUTH=none: anyone who can reach this server can watch the cameras; only use this behind a proxy that signs people in")
+	}
+	go pruneSessions(ctx, st)
+
+	opts := httpapi.Options{Version: version, UI: webui.FS(), Auth: authm}
 	var ing *ingest.Ingester
 	if cfg.WebDAV.Configured() {
 		prof, err := profile.Lookup(cfg.CameraProfile)
@@ -70,11 +135,6 @@ func run() error {
 		if err != nil {
 			return err
 		}
-		st, err := store.Open(ctx, cfg.DatabaseURL, cfg.DataDir)
-		if err != nil {
-			return err
-		}
-		defer st.Close()
 		if _, err := exec.LookPath(cfg.FFmpeg); err != nil {
 			slog.Warn("ffmpeg not found; clips without a camera snapshot won't get thumbnails", "ffmpeg", cfg.FFmpeg)
 		}
@@ -136,6 +196,22 @@ func run() error {
 	err = srv.Shutdown(shutdownCtx)
 	<-ingestDone
 	return err
+}
+
+// pruneSessions deletes expired sessions every hour.
+func pruneSessions(ctx context.Context, st *store.Store) {
+	t := time.NewTicker(time.Hour)
+	defer t.Stop()
+	for {
+		if err := st.PruneSessions(ctx, time.Now().UnixMilli()); err != nil && ctx.Err() == nil {
+			slog.Warn("pruning sessions failed", "err", err)
+		}
+		select {
+		case <-ctx.Done():
+			return
+		case <-t.C:
+		}
+	}
 }
 
 // checkIPv4PortFree catches a port that another program holds on IPv4 only. macOS

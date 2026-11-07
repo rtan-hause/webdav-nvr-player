@@ -23,6 +23,9 @@ import { Dock } from './components/Dock'
 import { Header } from './components/Header'
 import { Viewport } from './components/Viewport'
 import { StatusPage } from './StatusPage'
+import { Settings } from './Settings'
+import { SignIn } from './SignIn'
+import { getJSON, SIGNED_OUT, type AuthStatus } from './lib/api'
 
 // Layout C "Split" (plan decision 14): clip list on the left, video and
 // timeline on the right; stacked on a phone. Theater mode (decision 18) puts
@@ -41,6 +44,53 @@ const useHash = () => {
 }
 
 export default function App() {
+  const [auth, setAuth] = useState<AuthStatus | null>(null)
+  const [offline, setOffline] = useState(false)
+
+  useEffect(() => {
+    let live = true
+    getJSON<AuthStatus>('/api/auth')
+      .then((a) => {
+        if (live) setAuth(a)
+      })
+      .catch(() => {
+        if (live) setOffline(true)
+      })
+    // Any API call answered "sign in" (session expired or signed out elsewhere) returns here.
+    const signedOut = () => setAuth((a) => (a && a.mode !== 'none' ? { ...a, signed_in: false, user: undefined } : a))
+    window.addEventListener(SIGNED_OUT, signedOut)
+    return () => {
+      live = false
+      window.removeEventListener(SIGNED_OUT, signedOut)
+    }
+  }, [])
+
+  if (offline) {
+    return (
+      <main className="grid h-full place-content-center justify-items-center gap-3 p-4 text-center">
+        <p className="font-display text-2xl font-semibold">Can’t reach the NVR server</p>
+        <p className="text-muted">Check that it’s running, then try again.</p>
+        <button type="button" onClick={() => location.reload()} className="rounded-full border border-line bg-ink-2 px-4 py-1.5 font-medium hover:border-faint focus-visible:outline-2 focus-visible:outline-sodium">
+          Try again
+        </button>
+      </main>
+    )
+  }
+  if (!auth) return <p className="grid h-full place-items-center text-muted">Loading…</p>
+  if (!auth.signed_in) return <SignIn auth={auth} onSignedIn={setAuth} />
+  return (
+    <SignedIn
+      auth={auth}
+      onSignOut={() => {
+        app.set({ playing: false })
+        history.replaceState(history.state, '', location.pathname + location.search)
+        setAuth({ ...auth, signed_in: false, user: undefined })
+      }}
+    />
+  )
+}
+
+function SignedIn({ auth, onSignOut }: { auth: AuthStatus; onSignOut: () => void }) {
   const [phase, setPhase] = useState<Boot | { kind: 'loading' }>({ kind: 'loading' })
   const hash = useHash()
 
@@ -54,6 +104,7 @@ export default function App() {
     }
   }, [])
 
+  if (hash === '#/settings') return <Settings auth={auth} onSignOut={onSignOut} />
   if (hash === '#/status' || phase.kind === 'setup') {
     return <StatusPage reason={phase.kind === 'setup' ? phase.reason : undefined} playerReady={phase.kind === 'ready'} />
   }

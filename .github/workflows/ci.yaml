@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     services:
       postgres:
-        image: postgres:17-alpine
+        image: postgres:18-alpine
         env:
           POSTGRES_PASSWORD: test
         ports: ["5432:5432"]
@@ -23,11 +23,11 @@ jobs:
       # store tests run against SQLite and this Postgres
       NVR_TEST_POSTGRES_URL: postgres://postgres:test@localhost:5432/postgres?sslmode=disable
     steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-go@v6
+      - uses: actions/checkout@v7
+      - uses: actions/setup-go@v7
         with:
           go-version-file: go.mod
-      - uses: actions/setup-node@v5
+      - uses: actions/setup-node@v7
         with:
           node-version: 26
           cache: npm
@@ -38,10 +38,22 @@ jobs:
       - run: make test
       - run: make web build
 
+  chart:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: azure/setup-helm@v4
+      - name: Lint and render the Helm chart
+        run: |
+          for f in charts/webdav-nvr-player/ci/*.yaml; do
+            helm lint charts/webdav-nvr-player -f "$f"
+            helm template ci charts/webdav-nvr-player -f "$f" > /dev/null
+          done
+
   docker:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
       - uses: docker/setup-buildx-action@v4
       - name: Build image (no push)
         uses: docker/build-push-action@v7

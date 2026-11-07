@@ -9,6 +9,8 @@ import (
 	"path"
 	"strings"
 	"time"
+
+	"github.com/rtan-hause/webdav-nvr-player/internal/auth"
 )
 
 // Options configures the HTTP handler.
@@ -19,6 +21,8 @@ type Options struct {
 	Source func(ctx context.Context) SourceStatus
 	// Index serves clips. Nil (no recordings server configured) makes those routes answer 503.
 	Index *Index
+	// Auth signs people in and guards the API. Nil serves everything without sign-in (tests).
+	Auth *auth.Manager
 }
 
 // SourceStatus is the result of a live connection check against the recordings server.
@@ -57,6 +61,9 @@ func New(opts Options) http.Handler {
 	if opts.Index != nil {
 		(&api{Index: *opts.Index}).routes(mux)
 	}
+	if opts.Auth != nil {
+		opts.Auth.Routes(mux)
+	}
 	// Unknown API paths must not fall through to the SPA's index.html.
 	mux.HandleFunc("/api/", func(w http.ResponseWriter, _ *http.Request) {
 		if opts.Index == nil {
@@ -66,6 +73,9 @@ func New(opts Options) http.Handler {
 		writeJSON(w, http.StatusNotFound, map[string]string{"error": "not found"})
 	})
 	mux.Handle("/", spa(opts.UI))
+	if opts.Auth != nil {
+		return opts.Auth.Protect(mux)
+	}
 	return mux
 }
 
