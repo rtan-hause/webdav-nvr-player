@@ -4,7 +4,7 @@ description: >-
   Web player for security-camera recordings stored on a WebDAV server (for
   example SFTPGo), with a day timeline per camera.
 type: application
-version: 0.1.1
+version: 0.1.2
 appVersion: 0.1.1
 home: https://github.com/rtan-hause/webdav-nvr-player
 sources:
