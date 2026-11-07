@@ -5,7 +5,7 @@ description: >-
   example SFTPGo), with a day timeline per camera.
 type: application
 version: 0.1.1
-appVersion: 0.1.0
+appVersion: 0.1.1
 home: https://github.com/rtan-hause/webdav-nvr-player
 sources:
   - https://github.com/rtan-hause/webdav-nvr-player
