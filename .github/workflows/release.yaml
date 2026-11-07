@@ -7,11 +7,23 @@ name: release
 on:
   push:
     branches: [main]
+    # Chart-only pushes (including chart release merges) can't change the app
+    # release. Mirrors exclude-paths in release-please-config.json.
+    paths-ignore:
+      - charts/**
+      - release-please-config.chart.json
+      - .release-please-manifest.chart.json
+      - .github/workflows/chart-ci.yaml
+      - .github/workflows/chart-release.yaml
 
 permissions:
   contents: write
   pull-requests: write
   packages: write
+
+concurrency:
+  group: release
+  cancel-in-progress: false
 
 jobs:
   release-please:

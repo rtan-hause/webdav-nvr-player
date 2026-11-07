@@ -1,12 +1,41 @@
 name: ci
 
+# App CI: Go/web lint + tests and a Docker build. Skipped when a change only
+# touches the Helm chart (chart-ci.yaml covers that), docs, or release-please
+# bookkeeping, which also keeps release PRs from running the full suite.
 on:
   pull_request:
+    paths-ignore:
+      - charts/**
+      - docs/**
+      - "**.md"
+      - LICENSE
+      - renovate.json
+      - release-please-config*.json
+      - .release-please-manifest*.json
+      - .github/workflows/chart-ci.yaml
+      - .github/workflows/chart-release.yaml
+      - .github/workflows/release.yaml
   push:
     branches: [main]
+    paths-ignore:
+      - charts/**
+      - docs/**
+      - "**.md"
+      - LICENSE
+      - renovate.json
+      - release-please-config*.json
+      - .release-please-manifest*.json
+      - .github/workflows/chart-ci.yaml
+      - .github/workflows/chart-release.yaml
+      - .github/workflows/release.yaml
 
 permissions:
   contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   test:
@@ -48,20 +77,8 @@ jobs:
           echo "$RUNNER_TEMP/ffmpeg/bin" >> "$GITHUB_PATH"
           "$RUNNER_TEMP/ffmpeg/bin/ffmpeg" -version | head -1
       - run: make lint
+      # The docker job builds the frontend and binary, so no `make web build` here.
       - run: make test
-      - run: make web build
-
-  chart:
-    runs-on: self-hosted-hause
-    steps:
-      - uses: actions/checkout@v7
-      - uses: azure/setup-helm@v4
-      - name: Lint and render the Helm chart
-        run: |
-          for f in charts/webdav-nvr-player/ci/*.yaml; do
-            helm lint charts/webdav-nvr-player -f "$f"
-            helm template ci charts/webdav-nvr-player -f "$f" > /dev/null
-          done
 
   docker:
     runs-on: self-hosted-hause
