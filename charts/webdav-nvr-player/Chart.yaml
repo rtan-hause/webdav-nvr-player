@@ -1,16 +1,21 @@
 apiVersion: v2
 name: webdav-nvr-player
-description: Web player for security-camera recordings stored on a WebDAV server (for example SFTPGo), with a day timeline per camera.
+description: >-
+  Web player for security-camera recordings stored on a WebDAV server (for
+  example SFTPGo), with a day timeline per camera.
 type: application
-# The chart and the app are released separately (see .github/workflows/chart-release.yaml).
-# version: the chart's own version, bumped by its release PR.
-# appVersion: the image tag it runs by default, updated by each app release.
 version: 0.1.0
-appVersion: "0.1.0"
+appVersion: 0.1.0
 home: https://github.com/rtan-hause/webdav-nvr-player
 sources:
   - https://github.com/rtan-hause/webdav-nvr-player
-keywords: [nvr, cctv, camera, webdav, sftpgo, reolink]
+keywords:
+  - nvr
+  - cctv
+  - camera
+  - webdav
+  - sftpgo
+  - reolink
 maintainers:
   - name: Richard Tan
     url: https://github.com/rtan-hause
