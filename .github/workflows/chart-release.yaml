@@ -35,6 +35,7 @@ jobs:
       - id: release
         uses: googleapis/release-please-action@v5
         with:
+          token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
           config-file: release-please-config.chart.json
           manifest-file: .release-please-manifest.chart.json
 
