@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+/* Design tokens from docs/mockups/index.html (decision 17: colours may change later,
+   so components use these tokens only, never literal colours). Dark by design. */
+@theme {
+  --color-ink-0: #0c1114;
+  --color-ink-1: #131a1e;
+  --color-ink-2: #1b2429;
+  --color-ink-3: #253139;
+  --color-line: #2a373f;
+  --color-text: #dce4e6;
+  --color-muted: #8c9ba2;
+  --color-faint: #5c6b72;
+  --color-sodium: #f2a33a;
+  --color-sodium-ink: #1e1404;
+  --color-clip: #3e7898;
+  --color-clip-hi: #8cc3df;
+  --color-snap: #c9d6db;
+  --color-rec: #e5484d;
+  --color-warn: #e8b04a;
+
+  --font-display: "Barlow Condensed", "Arial Narrow", sans-serif;
+  --font-sans: "Barlow", system-ui, -apple-system, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-ink-0);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+/* Double-tap skip badge: pops in, then fades. */
+@keyframes skip-flash {
+  0% { opacity: 0; transform: scale(0.85); }
+  15% { opacity: 1; transform: scale(1); }
+  70% { opacity: 1; }
+  100% { opacity: 0; }
+}
+.skip-flash {
+  animation: skip-flash 700ms ease-out forwards;
+}
+@media (prefers-reduced-motion: reduce) {
+  .skip-flash {
+    animation: skip-flash 700ms steps(1, end) forwards;
+  }
+}

@@ -1,0 +1,164 @@
+/* Player layout (docs/mockups/index.html, layout C "Split", plus theater mode).
+   Grid areas here; component details are Tailwind classes in the components. */
+
+#root {
+  container: shell / inline-size;
+}
+
+.app {
+  display: grid;
+  height: 100%;
+  background: var(--color-ink-1);
+  grid-template-columns: 312px minmax(0, 1fr);
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  grid-template-areas:
+    "top top"
+    "events player"
+    "events dock";
+}
+.app > .top {
+  grid-area: top;
+  padding-top: max(12px, env(safe-area-inset-top, 0px));
+  padding-left: max(14px, env(safe-area-inset-left, 0px));
+  padding-right: max(14px, env(safe-area-inset-right, 0px));
+  transition: opacity 0.3s;
+}
+.app > .player {
+  grid-area: player;
+  position: relative;
+  min-height: 0;
+  background: #000;
+}
+.app > .dock {
+  grid-area: dock;
+  background: var(--color-ink-1);
+  border-top: 1px solid var(--color-line);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  transition: opacity 0.3s;
+}
+.app > .events {
+  grid-area: events;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  background: var(--color-ink-1);
+  border-right: 1px solid var(--color-line);
+}
+
+/* ---------- phone width: stack, and let the page scroll ---------- */
+@container shell (max-width: 640px) {
+  .app[data-layout="split"] {
+    height: auto;
+    min-height: 100%;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: none;
+    grid-template-areas: "top" "player" "dock" "events";
+  }
+  .app[data-layout="split"] > .player {
+    aspect-ratio: 16 / 9;
+  }
+  .app[data-layout="split"] > .events {
+    border-right: 0;
+    border-top: 1px solid var(--color-line);
+  }
+  .app[data-layout="split"] .clip-list {
+    overflow: visible;
+  }
+  .app .top .cams {
+    order: 3;
+    flex-basis: 100%;
+  }
+  .app .cam-key {
+    display: none;
+  }
+  .app .transport .clock {
+    order: -1;
+    flex-basis: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 10px;
+  }
+}
+
+/* ---------- theater: video fills the screen, everything else floats over it ---------- */
+.app[data-layout="theater"] {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  height: auto;
+  background: #000;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr);
+  grid-template-areas: "s";
+}
+.app[data-layout="theater"] > * {
+  grid-area: s;
+}
+.app[data-layout="theater"] > .top {
+  align-self: start;
+  z-index: 3;
+  border: 0;
+  background: linear-gradient(rgba(4, 6, 8, 0.86), rgba(4, 6, 8, 0));
+  padding-bottom: 28px;
+}
+.app[data-layout="theater"] > .dock {
+  align-self: end;
+  z-index: 3;
+  border: 0;
+  background: linear-gradient(to top, rgba(4, 6, 8, 0.95) 72%, rgba(4, 6, 8, 0));
+}
+.app[data-layout="theater"] .transport {
+  padding-top: 20px;
+}
+.app[data-layout="theater"] .tl-wrap {
+  border-top: 0;
+}
+/* The video's bar sits at the bottom of the picture, or just above the dock
+   where the dock covers it; the codec badge stays below the header. Both are
+   positioned inside .picture (the video's on-screen box, set by Viewport). */
+.app[data-layout="theater"] .control-bar {
+  bottom: max(0px, calc(var(--dock-h, 170px) - var(--pic-y, 0px)));
+}
+.app[data-layout="theater"] .codec-badge {
+  top: max(10px, calc(var(--top-h, 56px) + 8px - var(--pic-y, 0px)));
+}
+.app[data-layout="theater"] .toast {
+  top: calc(var(--top-h, 56px) + 8px);
+}
+/* Clip list: a drawer that slides up above the dock. */
+.app[data-layout="theater"] > .events {
+  align-self: end;
+  z-index: 4;
+  max-height: min(55%, 520px);
+  margin-bottom: var(--dock-h, 170px);
+  background: rgba(11, 15, 18, 0.96);
+  border: 0;
+  border-top: 1px solid var(--color-line);
+  transform: translateY(calc(100% + var(--dock-h, 170px)));
+  visibility: hidden;
+  transition: transform 0.25s ease, visibility 0s linear 0.25s;
+}
+.app[data-layout="theater"][data-drawer] > .events {
+  transform: none;
+  visibility: visible;
+  transition: transform 0.25s ease, visibility 0s;
+}
+.app[data-layout="theater"][data-quiet] > .top,
+.app[data-layout="theater"][data-quiet] > .dock,
+.app[data-layout="theater"][data-quiet] .codec-badge {
+  opacity: 0;
+  pointer-events: none;
+}
+.app[data-quiet] .viewport {
+  cursor: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app > .top,
+  .app > .dock,
+  .app[data-layout="theater"] > .events {
+    transition: none !important;
+  }
+}

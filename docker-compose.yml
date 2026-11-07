@@ -1,0 +1,21 @@
+# Quick start: cp .env.example .env, fill it in, then docker compose up -d
+# and open http://localhost:8080
+services:
+  nvr:
+    image: ghcr.io/rtan-hause/webdav-nvr-player:latest
+    build: .
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      # Fixed inside the container regardless of .env.
+      DATA_DIR: /data
+      PORT: "8080"
+    volumes:
+      - nvr-data:/data
+
+volumes:
+  nvr-data:

@@ -1,0 +1,10 @@
+.git
+.github
+bin
+data
+docs
+web/node_modules
+internal/webui/dist/*
+!internal/webui/dist/README.md
+*.local
+.env*
