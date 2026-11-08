@@ -1,6 +1,6 @@
 // Lookups over one camera's clips, sorted by start.
 
-type Span = { start: number; end: number }
+import type { Span } from './time'
 
 /** Index of the last item starting at or before t, or -1. */
 export function lastStartLE<T extends Span>(arr: readonly T[], t: number): number {
