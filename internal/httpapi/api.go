@@ -13,6 +13,7 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/rtan-hause/webdav-nvr-player/internal/httpx"
 	"github.com/rtan-hause/webdav-nvr-player/internal/ingest"
 	"github.com/rtan-hause/webdav-nvr-player/internal/media"
 	"github.com/rtan-hause/webdav-nvr-player/internal/profile"
@@ -67,10 +68,6 @@ func (a *api) routes(mux *http.ServeMux) {
 	mux.HandleFunc("HEAD /internal/raw/{token}", a.raw)
 }
 
-func errJSON(w http.ResponseWriter, status int, msg string) {
-	writeJSON(w, status, map[string]string{"error": msg})
-}
-
 // ---- reading the index ----
 
 // ClipJSON is a clip as the UI sees it. Times are Unix milliseconds.
@@ -106,10 +103,10 @@ type SnapshotJSON struct {
 func (a *api) status(w http.ResponseWriter, r *http.Request) {
 	st, err := a.Store.Stats(r.Context())
 	if err != nil {
-		errJSON(w, http.StatusInternalServerError, err.Error())
+		httpx.Error(w, http.StatusInternalServerError, err.Error())
 		return
 	}
-	writeJSON(w, http.StatusOK, map[string]any{
+	httpx.JSON(w, http.StatusOK, map[string]any{
 		"index":     st,
 		"ingest":    a.Ingest.Status(),
 		"database":  a.Store.Dialect(),
@@ -121,13 +118,13 @@ func (a *api) status(w http.ResponseWriter, r *http.Request) {
 func (a *api) cameras(w http.ResponseWriter, r *http.Request) {
 	cams, err := a.Store.Cameras(r.Context())
 	if err != nil {
-		errJSON(w, http.StatusInternalServerError, err.Error())
+		httpx.Error(w, http.StatusInternalServerError, err.Error())
 		return
 	}
 	if cams == nil {
 		cams = []store.Camera{}
 	}
-	writeJSON(w, http.StatusOK, cams)
+	httpx.JSON(w, http.StatusOK, cams)
 }
 
 const maxRange = 8 * 24 * time.Hour
@@ -137,28 +134,28 @@ func (a *api) clips(w http.ResponseWriter, r *http.Request) {
 	from, err1 := strconv.ParseInt(q.Get("from"), 10, 64)
 	to, err2 := strconv.ParseInt(q.Get("to"), 10, 64)
 	if err1 != nil || err2 != nil || to <= from {
-		errJSON(w, http.StatusBadRequest, "from and to must be Unix milliseconds with from < to")
+		httpx.Error(w, http.StatusBadRequest, "from and to must be Unix milliseconds with from < to")
 		return
 	}
 	if to-from > maxRange.Milliseconds() {
-		errJSON(w, http.StatusBadRequest, "ask for at most 8 days at a time")
+		httpx.Error(w, http.StatusBadRequest, "ask for at most 8 days at a time")
 		return
 	}
 	var cam int64
 	if c := q.Get("camera"); c != "" {
 		if cam, err1 = strconv.ParseInt(c, 10, 64); err1 != nil {
-			errJSON(w, http.StatusBadRequest, "camera must be a camera id")
+			httpx.Error(w, http.StatusBadRequest, "camera must be a camera id")
 			return
 		}
 	}
 	cs, err := a.Store.ClipsBetween(r.Context(), from, to, cam)
 	if err != nil {
-		errJSON(w, http.StatusInternalServerError, err.Error())
+		httpx.Error(w, http.StatusInternalServerError, err.Error())
 		return
 	}
 	ss, err := a.Store.LooseSnapshotsBetween(r.Context(), from, to, cam)
 	if err != nil {
-		errJSON(w, http.StatusInternalServerError, err.Error())
+		httpx.Error(w, http.StatusInternalServerError, err.Error())
 		return
 	}
 	out := struct {
@@ -171,22 +168,22 @@ func (a *api) clips(w http.ResponseWriter, r *http.Request) {
 	for _, s := range ss {
 		out.Snapshots = append(out.Snapshots, SnapshotJSON{ID: s.ID, CameraID: s.CameraID, TS: s.TSMS})
 	}
-	writeJSON(w, http.StatusOK, out)
+	httpx.JSON(w, http.StatusOK, out)
 }
 
 func (a *api) loadClip(w http.ResponseWriter, r *http.Request) (store.Clip, bool) {
 	id, err := strconv.ParseInt(r.PathValue("id"), 10, 64)
 	if err != nil {
-		errJSON(w, http.StatusBadRequest, "clip id must be a number")
+		httpx.Error(w, http.StatusBadRequest, "clip id must be a number")
 		return store.Clip{}, false
 	}
 	c, err := a.Store.Clip(r.Context(), id)
 	if errors.Is(err, store.ErrNotFound) || (err == nil && c.Status == store.StatusDeleted) {
-		errJSON(w, http.StatusNotFound, "no such clip")
+		httpx.Error(w, http.StatusNotFound, "no such clip")
 		return c, false
 	}
 	if err != nil {
-		errJSON(w, http.StatusInternalServerError, err.Error())
+		httpx.Error(w, http.StatusInternalServerError, err.Error())
 		return c, false
 	}
 	return c, true
@@ -197,7 +194,7 @@ func (a *api) clip(w http.ResponseWriter, r *http.Request) {
 	if !ok {
 		return
 	}
-	writeJSON(w, http.StatusOK, struct {
+	httpx.JSON(w, http.StatusOK, struct {
 		ClipJSON
 		Path   string       `json:"path"`
 		Status store.Status `json:"status"`
@@ -211,12 +208,12 @@ func (a *api) thumb(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	if c.ThumbPath == "" {
-		errJSON(w, http.StatusNotFound, "no thumbnail yet")
+		httpx.Error(w, http.StatusNotFound, "no thumbnail yet")
 		return
 	}
 	abs, err := a.Thumbs.Abs(c.ThumbPath)
 	if err != nil {
-		errJSON(w, http.StatusInternalServerError, err.Error())
+		httpx.Error(w, http.StatusInternalServerError, err.Error())
 		return
 	}
 	// Thumbnails can be replaced (frame upgraded to the camera's snapshot), so revalidate.
@@ -230,12 +227,12 @@ func (a *api) thumb(w http.ResponseWriter, r *http.Request) {
 func (a *api) raw(w http.ResponseWriter, r *http.Request) {
 	host, _, _ := net.SplitHostPort(r.RemoteAddr)
 	if ip := net.ParseIP(host); ip == nil || !ip.IsLoopback() {
-		errJSON(w, http.StatusForbidden, "local use only")
+		httpx.Error(w, http.StatusForbidden, "local use only")
 		return
 	}
 	p, ok := a.Signer.Verify(r.PathValue("token"), time.Now())
 	if !ok {
-		errJSON(w, http.StatusForbidden, "link expired or invalid")
+		httpx.Error(w, http.StatusForbidden, "link expired or invalid")
 		return
 	}
 	a.proxy(w, r, p)
@@ -249,17 +246,17 @@ func (a *api) proxy(w http.ResponseWriter, r *http.Request, relPath string) {
 		if r.Context().Err() == nil {
 			slog.Warn("stream failed", "path", relPath, "err", err)
 		}
-		errJSON(w, http.StatusBadGateway, "couldn't reach the recordings server")
+		httpx.Error(w, http.StatusBadGateway, "couldn't reach the recordings server")
 		return
 	}
 	defer resp.Body.Close()
 	switch resp.StatusCode {
 	case http.StatusOK, http.StatusPartialContent, http.StatusNotModified, http.StatusRequestedRangeNotSatisfiable:
 	case http.StatusNotFound:
-		errJSON(w, http.StatusNotFound, "this recording is no longer on the server")
+		httpx.Error(w, http.StatusNotFound, "this recording is no longer on the server")
 		return
 	default:
-		errJSON(w, http.StatusBadGateway, "the recordings server answered "+resp.Status)
+		httpx.Error(w, http.StatusBadGateway, "the recordings server answered "+resp.Status)
 		return
 	}
 	for _, h := range []string{"Content-Length", "Content-Range", "Accept-Ranges", "ETag", "Last-Modified"} {
@@ -282,32 +279,32 @@ func (a *api) days(w http.ResponseWriter, r *http.Request) {
 	from, err1 := time.ParseInLocation(time.DateOnly, q.Get("from"), a.Location)
 	to, err2 := time.ParseInLocation(time.DateOnly, q.Get("to"), a.Location)
 	if err1 != nil || err2 != nil || to.Before(from) || to.Sub(from) > 62*24*time.Hour {
-		errJSON(w, http.StatusBadRequest, "from and to must be dates (YYYY-MM-DD), at most 62 days apart")
+		httpx.Error(w, http.StatusBadRequest, "from and to must be dates (YYYY-MM-DD), at most 62 days apart")
 		return
 	}
 	days := []string{}
 	for d := from; !d.After(to); d = d.AddDate(0, 0, 1) {
 		ok, err := a.Store.HasClipsBetween(r.Context(), d.UnixMilli(), d.AddDate(0, 0, 1).UnixMilli())
 		if err != nil {
-			errJSON(w, http.StatusInternalServerError, err.Error())
+			httpx.Error(w, http.StatusInternalServerError, err.Error())
 			return
 		}
 		if ok {
 			days = append(days, d.Format(time.DateOnly))
 		}
 	}
-	writeJSON(w, http.StatusOK, map[string]any{"days": days, "time_zone": a.Location.String()})
+	httpx.JSON(w, http.StatusOK, map[string]any{"days": days, "time_zone": a.Location.String()})
 }
 
 // ---- webhook ----
 
 func (a *api) authorized(w http.ResponseWriter, r *http.Request) bool {
 	if a.IngestSecret == "" {
-		errJSON(w, http.StatusForbidden, "the upload webhook is off; set INGEST_SECRET to turn it on")
+		httpx.Error(w, http.StatusForbidden, "the upload webhook is off; set INGEST_SECRET to turn it on")
 		return false
 	}
 	if subtle.ConstantTimeCompare([]byte(r.Header.Get("X-NVR-Secret")), []byte(a.IngestSecret)) != 1 {
-		errJSON(w, http.StatusUnauthorized, "missing or wrong X-NVR-Secret header")
+		httpx.Error(w, http.StatusUnauthorized, "missing or wrong X-NVR-Secret header")
 		return false
 	}
 	return true
@@ -321,19 +318,19 @@ func (a *api) ingest(w http.ResponseWriter, r *http.Request) {
 		Path string `json:"path"`
 	}
 	if err := json.NewDecoder(io.LimitReader(r.Body, 64<<10)).Decode(&body); err != nil || body.Path == "" {
-		errJSON(w, http.StatusBadRequest, `send JSON like {"path": "2026/11/06/Front of House_00_20261106215852.mp4"}`)
+		httpx.Error(w, http.StatusBadRequest, `send JSON like {"path": "2026/11/06/Front of House_00_20261106215852.mp4"}`)
 		return
 	}
 	kind, err := a.Ingest.Notify(r.Context(), body.Path)
 	switch {
 	case errors.Is(err, webdav.ErrFileNotFound):
-		errJSON(w, http.StatusNotFound, "that file isn't on the recordings server (check the path is relative to WEBDAV_ROOT)")
+		httpx.Error(w, http.StatusNotFound, "that file isn't on the recordings server (check the path is relative to WEBDAV_ROOT)")
 	case err != nil:
-		errJSON(w, http.StatusBadGateway, err.Error())
+		httpx.Error(w, http.StatusBadGateway, err.Error())
 	case kind == profile.Ignore:
 		w.WriteHeader(http.StatusNoContent)
 	default:
-		writeJSON(w, http.StatusAccepted, map[string]string{"kind": kind.String()})
+		httpx.JSON(w, http.StatusAccepted, map[string]string{"kind": kind.String()})
 	}
 }
 
@@ -342,8 +339,8 @@ func (a *api) rescan(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	if !a.Ingest.Rescan(r.Context()) {
-		errJSON(w, http.StatusConflict, "a scan is already running")
+		httpx.Error(w, http.StatusConflict, "a scan is already running")
 		return
 	}
-	writeJSON(w, http.StatusAccepted, map[string]string{"status": "started"})
+	httpx.JSON(w, http.StatusAccepted, map[string]string{"status": "started"})
 }

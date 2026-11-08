@@ -29,6 +29,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 
 	"github.com/rtan-hause/webdav-nvr-player/internal/config"
+	"github.com/rtan-hause/webdav-nvr-player/internal/httpx"
 	"github.com/rtan-hause/webdav-nvr-player/internal/store"
 )
 
@@ -259,7 +260,7 @@ func (m *Manager) Protect(next http.Handler) http.Handler {
 		}
 		id, ok := m.current(w, r)
 		if !ok {
-			writeJSON(w, http.StatusUnauthorized, map[string]string{"error": "sign in to continue"})
+			httpx.Error(w, http.StatusUnauthorized, "sign in to continue")
 			return
 		}
 		next.ServeHTTP(w, r.WithContext(context.WithValue(r.Context(), ctxKey{}, id)))
@@ -304,12 +305,12 @@ func (m *Manager) status(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	w.Header().Set("Cache-Control", "no-store")
-	writeJSON(w, http.StatusOK, out)
+	httpx.JSON(w, http.StatusOK, out)
 }
 
 func (m *Manager) login(w http.ResponseWriter, r *http.Request) {
 	if m.opts.Mode != config.AuthPassword {
-		writeJSON(w, http.StatusNotFound, map[string]string{"error": "password sign-in is off"})
+		httpx.Error(w, http.StatusNotFound, "password sign-in is off")
 		return
 	}
 	var body struct {
@@ -323,14 +324,14 @@ func (m *Manager) login(w http.ResponseWriter, r *http.Request) {
 	key := clientIP(r) + "|" + strings.ToLower(user)
 	now := m.now()
 	if !m.limit.allowed(key, now) {
-		writeJSON(w, http.StatusTooManyRequests, map[string]string{"error": "Too many wrong passwords. Wait 15 minutes and try again."})
+		httpx.Error(w, http.StatusTooManyRequests, "Too many wrong passwords. Wait 15 minutes and try again.")
 		return
 	}
 	u, err := m.opts.Store.UserByName(r.Context(), user)
 	hash := []byte(u.PasswordHash)
 	if err != nil {
 		if !errors.Is(err, store.ErrNotFound) {
-			writeJSON(w, http.StatusInternalServerError, map[string]string{"error": err.Error()})
+			httpx.Error(w, http.StatusInternalServerError, err.Error())
 			return
 		}
 		hash = m.dummyPW
@@ -338,15 +339,15 @@ func (m *Manager) login(w http.ResponseWriter, r *http.Request) {
 	if bcrypt.CompareHashAndPassword(hash, []byte(body.Password)) != nil || err != nil {
 		m.limit.fail(key, now)
 		slog.Warn("failed sign-in", "user", user, "ip", clientIP(r))
-		writeJSON(w, http.StatusUnauthorized, map[string]string{"error": "Wrong username or password."})
+		httpx.Error(w, http.StatusUnauthorized, "Wrong username or password.")
 		return
 	}
 	m.limit.reset(key)
 	if err := m.startSession(w, r, u.Username); err != nil {
-		writeJSON(w, http.StatusInternalServerError, map[string]string{"error": err.Error()})
+		httpx.Error(w, http.StatusInternalServerError, err.Error())
 		return
 	}
-	writeJSON(w, http.StatusOK, statusJSON{Mode: m.opts.Mode, SignedIn: true, User: u.Username})
+	httpx.JSON(w, http.StatusOK, statusJSON{Mode: m.opts.Mode, SignedIn: true, User: u.Username})
 }
 
 func (m *Manager) logout(w http.ResponseWriter, r *http.Request) {
@@ -364,7 +365,7 @@ type settingsJSON struct {
 }
 
 func (m *Manager) getSettings(w http.ResponseWriter, r *http.Request) {
-	writeJSON(w, http.StatusOK, settingsJSON{SessionDays: m.sessionDays(r.Context())})
+	httpx.JSON(w, http.StatusOK, settingsJSON{SessionDays: m.sessionDays(r.Context())})
 }
 
 func (m *Manager) putSettings(w http.ResponseWriter, r *http.Request) {
@@ -373,19 +374,19 @@ func (m *Manager) putSettings(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	if body.SessionDays < 1 || body.SessionDays > 365 {
-		writeJSON(w, http.StatusBadRequest, map[string]string{"error": "Session length must be 1 to 365 days."})
+		httpx.Error(w, http.StatusBadRequest, "Session length must be 1 to 365 days.")
 		return
 	}
 	if err := m.opts.Store.SetSetting(r.Context(), settingSessionDays, strconv.Itoa(body.SessionDays)); err != nil {
-		writeJSON(w, http.StatusInternalServerError, map[string]string{"error": err.Error()})
+		httpx.Error(w, http.StatusInternalServerError, err.Error())
 		return
 	}
-	writeJSON(w, http.StatusOK, body)
+	httpx.JSON(w, http.StatusOK, body)
 }
 
 func (m *Manager) changePassword(w http.ResponseWriter, r *http.Request) {
 	if m.opts.Mode != config.AuthPassword {
-		writeJSON(w, http.StatusNotFound, map[string]string{"error": "passwords are managed by your sign-in provider"})
+		httpx.Error(w, http.StatusNotFound, "passwords are managed by your sign-in provider")
 		return
 	}
 	var body struct {
@@ -398,21 +399,21 @@ func (m *Manager) changePassword(w http.ResponseWriter, r *http.Request) {
 	id, _ := r.Context().Value(ctxKey{}).(identity)
 	u, err := m.opts.Store.UserByName(r.Context(), id.user)
 	if err != nil {
-		writeJSON(w, http.StatusInternalServerError, map[string]string{"error": err.Error()})
+		httpx.Error(w, http.StatusInternalServerError, err.Error())
 		return
 	}
 	key := clientIP(r) + "|" + strings.ToLower(u.Username)
 	if !m.limit.allowed(key, m.now()) {
-		writeJSON(w, http.StatusTooManyRequests, map[string]string{"error": "Too many wrong passwords. Wait 15 minutes and try again."})
+		httpx.Error(w, http.StatusTooManyRequests, "Too many wrong passwords. Wait 15 minutes and try again.")
 		return
 	}
 	if bcrypt.CompareHashAndPassword([]byte(u.PasswordHash), []byte(body.Current)) != nil {
 		m.limit.fail(key, m.now())
-		writeJSON(w, http.StatusBadRequest, map[string]string{"error": "Your current password isn’t right."})
+		httpx.Error(w, http.StatusBadRequest, "Your current password isn’t right.")
 		return
 	}
 	if len([]rune(body.New)) < MinPasswordLength {
-		writeJSON(w, http.StatusBadRequest, map[string]string{"error": fmt.Sprintf("Use at least %d characters.", MinPasswordLength)})
+		httpx.Error(w, http.StatusBadRequest, fmt.Sprintf("Use at least %d characters.", MinPasswordLength))
 		return
 	}
 	hash, err := bcrypt.GenerateFromPassword([]byte(body.New), bcryptCost)
@@ -423,7 +424,7 @@ func (m *Manager) changePassword(w http.ResponseWriter, r *http.Request) {
 		_, err = m.opts.Store.DeleteOtherSessions(r.Context(), u.Username, id.tokenHash)
 	}
 	if err != nil {
-		writeJSON(w, http.StatusInternalServerError, map[string]string{"error": err.Error()})
+		httpx.Error(w, http.StatusInternalServerError, err.Error())
 		return
 	}
 	slog.Info("password changed; other sessions signed out", "user", u.Username)
@@ -434,29 +435,23 @@ func (m *Manager) signOutOthers(w http.ResponseWriter, r *http.Request) {
 	id, _ := r.Context().Value(ctxKey{}).(identity)
 	n, err := m.opts.Store.DeleteOtherSessions(r.Context(), "", id.tokenHash)
 	if err != nil {
-		writeJSON(w, http.StatusInternalServerError, map[string]string{"error": err.Error()})
+		httpx.Error(w, http.StatusInternalServerError, err.Error())
 		return
 	}
-	writeJSON(w, http.StatusOK, map[string]int64{"signed_out": n})
+	httpx.JSON(w, http.StatusOK, map[string]int64{"signed_out": n})
 }
 
 // ---------- helpers ----------
-
-func writeJSON(w http.ResponseWriter, status int, v any) {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(status)
-	_ = json.NewEncoder(w).Encode(v)
-}
 
 // readJSON decodes a small JSON body. Requiring application/json also keeps
 // other sites from posting plain HTML forms here.
 func readJSON(w http.ResponseWriter, r *http.Request, v any) bool {
 	if !strings.HasPrefix(r.Header.Get("Content-Type"), "application/json") {
-		writeJSON(w, http.StatusUnsupportedMediaType, map[string]string{"error": "send JSON"})
+		httpx.Error(w, http.StatusUnsupportedMediaType, "send JSON")
 		return false
 	}
 	if err := json.NewDecoder(http.MaxBytesReader(w, r.Body, 64<<10)).Decode(v); err != nil {
-		writeJSON(w, http.StatusBadRequest, map[string]string{"error": "couldn’t read the request"})
+		httpx.Error(w, http.StatusBadRequest, "couldn’t read the request")
 		return false
 	}
 	return true
