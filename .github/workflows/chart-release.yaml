@@ -7,6 +7,11 @@ name: chart-release
 # appVersion bump counts as a chart fix and cuts a chart release. Merging it
 # bumps Chart.yaml, tags webdav-nvr-player-chart-vX.Y.Z, and the publish job
 # pushes the chart to oci://ghcr.io/<owner>/charts.
+#
+# The chart config uses its own "autorelease-chart: *" labels. With the shared
+# default label, an app release merge runs both workflows at once, and this one
+# can see the app PR still marked "autorelease: pending" and abort with
+# "untagged, merged release PRs outstanding".
 on:
   push:
     branches: [main]
