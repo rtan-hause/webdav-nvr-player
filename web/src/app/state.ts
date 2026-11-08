@@ -2,7 +2,7 @@ import { fetchCameras, fetchClips, fetchDays, fetchStatus, HttpError, type Camer
 import { itemAt, lastStartLE, mergeSpans, nextAfter } from '../lib/clips'
 import { loadSetting, saveSetting } from '../lib/storage'
 import { createStore } from '../lib/store'
-import { addDays, atLocalTime, dateOf, dayBounds, fmtDay, fmtDur } from '../lib/time'
+import { addDays, atLocalTime, dateOf, dayBounds, fmtDay, fmtDur, type Span } from '../lib/time'
 
 // App state for the player: one playhead (t) on one day for the selected
 // camera. Built around a single clock so a synced multi-camera grid can be
@@ -13,7 +13,7 @@ export type DayData = {
   start: number
   end: number
   byCam: Map<number, Clip[]> // sorted by start
-  spans: Map<number, { start: number; end: number }[]> // clips merged where they touch
+  spans: Map<number, Span[]> // clips merged where they touch
   snaps: Map<number, number[]> // unpaired snapshot times
 }
 
@@ -290,7 +290,7 @@ function dayData(date: string, tz: string, clips: Clip[], snaps: { camera_id: nu
     if (!arr) byCam.set(c.camera_id, (arr = []))
     arr.push(c)
   }
-  const spans = new Map<number, { start: number; end: number }[]>()
+  const spans = new Map<number, Span[]>()
   for (const [id, arr] of byCam) spans.set(id, mergeSpans(arr))
   const sn = new Map<number, number[]>()
   for (const x of snaps) {

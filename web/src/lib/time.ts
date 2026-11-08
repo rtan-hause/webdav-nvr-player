@@ -2,6 +2,9 @@
 // zone (from /api/status), not the browser's, so the timeline shows the same
 // times as the file names and the camera's on-screen clock.
 
+/** A time range in Unix ms, end exclusive. */
+export type Span = { start: number; end: number }
+
 const formatters = new Map<string, Intl.DateTimeFormat>()
 
 function formatter(tz: string, opts: Intl.DateTimeFormatOptions): Intl.DateTimeFormat {
@@ -37,6 +40,15 @@ function fromLocal(localAsUTC: number, tz: string): number {
   return t
 }
 
+/**
+ * A wall-clock time on a YYYY-MM-DD day, written as if it were UTC (the form
+ * fromLocal takes). Day, hour, minute and second may overflow; Date.UTC carries them.
+ */
+function localAsUTC(date: string, dayOffset = 0, h = 0, mi = 0, s = 0): number {
+  const [y, m, d] = date.split('-').map(Number)
+  return Date.UTC(y, m - 1, d + dayOffset, h, mi, s)
+}
+
 const pad2 = (n: number) => String(n).padStart(2, '0')
 
 /** YYYY-MM-DD of instant ms in tz. */
@@ -46,14 +58,12 @@ export function dateOf(ms: number, tz: string): string {
 }
 
 export function addDays(date: string, n: number): string {
-  const [y, m, d] = date.split('-').map(Number)
-  return new Date(Date.UTC(y, m - 1, d + n)).toISOString().slice(0, 10)
+  return new Date(localAsUTC(date, n)).toISOString().slice(0, 10)
 }
 
 /** Start and end (exclusive) of a local day; 23 or 25 h long when DST changes. */
-export function dayBounds(date: string, tz: string): { start: number; end: number } {
-  const [y, m, d] = date.split('-').map(Number)
-  return { start: fromLocal(Date.UTC(y, m - 1, d), tz), end: fromLocal(Date.UTC(y, m - 1, d + 1), tz) }
+export function dayBounds(date: string, tz: string): Span {
+  return { start: fromLocal(localAsUTC(date), tz), end: fromLocal(localAsUTC(date, 1), tz) }
 }
 
 /** The instant of a local wall-clock time ("17:42" or "17:42:05") on a YYYY-MM-DD day, or null if it isn't one. */
@@ -62,8 +72,7 @@ export function atLocalTime(date: string, hms: string, tz: string): number | nul
   if (!m) return null
   const [h, mi, sec] = [Number(m[1]), Number(m[2]), Number(m[3] ?? 0)]
   if (h > 23 || mi > 59 || sec > 59) return null
-  const [y, mo, d] = date.split('-').map(Number)
-  return fromLocal(Date.UTC(y, mo - 1, d, h, mi, sec), tz)
+  return fromLocal(localAsUTC(date, 0, h, mi, sec), tz)
 }
 
 /** Instants inside [from, to] where local time is a multiple of step (for timeline ticks). */
@@ -86,8 +95,7 @@ export const fmtHM = (ms: number, tz: string) => formatter(tz, { hour: '2-digit'
 
 /** Fri, Nov 6 (for a YYYY-MM-DD date) */
 export function fmtDay(date: string): string {
-  const [y, m, d] = date.split('-').map(Number)
-  return new Date(Date.UTC(y, m - 1, d, 12)).toLocaleDateString('en-US', { timeZone: 'UTC', weekday: 'short', month: 'short', day: 'numeric' })
+  return new Date(localAsUTC(date, 0, 12)).toLocaleDateString('en-US', { timeZone: 'UTC', weekday: 'short', month: 'short', day: 'numeric' })
 }
 
 /** 26 s, 4m 05s, 1h 02m */
