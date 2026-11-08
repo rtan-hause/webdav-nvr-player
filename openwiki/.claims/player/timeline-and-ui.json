@@ -1,28 +1,32 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:35858da66acfef25924ae8a027f8ddd84102de35d8f5b22b3fea47f2a786c986",
+  "pageVersion": "sha256:f47abfa3591ba06de9c3bd0cf111beb0f72b361cb810f7819e3987383c4eb0ea",
   "claims": [
     {
       "id": "claim_4e60b26f402f42ac8508526cc7d78776",
       "statement": "The day timeline is drawn on a canvas because a busy day has over a thousand clips, with one lane per camera, an overview strip and a time axis.",
       "evidence": [
         {
-          "resource": "repo://web/src/components/Timeline.tsx#L7-L18",
-          "version": "repo-lines-v1:sha256:eeac15428e6334baa93a0ef7403440a1bc3eb6d677c743aedeaad4bcd19fd987:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImYwYzc0MjgwZGQ2MTJhZTYwMjMyNmFjNDVkYWE0Y2VmNTI1YzZkNTVhNDFlM2JiNjBlNmEzZWM2OTQ5N2RjZGEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjI4ODYzNjRhNTdiMDY4NGNmYmI2MGMzYmMwNjY0MDRmOGZlZDczMzExZDIwZTkyYTdjZjUxMjhkYTYzYmY1ZTQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjIyNmVkYjBkNWNhYTFjYTI1OTc2MTcyZGI2ZjU1NzEyZmI3NTQ0NjEyY2ZhOGY1OWI0NzI2NjVhMWJkNDE4ZGEifQ"
+          "resource": "repo://web/src/components/timeline/Timeline.tsx#L7-L10",
+          "version": "repo-lines-v1:sha256:506f602b11a392265a0e3a86bdee95477015f211639432be2aea6a18490dc133:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZjBjNzQyODBkZDYxMmFlNjAyMzI2YWM0NWRhYTRjZWY1MjVjNmQ1NWE0MWUzYmI2MGU2YTNlYzY5NDk3ZGNkYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiN2MxMWY1OWRmZDdkYzgzZTliNGI0OTcwYjAyZTVkNzI5MTYxNmMxMWJiMzk0OGFjNjkwMGY5M2UyNGI0MmY5NiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNjBiNzIxNDNlMDgxNGNlYjE1MDA0ODJlZjkzZjE0ZmU4NDQ0ODQ0YjNiNWY2NTUzMTFmNGQ1ODBiMDUyMWM0NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZmY0YmM2NzdkNWFmNTIyYmZmNTI5YjE4YjhmMzNjMzI4OWEzNWFjMmIxNGZkNWQ4Y2FlMTk2NTJjYzY0ZjQyNSJ9"
         },
         {
-          "resource": "repo://web/src/components/timelineGeom.ts",
-          "version": "repo-file-v1:sha256:98b2a71a59aa310f46b58e90491c6b64dc703049a2b4bd04e9916455bb7e9b20"
+          "resource": "repo://web/src/components/timeline/geometry.ts#L1-L23",
+          "version": "repo-lines-v1:sha256:4730ad4eab2ba296b0c6e341f91e712e22a0f5de2fb566368dada49402abb486:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjcwNGM4MmM3MTcxMzAxZTZjYmQ3OGZjNGJjMGY4NjY1Mjk3ZjhiZTE1NTBiMWIzZjFiY2UzYWUyMDljZDgyYjIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjUzZTAxYTAyOTM1NzVmNTgzZTU2ZTQwNzJmNzVjN2Y3NTdiMzg0MGJlOTA3ZDZhYzFkYmRmNzM2NjllOWY3NTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImE3MWQ5YWZjYzFmM2YxMzJiODQxZjlhYzIzYjRiNjUxNzljM2U3YWMwODUyMTgyNWZiYmQyMTVjMTY0MzU0NDcifQ"
         }
       ]
     },
     {
       "id": "claim_6fd7ff29fc5e4e20a3cb54cc83bba6b5",
-      "statement": "Timeline interactions: tapping a lane or name moves the playhead and selects the camera, dragging the playhead scrubs, dragging elsewhere pans (or scrubs when fully zoomed out), the wheel zooms around the pointer, shift/sideways pans, and two fingers pinch-zoom.",
+      "statement": "Timeline interactions: tapping a lane moves the playhead and selects that camera while tapping a name only selects the camera, dragging the playhead scrubs, dragging elsewhere pans (or scrubs when fully zoomed out), the wheel zooms around the pointer, shift/sideways pans, and two fingers pinch-zoom.",
       "evidence": [
         {
-          "resource": "repo://web/src/components/Timeline.tsx#L11-L17",
-          "version": "repo-lines-v1:sha256:d41c8bdf4538f2ddde246fb0a70cb3c45e8b3e9019cc3630bc3f054f8036659d:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMTM4MzM0YWE1NjEyYzYwNzEwNjFlZjYxMjI2NTA3ZGFhM2EyNTVkNDBmYzE4MTc2ZDJmMDY4MGRhOTNlM2MwYyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZTJkOGQ0YzFiZTZkOWE0NTM0MmNkYTNjNjFjNTA5MGE2OWIyYjQwZmFkZGQ3NGE5YTJjMGU0ZjMzMmMwYTFhOSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZDA5NDdmODZjNGU5MGQ2ZDZiNjE4ODIxZWVmNWZjMzEzMWFmNDIyMDg4YWUwYjVjZjNjOGNmN2FmZjdhM2Q1OCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZmFkNWI3ODk1NTFmMTFmYWUxMzE1Zjc2OGRlMzJjYzk0MDA5NWYwYjlmOWY5MTNjN2I4NTg5NzdmMjM1OWM5MyJ9"
+          "resource": "repo://web/src/components/timeline/gestures.ts#L124-L153",
+          "version": "repo-lines-v1:sha256:22c4b8f5d5ecb2827df975a537a62fc6e659d2a37820faf29c3af3151e69cab3:eyJzZWxlY3RlZExpbmVDb3VudCI6MzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk0YmRkYmU1ZGZjNjUwMGIwYTJhYTJiOTU3Njg4MDI4YTYyMzEwZjcwMjc4MGUyZjk4N2Y2MjM2MTNkZDA2MjIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk3ZDg2MzJlNTRlOTI5OGFiYjk1ODcyN2UyZDUxNDA4YWJhZjEzNjYwMzUzNzkxMDE0MGFiZjY1YjMwYWI2MTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk0ZTJjMTBhOTg4N2U4MmYxZWQ4ODJkYzEzZjQ0NmYzNDlkZWY4OTQxYWJjODU5ZmNhZTUzMDczNmIyOGU4ZjAifQ"
+        },
+        {
+          "resource": "repo://web/src/components/timeline/gestures.ts#L6-L12",
+          "version": "repo-lines-v1:sha256:2543200d831f1385a47c688b3f655ffd5726bce3604212e2c81d5da1eeabc316:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMjQwOWI4Nzk2MzdjYjE1YmI0YTNjYmQzOGY0MDg4ZjI2Yzg3NzkyNDcxOWI5ZjExOTYyN2UzZmZkMjc4OGZiYiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZTJkOGQ0YzFiZTZkOWE0NTM0MmNkYTNjNjFjNTA5MGE2OWIyYjQwZmFkZGQ3NGE5YTJjMGU0ZjMzMmMwYTFhOSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYWZkZjJkZGU5MGJjMDcwYTRmMzlhNDI0ODcxZmIxMGQ3NTZiMmQ2MTYzNmJiNTViMGU5NWEyNmJkM2NkNWQwOSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYWU1Y2ZhZDdlZTI3YmU2YWNkNGI0NjNlZmRhNzdjZjBiYjYxODA5NmZkYmNiMGJlMGZmZWMzMzNlNDViM2I5MyJ9"
         }
       ]
     },
@@ -31,8 +35,8 @@
       "statement": "When zoomed out to 3 hours or more the timeline draws merged clip spans; otherwise it draws individual clips found by binary search over the visible window.",
       "evidence": [
         {
-          "resource": "repo://web/src/components/Timeline.tsx#L172-L186",
-          "version": "repo-lines-v1:sha256:74c574fd160e0bbd80768f3e62020950281fd86235a205a9dbf2d8f70fb84243:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA5ZjJiYWVlYzdjZDFlYTRmN2YxMmU5YTY0Yjk4YTk3ZGIwMzkyMjBjYWJjOTJmY2VkYTY4YWRhNzhiODg4YTAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVmZTllNTcxYjk1ZWQwNGM1YTNkOGE2ZjBhMjU0ZmNhMzQ4YWUwNDJhYWZkNjVmYzgxZmU4YTQxY2E4NzZjODQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY2YmY1ZDE0YzQ1MTg1YzJlMWZkN2IwZWU4MTc5NDE1YzZhODg3ZGExODlhZTcxOTEzZjI4MTc4YzU4ZDk0YjUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImM0YTE0MGI3ZTk4NmM1MjNjM2YyZmM3MDgyZjc4NjRhYmQxNWIxZTU3N2NmOGNhMjU0YmY3ZjIxMGFiMmNjYmQifQ"
+          "resource": "repo://web/src/components/timeline/draw.ts#L182-L188",
+          "version": "repo-lines-v1:sha256:7f0291eb0bbf63b4cd8556dd9573249d552afafddfccc9cc8b65197b125542b3:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiODJhMmVhZjkyYmU1NTIxMTAzMjc4ODQ5M2IzOTAwYTFiYjg1ODQ4NmZiNDNlZTA1ZGViYThiM2I4N2RjN2NiYyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYjEwOTA0NTM0MDAwNDIxYTM1MmMwNTcwYjNkNmU2ZDM5ZjI4NGQ5YThjYWRiOWNjZTFiOGI4M2U4YjhkYzRlOSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYzM4OWRjYzI1MjVhNGY0MWJlMzdlMzM3NjBlNjY2NDAzMmRjMjNjZDkwODNmNjEzMmRkN2JiZTEzODhlOWE1YyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZWU5YjVmYWMyODcwYjViZWFkZjczMWM2OTM3MGFjMzM3YzM4M2U5NjhmMmUxMzgxNjIyYmRlNDRlZTg5NDM2ZSJ9"
         }
       ]
     },
@@ -41,12 +45,12 @@
       "statement": "Time labels use the smallest round step that keeps labels at least 56 px apart, and time after now is hatched with a NOW line.",
       "evidence": [
         {
-          "resource": "repo://web/src/components/Timeline.tsx#L142-L157",
-          "version": "repo-lines-v1:sha256:7a8523ca5bbd8654eb67a78d4085e4d9a91d9f12ab605a022dd4ca9e2f77d06b:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjliNjJmNjBkODU5MGE1NzljZjQ2ZjhkNjczNzhjNGM1NzJiOTYyY2VjY2RiOTBjN2E1ZjdiNDJiOTYwNzgyYTQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjdhYzUzYzhhMzZiY2NkZTBmYzU5ZTRkOTM1YjE0NmZiYjU5ZWFhNGQxMDM4ZTNiODkxOTAxODY0M2U4Zjg4MWYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUyMjRhN2YxZGNkYTkxMTE5NTdjY2U5ZjgwNWQ4NDVmNTMxNDBlMWJhYmI4ZDdkYzAyMTA4Yzk1ODQzNDQ0YTYifQ"
+          "resource": "repo://web/src/components/timeline/draw.ts#L147-L161",
+          "version": "repo-lines-v1:sha256:38de73b20bdf85163d4fbf0eb2da15c6469d3f2bd8d4b399e2f255382d9e8578:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2MTBjZDQwOWJlODlkZTljN2YxNzMxNWJjNWUxYzczYzc3OTAxYzMxMWQyNTI5ZWUxZjliOGY4NzIzNWE1NGIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImUxOGEzODRiYjhiOTFmNzNlYmYxNWI4NzUyMTUzYWY0Y2FlYmIxMTQ3ZTBjNzg0NjQ3M2FkZTU3NGY4YjAwYTAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImJhZTUyMWI2ZjExNmY0MTk3NjQxY2ZiZDk1M2M1MTEzZmU2ZTRiMWNmMjg2Y2E5NjlhOWZmMjI2MWQ0NDk1OGMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImZiNTgwZTk2NGY4M2E0NzNmNDNkNDQzODQ2Mjk0OWQ2OGI1NjAwZmRhNzg3ZjE2Mzc0NWQwMGRlODljYmYzNmEifQ"
         },
         {
-          "resource": "repo://web/src/components/Timeline.tsx#L38-L42",
-          "version": "repo-lines-v1:sha256:27fafcc7e67b6059a114eb705bc71bf29e09d10f0e6c1896d97ae1cd5f2118ab:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiY2RjM2I2NmRmZjYwOGJhYjEyMTBhODVjMTcwZDFkNjgwMzU3MmQyZDEyYmFjM2UxNjQ5OWE5OTZlYmI0ZjRiOSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZmI1ODBlOTY0ZjgzYTQ3M2Y0M2Q0NDM4NDYyOTQ5ZDY4YjU2MDBmZGE3ODdmMTYzNzQ1ZDAwZGU4OWNiZjM2YSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZmY0YmM2NzdkNWFmNTIyYmZmNTI5YjE4YjhmMzNjMzI4OWEzNWFjMmIxNGZkNWQ4Y2FlMTk2NTJjYzY0ZjQyNSJ9"
+          "resource": "repo://web/src/components/timeline/draw.ts#L28-L32",
+          "version": "repo-lines-v1:sha256:27fafcc7e67b6059a114eb705bc71bf29e09d10f0e6c1896d97ae1cd5f2118ab:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiY2RjM2I2NmRmZjYwOGJhYjEyMTBhODVjMTcwZDFkNjgwMzU3MmQyZDEyYmFjM2UxNjQ5OWE5OTZlYmI0ZjRiOSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMzE1ZjNkYmI1ODJhYjgwNTc3NDc1ODgzZGM0Yjk2NjEwNWU3Y2EwOTExMGUxMTNiNTY0MzhhNTczNzM4ZTBkMCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiM2NhYTdjODI5MzRkZDlkNWRjZjAxNDMyYzM3ZmNiOTliYTNlNDc0NzYwMzMyOTQ3MmYyMWFmOTQ1ZGUzODA2MCJ9"
         }
       ]
     },
@@ -55,8 +59,8 @@
       "statement": "The canvas reads its colours from the CSS --color-* tokens at runtime with hard-coded fallbacks.",
       "evidence": [
         {
-          "resource": "repo://web/src/components/Timeline.tsx#L20-L36",
-          "version": "repo-lines-v1:sha256:1d09b4cbe5a93e4e396662c3c2a2346e29f45f3e3d67efeaa29a71e2a5e8dcc9:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAwYTBmOGU0OThiZDA1ZmIzMzBmYzFiZjZkOTFhZTRhZjE1ZDUyYWZlZGQyZmRhZTQxYjFlNDhkZDkxYTk4YjYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjExNjI0NGJmMzBlMjlmZTkxMzc4ZjVkMTU3NzVjOGU5YTljNDI3MmVjNzkyMGVkMjMxZTljZWNhMjBkNGExNmYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImEwN2NiODg5NTcxNGUwZGYyOWRmMWNjOGM3NmVhNmYxYjI0OGJjNmRhMTY0OWQ2ZGI4OGUzMDlkZjVlZDM0YmYifQ"
+          "resource": "repo://web/src/components/timeline/draw.ts#L9-L25",
+          "version": "repo-lines-v1:sha256:1d09b4cbe5a93e4e396662c3c2a2346e29f45f3e3d67efeaa29a71e2a5e8dcc9:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAwYTBmOGU0OThiZDA1ZmIzMzBmYzFiZjZkOTFhZTRhZjE1ZDUyYWZlZGQyZmRhZTQxYjFlNDhkZDkxYTk4YjYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImY3NjZhYzkyOTMxYWM2NzlmZGMyY2YyYzAzMzBkZDhiNmZlMDE0MmE3ZWMwMmE2MjQyMjI4ODcxZGU4YWQ2MTQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQ3OTkyNTU4ZTQwMzdkZWE1YjhjYmM5MmNjNjcxYWU1ZTY2NzU5YWNmMGFlNTY0ZTQ1NjU4ZTRiNGY1NmMyNjAifQ"
         }
       ]
     },
@@ -65,7 +69,7 @@
       "statement": "Viewport gestures: mouse click toggles play, double-clicking a side skips 5 seconds and the middle enters theater mode; touch taps toggle controls, double-tap a side skips, and further taps on the same side chain extra 5-second skips.",
       "evidence": [
         {
-          "resource": "repo://web/src/components/Viewport.tsx#L12-L20",
+          "resource": "repo://web/src/components/Viewport.tsx#L14-L22",
           "version": "repo-lines-v1:sha256:dced18a4c4a3b351c183abae111c4003843284806fa24b42b2b8b69730db7975:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNmQzNjdjNmEyMDIyMzNlNWM1NmVlNjUxZTNhMzJmNTFiMzVlYzEzODI3ZjI2ZDA4YTEyOGQ3Nzc5OWEzMmZkMSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYTc3NjM2YjIwN2Q4ODNmMDVkYjNhNTY0Y2I5NzM1Yjk4Nzg0ZDFjMmYzODliMDViZmU1YjQ4NDg0YzBjOTFkNSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNmI3MTQxOGZiNzYxN2QxOTQ3YTE5NWMyYTJmOTBlMDI4MWE3MzMwZmM3M2EwMjVjOGM0OTE0MGQ5Y2VmYmVlNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMmQ5ZTFhM2I4Y2Y4M2ViZmFhMWI2YTliYjUwZWNkNmQyYzJjYWM5MjdjZWM5YTJjMDVmMzMwYzRjZGU4M2YzNCJ9"
         }
       ]
@@ -75,15 +79,15 @@
       "statement": "The viewport shows a thumbnail while scrubbing over an unloaded clip, a spinner while buffering, and a codec warning when canPlay reports the browser can't decode the clip.",
       "evidence": [
         {
-          "resource": "repo://web/src/components/Viewport.tsx#L133-L137",
+          "resource": "repo://web/src/components/Viewport.tsx#L135-L139",
           "version": "repo-lines-v1:sha256:aaaaa23d4e202afcb8bcdaa580855197e1edf4fe8c37f8591574a1fcd77bf91e:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOWRhOWMxMjY1ZWQ2MWQwNmZiZmE1YmEzNTRkMTJlYjJlMWRjNzRhNjk3NjY0NzBiNWY5MjVjOWJkNDg1ZmEzMiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZTNlMzI0Y2RjZTc5ZjBmNWY0MDk1MGY3YzFmOTc2ODQ1MTE1ODQ1MjY1Y2FlMDNhZjAzODk0MGIyNWUwNzA1NiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNjdmNTAyYWUyODNhMGVkZGI0MDAzNjc2NjM5YjY3NTJhMmUzNTZiYzc1MzRkNmU1MjMwNDJlYmU3YzIxNTRjYiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiY2EwZmM1NDMzNzNiNGU1NzdjNDAzODExMmVjODYzMzI3NTcxMzg3MzEyY2UyN2JiM2ZkYzE3MWJmYTYxZDdlYSJ9"
         },
         {
-          "resource": "repo://web/src/components/Viewport.tsx#L185-L185",
+          "resource": "repo://web/src/components/Viewport.tsx#L187-L187",
           "version": "repo-lines-v1:sha256:2ba27579cb15aa979724934c75f2746a9dbcc184080e21f2015f6b352483658e:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMmJhMjc1NzljYjE1YWE5Nzk3MjQ5MzRjNzVmMjc0NmE5ZGJjYzE4NDA4MGUyMWYyMDE1ZjZiMzUyNDgzNjU4ZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMmJhMjc1NzljYjE1YWE5Nzk3MjQ5MzRjNzVmMjc0NmE5ZGJjYzE4NDA4MGUyMWYyMDE1ZjZiMzUyNDgzNjU4ZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTdiYmM0M2FlMDNkYjFmMjI5MDc1ZWMyYTBiOTdiZDIzM2U2OTgzYzZhN2U2OTUxYjQzNTY1ZTM2OTUyMTEwOCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMjBjNzRhNzAzZmY4MGFhMzJmOGUxMjRlNWQyMWFmYTNmZGQ1ZTg5NTI3ZDE2OTM1ZDkxNjBmNTA0NzE5YzQ2ZiJ9"
         },
         {
-          "resource": "repo://web/src/components/Viewport.tsx#L45-L46",
+          "resource": "repo://web/src/components/Viewport.tsx#L47-L48",
           "version": "repo-lines-v1:sha256:cd32d1bf1d7e2fc1a86e81b61f2cfdddf58a5bc6ee94d9ac2ec4500a61cc8123:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZDUwMWQ0MjM2Zjk1NDM5ODE1NzFmYWUwNmRkMmZjYzE3MjI1ODEwNzNiYjMwNTRmNjNmMGU5ZGU1OTRkYTc3NyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOGMzZDNjMTRhZjc5NGJlY2I5ZDc2M2E2MzUwMThmZWJjMTY3YmU4NzhkZGFhZGY5YzY0M2E4OTlkZjE3MjU5MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMTM5YmY0M2FhMDY2ZTMxNDBjNTU4N2NkNGZhMzQwZTk4ZjE3NTBhYTE3NGNmOTljODFhMzZjNmY5NjlhY2ZhZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZjhmZDllOTM1MTAzMzBkNWY0OGIzMDQxZmIwM2Q0MjdhOTE1MTVjOGEzOGZkMzk4MGJjZmZiZTE0YzMyYTVhMyJ9"
         }
       ]
@@ -93,11 +97,7 @@
       "statement": "The player draws its own control bar with a clip scrub bar, play/pause, ±5 s skips, position, speed, mute and theater toggle, fading while playing when idle.",
       "evidence": [
         {
-          "resource": "repo://docs/design-decisions.md#L45-L45",
-          "version": "repo-lines-v1:sha256:1f12b8bdbf422ec8a813336bcbca4a375063011dac323842a97c8104d432aa40:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMWYxMmI4YmRiZjQyMmVjOGE4MTMzMzZiY2JjYTRhMzc1MDYzMDExZGFjMzIzODQyYTk3YzgxMDRkNDMyYWE0MCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMWYxMmI4YmRiZjQyMmVjOGE4MTMzMzZiY2JjYTRhMzc1MDYzMDExZGFjMzIzODQyYTk3YzgxMDRkNDMyYWE0MCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDU3MjliOWFmNzQ0OTEzZGM4YTAzMDRkMTc1NDAxNDU0M2RhMjM4Zjg0NWI4MDk5MmNhNjZlNzVlOWNiZjQ2ZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZjJhMTA0ZDc2ZWI1YzU5NTQzZDcyMDU4NzJlY2I1ODUwNGI2OGRhZDhiOGIyMDAzMWRmZTAxMTZiYjI2YjMxMyJ9"
-        },
-        {
-          "resource": "repo://web/src/components/ControlBar.tsx#L8-L10",
+          "resource": "repo://web/src/components/ControlBar.tsx#L11-L13",
           "version": "repo-lines-v1:sha256:6adb22d8f24a334bf8f88b1f86906b4e6f1f348581b1b96a3ac1e14a86f73ad8:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMmI3YzU0M2NkZDIyY2YyMzI2ODcyNDkxYWE4YTczNWIxMjYwNDAxZTFkMWY3MDU0NzQzN2FjZWIyY2E3MmYzMyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZjA0Y2VlNWExMmZkNjBhMjJiMDYyNjQ5YjllOWViYWZkMGY4OGQ2NTMxYjk2NWE3MjRiNGRhY2EwNWQ1YzVlZiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYjkzNDhlMmI1YjNhOTJlMDk0MThkMWVjNmQzOTA1ZjIyMDE3OGZiZWE1M2RkYzkyNjlmYjBjMzllYzk5MWQxNSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZjg1OGU3NzQ1MTcyOTg5NDg2MGZjZDk0ZmJmZGU0OGI2NGQ1YzNjZDVlNzg5OGEzN2ZlMDc5MWVmMjc0MWI0YSJ9"
         }
       ]
@@ -107,7 +107,7 @@
       "statement": "The clip list shows every clip of the selected camera and day, newest first by default, highlighting and scrolling to the clip under the playhead unless the pointer is over the list.",
       "evidence": [
         {
-          "resource": "repo://web/src/components/ClipList.tsx#L8-L10",
+          "resource": "repo://web/src/components/ClipList.tsx#L10-L12",
           "version": "repo-lines-v1:sha256:2dc2dfe23df678916a7898ca21e208c963bfd6e4cc8c6b13061adb4a7ae1174d:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDkwMzQ1N2U2NzMxYWQwZGU3YWUwMWNhNWIyOTZmZDg3ZTYxYTIxMjhjYWQ4MmZkMDdmNzIxZjY4MzY5M2Q0MyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYTg3N2QzNmI0ZTQ4Nzk2MzQ3YTMxNTEzMDI3YTRlNDBmNDY4NGI4YmJmYmU5YzY1YjQyYTZkODc3NDkzOWQwNSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNTA2YmU5YWIxODczYzU1NmFlMGQ0MTBkZGY1NDUzZmY5NjViNjQ1ZGVlYWExOWU1YjhjZGQ0ZjBmODU3Y2RlMyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiODQyNWEwYjJkMTM4Y2FhY2M1YWRkYzJmNDhmNzEzNWQ5OWVlOTdjNWU3YzU3NzFmODQzNzcyYmZmODM2OTY4ZiJ9"
         }
       ]
@@ -117,7 +117,7 @@
       "statement": "Global keyboard shortcuts cover play/pause, ±5/60 s skips, clip jumps, newest, theater, mute, speed, zoom, camera selection by number and Escape, and are ignored with modifiers or inside form fields.",
       "evidence": [
         {
-          "resource": "repo://web/src/App.tsx#L155-L214",
+          "resource": "repo://web/src/App.tsx#L144-L203",
           "version": "repo-lines-v1:sha256:9e4dab3920c6f3f0d1c01bfb25e6ac7af9d065070d6f137317662a0202595ea7:eyJzZWxlY3RlZExpbmVDb3VudCI6NjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJmOTFjM2YwNzljNmU2Y2Q1MjVkM2E4MGY5NDllOTRhYWNiZGJiZmRlYzVlYzgxODc0MjNjYjYyNjU2MjcxMzQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImM4NTgwM2RlNDkzMzhhNTczNDVlY2Y3ZGUyZTJiNGU2YTJiZTVjZDY2YzMwNzJkYTdlYWVkYjIyMjY2YjNiYzciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjEzMjU2ZmZjMzg2ZTg5NDhiNDBlMGUwY2FkZTI0MmJkODA4ZWVjNjkzZTQ5OWU1OTE3NDVkOGViN2M5NDc5NzkifQ"
         }
       ]
@@ -127,7 +127,7 @@
       "statement": "Leaving browser full screen also exits theater mode, and no pointer or key activity for a while sets idle, which fades the controls while playing.",
       "evidence": [
         {
-          "resource": "repo://web/src/App.tsx#L139-L153",
+          "resource": "repo://web/src/App.tsx#L128-L142",
           "version": "repo-lines-v1:sha256:52423e0127c379128789a0091664c8403061d805768c0add3ee8a8a7a1165adc:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjllZWFhODVhYTllMjc4MWY2M2Q0MjhjZWNlNjA3MTA4NjgxYmZiYzkzYzQ1ZGU5MjlkOGY1ZWJmYzVmNDhkNzYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ1NTEyZTNkNmQzMGFjY2YxMDdiOWVmY2NmYWY4Mzk0NGZmYmFhMTBiOTBjYzBhNDM4NzJlYTUzMDc4NmVjMTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjNkNThlZjY0YmY5MjRjZmE4NDEwZTZlNjRmN2ZkY2I2MjNiYTYwZmUyNzFkNDRhZDNjNWQwN2VmOWZiOTIzOTciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImYxZTgyZDJkYWVmZDhlNTdkZDJhZWEwNDk0Njc2MWFmN2E4NDIzYjlkNDllNWJhNjM4OWE4NDViOTcwMGFhNzIifQ"
         }
       ]
@@ -137,8 +137,8 @@
       "statement": "The status page shows the version, live WebDAV source check and index/ingest status, and replaces the player when there is nothing to play.",
       "evidence": [
         {
-          "resource": "repo://web/src/StatusPage.tsx#L1-L25",
-          "version": "repo-lines-v1:sha256:c27746ca8e4c4aa21726d106b9bab125ebf07358c0f06fdde5975608c708359d:eyJzZWxlY3RlZExpbmVDb3VudCI6MjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFkNzFmN2FjYjJmMjBhNWIzMzRhZjdkYzJjMDY1YzY2NTY5YzllYTJiYzQ5YTdiODNhZDkzOTZmY2NjNmQ1NDUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJlMDk5OGFjZWNhNWIzNDc3YjYwOTM4M2E3ZmE4OWVhMGRhZTJkMTQ2ODhkMWYyMjE1OGI0Nzc2NmNjYzA0YjMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImE2NjdlMjhhYjU2NzBlNTAwYjY0NGZiZjY1Y2MzNzdmNWZjNzhmOGUxMzYwOWY1MzI4NjNmOGU3Njc2MWRjNzAifQ"
+          "resource": "repo://web/src/StatusPage.tsx#L1-L30",
+          "version": "repo-lines-v1:sha256:e96e378c899c2d8bfefe2536df2fd185ad15dc82ab963461a19721d33bf47dd2:eyJzZWxlY3RlZExpbmVDb3VudCI6MzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFkNzFmN2FjYjJmMjBhNWIzMzRhZjdkYzJjMDY1YzY2NTY5YzllYTJiYzQ5YTdiODNhZDkzOTZmY2NjNmQ1NDUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjExZmQwZjA3ZWZmYjEwMGRjZjBmMWFmNmJiZDNmZWE5MTFjMTdhN2QxZTYyY2VkMjU1ZmZkZDYxNjM4YjI4M2YiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjNiOTg3MGExNzBmN2YzZGRjNTA4ZTZjOGQ4NGY2M2M2ZDRhMTkwMmRhMTY0MjFkNTk4OTRkYzc1OTNmYzVmMWIifQ"
         }
       ]
     },
@@ -151,10 +151,28 @@
           "version": "repo-lines-v1:sha256:738e95b1ee08cf6d941eb2d3efe4d02f3e01ff1315c696c00624d8e0cc2c7a3d:eyJzZWxlY3RlZExpbmVDb3VudCI6MjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQyMDcwZTBiNDViYjIwMWIyYjgzOGE1MmFhYWE2ZTk2NWY5NjRlMGI1NDJkOTdmMWZlNTE3ZmU1OWM0Yjc1YTgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg2NTM5ZWJiYTVjOTQwMmRiMmFkMDM1YTcxZDZjOWU0MGJjMzY4ODIyNTkwZTI1YzllNjNhODQ0Yzc4ZWFjZDAifQ"
         }
       ]
+    },
+    {
+      "id": "claim_1608a1db25aa47769ccd42443931c9fc",
+      "statement": "Timeline code is split into a React component, a painter that draws each frame and returns the name-gutter width, gesture handling that maps input to store actions, and shared geometry for the time-to-x scale and lane layout.",
+      "evidence": [
+        {
+          "resource": "repo://web/src/components/timeline/Timeline.tsx#L12-L57",
+          "version": "repo-lines-v1:sha256:023c046758d3a289e87749decda4c4674211d0d1ef6f9ee747decad4e082fc80:eyJzZWxlY3RlZExpbmVDb3VudCI6NDYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY1ZDVlYWFiZWIzZjlhYjE3MmRjYzIzZWI3MDNkNWMzNTU5NmQ0N2IwMjFhYjkzNjNlMjI0ZDk2ZDkwMGI3ZTUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjE0ODllYTg2MGZhYjg1YWYzODNmNDE4MzQzMjQ0ZjE3ODMwZTI2ZjBmOTY1NzVlNzEwYjdjMTliNjgzN2QwNDYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjNkNDEyZDQ5Y2Y4YzNkNzAzN2RhNTJlNmJkOWViYWExYjZhMGRmM2NhNDVlZThlYmRmMmE0NTVjNTZlNDBkMTIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImJjM2RlMjJjMDVjMGZjYjQ5OTJmNmYzMGYxMGVkNjcyM2ZiOWFlY2E0ZTNhZTc3NGVjYTg3N2JhZmI3OGVhMWIifQ"
+        },
+        {
+          "resource": "repo://web/src/components/timeline/draw.ts#L51-L110",
+          "version": "repo-lines-v1:sha256:246049929ca24a717917e97607944fcd6c35660d794ffa9446acb17032e94142:eyJzZWxlY3RlZExpbmVDb3VudCI6NjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImRjMmIxZTMwZmM2M2Y0ZGExMDk0M2Y3NzFiYWNhODBhYjFhYmU1MDJiMzgwMDBjNWQ2YjllMzZiNGY0MmMxMmIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjRmODE0OWVhY2EwY2YzM2Y4YjliN2QwMzUzNTA3Y2VhZTQyZmU2YzJkZjQxYTMxNmU3MmJlY2VmZDA0YTM2YTMifQ"
+        },
+        {
+          "resource": "repo://web/src/components/timeline/gestures.ts#L33-L37",
+          "version": "repo-lines-v1:sha256:6d5367e776478c6a89f1d91213703766768c937de93802ec58b6313b5ca13d7f:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWFmMjJjZjA3MzI1OTJjMjQ3MTQxY2JlNjFlZmExMTAxMjYxMmY1YTMxMjJiOWFmOWJiYWY1MmY1NzI0ZDE5NCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYmE3MWQ2N2EyNjZjNTg5NDhjZWMyOWZmYTc1ZjkwNGU4YzYzNTBkODRkNzMyYTQ3YzA1MmUwZDkwZTlkY2VjYSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiODRmNTUzOTM1YWZmNzY3YTg1OGVkZTE4OTgwMWFhZGZkYjM2ZmU5YjcyODVkY2VmNzJkZTdlNzRiMmZkNzM4MSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMTNlZjAzOTQxOTg2M2JhOTU0MGZhODg2NWZiYWQyYzhmNGY0ZTUzODI3YWMyYjY5MzY3OGYxZjEyMzcwODIwZSJ9"
+        }
+      ]
     }
   ],
   "verification": {
     "by": "openwiki/0.7.2",
-    "at": "2026-11-08T01:57:23.266Z"
+    "at": "2026-11-08T06:01:44.565Z"
   }
 }

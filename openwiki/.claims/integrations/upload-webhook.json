@@ -1,18 +1,22 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:62bfa2d38de23f86a396a10dca7eb9ee3ac69ad6c2c7e02f67f183cabcb5917b",
+  "pageVersion": "sha256:e70774463b76e1ab1f77bdc647f83bbbb662489b0e18ff2abddb8638da250462",
   "claims": [
     {
       "id": "claim_dc269f08237d4b56a3927036273f94f5",
       "statement": "The upload webhook is POST /api/ingest with an X-NVR-Secret header and a JSON body naming the file path relative to WEBDAV_ROOT; it is disabled (403) unless INGEST_SECRET is set.",
       "evidence": [
         {
-          "resource": "repo://docs/sftpgo.md#L5-L23",
-          "version": "repo-lines-v1:sha256:61fb237ab079e65081e494c6f3ea2de71d2025b6fb25037c994922b354a26107:eyJzZWxlY3RlZExpbmVDb3VudCI6MTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc4OWM0NmM1YmYyNzk5YWY1MTc5ODNhNzNhZjg5OGRjYjJmOTE2M2Y1ZTZlZDhmNzhlYjBkNjEyNTIwY2I3NzMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImExODk4YzQ0ZTVjZGZhZDdmZDZkZWFiMGE2ZTQ4MGRmMDY3NTFmYTBlNGRjYzM5MDZiMGU3NjU5ZjAyMzZjMDAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQxYWQ0YzA2YjliYThmODU3OWE5MzU1NjYxMTkwNzVhNTE1ZWFhMGQ2ZWE0Nzg2NmE1YzI1NmUyN2QyMzZiZTIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijc1ZDcwY2VlMTQwNDE2OTVlZmJhMTYwZjIwZWY4ODYxYWJiYzc5YTY4YTExNWIyNTJiNzM4OThjYTViMTMyNmIifQ"
+          "resource": "repo://charts/webdav-nvr-player/README.md#L42-L50",
+          "version": "repo-lines-v1:sha256:4bc7921dc8dde7e8fcf5410e1c9c6a79f7efd5969c5ce8a6c69e91b4c45fe9e0:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEzYWNkZGM1NWNmMmVlMDUxODIzNzZiNWJkMWNkZmVhOTU5YWRkNDJkMTA1MDJiYmZjZDNiYmNmM2EyODJmOCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDdjMDZjNTYxZDVjMzI3MzQzNjg1MjY4YTQ2YjMzOTFmMzk5OGVlZTg5MGQyYmU1MWYwZDIxY2M0YTUzYWU2ZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYzdlMTI1ZDRlZTI5NWM3ZjEyNzYwNTQ4Zjk0OTRkOGE3NjI3NjNkNjc5MDY3NDIzOWJiNDkxMzA0ZWQ2YWQwOSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZmM1MTYxNjY0YzE0MzE0NDAzYTA3ZDdkNDQ2N2E3MTUxZTQzMjQwNWRlZTQzNjI4NmM4YTYyN2NhMThmYWEwMCJ9"
         },
         {
-          "resource": "repo://internal/httpapi/api.go#L304-L338",
-          "version": "repo-lines-v1:sha256:0ed36a28426bf557671db7011f043cafbecf8293c3a4f1a4fe6ea890554a8a54:eyJzZWxlY3RlZExpbmVDb3VudCI6MzUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIzZTdlZDJlYjI2NjEyOGI5NDAzODM4YWZjNmU5MDI3ZDljZTE2YjVkOWY5OGViNDczNGM3ZDU1ZTU2YWMyNWQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFlYmEzNGNlNGEwODllY2Y2OTQ4OTNhOWM4ZGVmNThlYThjZGVlMWZkMDRhMGI0N2NhNWI2ZmFiYjM3ZGFmYjUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjU4MDM3MTJiOGMzZTQ1MWIwYWIwY2IxMTQxNmI5MTU1ZjI5MzI5NjYxOTNlZmRkYmYzNzI5MDlkY2QzYmFkNDcifQ"
+          "resource": "repo://internal/httpapi/api.go#L301-L335",
+          "version": "repo-lines-v1:sha256:dd644be618f8ad936f2399dd0fa17531066343d71f370f7f23f95150ffede68e:eyJzZWxlY3RlZExpbmVDb3VudCI6MzUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIzZTdlZDJlYjI2NjEyOGI5NDAzODM4YWZjNmU5MDI3ZDljZTE2YjVkOWY5OGViNDczNGM3ZDU1ZTU2YWMyNWQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFlYmEzNGNlNGEwODllY2Y2OTQ4OTNhOWM4ZGVmNThlYThjZGVlMWZkMDRhMGI0N2NhNWI2ZmFiYjM3ZGFmYjUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjU4MDM3MTJiOGMzZTQ1MWIwYWIwY2IxMTQxNmI5MTU1ZjI5MzI5NjYxOTNlZmRkYmYzNzI5MDlkY2QzYmFkNDcifQ"
+        },
+        {
+          "resource": "repo://internal/ingest/ingest.go#L227-L244",
+          "version": "repo-lines-v1:sha256:a109be0eba4d50577e5a56a38f6c2244e93ec402b778a08fe403f81633918922:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJlYzIxNGZkOTBmNmUyZGI0YzFjNGMxYWM4MWVjNWQ2ZmFlMDNhZDQ3OTJiNGZhYmE4MDA3OGFmZjI0NzU5YzQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImIxNzI0MjBjMTU3NDBhZmE2NDVkMDdhZTUxNGVjMzM5ZGFkZmVkN2U3NWFkZDc5ZDlmNWZhNTRkMDU2YzZlMmEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImIyZWVhY2U2ZDQ3ZmUyMjU0ZDU1NmVlNzcyMGQyZjg1ODFjNzI1YzFlOGViMDY5ZWMzY2Q5YTFlNWRmZjI3MWYifQ"
         }
       ]
     },
@@ -31,7 +35,7 @@
       "statement": "The webhook path is normalized with path.Clean so a leading slash is accepted and the path cannot climb above the root.",
       "evidence": [
         {
-          "resource": "repo://internal/ingest/ingest.go#L219-L236",
+          "resource": "repo://internal/ingest/ingest.go#L227-L244",
           "version": "repo-lines-v1:sha256:a109be0eba4d50577e5a56a38f6c2244e93ec402b778a08fe403f81633918922:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJlYzIxNGZkOTBmNmUyZGI0YzFjNGMxYWM4MWVjNWQ2ZmFlMDNhZDQ3OTJiNGZhYmE4MDA3OGFmZjI0NzU5YzQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImIxNzI0MjBjMTU3NDBhZmE2NDVkMDdhZTUxNGVjMzM5ZGFkZmVkN2U3NWFkZDc5ZDlmNWZhNTRkMDU2YzZlMmEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImIyZWVhY2U2ZDQ3ZmUyMjU0ZDU1NmVlNzcyMGQyZjg1ODFjNzI1YzFlOGViMDY5ZWMzY2Q5YTFlNWRmZjI3MWYifQ"
         }
       ]
@@ -41,8 +45,8 @@
       "statement": "The webhook responds 202 with the kind for indexed clips or snapshots, 204 for files the profile ignores, 404 when the file isn't on the server, 401 for a wrong secret, and 502 for other errors.",
       "evidence": [
         {
-          "resource": "repo://internal/httpapi/api.go#L316-L338",
-          "version": "repo-lines-v1:sha256:209045eee902d966777ceb1db9e3cb48acde833f07817fb2dd5599d92032e92e:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ1Njg1YjhjOGZhMWM2NWVmODcwZjhlMmRmMzIxN2RmOGJiMjBlZDdjNzNiMmViZTZjZDE4Y2RhN2Y4NzRjYWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjljNWZmMTI0OGM0OTY4Mzc3NjgwODhmODgxOTAyYTc1NDRjMGIzYTliZWNjOTE0MzU1YThlY2QwZWU0YzExYjEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjU4MDM3MTJiOGMzZTQ1MWIwYWIwY2IxMTQxNmI5MTU1ZjI5MzI5NjYxOTNlZmRkYmYzNzI5MDlkY2QzYmFkNDcifQ"
+          "resource": "repo://internal/httpapi/api.go#L301-L335",
+          "version": "repo-lines-v1:sha256:dd644be618f8ad936f2399dd0fa17531066343d71f370f7f23f95150ffede68e:eyJzZWxlY3RlZExpbmVDb3VudCI6MzUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIzZTdlZDJlYjI2NjEyOGI5NDAzODM4YWZjNmU5MDI3ZDljZTE2YjVkOWY5OGViNDczNGM3ZDU1ZTU2YWMyNWQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFlYmEzNGNlNGEwODllY2Y2OTQ4OTNhOWM4ZGVmNThlYThjZGVlMWZkMDRhMGI0N2NhNWI2ZmFiYjM3ZGFmYjUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjU4MDM3MTJiOGMzZTQ1MWIwYWIwY2IxMTQxNmI5MTU1ZjI5MzI5NjYxOTNlZmRkYmYzNzI5MDlkY2QzYmFkNDcifQ"
         }
       ]
     },
@@ -51,18 +55,26 @@
       "statement": "POST /api/rescan with the same secret starts a background full crawl, returning 202 or 409 if a scan is running.",
       "evidence": [
         {
-          "resource": "repo://internal/httpapi/api.go#L340-L349",
-          "version": "repo-lines-v1:sha256:f6a949bc55b13f44438d6e714d4567a18eb53081e3784e86f8b70bf7a53b8b38:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImIwZDQ1NzAzMjk4MDQ5ZDQ3MWQyNTk2YWNiMWRjM2MxNmU4ZDc3OWJkZGQ3MGNkMWQ1NmI3ZjBhMGRkZjFkODgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImYyOTY0MDc5YzNjNWM4MTUyMGVmMzNhMmI5ZDJlMTVhMWI4NGQ3MjgwZGI4NTkwZGNkNjU3NDdlM2UwMTJhNDAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+          "resource": "repo://internal/httpapi/api.go#L337-L346",
+          "version": "repo-lines-v1:sha256:5c05aaad2be29d991b340218187100d5c3bf3b37c5ab69434f74fb4f552f35b2:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImIwZDQ1NzAzMjk4MDQ5ZDQ3MWQyNTk2YWNiMWRjM2MxNmU4ZDc3OWJkZGQ3MGNkMWQ1NmI3ZjBhMGRkZjFkODgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImYyOTY0MDc5YzNjNWM4MTUyMGVmMzNhMmI5ZDJlMTVhMWI4NGQ3MjgwZGI4NTkwZGNkNjU3NDdlM2UwMTJhNDAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://internal/ingest/ingest.go#L175-L182",
+          "version": "repo-lines-v1:sha256:e9a6620c68e64d4c83e9c30bf6a90aac631bec0e4995d547cae937e35f631b74:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZjQ3OTBhNmRiMmMxZTFlMWMxOGVjNmI5ZjUzOWMxNDczZGQ2MzlmOWViODE3MDg1MjgzNDZjNDU2ZDc5MzI1ZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNWIwMjllNTU2OTQwNGE0NTI4MDgwYTJjYzhkOTM1NWU4MjM0ZDk0NjJiNWM1MDNiMmIzNTBiOTJiM2MwMjJhYyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMjg3MzBmMWNlNjdjZDA3OTIwNDk3NjIyNTkwNzAzZDA5OGU2ODViYWQ1ZTZkNjA4MWExZmNkMzBkNDMxMjYzYyJ9"
         }
       ]
     },
     {
       "id": "claim_bf35f8567b7a41d48339d3cab272d2e7",
-      "statement": "The reference SFTPGo setup is an Event Manager HTTP action posting {\"path\": \"{{.VirtualPath}}\"} with the secret header, triggered by upload filesystem events for the camera's upload user; paths align only if both users see the recordings at the same root, otherwise WEBDAV_ROOT must be adjusted.",
+      "statement": "The reference SFTPGo setup is an Event Manager HTTP action posting {\"path\": \"{{.VirtualPath}}\"} with the secret header to the player's /api/ingest; because the path must be relative to WEBDAV_ROOT, paths align only if the uploading user and the player's WebDAV user see the recordings at the same root, otherwise WEBDAV_ROOT must be adjusted.",
       "evidence": [
         {
-          "resource": "repo://docs/sftpgo.md#L33-L45",
-          "version": "repo-lines-v1:sha256:d67c48456ab639b6f8e9f69fb31d5cf32287613d043cfccc189fc6154f86ce36:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU3OWI4YzhiMWYxOTU0ODg2YTFkY2M3NDFlOTlkNWQ4M2NjMGFlY2Q2YTEyM2Q0MmRmZjM1MzI2MjZiN2ZmZDEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFjNzdkYzQ5N2RhM2Y1MzQ3YzUxOGQzZmEzMzRjNzlmN2E1Nzg3NTI2YmZjNTY4NjU2ZjgzYzMxYzI1NDcyNWYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjdmYTk0MGUyODNiZTZlMWY4N2UwNGZjZmMzMWNiMGU3ZmI0OTkyOGUzYjc1M2NhMTRiM2Q3MDIwMjM2NjkwMWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjczNzFhYzRjZTdhMDFjYTRlYWVhZDc5M2M0NDIzOThhNTQ0ODRiNDVmYWFkNjFhNDhkNDhlMjJhOTQyMTQ3N2YifQ"
+          "resource": "repo://charts/webdav-nvr-player/README.md#L42-L50",
+          "version": "repo-lines-v1:sha256:4bc7921dc8dde7e8fcf5410e1c9c6a79f7efd5969c5ce8a6c69e91b4c45fe9e0:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEzYWNkZGM1NWNmMmVlMDUxODIzNzZiNWJkMWNkZmVhOTU5YWRkNDJkMTA1MDJiYmZjZDNiYmNmM2EyODJmOCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDdjMDZjNTYxZDVjMzI3MzQzNjg1MjY4YTQ2YjMzOTFmMzk5OGVlZTg5MGQyYmU1MWYwZDIxY2M0YTUzYWU2ZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYzdlMTI1ZDRlZTI5NWM3ZjEyNzYwNTQ4Zjk0OTRkOGE3NjI3NjNkNjc5MDY3NDIzOWJiNDkxMzA0ZWQ2YWQwOSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZmM1MTYxNjY0YzE0MzE0NDAzYTA3ZDdkNDQ2N2E3MTUxZTQzMjQwNWRlZTQzNjI4NmM4YTYyN2NhMThmYWEwMCJ9"
+        },
+        {
+          "resource": "repo://internal/httpapi/api.go#L324-L327",
+          "version": "repo-lines-v1:sha256:941e3466710f0b95556429d020211ee342244c40196ccf322c64c0db4ecc660f:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNTM0MDYyMjkyOTEyOWI1NDZmYWZkN2Q2NjY2MDQyN2Q2ODRkNGRiNjdmNmQ3ZDYzODk0MTBjMzkzYWFlN2Q0MiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNGY2MWMxYTRmM2IwYzVhYjE2MGYyM2NkMmY1Zjc1OWFiNmJjNWM3MjgyY2EzZmNkNmU5MmM4MTE4NjNiZTI2MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMmZiN2MyNTkzMGM0ZjRjNjllOGJmZTUwNjk2Mjk3NDE0MTE2YmI5NjdiMDc1ZTY1MTdmYzljOTk1Y2MwOTQxMyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNmY0MWI0MGZkODQ2MDAxZGE1MzRkYjQ2MTJlNTVkNTQwM2U0Y2YwZDcyOGNlNzM1OGY4MjIzOTBhMGFkOTZjMCJ9"
         }
       ]
     },
@@ -71,18 +83,28 @@
       "statement": "Periodic rescans continue regardless of the webhook and catch anything it missed.",
       "evidence": [
         {
-          "resource": "repo://docs/sftpgo.md#L1-L3",
-          "version": "repo-lines-v1:sha256:ddaef4aaf4cdee0dd7d1cd852468272c01f035621adb97a4d3d15d11fd4e35cf:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzlmYTI4ODllNzM3NzcxZTk5YjJiZTRlMzBlMzQyNjVhMWQyZDMxNWM0YjA1NDRkNTkzZWQ3ZDcxZjM1ODg4OCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNzg4NGJmYTk5NzE0MDkxN2IxNTgzYWUwMzQzMTMxOTRiNGJjNWU2ZmFlNGRiMmJkZjM2MGZjNGMxMmU0OGY2ZiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNGVmOThhY2UwMjBhZmQyOWJhODI1MDNlNTNhYTZkNWU2ODMwMDViZTIwYjk4OTBmY2VkZmNlZmY2ZGI4M2UxMSJ9"
+          "resource": "repo://charts/webdav-nvr-player/values.yaml#L35-L42",
+          "version": "repo-lines-v1:sha256:c674cf0bc286e94e6360ca43559d742f73eeb35b3cb11e6a00bc6a492c26fef8:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDM3Y2U4MDRjZDg4OGJlYTI4MDczNDE2MzZiZDFlMTEyZDE1NWUzMmUzODIzNGQ5YTJiOTYwZjRjMTZhMjIyMyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNzgxNDNmMDc1NjFkZDgyNGE5MGQxYTEyZDVkY2IwMGYwMjdlYzZmYzE1MWYwMTc4OGMzMjM1ODRhYTZmMmI2OSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNmE3Yzk0ZGEzM2UxYmNlODY2NzlmZmMzMjgwZTdhZDg4NDJhZTBlYmEyM2M5MDc5YzBjMGQyOGJhZjdhY2EzMyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNzY1NTY1NjNjNGExODllZjdjZWY1YWNmNzA2MjQ4YmU2YWE4ZDgwNGM1MzZmZGQzNDI3YzFjNWVjMjAwZWZkOSJ9"
         },
         {
-          "resource": "repo://internal/ingest/ingest.go#L148-L165",
-          "version": "repo-lines-v1:sha256:36f144be0ff094b005ace7ef100b7f3aa46d435a4a258634dc3a714d9fe13f66:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNjNjlmNzVkYmQ0YTFmZDg2ZTI3MWJmZmRlNzUyZTZiMTA1YzdkNTA0YWFiYjlmZWZmNWViMTZkMmU1MWY0OTYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImMzMDk2ZWRiZDIxY2I0MTU2NmM4MDExMGFmMjA4YzI2Y2RmNjRjNjc1ZmFkYzUzODM1NjkwNzg2OWVlOGY3MjQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjhlOGU2NTBhMmZmYzY0ZDhkNWE5YjUxNWY5NThlYjM4M2MzMmM3Nzk4Zjg0ZGFlMDQyYWIyNzA4YmVhNmJjMzQifQ"
+          "resource": "repo://internal/ingest/ingest.go#L156-L173",
+          "version": "repo-lines-v1:sha256:161efb192a7a8f480a5dcf06f888720ac3d2ba0aa67c43cfd1c01ee1b25f7878:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNjNjlmNzVkYmQ0YTFmZDg2ZTI3MWJmZmRlNzUyZTZiMTA1YzdkNTA0YWFiYjlmZWZmNWViMTZkMmU1MWY0OTYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImMzMDk2ZWRiZDIxY2I0MTU2NmM4MDExMGFmMjA4YzI2Y2RmNjRjNjc1ZmFkYzUzODM1NjkwNzg2OWVlOGY3MjQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjhlOGU2NTBhMmZmYzY0ZDhkNWE5YjUxNWY5NThlYjM4M2MzMmM3Nzk4Zjg0ZGFlMDQyYWIyNzA4YmVhNmJjMzQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_ec4f87142682424d829d811843594168",
+      "statement": "In Helm deployments the webhook secret comes from indexing.webhookSecret or from an existing Secret named by indexing.existingSecret under the key indexing.webhookSecretKey (default ingest-secret).",
+      "evidence": [
+        {
+          "resource": "repo://charts/webdav-nvr-player/values.yaml#L34-L40",
+          "version": "repo-lines-v1:sha256:4de5f734dd7c1af3a37495ee43cf9439e7865a3de7f6987bbd671a047b065174:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMmU2YzYxZjMwMjZjMWEwZGVjZTg4MTc1ZjQyZDExOGFjZDY1M2FiZWQ3OTFmZDViOTcwZDhjMGVkYWFkY2Q5OSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYzY3YTI4ODc2Zjk1MWRkYTg5MzIwNTY5ZDQyZjRkODlkOWY2YzliOTdlZGQ2ZTEzM2QyMWUzODkxZmY0YTZmNCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiY2QzMjY2MjY4NjRhOGU1ZDI5YTBlZDdiN2Y1MzA5MjdhYTMzOGQ1ZWQ3MDA4NWE2MmZiOTM5M2ZkZmQ4MmQ3NiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMzdkNmI4ZThlNWViYjkyYzUwNGNjZjM0ZTZjYThjMmQwYmQwZTQ0MGYzMDFhZWYyNjFjMDU5NTk2ZDM0ZDA1MyJ9"
         }
       ]
     }
   ],
   "verification": {
     "by": "openwiki/0.7.2",
-    "at": "2026-11-08T01:57:23.266Z"
+    "at": "2026-11-08T06:01:44.565Z"
   }
 }

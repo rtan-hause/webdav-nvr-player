@@ -3,9 +3,6 @@ type: subsystem
 title: Store and Database Schema
 description: The internal/store package that holds webdav-nvr-player's index on SQLite or Postgres, covering dialect selection, migrations, the tables, the clip and snapshot state columns that double as the work queue, and the queries the API and ingest depend on.
 tags: [database, sqlite, postgres, schema, migrations, work-queue]
-verified:
-  - by: openwiki/0.7.2
-    at: 2026-11-08T01:57:23.266Z
 sources:
   - id: openwiki-source-fe6ed484415e36d1f640a8c3
     resource: repo://internal/store/media.go
@@ -15,7 +12,10 @@ sources:
     resource: repo://internal/store/store_test.go
   - id: openwiki-source-4a81fcd95533ed8ba5a77739
     resource: repo://internal/store/store.go
-generated: { by: "claude-code", at: "2026-11-08T01:57:23.266Z" }
+generated: { by: "claude-code", at: "2026-11-08T06:01:44.565Z" }
+verified:
+  - by: openwiki/0.7.2
+    at: 2026-11-08T06:01:44.565Z
 ---
 
 # Store and Database Schema
@@ -98,7 +98,7 @@ snapshot ─snapshot missing/unreadable─▶ frame (UnpairForFrame)
 
 **Snapshot `status`:** `pending` (inserted) → `ready` (after `PairSnapshot`, paired or not) → `deleted`.
 
-How pairing decides is described in [Snapshot Pairing and Thumbnails](../ingest/snapshot-pairing-and-thumbnails.md).
+Both pairing directions (`PairClip` from a clip, `PairSnapshot` from a snapshot) join on the same `pairable` condition and order by the same `pairOrder`, so a clip and a snapshot are matched by one rule whichever arrives first: same camera, both `ready`, neither already paired, snapshot taken between `beforeMS` ahead of the clip's start and its end, closest to the start wins. How pairing decides is described in [Snapshot Pairing and Thumbnails](../ingest/snapshot-pairing-and-thumbnails.md).
 
 ## Key operations
 

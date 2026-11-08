@@ -49,7 +49,7 @@ X-NVR-Secret: <webhook secret>
 {"path": "{{.VirtualPath}}"}
 ```
 
-See [docs/sftpgo.md](https://github.com/rtan-hause/webdav-nvr-player/blob/main/docs/sftpgo.md).
+See [Upload Webhook (SFTPGo)](https://github.com/rtan-hause/webdav-nvr-player/blob/main/openwiki/integrations/upload-webhook.md).
 
 ## Storage and scaling
 

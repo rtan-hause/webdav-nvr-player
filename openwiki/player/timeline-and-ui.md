@@ -3,29 +3,31 @@ type: subsystem
 title: Timeline and Player UI
 description: The React components of the webdav-nvr-player UI, covering the canvas day timeline with lanes, zoom, pan, scrub and pinch, the viewport and its gestures, the custom control bar, the dock, the clip list, split and theater layouts, keyboard shortcuts, the status page, and the dark colour tokens.
 tags: [frontend, ui, timeline, canvas, keyboard, layout, theming]
-verified:
-  - by: openwiki/0.7.2
-    at: 2026-11-08T01:57:23.266Z
 sources:
-  - id: openwiki-source-e3e55ef2e47ca3fb3eb99e5a
-    resource: repo://docs/design-decisions.md
   - id: openwiki-source-2a66ee6d8055e80ef6e42df6
     resource: repo://web/src/App.tsx
   - id: openwiki-source-2f7729b14b86f21c8c1c7b30
     resource: repo://web/src/components/ClipList.tsx
   - id: openwiki-source-6c9b5ed1bdc83b6b24a3c1bf
     resource: repo://web/src/components/ControlBar.tsx
-  - id: openwiki-source-b03f18de688f67eb30e39964
-    resource: repo://web/src/components/Timeline.tsx
-  - id: openwiki-source-b659eb85710712285e801cd9
-    resource: repo://web/src/components/timelineGeom.ts
+  - id: openwiki-source-9e9ecdfcb3b8fa6146f1e171
+    resource: repo://web/src/components/timeline/draw.ts
+  - id: openwiki-source-30b08c1765420c0c05d60851
+    resource: repo://web/src/components/timeline/geometry.ts
+  - id: openwiki-source-ac995e67156f747bd194fb08
+    resource: repo://web/src/components/timeline/gestures.ts
+  - id: openwiki-source-64e72a25f56f8ddb41b91c62
+    resource: repo://web/src/components/timeline/Timeline.tsx
   - id: openwiki-source-de879d9d6c1d598298d6f11e
     resource: repo://web/src/components/Viewport.tsx
   - id: openwiki-source-2d994c2a65621110d714e307
     resource: repo://web/src/index.css
   - id: openwiki-source-a546101974e7cf9f4300a697
     resource: repo://web/src/StatusPage.tsx
-generated: { by: "claude-code", at: "2026-11-08T01:57:23.266Z" }
+generated: { by: "claude-code", at: "2026-11-08T06:01:44.565Z" }
+verified:
+  - by: openwiki/0.7.2
+    at: 2026-11-08T06:01:44.565Z
 ---
 
 # Timeline and Player UI
@@ -48,11 +50,20 @@ App ─ SignedIn ─ Player (.app[data-layout=split|theater])
 - **Theater** (the expand button, `F`, or double-clicking the middle of the video): the video gets the whole window, and the browser goes full screen if it can. The clip list becomes a drawer. Leaving the browser's full screen (Esc) also leaves theater mode. A `ResizeObserver` publishes `--top-h` and `--dock-h` so theater mode can place overlays around the header and dock.
 - **Quiet**: after a period with no pointer or key activity while playing (and no drawer open or scrubbing), `idle` turns on and the controls fade.
 
-## Timeline (`components/Timeline.tsx`)
+## Timeline (`components/timeline/`)
 
-The timeline is drawn on a **canvas**, because a busy day has over a thousand clips. It redraws on the next animation frame after any store change, resize, or tick of the "NOW" line (a `dirty` flag). Device pixel ratio is handled.
+The timeline is drawn on a **canvas**, because a busy day has over a thousand clips. It is split into four files:
 
-Layout constants are in `components/timelineGeom.ts`, which the dock shares to size the canvas:
+| File | Job |
+|---|---|
+| `Timeline.tsx` | The React component: owns the canvas, schedules redraws, and wires up drawing and input. |
+| `draw.ts` | `createPainter(canvas)`: draws one frame back to front (background, overview strip, time not yet recorded, ticks, clips and snapshots, playhead, camera names) and returns the name-gutter width it laid out. |
+| `gestures.ts` | `attachGestures(canvas, scale)`: pointer and wheel input, turned into store actions. Returns a function that removes the listeners. |
+| `geometry.ts` | Layout constants and the time ↔ x `Scale` (`timeScale`, `overviewScale`, `lanes`, `region`), shared by drawing, input and the dock. |
+
+Input always uses the scale from the *last drawn* frame, because the gutter width is only known after drawing. `Timeline.tsx` redraws on the next animation frame after any store change, resize, or tick of the "NOW" line (a `dirty` flag). Device pixel ratio is handled.
+
+Layout constants are in `geometry.ts`; the dock uses `timelineHeight` and the lane limits from it to size the canvas:
 
 | Element | Description |
 |---|---|
@@ -70,7 +81,7 @@ What gets drawn:
 
 Interaction (pointer events plus wheel):
 
-- **Tap a lane or a camera name**: moves the playhead there and selects that camera.
+- **Tap a lane**: moves the playhead to that time and selects that camera. **Tapping a camera name** only selects the camera.
 - **Drag the playhead**: scrub (`scrubTo` while dragging, `endScrub` on release). The grab radius is 8 px for a mouse and 18 px for touch.
 - **Drag anywhere else on a lane**: pan. When zoomed all the way out there's nothing to pan, so the drag scrubs instead.
 - **Drag on the overview strip or the axis**: move the view along the day.

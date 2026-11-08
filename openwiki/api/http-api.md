@@ -5,7 +5,7 @@ description: Route map and behavior of the webdav-nvr-player HTTP server, coveri
 tags: [http, api, routes, streaming, webhook, spa]
 verified:
   - by: openwiki/0.7.2
-    at: 2026-11-08T01:57:23.266Z
+    at: 2026-11-08T06:01:44.565Z
 sources:
   - id: openwiki-source-b12cba1b5936a1da8739d39c
     resource: repo://internal/auth/auth.go
@@ -15,16 +15,20 @@ sources:
     resource: repo://internal/httpapi/httpapi.go
   - id: openwiki-source-a6772a3d2ce2f1717dba565f
     resource: repo://internal/httpapi/remux.go
+  - id: openwiki-source-cb6db154f09847ad323dedcc
+    resource: repo://internal/httpx/httpx.go
   - id: openwiki-source-7afa473e4d0747f8346cea12
     resource: repo://internal/signedurl/signedurl.go
   - id: openwiki-source-e7f75bc9b8df37775fc82ec6
     resource: repo://web/src/lib/api.ts
-generated: { by: "claude-code", at: "2026-11-08T01:57:23.266Z" }
+generated: { by: "claude-code", at: "2026-11-08T06:01:44.565Z" }
 ---
 
 # HTTP API
 
 The whole HTTP surface is one `http.ServeMux` built by `httpapi.New` in `internal/httpapi/httpapi.go`. The binary serves the JSON API, the video streams and the embedded single-page web UI on the same port. The browser client for these endpoints is `web/src/lib/api.ts`.
+
+Every JSON reply goes through `internal/httpx`: `httpx.JSON` sets `Content-Type: application/json` and encodes the value, and `httpx.Error` writes `{"error": "..."}`, the shape the web UI reads error messages from. The sign-in handlers in `internal/auth` use the same helpers.
 
 ## How the handler is assembled
 
@@ -65,10 +69,12 @@ When auth is configured, the finished mux is wrapped in `auth.Manager.Protect`. 
 
 ## Streaming
 
-`stream` (in `internal/httpapi/remux.go`) first asks `remuxFor` whether the clip is a fragmented MP4:
+`stream` (in `internal/httpapi/remux.go`) first asks `remuxFor` whether the clip is a fragmented MP4. `remuxFor` reads the file through an `errReader`, which remembers whether the *source* failed, so a network error is not mistaken for a file that can't be remuxed:
 
-- **Not fragmented, or can't be remuxed:** `proxy` forwards the request to WebDAV as it is, including the `Range` headers. It copies back `Content-Length`, `Content-Range`, `Accept-Ranges`, `ETag` and `Last-Modified`, and sets `Content-Type: video/mp4` and `Cache-Control: private, max-age=3600` on 200/206 replies. An upstream 404 becomes "this recording is no longer on the server". Other upstream failures become **502**.
-- **Fragmented:** the handler serves a virtual regular MP4: an in-memory `moov` header followed by the original media bytes, fetched with one range request per seek. `http.ServeContent` handles `Range`, `If-Range`, conditional requests and `HEAD`. The ETag is `"rx1-<fnv64(path,size,etag)>"`.
+- **Source error while checking:** **404** "this recording is no longer on the server" when WebDAV says the file is gone, **502** for any other failure, and nothing at all if the client already went away.
+
+- **Not fragmented, or the remux fails on the file's contents:** `proxy` forwards the request to WebDAV as it is, including the `Range` headers. It copies back `Content-Length`, `Content-Range`, `Accept-Ranges`, `ETag` and `Last-Modified`, and sets `Content-Type: video/mp4` and `Cache-Control: private, max-age=3600` on 200/206 replies. An upstream 404 becomes "this recording is no longer on the server". Other upstream failures become **502**.
+- **Fragmented:** the handler serves a virtual regular MP4: an in-memory `moov` header followed by the original media bytes, fetched with one range request per seek. `http.ServeContent` handles `Range`, `If-Range`, conditional requests and `HEAD`. The ETag is `"rx1-<fnv64(path,size,etag)>"`, with `Content-Type: video/mp4` and `Cache-Control: private, max-age=3600`.
 
 Remux headers are cached in memory (up to 2048 entries, oldest evicted first, keyed by path, size and ETag). Each one is built once even when requests arrive at the same time, and builds run detached from the request with a 30 s timeout, so a browser dropping its first request doesn't waste the work. Failed builds are not cached. The mechanics are in [MP4 Probing and Virtual Remux](../streaming/mp4-probe-and-virtual-remux.md).
 

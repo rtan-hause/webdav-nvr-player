@@ -3,49 +3,57 @@ type: operations
 title: CI and Releases
 description: The GitHub Actions workflows that test and build webdav-nvr-player and its Helm chart, the two independent release-please setups, image and chart publishing to GHCR, and how an app release bumps the chart's appVersion to produce a chart release.
 tags: [ci, release-please, github-actions, ghcr, helm, releases]
-verified:
-  - by: openwiki/0.7.2
-    at: 2026-11-08T01:57:23.266Z
 sources:
-  - id: openwiki-source-c8b553d906751e787481fa78
-    resource: repo://.github/workflows/chart-ci.yaml
   - id: openwiki-source-0513af278b24cfbffb756b85
     resource: repo://.github/workflows/chart-release.yaml
   - id: openwiki-source-e560413277439079b0684419
     resource: repo://.github/workflows/ci.yaml
+  - id: openwiki-source-6d4b4e707b8d60b6ccfa3425
+    resource: repo://.github/workflows/openwiki-update.yml
   - id: openwiki-source-f8b7b48444f96e08372841e6
     resource: repo://.github/workflows/release.yaml
   - id: openwiki-source-14263b4e5e27713378846549
     resource: repo://release-please-config.chart.json
   - id: openwiki-source-482fa4ca84f42b04ba025fc1
     resource: repo://release-please-config.json
-generated: { by: "claude-code", at: "2026-11-08T01:57:23.266Z" }
+  - id: openwiki-source-cc2828785988d51226a4241e
+    resource: repo://renovate.json
+generated: { by: "claude-code", at: "2026-11-08T06:01:44.565Z" }
+verified:
+  - by: openwiki/0.7.2
+    at: 2026-11-08T06:01:44.565Z
 ---
 
 # CI and Releases
 
-The app and the Helm chart are **tested and released independently**. Four workflows in `.github/workflows/` split along that line, and they all run on the self-hosted runner label `self-hosted-hause`.
+The app and the Helm chart are **released independently**, but **tested by one workflow**. All workflows run on GitHub-hosted `ubuntu-latest` runners: the repository is public, and fork pull requests must never reach self-hosted runners.
 
 | Workflow | Trigger | Does |
 |---|---|---|
-| `ci.yaml` | PRs and pushes to `main`, **except** chart, docs, Markdown, license, Renovate and release-bookkeeping changes | `make lint`, `make test` (with Postgres and ffmpeg), plus a Docker build with no push |
-| `chart-ci.yaml` | PRs and pushes touching `charts/**` | `helm lint` + `helm template` with every file in `charts/webdav-nvr-player/ci/*.yaml` |
+| `ci.yaml` | every PR, and pushes to `main` | Go and web lint + tests, a multi-arch image build, end-to-end tests of that image, chart lint, workflow lint, then one `ci-ok` summary check |
 | `release.yaml` | pushes to `main` except chart-only changes | release-please for the app; on release, multi-arch image to GHCR |
 | `chart-release.yaml` | pushes to `main` touching the chart or its release config, or manual dispatch | release-please for the chart; on release, `helm package` + `helm push` to OCI |
+| `openwiki-update.yml` | manual dispatch (the daily schedule is commented out) | regenerates `openwiki/` and opens a `docs: update OpenWiki` PR |
 
-All workflows cancel superseded runs for PRs only. The release workflows never cancel (`cancel-in-progress: false`).
+`ci.yaml` cancels superseded runs for PRs only. The release workflows never cancel (`cancel-in-progress: false`).
 
-## App CI (`ci.yaml`)
+## CI (`ci.yaml`)
 
-The `test` job:
+The workflow **always starts**, and its jobs skip themselves based on what changed. A `changes` job runs `dorny/paths-filter` and sets three outputs:
 
-- runs a `postgres:18-alpine` service and sets `NVR_TEST_POSTGRES_URL`, so the store tests run against **both** SQLite and Postgres (see [Store and Database Schema](../data/store-and-schema.md));
-- installs `make`, `gcc` and `libc6-dev`, because `go test -race` needs cgo even though the shipped binary doesn't;
-- installs ffmpeg 8.1 from the BtbN static builds, for whichever runner architecture is in use, so thumbnail tests that shell out to ffmpeg actually run;
-- sets up Go from `go.mod` and Node 26 with an npm cache;
-- runs `make lint` (go vet, a gofmt check, eslint) and then `make test` (`go test -race ./cmd/... ./internal/...` plus a TypeScript typecheck).
+- `app`: anything that ends up in the image or tests it (`cmd/`, `internal/`, `web/`, `e2e/`, `go.mod`/`go.sum`, `Dockerfile`, `.dockerignore`, `Makefile`, the workflow itself);
+- `chart`: `charts/**` or the workflow;
+- `workflows`: any file in `.github/workflows/`.
 
-The `docker` job builds the image with Buildx and a GitHub Actions cache, without pushing. This also checks that the frontend and binary build. See [Testing Guide](../testing/testing-guide.md).
+| Job | Runs when | Does |
+|---|---|---|
+| `test` | `app` | Postgres 18 service with `NVR_TEST_POSTGRES_URL` set, so the store tests run against **both** SQLite and Postgres (see [Store and Database Schema](../data/store-and-schema.md)); ffmpeg 8.1 from the BtbN static builds for the runner's architecture, so thumbnail tests that shell out to ffmpeg actually run; Go from `go.mod` and Node 26; `go mod tidy -diff && go mod verify`; then `make lint` (go vet, a gofmt check, eslint) and `make test` (`go test -race`, the TypeScript typecheck and the Vitest suite). |
+| `image` | `app` | Builds `linux/amd64,linux/arm64` with Buildx and a GitHub Actions cache, without pushing. Then loads a native build as `webdav-nvr-player:e2e` and runs the Playwright end-to-end tests (`e2e/run.sh` with `SKIP_BUILD=1`) against it. On failure, the Playwright report is uploaded for 14 days. |
+| `chart` | `chart` | `helm lint` and `helm template` with every values file in `charts/webdav-nvr-player/ci/`. |
+| `actionlint` | `workflows` | Runs a pinned `rhysd/actionlint` to catch action input renames and expression mistakes, which matters because Renovate bumps actions in release workflows that only run on `main`. |
+| `ci-ok` | always | Fails if any job above failed or was cancelled; skipped jobs count as passing. |
+
+`ci-ok` is the **only required status check** on `main`, and branch protection requires PRs to be up to date with `main` before merging. Because the workflow always runs, a PR that touches nothing testable (docs, `renovate.json`) still gets a green `ci-ok` instead of waiting forever on a check that never started. See [Testing Guide](../testing/testing-guide.md).
 
 ## App releases (`release.yaml` + `release-please-config.json`)
 
@@ -76,8 +84,18 @@ The chart's `image.tag` defaults to `appVersion`, so each chart release deploys 
 
 ## Conventional commits
 
-Both release-please setups read conventional commit messages (`feat:`, `fix:`, `chore:` ...). Use `feat`/`fix` for user-visible changes, and scope chart changes so they land under `charts/`. Docs-only commits don't trigger app CI at all.
+Both release-please setups read conventional commit messages (`feat:`, `fix:`, `chore:` ...). Use `feat`/`fix` for user-visible changes, and scope chart changes so they land under `charts/`. Docs-only commits still get a `ci-ok` check, but the app, image and chart jobs skip.
 
 ## Renovate
 
-`renovate.json` contains only the schema reference, so Renovate runs with its defaults and opens dependency update PRs for Go modules, npm, Docker base images and GitHub Actions.
+`renovate.json` extends `config:recommended`, uses semantic commit messages, and **automerges** through GitHub's auto-merge, which waits for `ci-ok`:
+
+- Updates must be at least 3 days old (`minimumReleaseAge`); minor updates of `0.x` npm packages wait 7 days.
+- **Major updates are never automerged.** They get a `major` label and need a human to read the changelog.
+- The Go toolchain (`go.mod`'s `go`/`toolchain` lines and the `golang` build image) is grouped into one PR, Node versions into another, and everything under `e2e/` into an "e2e tooling" group.
+- `go mod tidy` runs after Go updates, and lock files are refreshed weekly (Monday before 6 am, America/Los_Angeles).
+- The `githubActionsVersions` custom manager keeps versions noted with `# renovate:` comments in workflows (for example `ACTIONLINT_VERSION`) up to date.
+
+## OpenWiki (`openwiki-update.yml`)
+
+The wiki under `openwiki/` is regenerated by running `openwiki code --update` with an OpenAI key and LangSmith keys from repository secrets, then opening a `docs: update OpenWiki` PR on the `openwiki/update` branch with `peter-evans/create-pull-request`. If generation fails partway, the PR keeps the pages finished before the failure. The workflow runs only on manual dispatch; its daily schedule is commented out. The wiki can also be updated locally through a coding agent.

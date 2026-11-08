@@ -1,14 +1,14 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:40e292358c316edf18b09fd1167996b8eb56903ca0791009c3db9e44f7326edd",
+  "pageVersion": "sha256:a83a70efd8a4fabf2dc225e65ded1ef437afbb4bcac5e6dc17aba8013c31c415",
   "claims": [
     {
       "id": "claim_09c51c21dcd041758b1cad1d1951d954",
       "statement": "Unknown /api/ paths never fall through to the SPA: they return 503 when no recordings server is configured and 404 otherwise.",
       "evidence": [
         {
-          "resource": "repo://internal/httpapi/httpapi.go#L66-L74",
-          "version": "repo-lines-v1:sha256:8dbff440744640200999bbf9938e87d01cd41a9d4cb71972c7fced5f2b923a6b:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNjdjZGE4MmRhNjA2MjM4ZTA1ZTYyMzk5NTY5YzVlZTAzOTkzNDE5NjQ4YWU1ZDQzYTJiZjhjZDYzNDdmODI2MyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNzdhOWI1ZTkwMTljOGRiODc4M2VjOWMzZmViYjBhMmM5ODYyZjYxYTA1YzMwOGZlODk1ZTRhOWJlZDAzZWRiMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNTRmMjkyYThjNGM0NTc4Y2UxYzQxMDYxMWNkMWE2NTIyZGRiODFlYjVhNTNiMTI1MzUxYWVlM2VjZWQ3MDgxOCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiODY2ZDliM2JjNGE0ZjhhNzBhYWNhY2QyMzM2MmVjY2FlNTk2MmIxMzM5MWU0YzQxNWUzZjhiMzVkODY0ODU5NyJ9"
+          "resource": "repo://internal/httpapi/httpapi.go#L67-L74",
+          "version": "repo-lines-v1:sha256:762ea731674f7d629069b91e4692348ec3acd43cd1305a232c5566f9ce802555:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYmNkMzUxY2JkMGM5OWYwOTI1YWE5NDcxY2Y1YmQ1YzRjZWY1MjMwN2RmNzA3OGIyOWMyMDIyYTEyMGJjZjk5NyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNzdhOWI1ZTkwMTljOGRiODc4M2VjOWMzZmViYjBhMmM5ODYyZjYxYTA1YzMwOGZlODk1ZTRhOWJlZDAzZWRiMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTliOWQ2MTUzMjJmNTAzYzYwYzQyZmNlZDA5N2Q3YWEwZGU5OTJiZDMzNDYwYWNhM2M5NzUzNTk1ZDU3MWI3MyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiODY2ZDliM2JjNGE0ZjhhNzBhYWNhY2QyMzM2MmVjY2FlNTk2MmIxMzM5MWU0YzQxNWUzZjhiMzVkODY0ODU5NyJ9"
         }
       ]
     },
@@ -17,12 +17,12 @@
       "statement": "When auth is configured the whole mux is wrapped by auth.Manager.Protect, which requires a session for /api/ paths except an allow-list (version, auth status, login, logout, ingest, rescan); non-/api paths and AUTH=none bypass it.",
       "evidence": [
         {
-          "resource": "repo://internal/auth/auth.go#L239-L267",
-          "version": "repo-lines-v1:sha256:93a6b4a4cdb0356fbdd5dff3c59fce93bdac52957c48258b4fb6a86e9f6a4fa9:eyJzZWxlY3RlZExpbmVDb3VudCI6MjksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRiZGI5YWYxMmZjYjVlZDRlMTkwY2YwNDNlNDJiNDQxOWU0M2RhNTAyY2Q2YWFmNDM5YjYwYTg1NmVjNmNjZjkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImRmYzA5MzU4YzRkMWEwZDQ1NDg3ZTIwZjUwZmYyNzgzZjE1NmM0MTYwNjA1YWQ2MjBhNjVjMjFjNzFiMzQ3NGEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjEyOGQzNTAyYmVmMzQ4NjUyMzZlMWU4Y2E1YWVkYmQzMGUzMWMzZjZjNDU1ZDEyNTc4ZTJiMTMxMWQ5NWIxYzQifQ"
+          "resource": "repo://internal/auth/auth.go#L240-L268",
+          "version": "repo-lines-v1:sha256:a313b09af53d780ec5bb25f251e4f1434353cc1098e17f9f7c7ed315982460a1:eyJzZWxlY3RlZExpbmVDb3VudCI6MjksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRiZGI5YWYxMmZjYjVlZDRlMTkwY2YwNDNlNDJiNDQxOWU0M2RhNTAyY2Q2YWFmNDM5YjYwYTg1NmVjNmNjZjkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImRmYzA5MzU4YzRkMWEwZDQ1NDg3ZTIwZjUwZmYyNzgzZjE1NmM0MTYwNjA1YWQ2MjBhNjVjMjFjNzFiMzQ3NGEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjEyOGQzNTAyYmVmMzQ4NjUyMzZlMWU4Y2E1YWVkYmQzMGUzMWMzZjZjNDU1ZDEyNTc4ZTJiMTMxMWQ5NWIxYzQifQ"
         },
         {
           "resource": "repo://internal/httpapi/httpapi.go#L76-L79",
-          "version": "repo-lines-v1:sha256:92b72c2fe9ff8478634d1ba3eda64af0db1646f4d7a373f89744dd01d432c3f0:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOGI4OTEyODNlODRkZmMyNjUyOGY3M2U3NDJlYWE4OWFhZjEwNjk3Y2U4MTQ4NTI3OGVmY2MzYTJhZjk0YjFlYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOTUzMzViOWQ5MTYwZWMwZWU1ZGU4YmY1MmU5NzY3NWU0M2ZlYjA3YWUzNGFhODFkMDk2NDQzMThkODQ2YTQ1OCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTFlZGFiNDAxMWZjMmE2N2FjZjk0MTViNmVjMGIyMWNiZDBiYjczN2QxMTFkMTJmYTJhOTM0Y2NhZTYzMWU0NCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNWFmNGIyN2U5NDA0YjExYmQ4ZDQwM2EwOTc4NDA1MjAxZGMzNmFmYTA0MmE1MjAzYzFmZDc3NmMyMzFkYjNmZiJ9"
+          "version": "repo-lines-v1:sha256:92b72c2fe9ff8478634d1ba3eda64af0db1646f4d7a373f89744dd01d432c3f0:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOGI4OTEyODNlODRkZmMyNjUyOGY3M2U3NDJlYWE4OWFhZjEwNjk3Y2U4MTQ4NTI3OGVmY2MzYTJhZjk0YjFlYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOTUzMzViOWQ5MTYwZWMwZWU1ZGU4YmY1MmU5NzY3NWU0M2ZlYjA3YWUzNGFhODFkMDk2NDQzMThkODQ2YTQ1OCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMWY3MDk1YzFmNmYxODAzMzFiZTY5ZWQ3MzYzMWM4ZWJiOTY3MjExMDUzZWJmZjY1NjM2N2JmNjdlMGUzYmQ3YSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMWU0OWM4ZjY1MmUyMDUxYzY3NGJlYjE3MDE2MDUwMDYzNTA1MWY3MDU5ODM2ZDI3NzI3YzIyNjU1ZDY2ODZlZiJ9"
         }
       ]
     },
@@ -31,8 +31,8 @@
       "statement": "GET /api/clips requires from<to in Unix milliseconds and rejects windows longer than 8 days; it returns clips plus only unpaired snapshots.",
       "evidence": [
         {
-          "resource": "repo://internal/httpapi/api.go#L133-L175",
-          "version": "repo-lines-v1:sha256:3b17b028dadf43c4fb1a944ce5a4fd850d37234de89df4ffb1ef50cd2d5b5d69:eyJzZWxlY3RlZExpbmVDb3VudCI6NDMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc3ZTU4ZGNlZDBhZDIzZjBhNWEyMWM4ZDljOGEyOGM5MDA2YzA2MGM5ZjUxZjM1ZjA2NWU5NzM3N2EyMzYxOWQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjAwMmM0NzY4ZjhjODM2MDYwY2I3OWNhOWYzMWZmMmIyZDIzZjRlN2RjMmVlZTczZDk4ZTIxZmJhZDc4YzVlMzQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImIyZjRhZTZhZWE4ZDE2YzM0ZjlhODUwMTQxZmM5MjcwYmNhYzhjNTIzMTljNDM1YzZhZDU3NTQyY2MyYTk1MTAifQ"
+          "resource": "repo://internal/httpapi/api.go#L130-L172",
+          "version": "repo-lines-v1:sha256:28eda8c85f5965aecc9689fd98757e597ebf7ea809941389cbe0a6adafda3939:eyJzZWxlY3RlZExpbmVDb3VudCI6NDMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc3ZTU4ZGNlZDBhZDIzZjBhNWEyMWM4ZDljOGEyOGM5MDA2YzA2MGM5ZjUxZjM1ZjA2NWU5NzM3N2EyMzYxOWQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijg0ODhhNWNjOGMzNDEwYWM5MGUxYjQ0ZDkwMDhkNDMwNTdkNWJhMWQ3OTRkYTk0ODBmYjlkNjUzMWM1MGEyYWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImIyZjRhZTZhZWE4ZDE2YzM0ZjlhODUwMTQxZmM5MjcwYmNhYzhjNTIzMTljNDM1YzZhZDU3NTQyY2MyYTk1MTAifQ"
         }
       ]
     },
@@ -41,8 +41,8 @@
       "statement": "Clips whose status is deleted are treated as not found (404) by every per-clip endpoint.",
       "evidence": [
         {
-          "resource": "repo://internal/httpapi/api.go#L177-L193",
-          "version": "repo-lines-v1:sha256:2ebc54e6831d8aa9ea33dbdc2c0637f32022a7c96d42d4a00e7bb9e901cced10:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg2NDdjNjk1ZDhiMTgyZWMxNjZmMWNhZjVlMzMyYWQ3ZDkzNGE1ZGI4NGUxNGI5MmZkZTNjOGVlMDMxMDI1YzIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFhYTZkMzVlZjNkNTUwNGJhNzNiNGNiYjdjMzY4MmRlMTcwZDViMjNhZjdhNGUxMzYxZjkzYmZlYWY2ZGYyZWQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk4MWExYmU5YzU3ZTBjNTQzODA2YzRkNDY2MjdmZjBmOWZmZmJiYTdmNWY5NmNmOWYyMTFmOGZjYWMxZmJlY2QifQ"
+          "resource": "repo://internal/httpapi/api.go#L174-L190",
+          "version": "repo-lines-v1:sha256:d42881fc528b141520ffd409da8786b83ec30a43a95da4c3239b6abd20ce4dd2:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg2NDdjNjk1ZDhiMTgyZWMxNjZmMWNhZjVlMzMyYWQ3ZDkzNGE1ZGI4NGUxNGI5MmZkZTNjOGVlMDMxMDI1YzIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjVjNmIyZTYwZDc2NjU0NjUzYWUyOWUyYTRhMmE4ZjNmMmYyZTJkZDlhZWNiMGI4ZWFlNTRkMGJmMGRlNWI3NzkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk4MWExYmU5YzU3ZTBjNTQzODA2YzRkNDY2MjdmZjBmOWZmZmJiYTdmNWY5NmNmOWYyMTFmOGZjYWMxZmJlY2QifQ"
         }
       ]
     },
@@ -51,12 +51,12 @@
       "statement": "The stream endpoint serves fragmented MP4s as a virtual remux via http.ServeContent with an rx1- FNV ETag, and passes other clips through to WebDAV with range headers forwarded.",
       "evidence": [
         {
-          "resource": "repo://internal/httpapi/api.go#L244-L278",
-          "version": "repo-lines-v1:sha256:2e04aab6ea1ce2387400803b0dae50c4377c8b1f393450dcb98163baf90c6125:eyJzZWxlY3RlZExpbmVDb3VudCI6MzUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjEwNDVmOTA1M2NmMzUxZjNhMmI0N2UwZWUyZGNkOTI3YTcwMGZiNDhjOGU0OTBhNTAyMTlmZTg1YzBjYmViYTAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImE2OTRmMjI0MTVhYzliOTM1M2UwMGJhZWJkMjkyODI0MGZkMzM3NjJhNWM4YjZlNzdlODFkODdiNmIyYmJhYjUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjM3OWU4ZDJkYjkwYmZlZjFiYzczZDk0YWI3Njc4ZjdmNjYyMmU3MmJhNjExNmRlMzk2Mjg1ZTQ3ZDYzYjBjN2MifQ"
+          "resource": "repo://internal/httpapi/api.go#L241-L275",
+          "version": "repo-lines-v1:sha256:b662a16aa32458e5b75e36905165d56612f57e2e28ac6d97304796f9f82fed37:eyJzZWxlY3RlZExpbmVDb3VudCI6MzUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjEwNDVmOTA1M2NmMzUxZjNhMmI0N2UwZWUyZGNkOTI3YTcwMGZiNDhjOGU0OTBhNTAyMTlmZTg1YzBjYmViYTAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImE2OTRmMjI0MTVhYzliOTM1M2UwMGJhZWJkMjkyODI0MGZkMzM3NjJhNWM4YjZlNzdlODFkODdiNmIyYmJhYjUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjM3OWU4ZDJkYjkwYmZlZjFiYzczZDk0YWI3Njc4ZjdmNjYyMmU3MmJhNjExNmRlMzk2Mjg1ZTQ3ZDYzYjBjN2MifQ"
         },
         {
-          "resource": "repo://internal/httpapi/remux.go#L120-L149",
-          "version": "repo-lines-v1:sha256:78026fdfef1c40e95826936e698970c42a907f07866ba78b1bf1a2f414e19b3f:eyJzZWxlY3RlZExpbmVDb3VudCI6MzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE5YTkyYjk2ZGMyZDBiNDdlYzNjYWUyZjUyYzJiODEzOWI4ODVlZDQ3NWM1ZWJhM2E1MmEwNmE1NGNjNjI0N2UiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjkzYzhjODdlNTc4NGY3YmM2ZDRhNTJkNTQ5YTdkZjQ3MGY5MmExNGNiYTdkNzkxNWI5ZWFjZWM5M2Y2NjUxNzEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijc3Yzc3ZGNlYWM2YmNiMjljZDk5ZmVjZThmYTMwOGFhZWU2NmI0NDUzY2YwNzFhMzhlNzA0ODdkNmI1YWZiZDkifQ"
+          "resource": "repo://internal/httpapi/remux.go#L121-L150",
+          "version": "repo-lines-v1:sha256:dad8d58a5e788e56b938c40b080a2d006b53399e8c0616f78d3fd4c795ee034d:eyJzZWxlY3RlZExpbmVDb3VudCI6MzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE5YTkyYjk2ZGMyZDBiNDdlYzNjYWUyZjUyYzJiODEzOWI4ODVlZDQ3NWM1ZWJhM2E1MmEwNmE1NGNjNjI0N2UiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjkzYzhjODdlNTc4NGY3YmM2ZDRhNTJkNTQ5YTdkZjQ3MGY5MmExNGNiYTdkNzkxNWI5ZWFjZWM5M2Y2NjUxNzEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijc3Yzc3ZGNlYWM2YmNiMjljZDk5ZmVjZThmYTMwOGFhZWU2NmI0NDUzY2YwNzFhMzhlNzA0ODdkNmI1YWZiZDkifQ"
         }
       ]
     },
@@ -65,7 +65,7 @@
       "statement": "Remux headers are cached in memory up to 2048 entries with FIFO eviction, built once per key with concurrent callers waiting, built detached from the request with a 30s timeout, and failed builds are not cached.",
       "evidence": [
         {
-          "resource": "repo://internal/httpapi/remux.go#L26-L82",
+          "resource": "repo://internal/httpapi/remux.go#L27-L83",
           "version": "repo-lines-v1:sha256:1702d7946b519c260e787ad3103b352b5f7fe46f7e74e6bd59c18b0719d6c64c:eyJzZWxlY3RlZExpbmVDb3VudCI6NTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQwZDk4NmIwZGY3ZTljNDdhYTc4MmIwNjYwOTQ2OWJjOGVlY2E0NzYxMmI4MzhjZjgyOWRkYTRiY2RkZDMzMjkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImY4NDMxZmRiY2RhYjlkZjkxNDFmNjA5Yzc3OGVjYTMwYmQ1ZWNmMTBjZTZiNTIwZDUyZTYwNTAxNGVhMmRjZDciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjFhMTQ2YmE0OTBkNzczZmUzOGJkZjYxMjI1NTMzODI3N2M4Mjg2OTdmYzkxOWFkNzNjZTE2ZGJmYWY4NzJhODcifQ"
         }
       ]
@@ -75,8 +75,8 @@
       "statement": "/internal/raw/{token} only serves loopback clients and requires a valid unexpired HMAC-signed token, so ffmpeg can fetch recordings without credentials on its command line.",
       "evidence": [
         {
-          "resource": "repo://internal/httpapi/api.go#L228-L242",
-          "version": "repo-lines-v1:sha256:777da1ef576519fc2c9431d39228ed68daacca4fea212cd2918462365d6fc58c:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ5ZmZmMGQyNzVjOTYwODkxMTA1MWY4YmFhMmVjMDNhNGI2NDhmMGZjODY2NWJlZjViMDk5ZWE5ZGJkMGZlYjYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImJkODIzNWNlYWFkZmVhZTQ1OTVhY2U2ZjJkNWQ5MmJkZDY3ODdmZjRjNzc0ZmZhMTgzZmRhNzkxYTE4NTYxMjMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijc5NDdmM2ZlYWU3ZTUyZmNhZjQ4MDgyZDYzN2EzODYyZjczMmFkNjk5ODY5YjA4NDhkZDg2NTMxYTVmMjJjZGYifQ"
+          "resource": "repo://internal/httpapi/api.go#L225-L239",
+          "version": "repo-lines-v1:sha256:6b29ad32dff226370793628653ab56ff1bbecb1a282eec26c06fe2340c85c73d:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ5ZmZmMGQyNzVjOTYwODkxMTA1MWY4YmFhMmVjMDNhNGI2NDhmMGZjODY2NWJlZjViMDk5ZWE5ZGJkMGZlYjYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImJkODIzNWNlYWFkZmVhZTQ1OTVhY2U2ZjJkNWQ5MmJkZDY3ODdmZjRjNzc0ZmZhMTgzZmRhNzkxYTE4NTYxMjMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijc5NDdmM2ZlYWU3ZTUyZmNhZjQ4MDgyZDYzN2EzODYyZjczMmFkNjk5ODY5YjA4NDhkZDg2NTMxYTVmMjJjZGYifQ"
         },
         {
           "resource": "repo://internal/signedurl/signedurl.go#L16-L62",
@@ -99,8 +99,8 @@
       "statement": "POST /api/ingest and /api/rescan are disabled (403) when INGEST_SECRET is empty and otherwise require a constant-time-matched X-NVR-Secret header (401 if wrong).",
       "evidence": [
         {
-          "resource": "repo://internal/httpapi/api.go#L304-L314",
-          "version": "repo-lines-v1:sha256:896559907fc418d6391b1ccb28ad8b7152b0661fa1b0ca8708e9890d95680039:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIzZTdlZDJlYjI2NjEyOGI5NDAzODM4YWZjNmU5MDI3ZDljZTE2YjVkOWY5OGViNDczNGM3ZDU1ZTU2YWMyNWQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFlYmEzNGNlNGEwODllY2Y2OTQ4OTNhOWM4ZGVmNThlYThjZGVlMWZkMDRhMGI0N2NhNWI2ZmFiYjM3ZGFmYjUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImIzMjExYjgzNTViZDNlZTgwODhhNzhhYmVmYjJhYTNiN2YwMzFiYzcyMzI1YzJjMDUwMWQ4MWQzNjZhODE5M2YifQ"
+          "resource": "repo://internal/httpapi/api.go#L301-L311",
+          "version": "repo-lines-v1:sha256:35c7a1fce971c5a796dedf7c27c779efc8cf7eace79902969d1fa311c0111661:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIzZTdlZDJlYjI2NjEyOGI5NDAzODM4YWZjNmU5MDI3ZDljZTE2YjVkOWY5OGViNDczNGM3ZDU1ZTU2YWMyNWQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFlYmEzNGNlNGEwODllY2Y2OTQ4OTNhOWM4ZGVmNThlYThjZGVlMWZkMDRhMGI0N2NhNWI2ZmFiYjM3ZGFmYjUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImIzMjExYjgzNTViZDNlZTgwODhhNzhhYmVmYjJhYTNiN2YwMzFiYzcyMzI1YzJjMDUwMWQ4MWQzNjZhODE5M2YifQ"
         }
       ]
     },
@@ -109,8 +109,8 @@
       "statement": "The ingest webhook maps outcomes to 404 for files missing on the server, 502 for other errors, 204 for ignored files and 202 with the kind for indexed clips or snapshots; rescan returns 409 while a scan runs.",
       "evidence": [
         {
-          "resource": "repo://internal/httpapi/api.go#L316-L349",
-          "version": "repo-lines-v1:sha256:832b423dce645b164900574ef9336111f2ec5d5dd1d811b973133006c0c19c1b:eyJzZWxlY3RlZExpbmVDb3VudCI6MzQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ1Njg1YjhjOGZhMWM2NWVmODcwZjhlMmRmMzIxN2RmOGJiMjBlZDdjNzNiMmViZTZjZDE4Y2RhN2Y4NzRjYWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjljNWZmMTI0OGM0OTY4Mzc3NjgwODhmODgxOTAyYTc1NDRjMGIzYTliZWNjOTE0MzU1YThlY2QwZWU0YzExYjEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+          "resource": "repo://internal/httpapi/api.go#L313-L346",
+          "version": "repo-lines-v1:sha256:c975dee0f4150930230654bbce134f8014810b2102ae11b898680b328005af1d:eyJzZWxlY3RlZExpbmVDb3VudCI6MzQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ1Njg1YjhjOGZhMWM2NWVmODcwZjhlMmRmMzIxN2RmOGJiMjBlZDdjNzNiMmViZTZjZDE4Y2RhN2Y4NzRjYWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjljNWZmMTI0OGM0OTY4Mzc3NjgwODhmODgxOTAyYTc1NDRjMGIzYTliZWNjOTE0MzU1YThlY2QwZWU0YzExYjEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
         }
       ]
     },
@@ -119,7 +119,7 @@
       "statement": "The SPA handler allows only GET/HEAD, serves Vite assets under assets/ as immutable for a year, and falls back to index.html with no-cache for client routes, or 503 when the UI isn't embedded.",
       "evidence": [
         {
-          "resource": "repo://internal/httpapi/httpapi.go#L88-L117",
+          "resource": "repo://internal/httpapi/httpapi.go#L82-L111",
           "version": "repo-lines-v1:sha256:b6f0f723a4ad206108c80496bc32cf5d3c7dd891eefc1a50aba4b58791981fc7:eyJzZWxlY3RlZExpbmVDb3VudCI6MzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJjZTFiZjgwNjJhNzVhZjUwOGY1MzVmMWFjMTQxMjUxNTEwYzdmMzEwNzJlYmNkN2ZlMzQwMmRmYWU1YWJiYTEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImNjNjcxMTdjMDkxNjVhMjk5OTEwZDhhZmI3MmQ1ZTNmMDY3YzI5NmU0ZDViODE1YWY4OTU5MDQ0YzFiYmEzZTciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
         }
       ]
@@ -139,14 +139,34 @@
       "statement": "Thumbnails are served with a 5-minute private cache because a frame thumbnail may later be replaced by the camera snapshot.",
       "evidence": [
         {
-          "resource": "repo://internal/httpapi/api.go#L208-L226",
-          "version": "repo-lines-v1:sha256:696d9577333ec6555b829670f07e2c2bc74f54eee519b3a37f7fb56e8a4f0a3f:eyJzZWxlY3RlZExpbmVDb3VudCI6MTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3NjA5OTlkOTM3MjAxY2ZlNmM2OWFkYTAxY2FhNDdiMGYxZDhjNWUyNzc4NjEwNjJhNGEyMjQ2NDQzOGZhMzAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjRhNTA1YTgwMTdkMDkwYjFhY2Q0OGU5NGMwMmQ0NmI5YjQ2YzRjNDY1ZTM2ZTlmNjFjMWYxZTJhOWM1ZmJkZTkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImEwYzhmMzFlZmI0Mjc4OGIyMWU3OTExNTA3OTQ2M2U2YzE2YzQxMTVlZmI4NDYzZTE0YjI0NTVjOGYxYjg4MWMifQ"
+          "resource": "repo://internal/httpapi/api.go#L205-L223",
+          "version": "repo-lines-v1:sha256:9b3a44a819917c9884e9bfe3178e132f0228ea65cca1af32051222b0d5340f69:eyJzZWxlY3RlZExpbmVDb3VudCI6MTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3NjA5OTlkOTM3MjAxY2ZlNmM2OWFkYTAxY2FhNDdiMGYxZDhjNWUyNzc4NjEwNjJhNGEyMjQ2NDQzOGZhMzAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjRhNTA1YTgwMTdkMDkwYjFhY2Q0OGU5NGMwMmQ0NmI5YjQ2YzRjNDY1ZTM2ZTlmNjFjMWYxZTJhOWM1ZmJkZTkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImEwYzhmMzFlZmI0Mjc4OGIyMWU3OTExNTA3OTQ2M2U2YzE2YzQxMTVlZmI4NDYzZTE0YjI0NTVjOGYxYjg4MWMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_be9579d2643543b8864604f5b98227c6",
+      "statement": "While checking whether a clip needs remuxing, a source read failure is reported as 404 when WebDAV says the file is gone and 502 otherwise, whereas a remux failure on the file's own contents falls back to passing the file through unchanged.",
+      "evidence": [
+        {
+          "resource": "repo://internal/httpapi/remux.go#L85-L140",
+          "version": "repo-lines-v1:sha256:312593cca6f3bf78e934b39a049f6651cfa389fea2c8271dcc442b482a7b2f65:eyJzZWxlY3RlZExpbmVDb3VudCI6NTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU4NjdhMTZlYTE5YzE3NmI2ZDcxNzg1OWU5OGZiN2ZhNGNjNDQ2NmVjY2EyZjFlZGFjM2VjYjVjZDE4Mzc4ODkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY3Y2RhODJkYTYwNjIzOGUwNWU2MjM5OTU2OWM1ZWUwMzk5MzQxOTY0OGFlNWQ0M2EyYmY4Y2Q2MzQ3ZjgyNjMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImYyOTY0MDc5YzNjNWM4MTUyMGVmMzNhMmI5ZDJlMTVhMWI4NGQ3MjgwZGI4NTkwZGNkNjU3NDdlM2UwMTJhNDAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjNmNTcwOGU0YzNkMmU5MmVjZTgyZDY1NWJkN2Q1YzY2YjMyYzE4NDA4MTBmNzk1OWM4YjdmYWRjMTExNDgwMDIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_82be0c223e67468ab571d1906a8493df",
+      "statement": "All JSON responses, including errors, are written by the shared httpx package, which encodes errors as {\"error\": msg} for the web UI.",
+      "evidence": [
+        {
+          "resource": "repo://internal/httpx/httpx.go#L9-L19",
+          "version": "repo-lines-v1:sha256:f2810277901e19f1abaa2914a86eac30bb54a88836d4b520cec625afc22ef73d:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImUzMzBhYmZiY2M4ZjM5ZDYxNzFkZGI0NTU2ODQ2ZjE1YzUzMGRjMzUzNDk5ZTU0OGZjMTRmMmRlZDQ1N2YzMjMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjEyNmNkZDIzYjQwNjc5MzMxZGEzZjEzZjg1ZGIyNDYzYzJiODdjMmJkZmE0N2E3Y2UyNmI1NDdmZTZlNzQ0OTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
         }
       ]
     }
   ],
   "verification": {
     "by": "openwiki/0.7.2",
-    "at": "2026-11-08T01:57:23.266Z"
+    "at": "2026-11-08T06:01:44.565Z"
   }
 }

@@ -3,19 +3,23 @@ type: architecture
 title: System Architecture
 description: How the single webdav-nvr-player Go binary is put together, what each internal package does, how a camera upload becomes playable video in the browser, and how startup and shutdown work.
 tags: [architecture, startup, components, data-flow, single-replica]
-verified:
-  - by: openwiki/0.7.2
-    at: 2026-11-08T01:57:23.266Z
 sources:
+  - id: openwiki-source-77097e57ecff212cbb1e749c
+    resource: repo://charts/webdav-nvr-player/README.md
+  - id: openwiki-source-2dbef707347fbcbab7d5e69d
+    resource: repo://charts/webdav-nvr-player/templates/deployment.yaml
   - id: openwiki-source-16d7758f33081cf8e163d06b
     resource: repo://cmd/nvr/main.go
-  - id: openwiki-source-e3e55ef2e47ca3fb3eb99e5a
-    resource: repo://docs/design-decisions.md
   - id: openwiki-source-37047f321b6d15c60cf15860
     resource: repo://internal/ingest/ingest.go
+  - id: openwiki-source-a0d63b624e54695bffe7cf77
+    resource: repo://internal/media/mp4.go
   - id: openwiki-source-a0349a2ec956db579b76f398
     resource: repo://internal/webui/embed.go
-generated: { by: "claude-code", at: "2026-11-08T01:57:23.266Z" }
+generated: { by: "claude-code", at: "2026-11-08T06:01:44.565Z" }
+verified:
+  - by: openwiki/0.7.2
+    at: 2026-11-08T06:01:44.565Z
 ---
 
 # System Architecture
@@ -32,7 +36,7 @@ webdav-nvr-player is one Go binary (`cmd/nvr`) with the React web UI embedded in
 | `internal/source/webdav` | Read-only WebDAV client: list, stat, fetch, range streaming, `ReaderAt`. See [WebDAV Source Client](../streaming/webdav-source.md). |
 | `internal/profile` (+ `reolink`) | Vendor naming rules: classify a path, list the folders for a day, snapshot pairing policy. See [Camera Profiles](../ingest/camera-profiles.md). |
 | `internal/ingest` | Scans, the webhook, and the dispatcher and worker pool that probe clips, pair snapshots and make thumbnails. See [Ingest Pipeline](../ingest/pipeline.md). |
-| `internal/media` | Reads MP4 headers only (probe) and builds the virtual faststart remux of fragmented MP4. See [MP4 Probing and Virtual Remux](../streaming/mp4-probe-and-virtual-remux.md). |
+| `internal/media` | MP4 box reading shared by both jobs (`mp4.go`), header-only probing (`mp4probe.go`), and the virtual faststart remux of fragmented MP4 (`remux.go`). See [MP4 Probing and Virtual Remux](../streaming/mp4-probe-and-virtual-remux.md). |
 | `internal/thumbs` | 480 px JPEG thumbnails from camera snapshots or ffmpeg frame grabs. See [Snapshot Pairing and Thumbnails](../ingest/snapshot-pairing-and-thumbnails.md). |
 | `internal/signedurl` | Short-lived HMAC tokens so ffmpeg can read recordings through the app. |
 | `internal/httpapi` | Routes: JSON API, streaming, webhooks, SPA. See [HTTP API](../api/http-api.md). |
@@ -88,5 +92,3 @@ On a signal, `srv.Shutdown` gets 15 s to drain HTTP, then `run` waits for the in
 - **No transcoding.** HEVC and H.264 pass through. The browser checks `canPlayType` and warns when it can't decode a codec.
 - **Times are stored in UTC milliseconds.** The hour repeated when DST ends is not disambiguated, so clips from it overlap.
 - **Credentials never appear in process arguments.** Probing uses Go range reads, and ffmpeg reads through the signed loopback route.
-
-The reasoning behind these choices is recorded in `docs/design-decisions.md`.

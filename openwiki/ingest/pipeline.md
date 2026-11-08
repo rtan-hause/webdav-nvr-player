@@ -3,13 +3,13 @@ type: subsystem
 title: Ingest Pipeline
 description: How webdav-nvr-player keeps its index in step with the WebDAV server, covering the upload webhook, recent and full scans, the settle window, deletion reconciliation, and the dispatcher and worker pool that use database rows as the work queue, with retry backoff and scan status.
 tags: [ingest, scanning, webhook, work-queue, dispatcher, retries]
-verified:
-  - by: openwiki/0.7.2
-    at: 2026-11-08T01:57:23.266Z
 sources:
   - id: openwiki-source-37047f321b6d15c60cf15860
     resource: repo://internal/ingest/ingest.go
 generated: { by: "claude-code", at: "2026-11-08T01:57:23.266Z" }
+verified:
+  - by: openwiki/0.7.2
+    at: 2026-11-08T06:01:44.565Z
 ---
 
 # Ingest Pipeline

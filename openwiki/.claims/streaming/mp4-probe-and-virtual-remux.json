@@ -1,28 +1,28 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:74d6895f247c11484650411597b59afda4a95d8db8274a5bca61c7c25343da36",
+  "pageVersion": "sha256:e23becaa21d076ba67ca71574750445c103e86c4c468b48d1256bada523e8a65",
   "claims": [
     {
       "id": "claim_ca1f1c699ae54f618767212c2e3bdf7c",
       "statement": "Box walking uses a cached 8 KiB window so reading headers costs one range request per window, and moov is capped at 64 MiB and moof at 4 MiB.",
       "evidence": [
         {
-          "resource": "repo://internal/media/mp4probe.go#L44-L75",
-          "version": "repo-lines-v1:sha256:97390b4c433175987b86c71afb62c6b4192e3a78ac7509f2dff46b0feaa12b3a:eyJzZWxlY3RlZExpbmVDb3VudCI6MzIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQwZDk4NmIwZGY3ZTljNDdhYTc4MmIwNjYwOTQ2OWJjOGVlY2E0NzYxMmI4MzhjZjgyOWRkYTRiY2RkZDMzMjkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImY0OGNjMTY5YWMwNTI4OTNmMzJlMjFjZjcwY2E2N2NmOTgwNTlkMjZlMjQzNmI5MjI4YThjYmUzNjkwMmZmZjIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImM1NWZkMGU1ZWI0YjMzYjliMjk4ZjQyMzM3MWQ4OGJiYWE5MDkzNjgwMmZkYWUwYTJkZGJiYzFjYzgwM2E3Y2EifQ"
+          "resource": "repo://internal/media/mp4.go#L16-L51",
+          "version": "repo-lines-v1:sha256:261d3edbf466206712c356b6155c3667cc66a5027d2be062fbc80e727cace2ad:eyJzZWxlY3RlZExpbmVDb3VudCI6MzYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQwZDk4NmIwZGY3ZTljNDdhYTc4MmIwNjYwOTQ2OWJjOGVlY2E0NzYxMmI4MzhjZjgyOWRkYTRiY2RkZDMzMjkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFiZThiZTRhNGZmOTQ4NjJhMmYxOGU0MzUwYjdhMzQyZjg0NGJkZmFiYjdhZjc5MjU3ZWZiNTA0ZDllZjAzZDYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImY0OGNjMTY5YWMwNTI4OTNmMzJlMjFjZjcwY2E2N2NmOTgwNTlkMjZlMjQzNmI5MjI4YThjYmUzNjkwMmZmZjIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImE3OTU4ZmY4ODFlN2U1Zjg3ZGMzMDYwYzNkNWFiMTdhZTI5YWMyNDE3NzFjODgxNmE4MmE2ZDgzODFlNGU0OGYifQ"
         }
       ]
     },
     {
       "id": "claim_a33522c8b32b4aaeb3062cb59b840f54",
-      "statement": "Probe returns ErrNotMP4 when the first box isn't a known top-level MP4 box.",
+      "statement": "Probe returns ErrNotMP4 when the file is empty or its first box isn't a known top-level MP4 box.",
       "evidence": [
         {
-          "resource": "repo://internal/media/mp4probe.go#L118-L123",
-          "version": "repo-lines-v1:sha256:8d7f527d785fdfa2ba00b8e1c9d2b8978e15e3ca8919bc012eb08d2d8c3166e5:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMmM0ZGRjYzdmZmQ1MTc5ZTgxYjVlN2RiMTRiN2IxZGRhM2NmNmIzNDYyYWU0NjcyODdkOWUxOWNlMjA3OGY4MSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2M4YmIwZjJiMWM5YjYyMzRmYTBiZTU4ODIzNWFlODZkOGE1MDQzNTAxY2JkMjY4YjRlNTUyZGM4YjUyZWYyMCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZmE1YzdiZWE4YTUyMGQwMDEyNDdjMmI2MzRiMmEwZDdjZjVlNWIyMzU2ODA2OWU4YWRiMDg0N2E1NzU5ODMzNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzY0MDFjODEyYzY1OWRjNWQ3OWZiYThiYTYwMWEwOTJlZmViYWI0MmU3Njc5ZjkwYzQzNjZiZGRjZDc0NjA1MSJ9"
+          "resource": "repo://internal/media/mp4.go#L13-L14",
+          "version": "repo-lines-v1:sha256:add0181696e993d7b0143f8d2c6f449d64cd44f3786539cb0cb9b61a5f4094b8:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiY2M2NzYxNmJmNDY3M2MxZjQwOWQ3NGFmYmRkZjc1ZGZmYTMwNzIwOWI0YzdlMmViNTU2MjFhY2YzMDdkMGVkNiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNmE0MWVhNTgxYWVkNzFkZDdmZmVhMmRjNmY0ZWNhNmFjMzMzMzY1MTkxYTQzY2ZmNTA2ZjA5OTQ3NWYxNDI1OCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZjBlNDI0NTI3Yjc5NWMwMDE4ZDYwODYyNjNlY2QwYWRjZjkzNGU2YThkMjNmNzBjNjBlNGVlOTk4MGE2Y2M3ZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMTRhN2RlMWI0MjI3M2I5MGJlOWIwNTJiMGM0N2Q3ZTk3NzE2MzZhZGY5MDg5MTA5NTQ5OTRiM2Y1OTdkZGJlYyJ9"
         },
         {
-          "resource": "repo://internal/media/mp4probe.go#L41-L42",
-          "version": "repo-lines-v1:sha256:add0181696e993d7b0143f8d2c6f449d64cd44f3786539cb0cb9b61a5f4094b8:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiY2M2NzYxNmJmNDY3M2MxZjQwOWQ3NGFmYmRkZjc1ZGZmYTMwNzIwOWI0YzdlMmViNTU2MjFhY2YzMDdkMGVkNiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNmE0MWVhNTgxYWVkNzFkZDdmZmVhMmRjNmY0ZWNhNmFjMzMzMzY1MTkxYTQzY2ZmNTA2ZjA5OTQ3NWYxNDI1OCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZjI5NjQwNzljM2M1YzgxNTIwZWYzM2EyYjlkMmUxNWExYjg0ZDcyODBkYjg1OTBkY2Q2NTc0N2UzZTAxMmE0MCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMTRhN2RlMWI0MjI3M2I5MGJlOWIwNTJiMGM0N2Q3ZTk3NzE2MzZhZGY5MDg5MTA5NTQ5OTRiM2Y1OTdkZGJlYyJ9"
+          "resource": "repo://internal/media/mp4.go#L63-L109",
+          "version": "repo-lines-v1:sha256:2dacb5714175f8f4cdddd75186e5f5a1f6586e1d71e11b7ea4ac9f251f8efbda:eyJzZWxlY3RlZExpbmVDb3VudCI6NDcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc1YjFhYTA3NTUzMjU2NDhiMDhmNGY4ZWNkZjU5NGQ2YzM4NDY5YzI0ZDVkNTkyZTgyMGVlZmRiNDY1ZTViMTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImJlMDcxMGE2MTBiZjM4ZGEzYjM0MDBjMDJjMTY2NDQ0ZTA3MmVlMTA5Y2I0NjQ3OWViZjhiZjg0Y2QxMWYwNzkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjkzZmM5MGY0ZGE1ODA3ZmUwNjdhMDJlNGVlYzI2NTBkZjgwOTIyNjIwZjliYjdmZjRiOThlZTZlZDZhNGJjOGIifQ"
         }
       ]
     },
@@ -31,8 +31,8 @@
       "statement": "For regular MP4s Probe takes duration from moov; for fragmented files it sums the video track's sample durations across every moof, reading only moof boxes, and falls back to the header duration if none.",
       "evidence": [
         {
-          "resource": "repo://internal/media/mp4probe.go#L87-L207",
-          "version": "repo-lines-v1:sha256:629d75e78febea2dac37bc9489d238659e9b4d54f1cece937d8934a8eaf37aa7:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIxLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJjYzcwNjQzNWRlOGMxZGU0NjYzNGFjYjU1YzViNDM3YmQxM2MyZDBlMjUyNDcwNDc2NTE5ODU1MjEzZjNlYzExIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0MTJjYTM0NWNjZjc1YmY5YzA4MDZiY2U2OTViZThkZTgwOGI3OTk4NDI1MWE3YTU0ZDIwMmNmNjEwMWRkNDUxIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiJmMDg5MTUyNGFkNTgyNWUzOGQwMDcxM2M2N2Y5YmRlZDZlMjMzNDYwYTgxZmNkMDU3ZDQzZWMyM2E5YWY1YzdiIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiI5M2ZjOTBmNGRhNTgwN2ZlMDY3YTAyZTRlZWMyNjUwZGY4MDkyMjYyMGY5YmI3ZmY0Yjk4ZWU2ZWQ2YTRiYzhiIn0"
+          "resource": "repo://internal/media/mp4probe.go#L39-L123",
+          "version": "repo-lines-v1:sha256:4825ed797cc555127c96ae87cc790d9a459fa6ae9cea60338be6ab39f39599e5:eyJzZWxlY3RlZExpbmVDb3VudCI6ODUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNjNzA2NDM1ZGU4YzFkZTQ2NjM0YWNiNTVjNWI0MzdiZDEzYzJkMGUyNTI0NzA0NzY1MTk4NTUyMTNmM2VjMTEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImYyOTY0MDc5YzNjNWM4MTUyMGVmMzNhMmI5ZDJlMTVhMWI4NGQ3MjgwZGI4NTkwZGNkNjU3NDdlM2UwMTJhNDAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjhkZTNlNDUyYWRjMDExNTcxNTZmMzYzMWZmNzE4NTUzZmZhMjgzM2JlM2ExZTRhYTMyNDI5MDlkM2I3OWVhNDUifQ"
         }
       ]
     },
@@ -41,8 +41,12 @@
       "statement": "Probe tolerates a truncated final mdat in fragmented files, counting complete fragments, but rejects other bad box sizes as incomplete uploads.",
       "evidence": [
         {
-          "resource": "repo://internal/media/mp4probe.go#L124-L129",
-          "version": "repo-lines-v1:sha256:2e4c558131ea1480c74a361ff33bbd1db5ea2a6decf3fde23cec281503fef861:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMjQ1NmUwNjZmZTYwYjZkZTEzMzBmMDkyMjVkN2YwOGYwODkyNGQxNTczMzZlZmJkYzU5MDI3MWFkODI0MjJhMCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOWU3YjNiOGMxYTE1YTBiMzUxNjg0NDk5YTllMWIzMGVkNGEzZDdlODc2ZWFhZGY0ODJjMDMxOWZhMTNlZDQ2NiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNTZjZDJmMmVhYjU5ZGU5NjIzNzc2YTE0YzQzYzRmMTJjMTQwOTllNWU2NzRlNjJjMmQ5Mjk5N2M3NTY3MGFmYiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiM2IwZmRmNGVkYTRjNGM4NTRkMDY5OGQ2NDQ3ZjQxYWE4YTJlOGVlZTBiY2Q2NGJkMmQxNDJkYjQwMTA0ZmQ4NSJ9"
+          "resource": "repo://internal/media/mp4.go#L94-L102",
+          "version": "repo-lines-v1:sha256:f5be38ee404e40dd099da5998bcf931dbda6640601c395a662fdeb0f912beff9:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzlmMGNhNjZjNmE0MDM1MjU2NzBkODEyYTljN2MzNjQyMDQ4ODBiNmEwODcyMDcwYWMzYTQwOGZkZDc4ZDUwNCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNjRlZmM0OTQxOGQyNmRjZjEyOWIyMmE2YWEyMTEwOGNlZWMzNzY3N2EzMmQwOGU5ZDVmZWUzNWRkYTY2YmI5ZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMThkNGVjM2I1ODE4YmMzMGRmN2NiYjg3MjI4OTcwYTQwOTFiMTBmOGMyNjJmZDA3Yjk4YWIxNDI0ZTFmYmQyZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOTEwMTgxNjliYjZjNDk3NDA4MjRhNTNhYmQ3YzJhYzcwNjk4NDMwYWM3MTFmMzEwNWI1YmEwZGNkOWQ3ZjJjZiJ9"
+        },
+        {
+          "resource": "repo://internal/media/mp4probe.go#L52-L58",
+          "version": "repo-lines-v1:sha256:cdc828d487179ba21eb6a0b65e15b28108eb16fa8bbcc10ae7deb3852013d925:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZTEyYTY4ZDRjYmZkZWJmNDI4OWRhNjg2MTRlZDZiYzI5YzMzYzNhOWIwOGFmMDQ4NzdmNDY5NTEyZDY0NTE3ZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNjRlZmM0OTQxOGQyNmRjZjEyOWIyMmE2YWEyMTEwOGNlZWMzNzY3N2EzMmQwOGU5ZDVmZWUzNWRkYTY2YmI5ZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiODQzYWI3YzgwMjgxMDMyNzA5YmYyOTNjZTlkMDM4MjBkZmNhMTRjYjI5Y2NkNGZkYmM5Mzg1YWM3OTZjMGQyNiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYmIwNmI3NjNhYjg5NjQyZmI1OGNjNDZlMjRjYThlMWE0MDgzNGU1YWVmOTgwYjY3OGRjZGZiYTc4NWFkZmVjYyJ9"
         }
       ]
     },
@@ -51,7 +55,7 @@
       "statement": "CodecName maps hvc1/hev1 to HEVC, avc1/avc3 to H.264, av01 to AV1 and vp09 to VP9.",
       "evidence": [
         {
-          "resource": "repo://internal/media/mp4probe.go#L23-L39",
+          "resource": "repo://internal/media/mp4probe.go#L21-L37",
           "version": "repo-lines-v1:sha256:0c1a0735c7dd6021a150a1390ca60fd58522ac21f21bfcac63c2ffd4ce64c7d9:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2MTYyNmNiNGExYjVlMGY1OWJhMzE0YTM3Y2ZiODY5ODI5ZGQzMzQyZmQxMDE0ZTJmM2Y1Y2NhNWU1MmIwYzIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjZjMTBmMGY3ZWM5ZmE4NWJjZGNkYTRkYTYwNzhkY2EwY2Y2MDQzMmY0MmNlMmExMmJlODcwYmY1ZDlmZTdjYjQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjcwOWUwYzkzYmI4YzIyMjk4YmU2ZjVkZGVmZmM1MTAxNGYyM2UwODBiMGNlOWQ4ZWE1NmExNTJmNjhmNTMxMGIifQ"
         }
       ]
@@ -71,12 +75,12 @@
       "statement": "Defragment returns ErrNotFragmented for files whose moov has no mvex, keeps only complete samples of a cut-off upload, and requires a video track with samples.",
       "evidence": [
         {
-          "resource": "repo://internal/media/remux.go#L237-L283",
-          "version": "repo-lines-v1:sha256:3ec8aac5020b0c8c51c867016f4cccf08dce52f217992717348b49694cf7b75e:eyJzZWxlY3RlZExpbmVDb3VudCI6NDcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY4MDkyY2FkNTVmMWViZGQ0MzQxNWEwNzI0Y2VlZTYwZmI0OGZiNzZjZTQxMmVkMDhjMTUwYTE0YjI4NzM4NTkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImEwNGJiMGFlYmMzNzU2NDMyMDY2MGI5N2EwYzA3YmQxMGQ5NDMzZGI5ZGJiNmYzZjFhYTYwZTg1YTJmNzliNDAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImM4MDI5MjE5NzcwMWY0MzcyMmZhMjliNjdlMmQ4Y2Y1MGU5OThiNmM2MWY3OTE2M2EwNDE1Zjg2MDE2ZmM3MmQifQ"
+          "resource": "repo://internal/media/remux.go#L197-L215",
+          "version": "repo-lines-v1:sha256:1a5149f6940c9b280281ed6c113c5fcf402aafdf4c7c8b9037033471cf07b223:eyJzZWxlY3RlZExpbmVDb3VudCI6MTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg0MjkyZTgxYTk2N2M5MTZhNmJjYzNjY2FlYmFjYTU0ZGZkYmEwOTM0NmNlZmNmZTk3NzU0NWM0ZDczN2Q2NDEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImEwNGJiMGFlYmMzNzU2NDMyMDY2MGI5N2EwYzA3YmQxMGQ5NDMzZGI5ZGJiNmYzZjFhYTYwZTg1YTJmNzliNDAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImViZjdkNzhkODg5YmY2OGJlYjA0NGJlMDgxZjVkZmUzZDhkYzJlMDljNGVlNGQ4MDYxN2JmNGVkMGE3ZDU1OTAifQ"
         },
         {
-          "resource": "repo://internal/media/remux.go#L73-L193",
-          "version": "repo-lines-v1:sha256:f7dbe277edf9607726727f1e5ed37d2bfd6bf48098aedc9fd38070eab3859a32:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIxLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiIwZTMwNWE5N2Y4MDcxOTc5NjdmN2ZhYWRjYjY4OTZiMzA0YWE5YzM5MzU4NWQyZmFmMTUyODVmYWUyYjU0NThjIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI5MjdhZWMxNjdlNmY5ZGUyNjVhYjhhOTU2MTI1MThmZjY0NjgwYjQ5MmJhMjM4OTU0YzU3NThhNGI5Yzg2NmVhIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiJjZWU3NDhhNTM4NmYwNzM5ZjEzNjRlMTQ5MmM3MGNlNGI5MTc4YTlhNWU2N2E0ZDIwODUyYzZlMGFjNGQ2Yzc5IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiI4NmE4MTllMGIyY2VlYjdlYjZiNjVlMjBjY2M2NWYzNGI3NmJhMmE3OTA1N2MyNGQyMTYzYmE5NDg0NDE2MTc5In0"
+          "resource": "repo://internal/media/remux.go#L65-L148",
+          "version": "repo-lines-v1:sha256:040426e39db20458966e8dbc2061e05684500fc71290b41ddb839e74eff8db57:eyJzZWxlY3RlZExpbmVDb3VudCI6ODQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBlMzA1YTk3ZjgwNzE5Nzk2N2Y3ZmFhZGNiNjg5NmIzMDRhYTljMzkzNTg1ZDJmYWYxNTI4NWZhZTJiNTQ1OGMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY3Y2RhODJkYTYwNjIzOGUwNWU2MjM5OTU2OWM1ZWUwMzk5MzQxOTY0OGFlNWQ0M2EyYmY4Y2Q2MzQ3ZjgyNjMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImNlZTc0OGE1Mzg2ZjA3MzlmMTM2NGUxNDkyYzcwY2U0YjkxNzhhOWE1ZTY3YTRkMjA4NTJjNmUwYWM0ZDZjNzkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImI0NTNkNDI2OWU1OWMxNWQwOGVjZjdkN2Y0NGZlOWViNWE4NmZkMTYxMWYyZmYwYjBmNTVlMzFiMjRhODEzODgifQ"
         }
       ]
     },
@@ -85,11 +89,11 @@
       "statement": "Rebuilt sample tables use virtual chunk offsets (head length plus source offset minus DataStart), switching to co64 and a 64-bit mdat header beyond 4 GiB; the moov is built once to measure and again with the real base.",
       "evidence": [
         {
-          "resource": "repo://internal/media/remux.go#L195-L235",
+          "resource": "repo://internal/media/remux.go#L155-L195",
           "version": "repo-lines-v1:sha256:90abe45d8145e5ed653573a9066f40c6c83864a58880e4010b95c0519dee81e2:eyJzZWxlY3RlZExpbmVDb3VudCI6NDEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjEyZWNhY2M4ODQ4NDgyMjU4Yzk4ZDVhMzhhYzQ4YjExNDFiYTdmYjVjYjkyNzRlMjBjNDcwZmJmZmRlZTEyYjAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijg2NzhlMjEyODJlYTdlZTAzZTI0M2Q2ZWUwYWUwMmY5Njk0NTJiZWMyMzY0NjU0ZDRkZDFjOWQzOGMwZmZiZGQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImE5NWM3MjA4OTI5OWI0YzE3NmYyZGY0MjU0MTkyYmUwODgxMDEwNTIwOWUzZjA4ZGMzNjRkOTNmZjgxNGE1OTIifQ"
         },
         {
-          "resource": "repo://internal/media/remux.go#L493-L536",
+          "resource": "repo://internal/media/remux.go#L373-L416",
           "version": "repo-lines-v1:sha256:cf7242b1d9b1856f2e00c68d85627943d00252e7464bcf7e9589ce01054848b7:eyJzZWxlY3RlZExpbmVDb3VudCI6NDQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImYxMWNkNzhmOTlkODY0MjQyMWI3MDFmYWU2MmM5NGEwNTk1Y2Q5NWNhYTNhMDdhMzhhYThlODc4NDc5YjdlZmQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdiZTc5ZjRiOTBjYTY2OGQ0YjdlZDQyNjNlNDBhM2JmODEwYTgzZWU4YThkOTA2ZDUzNzk5NzdiODVkMDU2MTciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE1MTA5OGE2YTVmYzc4NTdlYzBhYTAxZWIzNGRmOTIwOTkzYTMyNGViMWJjMzEyMDA5NzQyYTM1MTFhNDQyYmQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImYxZjY5NmY3NDQwZmYyN2IxNzdjOGM0MjEwY2RjOTU0MGIwYjNiZjNjMmQ4YjEyYjdkNDk3YzAyZjA3OGMwMDYifQ"
         }
       ]
@@ -99,7 +103,7 @@
       "statement": "fixEdits stretches the last edit-list entry to the real track length because fragmented writers usually record 0 there.",
       "evidence": [
         {
-          "resource": "repo://internal/media/remux.go#L652-L700",
+          "resource": "repo://internal/media/remux.go#L532-L580",
           "version": "repo-lines-v1:sha256:0b9894b2d5e024036ff8c213ec3f6712a525c95362dbb297417344de79a7dcac:eyJzZWxlY3RlZExpbmVDb3VudCI6NDksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjE4ZDU5ZmMyYzIxYjY3ODcyZGM4YjExZWY2NmE1OGQ2NDg2NDQ2NDk5NGRmMGU2ZGE0ZDFlMDlkNTJmMzExNTMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA0MGI1Y2U0NGMxZjUxOTdiZDM5OTA3NzVkZDY3Y2U1YzEyNTUxMmVkNTAzZGUxMjgzMmMwNjU4YWJlZTIwY2MiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjkxYjI2NmZiMDNmNjUzODQyN2RjZTMwNzZlMjZjNGIzZGNlNDYyYjM0ZmQ3Yjk4ZDEyMTdjZGM0M2ExMjMzYjAifQ"
         }
       ]
@@ -119,7 +123,7 @@
       "statement": "The stream handler distinguishes source network errors from unremuxable files via an errReader, passing unremuxable or regular files through to WebDAV.",
       "evidence": [
         {
-          "resource": "repo://internal/httpapi/remux.go#L84-L118",
+          "resource": "repo://internal/httpapi/remux.go#L85-L119",
           "version": "repo-lines-v1:sha256:374a83238b81d53581af08590b20f8addad38dff14eeaa2dbb55921796dbbde5:eyJzZWxlY3RlZExpbmVDb3VudCI6MzUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU4NjdhMTZlYTE5YzE3NmI2ZDcxNzg1OWU5OGZiN2ZhNGNjNDQ2NmVjY2EyZjFlZGFjM2VjYjVjZDE4Mzc4ODkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImYyOTY0MDc5YzNjNWM4MTUyMGVmMzNhMmI5ZDJlMTVhMWI4NGQ3MjgwZGI4NTkwZGNkNjU3NDdlM2UwMTJhNDAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImIzMzBjZjhlZTYxN2I5NmQxN2RiNjQ5MjI1ZjUyNzY1ZjMzNmFmZWI0MjIyZDg0NWJlMTAyMmQ2YTI3ZjMzYzgifQ"
         }
       ]
@@ -129,14 +133,36 @@
       "statement": "remuxFile serves the head from memory and the media via a single streaming range request per seek, failing if the upstream doesn't answer 206 at the requested offset.",
       "evidence": [
         {
-          "resource": "repo://internal/httpapi/remux.go#L151-L236",
+          "resource": "repo://internal/httpapi/remux.go#L152-L237",
           "version": "repo-lines-v1:sha256:b85a7000399b5155a33b00e1e201c063bae37a6bee0246dfcc356e0906e469a2:eyJzZWxlY3RlZExpbmVDb3VudCI6ODYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM0OWQwODAzYTI2ZGMyNDZiODBhMzZiM2ViYWVkMTQxMjgwNDI5YzEyNjY0MDFmMDA1N2ZkYjg5ODZlN2RkMTMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjRkZDQ5NzBlMWVkY2FjNDQ2NGRkOTMwMWEzZWU5YWRkYWRmODAyMTcyNTZlOGZlYmUxOGU4M2ZjODc3ZGI3NDkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_b937b8e7d6904885a486255d977b645b",
+      "statement": "MP4 box reading (windowed reads, the top-level walk, bounded box bodies and moov/trak parsing) is shared by Probe and Defragment in mp4.go, each supplying its own per-box callback to walkTop.",
+      "evidence": [
+        {
+          "resource": "repo://internal/media/mp4.go#L11-L11",
+          "version": "repo-lines-v1:sha256:c91fb5681febe256906ecfba92d7fb342d0e3a4e17f47610ab9a5fba8adb7541:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYzkxZmI1NjgxZmViZTI1NjkwNmVjZmJhOTJkN2ZiMzQyZDBlM2E0ZTE3ZjQ3NjEwYWI5YTVmYmE4YWRiNzU0MSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYzkxZmI1NjgxZmViZTI1NjkwNmVjZmJhOTJkN2ZiMzQyZDBlM2E0ZTE3ZjQ3NjEwYWI5YTVmYmE4YWRiNzU0MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNzllZGQ3MmJhNmI0MDA4M2NlOTUyNjlmYTU2ZmNmM2FjMWJkOTgyMjFhYTY2MjFhNjgzZjdkNTYzMmJiMjFkNSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNzA5ZTBjOTNiYjhjMjIyOThiZTZmNWRkZWZmYzUxMDE0ZjIzZTA4MGIwY2U5ZDhlYTU2YTE1MmY2OGY1MzEwYiJ9"
+        },
+        {
+          "resource": "repo://internal/media/mp4.go#L63-L68",
+          "version": "repo-lines-v1:sha256:fc1fc69c9bbba1c76d3b09f620da640e628154e6daae25f374e275d6fd80a682:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNzViMWFhMDc1NTMyNTY0OGIwOGY0ZjhlY2RmNTk0ZDZjMzg0NjljMjRkNWQ1OTJlODIwZWVmZGI0NjVlNWIxNCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNWI4NDBkN2Q2NWI3OTE5MGZiY2Q0ODk1OTc4MTQ4OTNlOWVhNjhjMDFjZjE2NmY5MmNiYmZhOGEzMTMwMWI2NSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYmUwNzEwYTYxMGJmMzhkYTNiMzQwMGMwMmMxNjY0NDRlMDcyZWUxMDljYjQ2NDc5ZWJmOGJmODRjZDExZjA3OSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOTYyOTBjYzQ1NWQzOTZhOTE5OWQ5NWI3OTJjZDM5NWJiZTMxZGQ4NThiYzYyMTg5OTlkZGZlZGU2MThlN2ZlYyJ9"
+        },
+        {
+          "resource": "repo://internal/media/mp4probe.go#L51-L52",
+          "version": "repo-lines-v1:sha256:51a22880260a7322d820d315fe35d78aa378d4a172b5b4d90b418d8dbef2217d:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYzlmODQ3ZGViZWZmYjY0OWVlNWYwZGVkMGRlNjY2MTQ3MjY3ODdkYTk3MTFhNjcwMGM2YTU1ZTUzYmIxYzY3MSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZTEyYTY4ZDRjYmZkZWJmNDI4OWRhNjg2MTRlZDZiYzI5YzMzYzNhOWIwOGFmMDQ4NzdmNDY5NTEyZDY0NTE3ZiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNTIwNDY4YWY0N2ZhNzU1MTcxNDliZmY2MWQ5OGZjYWQ4ZjRhZWVmMWM0OTQ1ZWQ4YjFkOTE3Njk2MzIyMjdkZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOGE0NWZlMDNmZDFkOWVlMTUwY2Q4MDJkNmJmOTQ3M2NmMWI3M2IxZGUzMGEzNmQ3NDA3NmY0OTlkYjdiZjRhNyJ9"
+        },
+        {
+          "resource": "repo://internal/media/remux.go#L76-L77",
+          "version": "repo-lines-v1:sha256:51a22880260a7322d820d315fe35d78aa378d4a172b5b4d90b418d8dbef2217d:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYzlmODQ3ZGViZWZmYjY0OWVlNWYwZGVkMGRlNjY2MTQ3MjY3ODdkYTk3MTFhNjcwMGM2YTU1ZTUzYmIxYzY3MSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZTEyYTY4ZDRjYmZkZWJmNDI4OWRhNjg2MTRlZDZiYzI5YzMzYzNhOWIwOGFmMDQ4NzdmNDY5NTEyZDY0NTE3ZiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYzhlZTU0MDVkZmNhMzVjNmUzNjY4YWVjMzFjYjA4MDYyM2RhYWY4YzI4NThjMmI2NjE2OWZkZWVkNDQ3ODhkYSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZWU3NDVlNmQzZmI1ZDc5ODQ5MDhhYTgxMDUzZTZiMzA1Nzg0Nzg0NWVhYWEzZTg0MDFmZjBjMmMxNDZjNDYxOCJ9"
         }
       ]
     }
   ],
   "verification": {
     "by": "openwiki/0.7.2",
-    "at": "2026-11-08T01:57:23.266Z"
+    "at": "2026-11-08T06:01:44.565Z"
   }
 }
