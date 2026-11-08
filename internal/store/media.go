@@ -284,6 +284,21 @@ func (s *Store) SetClipFailed(ctx context.Context, id int64, msg string, nextAtt
 
 // ---- pairing ----
 
+// pairable is the join condition for a clip c and a snapshot s that may be
+// paired: same camera, both ready, neither paired yet, and the snapshot taken
+// between beforeMS ahead of the clip's start and its end. The closest one to
+// the clip's start wins (pairOrder). Bind with pairArgs.
+const (
+	pairable = `c.camera_id = s.camera_id AND c.status = ? AND s.status = ?
+		AND c.snapshot_id IS NULL AND s.clip_id IS NULL
+		AND s.ts_ms BETWEEN c.start_ms - ? AND c.end_ms`
+	pairOrder = `ABS(s.ts_ms - c.start_ms)`
+)
+
+func pairArgs(beforeMS int64, rest ...any) []any {
+	return append([]any{StatusReady, StatusReady, beforeMS}, rest...)
+}
+
 // PairClip links a ready clip with the closest unpaired snapshot of the same
 // camera taken between beforeMS ahead of its start and its end. Without one,
 // the clip waits until deadlineMS for a snapshot to arrive, or (when the
@@ -303,9 +318,8 @@ func (s *Store) PairClip(ctx context.Context, clipID, beforeMS, deadlineMS, nowM
 		return c.SnapshotID, tx.Commit()
 	}
 	var snapID int64
-	err = tx.QueryRowContext(ctx, s.q(`SELECT id FROM snapshots
-		WHERE camera_id = ? AND status = 'ready' AND clip_id IS NULL AND ts_ms >= ? AND ts_ms <= ?
-		ORDER BY ABS(ts_ms - ?), id LIMIT 1`), c.CameraID, c.StartMS-beforeMS, c.EndMS, c.StartMS).Scan(&snapID)
+	err = tx.QueryRowContext(ctx, s.q(`SELECT s.id FROM clips c JOIN snapshots s ON `+pairable+`
+		WHERE c.id = ? ORDER BY `+pairOrder+`, s.id LIMIT 1`), pairArgs(beforeMS, clipID)...).Scan(&snapID)
 	switch {
 	case errors.Is(err, sql.ErrNoRows):
 		state := ThumbWaiting
@@ -352,9 +366,8 @@ func (s *Store) PairSnapshot(ctx context.Context, snapID, beforeMS int64) (int64
 		return sn.ClipID, tx.Commit()
 	}
 	var clipID int64
-	err = tx.QueryRowContext(ctx, s.q(`SELECT id FROM clips
-		WHERE camera_id = ? AND status = 'ready' AND snapshot_id IS NULL AND start_ms - ? <= ? AND end_ms >= ?
-		ORDER BY ABS(start_ms - ?), id LIMIT 1`), sn.CameraID, beforeMS, sn.TSMS, sn.TSMS, sn.TSMS).Scan(&clipID)
+	err = tx.QueryRowContext(ctx, s.q(`SELECT c.id FROM snapshots s JOIN clips c ON `+pairable+`
+		WHERE s.id = ? ORDER BY `+pairOrder+`, c.id LIMIT 1`), pairArgs(beforeMS, snapID)...).Scan(&clipID)
 	if errors.Is(err, sql.ErrNoRows) {
 		return 0, tx.Commit()
 	}

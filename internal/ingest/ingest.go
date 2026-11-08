@@ -532,20 +532,25 @@ func (in *Ingester) probeClip(ctx context.Context, c store.Clip) {
 	if uploaded == 0 {
 		uploaded = in.o.Now().UnixMilli()
 	}
+	_ = in.pairClip(ctx, c, uploaded+in.o.Profile.Pairing().Wait.Milliseconds())
+}
+
+// pairClip looks for the clip's snapshot; without one the clip waits until
+// deadlineMS, then falls back to a frame (see store.PairClip). Errors are logged.
+func (in *Ingester) pairClip(ctx context.Context, c store.Clip, deadlineMS int64) error {
 	in.pairMu.Lock()
-	_, err = in.o.Store.PairClip(ctx, c.ID, in.o.Profile.Pairing().Before.Milliseconds(),
-		uploaded+in.o.Profile.Pairing().Wait.Milliseconds(), in.o.Now().UnixMilli())
-	in.pairMu.Unlock()
+	defer in.pairMu.Unlock()
+	_, err := in.o.Store.PairClip(ctx, c.ID, in.o.Profile.Pairing().Before.Milliseconds(), deadlineMS, in.o.Now().UnixMilli())
 	if err != nil {
 		in.o.Log.Error("pairing clip", "path", c.Path, "err", err)
 	}
+	return err
 }
 
 func (in *Ingester) pairSnapshot(ctx context.Context, s store.Snapshot) {
 	in.pairMu.Lock()
-	_, err := in.o.Store.PairSnapshot(ctx, s.ID, in.o.Profile.Pairing().Before.Milliseconds())
-	in.pairMu.Unlock()
-	if err != nil {
+	defer in.pairMu.Unlock()
+	if _, err := in.o.Store.PairSnapshot(ctx, s.ID, in.o.Profile.Pairing().Before.Milliseconds()); err != nil {
 		in.o.Log.Error("pairing snapshot", "path", s.Path, "err", err)
 	}
 }
@@ -557,11 +562,7 @@ func (in *Ingester) makeThumb(ctx context.Context, clipID int64) {
 	}
 	if c.ThumbState == store.ThumbWaiting {
 		// Deadline passed: one last look for a snapshot, otherwise use a frame.
-		in.pairMu.Lock()
-		_, err = in.o.Store.PairClip(ctx, c.ID, in.o.Profile.Pairing().Before.Milliseconds(), c.PairDeadlineMS, in.o.Now().UnixMilli())
-		in.pairMu.Unlock()
-		if err != nil {
-			in.o.Log.Error("pairing clip", "path", c.Path, "err", err)
+		if err := in.pairClip(ctx, c, c.PairDeadlineMS); err != nil {
 			return
 		}
 		if c, err = in.o.Store.Clip(ctx, clipID); err != nil {
