@@ -7,22 +7,35 @@ import (
 	"strings"
 )
 
-// Clip statuses.
+// Status is where a clip or snapshot is in its life. Snapshots use pending,
+// ready and deleted; only clips fail.
+type Status string
+
 const (
-	StatusPending = "pending" // found, not probed yet
-	StatusReady   = "ready"
-	StatusFailed  = "failed" // gave up after repeated errors
-	StatusDeleted = "deleted"
+	StatusPending Status = "pending" // found, not probed (clip) or paired (snapshot) yet
+	StatusReady   Status = "ready"
+	StatusFailed  Status = "failed" // gave up after repeated errors
+	StatusDeleted Status = "deleted"
 )
 
-// Clip thumbnail states.
+// ThumbState is where a ready clip is in getting its thumbnail.
+type ThumbState string
+
 const (
-	ThumbNone     = "none"     // clip not probed yet
-	ThumbWaiting  = "waiting"  // waiting for the camera's snapshot until PairDeadlineMS
-	ThumbSnapshot = "snapshot" // paired: make the thumbnail from the snapshot
-	ThumbFrame    = "frame"    // no snapshot: grab a frame from the video
-	ThumbDone     = "done"
-	ThumbFailed   = "failed"
+	ThumbNone     ThumbState = "none"     // clip not probed yet
+	ThumbWaiting  ThumbState = "waiting"  // waiting for the camera's snapshot until PairDeadlineMS
+	ThumbSnapshot ThumbState = "snapshot" // paired: make the thumbnail from the snapshot
+	ThumbFrame    ThumbState = "frame"    // no snapshot: grab a frame from the video
+	ThumbDone     ThumbState = "done"
+	ThumbFailed   ThumbState = "failed"
+)
+
+// ThumbKind is what a finished thumbnail was made from ("" until there is one).
+type ThumbKind string
+
+const (
+	ThumbKindSnapshot ThumbKind = "snapshot"
+	ThumbKindFrame    ThumbKind = "frame"
 )
 
 // Camera is one camera (name + vendor channel).
@@ -55,12 +68,12 @@ type Clip struct {
 	Size           int64
 	ETag           string
 	ModMS          int64
-	Status         string
+	Status         Status
 	Error          string
 	Attempts       int
 	NextAttemptMS  int64
-	ThumbState     string
-	ThumbKind      string
+	ThumbState     ThumbState
+	ThumbKind      ThumbKind
 	ThumbPath      string
 	SnapshotID     int64 // 0 if none
 	PairDeadlineMS int64
@@ -74,7 +87,7 @@ type Snapshot struct {
 	TSMS     int64
 	Size     int64
 	ModMS    int64
-	Status   string
+	Status   Status
 	ClipID   int64 // 0 if unpaired
 }
 
@@ -149,21 +162,22 @@ func (s *Store) Cameras(ctx context.Context) ([]Camera, error) {
 // deleted (a file re-uploaded at the same path). It returns how many changed.
 func (s *Store) AddClips(ctx context.Context, files []NewFile) (int, error) {
 	return s.addFiles(ctx, files, s.q(`INSERT INTO clips (camera_id, path, start_ms, size, etag, mod_ms) VALUES (?, ?, ?, ?, ?, ?)
-		ON CONFLICT (path) DO UPDATE SET status = 'pending', camera_id = excluded.camera_id, start_ms = excluded.start_ms,
+		ON CONFLICT (path) DO UPDATE SET status = ?, camera_id = excluded.camera_id, start_ms = excluded.start_ms,
 			size = excluded.size, etag = excluded.etag, mod_ms = excluded.mod_ms, end_ms = 0, error = '', attempts = 0,
-			next_attempt_ms = 0, thumb_state = 'none', thumb_kind = '', thumb_path = '', snapshot_id = NULL, pair_deadline_ms = 0
-		WHERE clips.status = 'deleted'`))
+			next_attempt_ms = 0, thumb_state = ?, thumb_kind = '', thumb_path = '', snapshot_id = NULL, pair_deadline_ms = 0
+		WHERE clips.status = ?`), StatusPending, ThumbNone, StatusDeleted)
 }
 
 // AddSnapshots is AddClips for snapshots.
 func (s *Store) AddSnapshots(ctx context.Context, files []NewFile) (int, error) {
 	return s.addFiles(ctx, files, s.q(`INSERT INTO snapshots (camera_id, path, ts_ms, size, etag, mod_ms) VALUES (?, ?, ?, ?, ?, ?)
-		ON CONFLICT (path) DO UPDATE SET status = 'pending', camera_id = excluded.camera_id, ts_ms = excluded.ts_ms,
+		ON CONFLICT (path) DO UPDATE SET status = ?, camera_id = excluded.camera_id, ts_ms = excluded.ts_ms,
 			size = excluded.size, etag = excluded.etag, mod_ms = excluded.mod_ms, clip_id = NULL
-		WHERE snapshots.status = 'deleted'`))
+		WHERE snapshots.status = ?`), StatusPending, StatusDeleted)
 }
 
-func (s *Store) addFiles(ctx context.Context, files []NewFile, query string) (int, error) {
+// addFiles runs query once per file with the file's six columns followed by extra.
+func (s *Store) addFiles(ctx context.Context, files []NewFile, query string, extra ...any) (int, error) {
 	if len(files) == 0 {
 		return 0, nil
 	}
@@ -179,7 +193,7 @@ func (s *Store) addFiles(ctx context.Context, files []NewFile, query string) (in
 	defer stmt.Close()
 	n := 0
 	for _, f := range files {
-		res, err := stmt.ExecContext(ctx, f.CameraID, f.Path, f.TimeMS, f.Size, f.ETag, f.ModMS)
+		res, err := stmt.ExecContext(ctx, append([]any{f.CameraID, f.Path, f.TimeMS, f.Size, f.ETag, f.ModMS}, extra...)...)
 		if err != nil {
 			return 0, err
 		}
@@ -194,30 +208,31 @@ func (s *Store) addFiles(ctx context.Context, files []NewFile, query string) (in
 // ClipsToProbe returns pending clips that are due, newest first.
 func (s *Store) ClipsToProbe(ctx context.Context, nowMS int64, limit int) ([]Clip, error) {
 	return collect(ctx, s.db, scanClip, s.q(`SELECT `+clipCols+` FROM clips
-		WHERE status = 'pending' AND next_attempt_ms <= ? ORDER BY start_ms DESC LIMIT ?`), nowMS, limit)
+		WHERE status = ? AND next_attempt_ms <= ? ORDER BY start_ms DESC LIMIT ?`), StatusPending, nowMS, limit)
 }
 
 // SnapshotsToPair returns pending snapshots, newest first.
 func (s *Store) SnapshotsToPair(ctx context.Context, limit int) ([]Snapshot, error) {
 	return collect(ctx, s.db, scanSnapshot, s.q(`SELECT `+snapCols+` FROM snapshots
-		WHERE status = 'pending' ORDER BY ts_ms DESC LIMIT ?`), limit)
+		WHERE status = ? ORDER BY ts_ms DESC LIMIT ?`), StatusPending, limit)
 }
 
 // ClipsNeedingThumb returns ready clips whose thumbnail can be made now, newest first.
 func (s *Store) ClipsNeedingThumb(ctx context.Context, nowMS int64, limit int) ([]Clip, error) {
 	return collect(ctx, s.db, scanClip, s.q(`SELECT `+clipCols+` FROM clips
-		WHERE status = 'ready' AND next_attempt_ms <= ?
-		  AND (thumb_state IN ('snapshot', 'frame') OR (thumb_state = 'waiting' AND pair_deadline_ms <= ?))
-		ORDER BY start_ms DESC LIMIT ?`), nowMS, nowMS, limit)
+		WHERE status = ? AND next_attempt_ms <= ?
+		  AND (thumb_state IN (?, ?) OR (thumb_state = ? AND pair_deadline_ms <= ?))
+		ORDER BY start_ms DESC LIMIT ?`), StatusReady, nowMS, ThumbSnapshot, ThumbFrame, ThumbWaiting, nowMS, limit)
 }
 
 // NextWakeMS is the earliest future time any waiting work becomes due (0 if none).
 func (s *Store) NextWakeMS(ctx context.Context, nowMS int64) (int64, error) {
 	var a, b sql.NullInt64
 	err := s.db.QueryRowContext(ctx, s.q(`SELECT
-		(SELECT MIN(pair_deadline_ms) FROM clips WHERE status = 'ready' AND thumb_state = 'waiting' AND pair_deadline_ms > ?),
-		(SELECT MIN(next_attempt_ms) FROM clips WHERE status IN ('pending', 'ready') AND thumb_state NOT IN ('done', 'failed') AND next_attempt_ms > ?)`),
-		nowMS, nowMS).Scan(&a, &b)
+		(SELECT MIN(pair_deadline_ms) FROM clips WHERE status = ? AND thumb_state = ? AND pair_deadline_ms > ?),
+		(SELECT MIN(next_attempt_ms) FROM clips WHERE status IN (?, ?) AND thumb_state NOT IN (?, ?) AND next_attempt_ms > ?)`),
+		StatusReady, ThumbWaiting, nowMS,
+		StatusPending, StatusReady, ThumbDone, ThumbFailed, nowMS).Scan(&a, &b)
 	if err != nil {
 		return 0, err
 	}
@@ -251,8 +266,8 @@ func (s *Store) Snapshot(ctx context.Context, id int64) (Snapshot, error) {
 
 // SetClipProbed records the probe result and marks the clip ready.
 func (s *Store) SetClipProbed(ctx context.Context, id, endMS int64, codec string, width, height int) error {
-	_, err := s.db.ExecContext(ctx, s.q(`UPDATE clips SET status = 'ready', end_ms = ?, codec = ?, width = ?, height = ?,
-		error = '', attempts = 0, next_attempt_ms = 0 WHERE id = ?`), endMS, codec, width, height, id)
+	_, err := s.db.ExecContext(ctx, s.q(`UPDATE clips SET status = ?, end_ms = ?, codec = ?, width = ?, height = ?,
+		error = '', attempts = 0, next_attempt_ms = 0 WHERE id = ?`), StatusReady, endMS, codec, width, height, id)
 	return err
 }
 
@@ -263,11 +278,26 @@ func (s *Store) SetClipFailed(ctx context.Context, id int64, msg string, nextAtt
 		status = StatusFailed
 	}
 	_, err := s.db.ExecContext(ctx, s.q(`UPDATE clips SET status = ?, error = ?, attempts = attempts + 1, next_attempt_ms = ?
-		WHERE id = ? AND status = 'pending'`), status, msg, nextAttemptMS, id)
+		WHERE id = ? AND status = ?`), status, msg, nextAttemptMS, id, StatusPending)
 	return err
 }
 
 // ---- pairing ----
+
+// pairable is the join condition for a clip c and a snapshot s that may be
+// paired: same camera, both ready, neither paired yet, and the snapshot taken
+// between beforeMS ahead of the clip's start and its end. The closest one to
+// the clip's start wins (pairOrder). Bind with pairArgs.
+const (
+	pairable = `c.camera_id = s.camera_id AND c.status = ? AND s.status = ?
+		AND c.snapshot_id IS NULL AND s.clip_id IS NULL
+		AND s.ts_ms BETWEEN c.start_ms - ? AND c.end_ms`
+	pairOrder = `ABS(s.ts_ms - c.start_ms)`
+)
+
+func pairArgs(beforeMS int64, rest ...any) []any {
+	return append([]any{StatusReady, StatusReady, beforeMS}, rest...)
+}
 
 // PairClip links a ready clip with the closest unpaired snapshot of the same
 // camera taken between beforeMS ahead of its start and its end. Without one,
@@ -288,16 +318,15 @@ func (s *Store) PairClip(ctx context.Context, clipID, beforeMS, deadlineMS, nowM
 		return c.SnapshotID, tx.Commit()
 	}
 	var snapID int64
-	err = tx.QueryRowContext(ctx, s.q(`SELECT id FROM snapshots
-		WHERE camera_id = ? AND status = 'ready' AND clip_id IS NULL AND ts_ms >= ? AND ts_ms <= ?
-		ORDER BY ABS(ts_ms - ?), id LIMIT 1`), c.CameraID, c.StartMS-beforeMS, c.EndMS, c.StartMS).Scan(&snapID)
+	err = tx.QueryRowContext(ctx, s.q(`SELECT s.id FROM clips c JOIN snapshots s ON `+pairable+`
+		WHERE c.id = ? ORDER BY `+pairOrder+`, s.id LIMIT 1`), pairArgs(beforeMS, clipID)...).Scan(&snapID)
 	switch {
 	case errors.Is(err, sql.ErrNoRows):
 		state := ThumbWaiting
 		if deadlineMS <= nowMS {
 			state = ThumbFrame
 		}
-		if c.ThumbState == ThumbDone && c.ThumbKind == "frame" {
+		if c.ThumbState == ThumbDone && c.ThumbKind == ThumbKindFrame {
 			return 0, tx.Commit() // already has a frame thumbnail; nothing better arrived
 		}
 		if _, err := tx.ExecContext(ctx, s.q(`UPDATE clips SET thumb_state = ?, pair_deadline_ms = ? WHERE id = ?`), state, deadlineMS, clipID); err != nil {
@@ -330,16 +359,15 @@ func (s *Store) PairSnapshot(ctx context.Context, snapID, beforeMS int64) (int64
 	if sn.Status == StatusDeleted {
 		return 0, tx.Commit()
 	}
-	if _, err := tx.ExecContext(ctx, s.q(`UPDATE snapshots SET status = 'ready' WHERE id = ?`), snapID); err != nil {
+	if _, err := tx.ExecContext(ctx, s.q(`UPDATE snapshots SET status = ? WHERE id = ?`), StatusReady, snapID); err != nil {
 		return 0, err
 	}
 	if sn.ClipID != 0 {
 		return sn.ClipID, tx.Commit()
 	}
 	var clipID int64
-	err = tx.QueryRowContext(ctx, s.q(`SELECT id FROM clips
-		WHERE camera_id = ? AND status = 'ready' AND snapshot_id IS NULL AND start_ms - ? <= ? AND end_ms >= ?
-		ORDER BY ABS(start_ms - ?), id LIMIT 1`), sn.CameraID, beforeMS, sn.TSMS, sn.TSMS, sn.TSMS).Scan(&clipID)
+	err = tx.QueryRowContext(ctx, s.q(`SELECT c.id FROM snapshots s JOIN clips c ON `+pairable+`
+		WHERE s.id = ? ORDER BY `+pairOrder+`, c.id LIMIT 1`), pairArgs(beforeMS, snapID)...).Scan(&clipID)
 	if errors.Is(err, sql.ErrNoRows) {
 		return 0, tx.Commit()
 	}
@@ -357,7 +385,7 @@ func link(ctx context.Context, s *Store, tx *sql.Tx, clipID, snapID int64) error
 		return err
 	}
 	// A clip that already has a frame thumbnail is upgraded to the camera's snapshot.
-	_, err := tx.ExecContext(ctx, s.q(`UPDATE clips SET snapshot_id = ?, thumb_state = 'snapshot', attempts = 0, next_attempt_ms = 0 WHERE id = ?`), snapID, clipID)
+	_, err := tx.ExecContext(ctx, s.q(`UPDATE clips SET snapshot_id = ?, thumb_state = ?, attempts = 0, next_attempt_ms = 0 WHERE id = ?`), snapID, ThumbSnapshot, clipID)
 	return err
 }
 
@@ -371,7 +399,7 @@ func (s *Store) UnpairForFrame(ctx context.Context, clipID int64) error {
 	if _, err := tx.ExecContext(ctx, s.q(`UPDATE snapshots SET clip_id = NULL WHERE clip_id = ?`), clipID); err != nil {
 		return err
 	}
-	if _, err := tx.ExecContext(ctx, s.q(`UPDATE clips SET snapshot_id = NULL, thumb_state = 'frame' WHERE id = ?`), clipID); err != nil {
+	if _, err := tx.ExecContext(ctx, s.q(`UPDATE clips SET snapshot_id = NULL, thumb_state = ? WHERE id = ?`), ThumbFrame, clipID); err != nil {
 		return err
 	}
 	return tx.Commit()
@@ -380,19 +408,20 @@ func (s *Store) UnpairForFrame(ctx context.Context, clipID int64) error {
 // ---- thumbnails ----
 
 // SetThumb records a finished thumbnail.
-func (s *Store) SetThumb(ctx context.Context, clipID int64, path, kind string) error {
-	_, err := s.db.ExecContext(ctx, s.q(`UPDATE clips SET thumb_state = 'done', thumb_kind = ?, thumb_path = ?, error = '',
-		attempts = 0, next_attempt_ms = 0 WHERE id = ?`), kind, path, clipID)
+func (s *Store) SetThumb(ctx context.Context, clipID int64, path string, kind ThumbKind) error {
+	_, err := s.db.ExecContext(ctx, s.q(`UPDATE clips SET thumb_state = ?, thumb_kind = ?, thumb_path = ?, error = '',
+		attempts = 0, next_attempt_ms = 0 WHERE id = ?`), ThumbDone, kind, path, clipID)
 	return err
 }
 
 // SetThumbFailed records a thumbnail error; permanent failures stop retries.
 func (s *Store) SetThumbFailed(ctx context.Context, clipID int64, msg string, nextAttemptMS int64, permanent bool) error {
-	q := `UPDATE clips SET error = ?, attempts = attempts + 1, next_attempt_ms = ? WHERE id = ?`
 	if permanent {
-		q = `UPDATE clips SET thumb_state = 'failed', error = ?, attempts = attempts + 1, next_attempt_ms = ? WHERE id = ?`
+		_, err := s.db.ExecContext(ctx, s.q(`UPDATE clips SET thumb_state = ?, error = ?, attempts = attempts + 1, next_attempt_ms = ? WHERE id = ?`),
+			ThumbFailed, msg, nextAttemptMS, clipID)
+		return err
 	}
-	_, err := s.db.ExecContext(ctx, s.q(q), msg, nextAttemptMS, clipID)
+	_, err := s.db.ExecContext(ctx, s.q(`UPDATE clips SET error = ?, attempts = attempts + 1, next_attempt_ms = ? WHERE id = ?`), msg, nextAttemptMS, clipID)
 	return err
 }
 
@@ -410,8 +439,8 @@ func (s *Store) LivePathsIn(ctx context.Context, dir string) ([]string, error) {
 	paths, err := collect(ctx, s.db, func(r scanner) (string, error) {
 		var p string
 		return p, r.Scan(&p)
-	}, s.q(`SELECT path FROM clips WHERE path >= ? AND path < ? AND status <> 'deleted'
-		UNION ALL SELECT path FROM snapshots WHERE path >= ? AND path < ? AND status <> 'deleted'`), prefix, hi, prefix, hi)
+	}, s.q(`SELECT path FROM clips WHERE path >= ? AND path < ? AND status <> ?
+		UNION ALL SELECT path FROM snapshots WHERE path >= ? AND path < ? AND status <> ?`), prefix, hi, StatusDeleted, prefix, hi, StatusDeleted)
 	if err != nil {
 		return nil, err
 	}
@@ -429,7 +458,7 @@ func (s *Store) AllLivePaths(ctx context.Context) ([]string, error) {
 	return collect(ctx, s.db, func(r scanner) (string, error) {
 		var p string
 		return p, r.Scan(&p)
-	}, `SELECT path FROM clips WHERE status <> 'deleted' UNION ALL SELECT path FROM snapshots WHERE status <> 'deleted'`)
+	}, s.q(`SELECT path FROM clips WHERE status <> ? UNION ALL SELECT path FROM snapshots WHERE status <> ?`), StatusDeleted, StatusDeleted)
 }
 
 // MarkDeleted marks clips and snapshots at these paths as deleted and returns
@@ -446,7 +475,7 @@ func (s *Store) MarkDeleted(ctx context.Context, paths []string) ([]string, erro
 	var thumbs []string
 	for _, p := range paths {
 		var thumb string
-		err := tx.QueryRowContext(ctx, s.q(`SELECT thumb_path FROM clips WHERE path = ? AND status <> 'deleted'`), p).Scan(&thumb)
+		err := tx.QueryRowContext(ctx, s.q(`SELECT thumb_path FROM clips WHERE path = ? AND status <> ?`), p, StatusDeleted).Scan(&thumb)
 		if err == nil {
 			if thumb != "" {
 				thumbs = append(thumbs, thumb)
@@ -454,7 +483,8 @@ func (s *Store) MarkDeleted(ctx context.Context, paths []string) ([]string, erro
 			if _, err := tx.ExecContext(ctx, s.q(`UPDATE snapshots SET clip_id = NULL WHERE clip_id = (SELECT id FROM clips WHERE path = ?)`), p); err != nil {
 				return nil, err
 			}
-			if _, err := tx.ExecContext(ctx, s.q(`UPDATE clips SET status = 'deleted', thumb_path = '', thumb_state = 'none', snapshot_id = NULL WHERE path = ?`), p); err != nil {
+			if _, err := tx.ExecContext(ctx, s.q(`UPDATE clips SET status = ?, thumb_path = '', thumb_state = ?, snapshot_id = NULL WHERE path = ?`),
+				StatusDeleted, ThumbNone, p); err != nil {
 				return nil, err
 			}
 			continue
@@ -462,7 +492,7 @@ func (s *Store) MarkDeleted(ctx context.Context, paths []string) ([]string, erro
 			return nil, err
 		}
 		// A deleted snapshot keeps any thumbnail already made from it.
-		if _, err := tx.ExecContext(ctx, s.q(`UPDATE snapshots SET status = 'deleted' WHERE path = ?`), p); err != nil {
+		if _, err := tx.ExecContext(ctx, s.q(`UPDATE snapshots SET status = ? WHERE path = ?`), StatusDeleted, p); err != nil {
 			return nil, err
 		}
 	}
@@ -478,21 +508,21 @@ const MaxClipMS = 60 * 60 * 1000
 // cameraID 0 means all cameras.
 func (s *Store) ClipsBetween(ctx context.Context, fromMS, toMS, cameraID int64) ([]Clip, error) {
 	return collect(ctx, s.db, scanClip, s.q(`SELECT `+clipCols+` FROM clips
-		WHERE status = 'ready' AND start_ms >= ? AND start_ms < ? AND end_ms > ? AND (? = 0 OR camera_id = ?)
-		ORDER BY start_ms, id`), fromMS-MaxClipMS, toMS, fromMS, cameraID, cameraID)
+		WHERE status = ? AND start_ms >= ? AND start_ms < ? AND end_ms > ? AND (? = 0 OR camera_id = ?)
+		ORDER BY start_ms, id`), StatusReady, fromMS-MaxClipMS, toMS, fromMS, cameraID, cameraID)
 }
 
 // LooseSnapshotsBetween returns ready snapshots in [fromMS, toMS) not paired with any clip.
 func (s *Store) LooseSnapshotsBetween(ctx context.Context, fromMS, toMS, cameraID int64) ([]Snapshot, error) {
 	return collect(ctx, s.db, scanSnapshot, s.q(`SELECT `+snapCols+` FROM snapshots
-		WHERE status = 'ready' AND clip_id IS NULL AND ts_ms >= ? AND ts_ms < ? AND (? = 0 OR camera_id = ?)
-		ORDER BY ts_ms, id`), fromMS, toMS, cameraID, cameraID)
+		WHERE status = ? AND clip_id IS NULL AND ts_ms >= ? AND ts_ms < ? AND (? = 0 OR camera_id = ?)
+		ORDER BY ts_ms, id`), StatusReady, fromMS, toMS, cameraID, cameraID)
 }
 
 // HasClipsBetween reports whether any ready clip starts in [fromMS, toMS).
 func (s *Store) HasClipsBetween(ctx context.Context, fromMS, toMS int64) (bool, error) {
 	var one int
-	err := s.db.QueryRowContext(ctx, s.q(`SELECT 1 FROM clips WHERE status = 'ready' AND start_ms >= ? AND start_ms < ? LIMIT 1`), fromMS, toMS).Scan(&one)
+	err := s.db.QueryRowContext(ctx, s.q(`SELECT 1 FROM clips WHERE status = ? AND start_ms >= ? AND start_ms < ? LIMIT 1`), StatusReady, fromMS, toMS).Scan(&one)
 	if errors.Is(err, sql.ErrNoRows) {
 		return false, nil
 	}
@@ -501,48 +531,51 @@ func (s *Store) HasClipsBetween(ctx context.Context, fromMS, toMS int64) (bool, 
 
 // Stats summarises the index for the status page.
 type Stats struct {
-	Clips          map[string]int `json:"clips"`     // by status
-	Thumbs         map[string]int `json:"thumbs"`    // ready clips by thumbnail state
-	Snapshots      map[string]int `json:"snapshots"` // by status
-	PairedSnaps    int            `json:"paired_snapshots"`
-	Cameras        int            `json:"cameras"`
-	LatestClipMS   int64          `json:"latest_clip_ms"`
-	EarliestClipMS int64          `json:"earliest_clip_ms"`
+	Clips          map[Status]int     `json:"clips"`
+	Thumbs         map[ThumbState]int `json:"thumbs"` // ready clips only
+	Snapshots      map[Status]int     `json:"snapshots"`
+	PairedSnaps    int                `json:"paired_snapshots"`
+	Cameras        int                `json:"cameras"`
+	LatestClipMS   int64              `json:"latest_clip_ms"`
+	EarliestClipMS int64              `json:"earliest_clip_ms"`
 }
 
 // Stats counts rows by state.
 func (s *Store) Stats(ctx context.Context) (Stats, error) {
-	st := Stats{Clips: map[string]int{}, Thumbs: map[string]int{}, Snapshots: map[string]int{}}
-	type kv struct {
-		k string
-		n int
+	var st Stats
+	var err error
+	if st.Clips, err = countBy[Status](ctx, s, `SELECT status, COUNT(*) FROM clips GROUP BY status`); err != nil {
+		return st, err
 	}
-	scanKV := func(r scanner) (kv, error) {
-		var v kv
-		return v, r.Scan(&v.k, &v.n)
+	if st.Thumbs, err = countBy[ThumbState](ctx, s, `SELECT thumb_state, COUNT(*) FROM clips WHERE status = ? GROUP BY thumb_state`, StatusReady); err != nil {
+		return st, err
 	}
-	for _, q := range []struct {
-		m     map[string]int
-		query string
-	}{
-		{st.Clips, `SELECT status, COUNT(*) FROM clips GROUP BY status`},
-		{st.Thumbs, `SELECT thumb_state, COUNT(*) FROM clips WHERE status = 'ready' GROUP BY thumb_state`},
-		{st.Snapshots, `SELECT status, COUNT(*) FROM snapshots GROUP BY status`},
-	} {
-		rows, err := collect(ctx, s.db, scanKV, q.query)
-		if err != nil {
-			return st, err
-		}
-		for _, r := range rows {
-			q.m[r.k] = r.n
-		}
+	if st.Snapshots, err = countBy[Status](ctx, s, `SELECT status, COUNT(*) FROM snapshots GROUP BY status`); err != nil {
+		return st, err
 	}
 	var lo, hi sql.NullInt64
-	err := s.db.QueryRowContext(ctx, `SELECT
+	err = s.db.QueryRowContext(ctx, s.q(`SELECT
 		(SELECT COUNT(*) FROM cameras),
 		(SELECT COUNT(*) FROM snapshots WHERE clip_id IS NOT NULL),
-		(SELECT MIN(start_ms) FROM clips WHERE status = 'ready'),
-		(SELECT MAX(start_ms) FROM clips WHERE status = 'ready')`).Scan(&st.Cameras, &st.PairedSnaps, &lo, &hi)
+		(SELECT MIN(start_ms) FROM clips WHERE status = ?),
+		(SELECT MAX(start_ms) FROM clips WHERE status = ?)`), StatusReady, StatusReady).Scan(&st.Cameras, &st.PairedSnaps, &lo, &hi)
 	st.EarliestClipMS, st.LatestClipMS = lo.Int64, hi.Int64
 	return st, err
+}
+
+// countBy runs a "SELECT key, COUNT(*) ... GROUP BY key" query into a map.
+func countBy[K ~string](ctx context.Context, s *Store, query string, args ...any) (map[K]int, error) {
+	type kv struct {
+		k K
+		n int
+	}
+	rows, err := collect(ctx, s.db, func(r scanner) (kv, error) {
+		var v kv
+		return v, r.Scan(&v.k, &v.n)
+	}, s.q(query), args...)
+	m := make(map[K]int, len(rows))
+	for _, r := range rows {
+		m[r.k] = r.n
+	}
+	return m, err
 }

@@ -1,7 +1,8 @@
 import { fmtTime } from '../lib/time'
 import { streamURL, type Clip } from '../lib/api'
-import { itemAt, nextAfter } from '../lib/clips'
-import { app, camClips, playbackAt, playOnFrom, toast, type AppState } from './state'
+import { nextAfter } from '../lib/clips'
+import { playbackAt, playOnFrom } from './playhead'
+import { app, type AppState, camClips, clipAtPlayhead, toast } from './state'
 
 // Drives two <video> elements from the app state. One shows the clip under
 // the playhead; the other loads the next clip a little before the current one
@@ -90,7 +91,7 @@ export class Engine {
 
   /** Show the clip under the playhead at the right position. */
   private goTo(s: AppState) {
-    const c = itemAt(camClips(s), s.t)
+    const c = clipAtPlayhead(s)
     if (!c) {
       for (const v of this.v) v.pause()
       app.set({ shown: null, preview: null, buffering: false })
@@ -108,7 +109,7 @@ export class Engine {
 
   /** While dragging: seek the loaded clip live, or show the thumbnail of one that isn't loaded. */
   private scrub(s: AppState) {
-    const c = itemAt(camClips(s), s.t)
+    const c = clipAtPlayhead(s)
     if (!c) {
       app.set({ shown: null, preview: null })
       return

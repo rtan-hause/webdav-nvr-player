@@ -22,10 +22,11 @@ web/node_modules: web/package.json web/package-lock.json
 build:
 	CGO_ENABLED=0 go build -trimpath -ldflags '$(LDFLAGS)' -o bin/nvr ./cmd/nvr
 
-## test: Go tests (race detector) plus frontend typecheck
+## test: Go tests (race detector) plus frontend typecheck and tests
 test: web/node_modules
 	go test -race $(GOPKGS)
 	cd web && npm run typecheck
+	cd web && npm test
 
 ## lint: go vet, gofmt check, eslint
 lint: web/node_modules

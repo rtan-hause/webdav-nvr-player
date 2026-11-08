@@ -1,4 +1,4 @@
-/* Player layout (docs/mockups/index.html, layout C "Split", plus theater mode).
+/* Player layout: "Split" (clip list beside video + timeline; stacked on phone), plus theater mode.
    Grid areas here; component details are Tailwind classes in the components. */
 
 #root {

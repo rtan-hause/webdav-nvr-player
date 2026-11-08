@@ -1,11 +1,14 @@
 import { useEffect, useRef, useState, type KeyboardEvent, type PointerEvent } from 'react'
-import { app, camClips, cameraName, goToTime, jumpClip, jumpToLatest, togglePlay, zoomStep } from '../app/state'
-import { itemAt } from '../lib/clips'
+import { goToTime, jumpToLatest } from '../app/days'
+import { jumpClip, togglePlay } from '../app/playhead'
+import { app, cameraName, clipAtPlayhead } from '../app/state'
+import { zoomStep } from '../app/view'
+import { loadSetting, saveSetting } from '../lib/storage'
 import { useStore } from '../lib/store'
 import { dateOf, fmtTime } from '../lib/time'
 import { Icon } from './Icon'
-import { Timeline } from './Timeline'
-import { LANE_H, MAX_LANE, MIN_LANE, timelineHeight } from './timelineGeom'
+import { Timeline } from './timeline/Timeline'
+import { LANE_H, MAX_LANE, MIN_LANE, timelineHeight } from './timeline/geometry'
 
 // Under the video: clip transport, the wall-clock time at the playhead, jumps
 // to a date and time or to the newest recording, zoom, and the day timeline.
@@ -21,7 +24,7 @@ export function Dock() {
   const playing = useStore(app, (s) => s.playing)
   const tz = useStore(app, (s) => s.tz)
   const second = useStore(app, (s) => Math.floor(s.t / 1000) * 1000)
-  const file = useStore(app, (s) => itemAt(camClips(s), s.t)?.file ?? null)
+  const file = useStore(app, (s) => clipAtPlayhead(s)?.file ?? null)
   const name = useStore(app, (s) => cameraName(s))
   const span = useStore(app, (s) => s.span)
   const theater = useStore(app, (s) => s.layout === 'theater')
@@ -147,12 +150,8 @@ function GoTo() {
 const LANE_KEY = 'nvr.laneHeight'
 
 function savedLane(): number {
-  try {
-    const v = Number(localStorage.getItem(LANE_KEY))
-    return v >= MIN_LANE && v <= MAX_LANE ? v : LANE_H
-  } catch {
-    return LANE_H
-  }
+  const v = Number(loadSetting(LANE_KEY))
+  return v >= MIN_LANE && v <= MAX_LANE ? v : LANE_H
 }
 
 function ResizableTimeline({ cameras }: { cameras: number }) {
@@ -167,12 +166,7 @@ function ResizableTimeline({ cameras }: { cameras: number }) {
   const update = (v: number, save: boolean) => {
     latest.current = v
     setLane(v)
-    if (!save) return
-    try {
-      localStorage.setItem(LANE_KEY, String(v))
-    } catch {
-      // private window: the height just isn't remembered
-    }
+    if (save) saveSetting(LANE_KEY, String(v))
   }
   const finish = () => {
     if (!drag.current) return

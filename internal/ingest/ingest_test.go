@@ -270,11 +270,11 @@ func TestFullScanIndexesPairsAndMakesThumbnails(t *testing.T) {
 	if st.Cameras != 2 || st.Snapshots[store.StatusReady] != 3 || st.PairedSnaps != 3 {
 		t.Fatalf("stats = %+v", st)
 	}
-	want := map[string]string{
-		day + "Living Room_00_20261106215521.mp4": "snapshot",
-		day + "Living Room_00_20261106215852.mp4": "snapshot",
-		day + "Living Room_00_20261106215549.mp4": "frame",
-		"2026/11/05/Garage_00_20261105080000.mp4": "snapshot",
+	want := map[string]store.ThumbKind{
+		day + "Living Room_00_20261106215521.mp4": store.ThumbKindSnapshot,
+		day + "Living Room_00_20261106215852.mp4": store.ThumbKindSnapshot,
+		day + "Living Room_00_20261106215549.mp4": store.ThumbKindFrame,
+		"2026/11/05/Garage_00_20261105080000.mp4": store.ThumbKindSnapshot,
 	}
 	for p, kind := range want {
 		c := clipByPath(t, h.st, p)
@@ -332,7 +332,7 @@ func TestWebhookAndLateSnapshot(t *testing.T) {
 		t.Fatalf("notify snapshot: %v %v", k, err)
 	}
 	h.waitFor(t, "snapshot thumbnail", func(s store.Stats) bool { return s.Thumbs[store.ThumbDone] == 1 })
-	if c := clipByPath(t, h.st, p); c.ThumbKind != "snapshot" {
+	if c := clipByPath(t, h.st, p); c.ThumbKind != store.ThumbKindSnapshot {
 		t.Fatalf("thumb kind = %q", c.ThumbKind)
 	}
 
@@ -345,7 +345,7 @@ func TestWebhookAndLateSnapshot(t *testing.T) {
 	h.waitFor(t, "second clip waiting", func(s store.Stats) bool { return s.Thumbs[store.ThumbWaiting] == 1 })
 	h.clk.Advance(61 * time.Second)
 	h.waitFor(t, "frame fallback", func(s store.Stats) bool { return s.Thumbs[store.ThumbDone] == 2 })
-	if c := clipByPath(t, h.st, p2); c.ThumbKind != "frame" {
+	if c := clipByPath(t, h.st, p2); c.ThumbKind != store.ThumbKindFrame {
 		t.Fatalf("thumb kind = %q", c.ThumbKind)
 	}
 }

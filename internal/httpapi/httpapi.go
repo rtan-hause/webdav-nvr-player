@@ -3,7 +3,6 @@ package httpapi
 
 import (
 	"context"
-	"encoding/json"
 	"io/fs"
 	"net/http"
 	"path"
@@ -11,6 +10,7 @@ import (
 	"time"
 
 	"github.com/rtan-hause/webdav-nvr-player/internal/auth"
+	"github.com/rtan-hause/webdav-nvr-player/internal/httpx"
 )
 
 // Options configures the HTTP handler.
@@ -47,16 +47,16 @@ func New(opts Options) http.Handler {
 		_, _ = w.Write([]byte("ok\n"))
 	})
 	mux.HandleFunc("GET /api/version", func(w http.ResponseWriter, _ *http.Request) {
-		writeJSON(w, http.StatusOK, map[string]string{"version": opts.Version})
+		httpx.JSON(w, http.StatusOK, map[string]string{"version": opts.Version})
 	})
 	mux.HandleFunc("GET /api/source", func(w http.ResponseWriter, r *http.Request) {
 		if opts.Source == nil {
-			writeJSON(w, http.StatusOK, SourceStatus{CheckedAt: time.Now().UTC()})
+			httpx.JSON(w, http.StatusOK, SourceStatus{CheckedAt: time.Now().UTC()})
 			return
 		}
 		ctx, cancel := context.WithTimeout(r.Context(), 15*time.Second)
 		defer cancel()
-		writeJSON(w, http.StatusOK, opts.Source(ctx))
+		httpx.JSON(w, http.StatusOK, opts.Source(ctx))
 	})
 	if opts.Index != nil {
 		(&api{Index: *opts.Index}).routes(mux)
@@ -67,22 +67,16 @@ func New(opts Options) http.Handler {
 	// Unknown API paths must not fall through to the SPA's index.html.
 	mux.HandleFunc("/api/", func(w http.ResponseWriter, _ *http.Request) {
 		if opts.Index == nil {
-			writeJSON(w, http.StatusServiceUnavailable, map[string]string{"error": "no recordings server configured; set WEBDAV_URL"})
+			httpx.Error(w, http.StatusServiceUnavailable, "no recordings server configured; set WEBDAV_URL")
 			return
 		}
-		writeJSON(w, http.StatusNotFound, map[string]string{"error": "not found"})
+		httpx.Error(w, http.StatusNotFound, "not found")
 	})
 	mux.Handle("/", spa(opts.UI))
 	if opts.Auth != nil {
 		return opts.Auth.Protect(mux)
 	}
 	return mux
-}
-
-func writeJSON(w http.ResponseWriter, status int, v any) {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(status)
-	_ = json.NewEncoder(w).Encode(v)
 }
 
 // spa serves static files from ui and falls back to index.html for client-side routes.

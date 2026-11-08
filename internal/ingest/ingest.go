@@ -66,9 +66,17 @@ type Ingester struct {
 	status   Status
 }
 
+// ScanKind says how much of the server a scan crawls.
+type ScanKind string
+
+const (
+	ScanFull   ScanKind = "full"   // the whole tree (ScanAll)
+	ScanRecent ScanKind = "recent" // today's and yesterday's folders (ScanRecent)
+)
+
 // Status describes scan activity for the status page.
 type Status struct {
-	Scanning       string    `json:"scanning,omitempty"` // "full" or "recent" while a scan runs
+	Scanning       ScanKind  `json:"scanning,omitempty"` // set while a scan runs
 	LastFullScan   time.Time `json:"last_full_scan"`
 	LastRecentScan time.Time `json:"last_recent_scan"`
 	LastScanError  string    `json:"last_scan_error,omitempty"`
@@ -146,7 +154,7 @@ func (in *Ingester) Run(ctx context.Context) {
 }
 
 func (in *Ingester) schedule(ctx context.Context) {
-	in.runScan(ctx, "full")
+	in.runScan(ctx, ScanFull)
 	recent := time.NewTicker(in.o.RecentEvery)
 	full := time.NewTicker(in.o.FullEvery)
 	defer recent.Stop()
@@ -156,9 +164,9 @@ func (in *Ingester) schedule(ctx context.Context) {
 		case <-ctx.Done():
 			return
 		case <-recent.C:
-			in.runScan(ctx, "recent")
+			in.runScan(ctx, ScanRecent)
 		case <-full.C:
-			in.runScan(ctx, "full")
+			in.runScan(ctx, ScanFull)
 		}
 	}
 }
@@ -169,11 +177,11 @@ func (in *Ingester) Rescan(ctx context.Context) bool {
 		return false
 	}
 	in.scanMu.Unlock()
-	go in.runScan(context.WithoutCancel(ctx), "full")
+	go in.runScan(context.WithoutCancel(ctx), ScanFull)
 	return true
 }
 
-func (in *Ingester) runScan(ctx context.Context, kind string) {
+func (in *Ingester) runScan(ctx context.Context, kind ScanKind) {
 	if !in.scanMu.TryLock() {
 		return // another scan is running; it covers this one
 	}
@@ -182,7 +190,7 @@ func (in *Ingester) runScan(ctx context.Context, kind string) {
 	start := in.o.Now()
 	var added int
 	var err error
-	if kind == "full" {
+	if kind == ScanFull {
 		added, err = in.ScanAll(ctx)
 	} else {
 		added, err = in.ScanRecent(ctx)
@@ -194,7 +202,7 @@ func (in *Ingester) runScan(ctx context.Context, kind string) {
 		if err != nil {
 			s.LastScanError = err.Error()
 		}
-		if kind == "full" {
+		if kind == ScanFull {
 			s.LastFullScan = start
 		} else {
 			s.LastRecentScan = start
@@ -202,7 +210,7 @@ func (in *Ingester) runScan(ctx context.Context, kind string) {
 	})
 	if err != nil && ctx.Err() == nil {
 		in.o.Log.Error("scan failed", "kind", kind, "err", err)
-	} else if added > 0 || kind == "full" {
+	} else if added > 0 || kind == ScanFull {
 		in.o.Log.Info("scan finished", "kind", kind, "added", added, "took", in.o.Now().Sub(start).Round(time.Millisecond))
 	}
 	in.poke()
@@ -524,20 +532,25 @@ func (in *Ingester) probeClip(ctx context.Context, c store.Clip) {
 	if uploaded == 0 {
 		uploaded = in.o.Now().UnixMilli()
 	}
+	_ = in.pairClip(ctx, c, uploaded+in.o.Profile.Pairing().Wait.Milliseconds())
+}
+
+// pairClip looks for the clip's snapshot; without one the clip waits until
+// deadlineMS, then falls back to a frame (see store.PairClip). Errors are logged.
+func (in *Ingester) pairClip(ctx context.Context, c store.Clip, deadlineMS int64) error {
 	in.pairMu.Lock()
-	_, err = in.o.Store.PairClip(ctx, c.ID, in.o.Profile.Pairing().Before.Milliseconds(),
-		uploaded+in.o.Profile.Pairing().Wait.Milliseconds(), in.o.Now().UnixMilli())
-	in.pairMu.Unlock()
+	defer in.pairMu.Unlock()
+	_, err := in.o.Store.PairClip(ctx, c.ID, in.o.Profile.Pairing().Before.Milliseconds(), deadlineMS, in.o.Now().UnixMilli())
 	if err != nil {
 		in.o.Log.Error("pairing clip", "path", c.Path, "err", err)
 	}
+	return err
 }
 
 func (in *Ingester) pairSnapshot(ctx context.Context, s store.Snapshot) {
 	in.pairMu.Lock()
-	_, err := in.o.Store.PairSnapshot(ctx, s.ID, in.o.Profile.Pairing().Before.Milliseconds())
-	in.pairMu.Unlock()
-	if err != nil {
+	defer in.pairMu.Unlock()
+	if _, err := in.o.Store.PairSnapshot(ctx, s.ID, in.o.Profile.Pairing().Before.Milliseconds()); err != nil {
 		in.o.Log.Error("pairing snapshot", "path", s.Path, "err", err)
 	}
 }
@@ -549,11 +562,7 @@ func (in *Ingester) makeThumb(ctx context.Context, clipID int64) {
 	}
 	if c.ThumbState == store.ThumbWaiting {
 		// Deadline passed: one last look for a snapshot, otherwise use a frame.
-		in.pairMu.Lock()
-		_, err = in.o.Store.PairClip(ctx, c.ID, in.o.Profile.Pairing().Before.Milliseconds(), c.PairDeadlineMS, in.o.Now().UnixMilli())
-		in.pairMu.Unlock()
-		if err != nil {
-			in.o.Log.Error("pairing clip", "path", c.Path, "err", err)
+		if err := in.pairClip(ctx, c, c.PairDeadlineMS); err != nil {
 			return
 		}
 		if c, err = in.o.Store.Clip(ctx, clipID); err != nil {
@@ -563,10 +572,11 @@ func (in *Ingester) makeThumb(ctx context.Context, clipID int64) {
 
 	tctx, cancel := context.WithTimeout(ctx, 90*time.Second)
 	defer cancel()
-	var rel, kind string
+	var rel string
+	var kind store.ThumbKind
 	switch c.ThumbState {
 	case store.ThumbSnapshot:
-		kind = "snapshot"
+		kind = store.ThumbKindSnapshot
 		var sn store.Snapshot
 		if sn, err = in.o.Store.Snapshot(ctx, c.SnapshotID); err != nil {
 			_ = in.o.Store.UnpairForFrame(ctx, c.ID)
@@ -589,7 +599,7 @@ func (in *Ingester) makeThumb(ctx context.Context, clipID int64) {
 			return
 		}
 	case store.ThumbFrame:
-		kind = "frame"
+		kind = store.ThumbKindFrame
 		seek := float64(c.EndMS-c.StartMS) / 1000 * 0.1
 		rel, err = in.o.Thumbs.FromVideo(tctx, c.ID, in.o.FrameURL(c.Path), seek)
 	default:
