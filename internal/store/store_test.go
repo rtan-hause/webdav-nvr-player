@@ -262,7 +262,7 @@ func TestThumbLifecycleAndDeletion(t *testing.T) {
 		if _, err := s.PairSnapshot(ctx, sn.ID, 2*sec); err != nil {
 			t.Fatal(err)
 		}
-		if err := s.SetThumb(ctx, c.ID, "thumbs/0/1.jpg", "snapshot"); err != nil {
+		if err := s.SetThumb(ctx, c.ID, "thumbs/0/1.jpg", ThumbKindSnapshot); err != nil {
 			t.Fatal(err)
 		}
 		if due, _ := s.ClipsNeedingThumb(ctx, t0, 10); len(due) != 0 {
