@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.1](https://github.com/rtan-hause/webdav-nvr-player/compare/v0.2.0...v0.2.1) (2026-11-08)
+
+
+### Bug Fixes
+
+* ignore local .todo file ([#15](https://github.com/rtan-hause/webdav-nvr-player/issues/15)) ([9572689](https://github.com/rtan-hause/webdav-nvr-player/commit/95726897525a72ad4f073bd268efcd251105b83a))
+
 ## [0.2.0](https://github.com/rtan-hause/webdav-nvr-player/compare/v0.1.1...v0.2.0) (2026-11-08)
 
 
