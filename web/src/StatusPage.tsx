@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState, type ReactNode } from 'react'
-import { getJSON, isAbort, type IndexStatus, type SourceStatus } from './lib/api'
+import { fetchSource, fetchStatus, fetchVersion, isAbort, type IndexStatus, type SourceStatus } from './lib/api'
 
 // Server and index status: whether the app can reach the WebDAV server and
 // what it has indexed. Shown at #/status, and instead of the player when
@@ -13,9 +13,9 @@ export function StatusPage({ reason, playerReady }: { reason?: string; playerRea
 
   // `checking` starts true for the first load; the button sets it before re-checking.
   const check = useCallback((signal?: AbortSignal) => {
-    Promise.all([getJSON<{ version: string }>('/api/version', signal), getJSON<SourceStatus>('/api/source', signal)])
+    Promise.all([fetchVersion(signal), fetchSource(signal)])
       .then(([v, s]) => {
-        setVersion(v.version)
+        setVersion(v)
         setSource(s)
         setOffline(false)
       })
@@ -108,7 +108,7 @@ function IndexSection() {
   useEffect(() => {
     const ctrl = new AbortController()
     const load = () =>
-      getJSON<IndexStatus>('/api/status', ctrl.signal)
+      fetchStatus(ctrl.signal)
         .then(setStatus)
         .catch((e: unknown) => {
           if (!isAbort(e)) console.error(e)

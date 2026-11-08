@@ -1,5 +1,5 @@
 import { useEffect, useState, type FormEvent, type ReactNode } from 'react'
-import { getJSON, HttpError, isAbort, sendJSON, type AuthStatus } from './lib/api'
+import { changePassword, fetchSessionDays, HttpError, isAbort, logout, logoutOthers, saveSessionDays, type AuthStatus } from './lib/api'
 
 // Settings (#/settings): how long sessions last, the admin password, signing
 // out, and a link to the server and index status page.
@@ -72,15 +72,14 @@ function Account({ auth, onSignOut }: { auth: AuthStatus; onSignOut: () => void 
   const [note, setNote] = useState<{ tone: 'good' | 'bad'; text: string } | null>(null)
   const signOut = async () => {
     try {
-      await sendJSON('POST', '/api/logout')
+      await logout()
     } finally {
       onSignOut()
     }
   }
   const signOutOthers = async () => {
     try {
-      const r = await sendJSON<{ signed_out: number }>('POST', '/api/sessions/sign-out-others')
-      const n = r?.signed_out ?? 0
+      const n = await logoutOthers()
       setNote({ tone: 'good', text: n === 0 ? 'No other devices were signed in.' : `Signed out ${n} other device${n === 1 ? '' : 's'}.` })
     } catch (e) {
       setNote({ tone: 'bad', text: errorText(e) })
@@ -111,8 +110,8 @@ function SessionLength() {
 
   useEffect(() => {
     const ctrl = new AbortController()
-    getJSON<{ session_days: number }>('/api/settings', ctrl.signal)
-      .then((s) => setValue(s.session_days))
+    fetchSessionDays(ctrl.signal)
+      .then(setValue)
       .catch((e: unknown) => {
         if (!isAbort(e)) setNote({ tone: 'bad', text: errorText(e) })
       })
@@ -123,7 +122,7 @@ function SessionLength() {
     setValue(n)
     setNote(null)
     try {
-      await sendJSON('PUT', '/api/settings', { session_days: n })
+      await saveSessionDays(n)
       setNote({ tone: 'good', text: `Saved. A device you don’t use for ${days(n)} is signed out.` })
     } catch (e) {
       setNote({ tone: 'bad', text: errorText(e) })
@@ -169,7 +168,7 @@ function Password({ user }: { user: string }) {
     setBusy(true)
     setNote(null)
     try {
-      await sendJSON('POST', '/api/password', { current, new: next })
+      await changePassword(current, next)
       setCurrent('')
       setNext('')
       setAgain('')

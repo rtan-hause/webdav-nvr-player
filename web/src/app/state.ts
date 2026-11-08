@@ -1,4 +1,4 @@
-import { fetchClips, fetchDays, getJSON, HttpError, type Camera, type Clip, type IndexStatus } from '../lib/api'
+import { fetchCameras, fetchClips, fetchDays, fetchStatus, HttpError, type Camera, type Clip, type IndexStatus } from '../lib/api'
 import { itemAt, lastStartLE, mergeSpans, nextAfter } from '../lib/clips'
 import { loadSetting, saveSetting } from '../lib/storage'
 import { createStore } from '../lib/store'
@@ -378,7 +378,7 @@ export async function boot(): Promise<Boot> {
   let status: IndexStatus
   let cameras: Camera[]
   try {
-    ;[status, cameras] = await Promise.all([getJSON<IndexStatus>('/api/status'), getJSON<Camera[]>('/api/cameras')])
+    ;[status, cameras] = await Promise.all([fetchStatus(), fetchCameras()])
   } catch (e) {
     if (e instanceof HttpError && e.status === 503) return { kind: 'setup', reason: 'No recordings server is set up yet.' }
     return { kind: 'setup', reason: `Couldn’t load the index: ${e instanceof Error ? e.message : String(e)}` }
