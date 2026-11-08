@@ -2,7 +2,11 @@
 
 A web player for security-camera recordings stored on a WebDAV server. Cameras upload clips over FTP/SFTP (for example to [SFTPGo](https://github.com/drakkan/sftpgo)), and this app indexes them and plays them back on a scrubbable multi-camera timeline. The WebDAV account it uses only needs read access.
 
-**Status:** early development. Indexing, thumbnails, streaming and the player (Split layout with a day timeline, theater mode, phone layout) work, with sign-in (a local admin password or OpenID Connect). `make run` starts everything. See [docs/PLAN.md](docs/PLAN.md) for the design and [docs/mockups/index.html](docs/mockups/index.html) for the target UI.
+This is currently my answer for a reolink camera setup. As they can only upload via ftp (or setting up something heavy like frigate). So going with sftpgo and webdav was one of the more simpler ways of viewing the footage.
+
+**Status:** early development. Indexing, thumbnails, streaming and the player (Split layout with a day timeline, theater mode, phone layout) work, with sign-in (a local admin password or OpenID Connect). `make run` starts everything. See [docs/mockups/index.html](docs/mockups/index.html) for the target UI.
+
+Also this app is entirely vibecoded, use at your own risk.
 
 Planned highlights:
 
