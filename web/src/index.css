@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
-/* Design tokens from docs/mockups/index.html (decision 17: colours may change later,
-   so components use these tokens only, never literal colours). Dark by design. */
+/* Design tokens. Colours may change later, so components use these tokens only,
+   never literal colours. Dark by design. */
 @theme {
   --color-ink-0: #0c1114;
   --color-ink-1: #131a1e;
