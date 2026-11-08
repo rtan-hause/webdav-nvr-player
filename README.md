@@ -27,7 +27,7 @@ docker compose logs nvr # the first start prints the admin password
 
 Then open http://localhost:8080. [.env.example](.env.example) documents every setting.
 
-To index uploads the moment they finish instead of waiting for the next rescan, set `INGEST_SECRET` and point your upload server's webhook at the player: see [docs/sftpgo.md](docs/sftpgo.md).
+To index uploads the moment they finish instead of waiting for the next rescan, set `INGEST_SECRET` and point your upload server's webhook at the player: see [Upload Webhook (SFTPGo)](openwiki/integrations/upload-webhook.md).
 
 ### Kubernetes
 
@@ -74,11 +74,10 @@ Register it from the package's `init` with `profile.Register`, add a blank impor
 
 ## Documentation
 
-- [docs/design-decisions.md](docs/design-decisions.md): why the player works the way it does, and its known limits.
-- [docs/sftpgo.md](docs/sftpgo.md): wiring SFTPGo's upload webhook to the player.
 - [openwiki/](openwiki/): the generated code wiki, covering architecture, ingest, streaming, the player and operations. Start at its [Quickstart](openwiki/quickstart.md).
+- [Upload Webhook (SFTPGo)](openwiki/integrations/upload-webhook.md): wiring SFTPGo's upload webhook to the player.
 
-The wiki is written and kept current by [OpenWiki](https://github.com/langchain-ai/openwiki), with every fact backed by source evidence under `openwiki/.claims/`. Don't hand-edit generated pages; change the code or the docs above and let OpenWiki regenerate:
+The wiki is written and kept current by [OpenWiki](https://github.com/langchain-ai/openwiki), with every fact backed by source evidence under `openwiki/.claims/`. Don't hand-edit generated pages; change the code and let OpenWiki regenerate:
 
 - **Via your coding agent:** ask it to *"Update this repository's OpenWiki for changes since its last successful run."*
 - **Via CLI:** `openwiki code --update`
