@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState, type KeyboardEvent, type PointerEvent } from 'react'
-import { app, camClips, cameraName, goToTime, jumpClip, jumpToLatest, togglePlay, zoomStep } from '../app/state'
-import { itemAt } from '../lib/clips'
+import { goToTime, jumpToLatest } from '../app/days'
+import { jumpClip, togglePlay } from '../app/playhead'
+import { app, cameraName, clipAtPlayhead } from '../app/state'
+import { zoomStep } from '../app/view'
 import { loadSetting, saveSetting } from '../lib/storage'
 import { useStore } from '../lib/store'
 import { dateOf, fmtTime } from '../lib/time'
@@ -22,7 +24,7 @@ export function Dock() {
   const playing = useStore(app, (s) => s.playing)
   const tz = useStore(app, (s) => s.tz)
   const second = useStore(app, (s) => Math.floor(s.t / 1000) * 1000)
-  const file = useStore(app, (s) => itemAt(camClips(s), s.t)?.file ?? null)
+  const file = useStore(app, (s) => clipAtPlayhead(s)?.file ?? null)
   const name = useStore(app, (s) => cameraName(s))
   const span = useStore(app, (s) => s.span)
   const theater = useStore(app, (s) => s.layout === 'theater')

@@ -1,23 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
 import './app/app.css'
-import {
-  app,
-  boot,
-  exitTheater,
-  jumpClip,
-  jumpToLatest,
-  refresh,
-  selectCamera,
-  setRoot,
-  skip,
-  stepRate,
-  syncURL,
-  toggleMute,
-  togglePlay,
-  toggleTheater,
-  zoomStep,
-  type Boot,
-} from './app/state'
+import { boot, type Boot, jumpToLatest, refresh } from './app/days'
+import { jumpClip, selectCamera, skip, togglePlay } from './app/playhead'
+import { stepRate, toggleMute } from './app/prefs'
+import { app } from './app/state'
+import { exitTheater, setRoot, toggleTheater } from './app/theater'
+import { syncURL } from './app/url'
+import { zoomStep } from './app/view'
 import { useStore } from './lib/store'
 import { ClipList } from './components/ClipList'
 import { Dock } from './components/Dock'

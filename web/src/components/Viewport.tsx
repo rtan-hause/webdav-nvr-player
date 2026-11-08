@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState, type PointerEvent } from 'react'
 import { Engine } from '../app/engine'
-import { app, camClips, cameraName, enterTheater, exitTheater, playOnFrom, seekTo } from '../app/state'
+import { playOnFrom, seekTo } from '../app/playhead'
+import { app, camClips, cameraName, shownClip } from '../app/state'
+import { enterTheater, exitTheater } from '../app/theater'
 import { canPlay, thumbURL } from '../lib/api'
 import { nextAfter } from '../lib/clips'
 import { useStore } from '../lib/store'
@@ -46,7 +48,7 @@ export function Viewport() {
   const buffering = useStore(app, (s) => s.buffering)
   const shownId = useStore(app, (s) => s.shown)
   const playing = useStore(app, (s) => s.playing)
-  const shown = useStore(app, (s) => (s.shown === null ? null : (camClips(s).find((c) => c.id === s.shown) ?? null)))
+  const shown = useStore(app, (s) => shownClip(s))
   const { skip, flash, chaining } = useSkipFlash()
   const [touchShown, setTouchShown] = useState(false)
   const last = useRef<Tap | null>(null)

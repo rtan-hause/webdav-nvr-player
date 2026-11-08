@@ -1,22 +1,10 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import type { Camera, Clip } from '../lib/api'
-import {
-  app,
-  boot,
-  goToTime,
-  jumpClip,
-  jumpToLatest,
-  loadDay,
-  MIN_SPAN,
-  playbackAt,
-  playOnFrom,
-  seekTo,
-  selectCamera,
-  setView,
-  stepRate,
-  zoomAround,
-  zoomStep,
-} from './state'
+import { boot, goToTime, jumpToLatest, loadDay } from './days'
+import { jumpClip, playbackAt, playOnFrom, seekTo, selectCamera } from './playhead'
+import { stepRate } from './prefs'
+import { app } from './state'
+import { MIN_SPAN, setView, zoomAround, zoomStep } from './view'
 
 // The player's actions, driven through the store as the UI drives them. The
 // server is a stubbed fetch; the clock is fixed at NOW.

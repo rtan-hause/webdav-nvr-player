@@ -1,5 +1,7 @@
 import { useEffect, useRef } from 'react'
-import { app, endScrub, scrubTo, seekTo, selectCamera, setView, zoomAround } from '../app/state'
+import { endScrub, scrubTo, seekTo, selectCamera } from '../app/playhead'
+import { app } from '../app/state'
+import { setView, zoomAround } from '../app/view'
 import { lastStartLE } from '../lib/clips'
 import { fmtHM, fmtTime, localTicks } from '../lib/time'
 import { AXIS, LGAP, MINI } from './timelineGeom'
