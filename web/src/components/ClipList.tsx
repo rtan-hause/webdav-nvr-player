@@ -1,5 +1,7 @@
 import { useEffect, useRef } from 'react'
-import { app, camClips, seekTo, setPlaying, toggleSort } from '../app/state'
+import { seekTo, setPlaying } from '../app/playhead'
+import { toggleSort } from '../app/prefs'
+import { app, camClips } from '../app/state'
 import { thumbURL } from '../lib/api'
 import { useStore } from '../lib/store'
 import { fmtDur, fmtSize, fmtTime } from '../lib/time'

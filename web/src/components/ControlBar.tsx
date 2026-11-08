@@ -1,5 +1,8 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react'
-import { app, camClips, endScrub, RATES, scrubTo, seekTo, setRate, toggleMute, togglePlay, toggleTheater } from '../app/state'
+import { endScrub, scrubTo, seekTo, togglePlay } from '../app/playhead'
+import { setRate, toggleMute } from '../app/prefs'
+import { app, RATES, shownClip } from '../app/state'
+import { toggleTheater } from '../app/theater'
 import { useStore } from '../lib/store'
 import { fmtClock } from '../lib/time'
 import type { Skip } from '../player/SkipFlash'
@@ -18,7 +21,7 @@ export function ControlBar({ onSkip, touchShown }: { onSkip: (side: Skip['side']
   const rate = useStore(app, (s) => s.rate)
   const muted = useStore(app, (s) => s.muted)
   const theater = useStore(app, (s) => s.layout === 'theater')
-  const clip = useStore(app, (s) => (s.shown === null ? null : (camClips(s).find((c) => c.id === s.shown) ?? null)))
+  const clip = useStore(app, (s) => shownClip(s))
   // Position in the clip, to a tenth of a second so the bar doesn't re-render every frame.
   const pos = useStore(app, (s) => (clip ? Math.round((s.t - clip.start) / 100) / 10 : 0))
   const [menu, setMenu] = useState(false)
