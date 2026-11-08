@@ -7,8 +7,8 @@ import { loadSetting, saveSetting } from '../lib/storage'
 import { useStore } from '../lib/store'
 import { dateOf, fmtTime } from '../lib/time'
 import { Icon } from './Icon'
-import { Timeline } from './Timeline'
-import { LANE_H, MAX_LANE, MIN_LANE, timelineHeight } from './timelineGeom'
+import { Timeline } from './timeline/Timeline'
+import { LANE_H, MAX_LANE, MIN_LANE, timelineHeight } from './timeline/geometry'
 
 // Under the video: clip transport, the wall-clock time at the playhead, jumps
 // to a date and time or to the newest recording, zoom, and the day timeline.
