@@ -49,15 +49,7 @@ type rxChunk struct {
 }
 
 type rxTrack struct {
-	id        uint32
-	timescale uint32
-	video     bool
-	body      []byte // original trak body
-	stsd      []byte // original stsd body
-	inMoov    bool   // moov's own sample tables aren't empty
-
-	defSDI, defDur, defSize, defFlags uint32 // trex
-
+	trackInfo
 	samples []rxSample
 	chunks  []rxChunk
 }
@@ -74,96 +66,64 @@ func (t *rxTrack) mediaDuration() uint64 {
 // read per fragment) and builds a Remux. A file cut off mid-fragment keeps the
 // samples that are complete. Regular files return ErrNotFragmented.
 func Defragment(r io.ReaderAt, size int64) (*Remux, error) {
-	wr := &windowReader{r: r, size: size}
 	var (
-		off        int64
-		first      = true
 		mvhd       []byte
 		extra      [][]byte // other moov children (udta, meta), kept as whole boxes
 		tracks     []*rxTrack
 		byID       = map[uint32]*rxTrack{}
 		movieScale uint32
 	)
-walk:
-	for off+8 <= size {
-		hdr, err := wr.at(off, 16)
-		if err != nil {
-			return nil, fmt.Errorf("reading box header at %d: %w", off, err)
-		}
-		if len(hdr) < 8 {
-			break
-		}
-		boxSize := int64(binary.BigEndian.Uint32(hdr[0:4]))
-		typ := string(hdr[4:8])
-		hdrLen := int64(8)
-		switch boxSize {
-		case 1:
-			if len(hdr) < 16 {
-				return nil, fmt.Errorf("truncated 64-bit box header at %d", off)
+	wr := &windowReader{r: r, size: size}
+	err := walkTop(wr, func(b topBox) error {
+		if b.bad {
+			if tracks != nil && (b.typ == "mdat" || b.typ == "moof") {
+				return errStopWalk // upload cut off: keep the complete samples
 			}
-			boxSize = int64(binary.BigEndian.Uint64(hdr[8:16]))
-			hdrLen = 16
-		case 0:
-			boxSize = size - off
+			return nil
 		}
-		if first {
-			if !knownTopLevel(typ) {
-				return nil, ErrNotMP4
-			}
-			first = false
-		}
-		if boxSize < hdrLen || off+boxSize > size {
-			if tracks != nil && (typ == "mdat" || typ == "moof") {
-				break // upload cut off: keep the complete samples
-			}
-			return nil, fmt.Errorf("box %q at %d has bad size %d (incomplete upload?)", typ, off, boxSize)
-		}
-		switch typ {
+		switch b.typ {
 		case "moov":
-			if boxSize > maxMoov {
-				return nil, fmt.Errorf("moov is %d bytes, larger than supported", boxSize)
-			}
-			body, err := wr.at(off+hdrLen, int(boxSize-hdrLen))
+			body, err := wr.body(b, maxMoov)
 			if err != nil {
-				return nil, fmt.Errorf("reading moov: %w", err)
+				return err
 			}
-			if int64(len(body)) < boxSize-hdrLen {
-				return nil, errors.New("moov is truncated (incomplete upload?)")
-			}
-			// Copy: the window buffer is reused by later reads.
-			mvhd, extra, tracks, err = parseRemuxMoov(append([]byte(nil), body...))
+			// Copy: the tracks keep pointing into it after the walk.
+			m, err := parseMoov(append([]byte(nil), body...))
 			if err != nil {
-				return nil, err
+				return err
 			}
-			if movieScale, _, err = parseTimeHeader(mvhd); err != nil {
-				return nil, fmt.Errorf("mvhd: %w", err)
+			if err := remuxable(m); err != nil {
+				return err
 			}
-			for _, t := range tracks {
+			if movieScale, _, err = parseTimeHeader(m.mvhd); err != nil {
+				return fmt.Errorf("mvhd: %w", err)
+			}
+			mvhd, extra = m.mvhd, m.other
+			for _, ti := range m.tracks {
+				t := &rxTrack{trackInfo: *ti}
+				tracks = append(tracks, t)
 				byID[t.id] = t
 			}
 		case "moof":
 			if tracks == nil {
-				return nil, errors.New("fragment before moov")
+				return errors.New("fragment before moov")
 			}
-			if boxSize > maxMoof {
-				return nil, fmt.Errorf("moof is %d bytes, larger than supported", boxSize)
-			}
-			body, err := wr.at(off+hdrLen, int(boxSize-hdrLen))
+			body, err := wr.body(b, maxMoof)
 			if err != nil {
-				return nil, fmt.Errorf("reading moof: %w", err)
+				return err
 			}
-			cut, err := readMoof(body, off, size, byID)
+			cut, err := readMoof(body, b.off, size, byID)
 			if err != nil {
-				return nil, err
+				return err
 			}
 			if cut {
-				break walk
+				return errStopWalk
 			}
 		}
-		off += boxSize
-	}
-	if first {
-		return nil, ErrNotMP4
+		return nil
+	})
+	if err != nil {
+		return nil, err
 	}
 	if tracks == nil {
 		return nil, errors.New("no moov box (incomplete upload?)")
@@ -234,104 +194,24 @@ walk:
 	return x, nil
 }
 
-// parseRemuxMoov splits a fragmented file's moov into the parts Defragment
-// rebuilds. Files without mvex aren't fragmented.
-func parseRemuxMoov(moov []byte) (mvhd []byte, extra [][]byte, tracks []*rxTrack, err error) {
-	fragmented := false
-	trex := map[uint32][4]uint32{}
-	err = boxes(moov, func(typ string, body []byte) error {
-		switch typ {
-		case "mvhd":
-			mvhd = body
-		case "mvex":
-			fragmented = true
-			return boxes(body, func(t string, b []byte) error {
-				if t == "trex" && len(b) >= 24 { // version/flags, track_ID, sdi, duration, size, flags
-					trex[u32(b, 4)] = [4]uint32{u32(b, 8), u32(b, 12), u32(b, 16), u32(b, 20)}
-				}
-				return nil
-			})
-		case "trak":
-			t, err := parseRemuxTrak(body)
-			if err != nil {
-				return err
-			}
-			tracks = append(tracks, t)
-		default:
-			extra = append(extra, box(typ, body))
+// remuxable reports why Defragment can't rebuild m, if it can't. Files
+// without mvex aren't fragmented and can be served as they are.
+func remuxable(m *movie) error {
+	if !m.fragmented {
+		return ErrNotFragmented
+	}
+	if m.mvhd == nil {
+		return errors.New("moov has no mvhd")
+	}
+	for _, t := range m.tracks {
+		if t.stsd == nil {
+			return fmt.Errorf("track %d has no sample description", t.id)
 		}
-		return nil
-	})
-	if err != nil {
-		return nil, nil, nil, err
-	}
-	if !fragmented {
-		return nil, nil, nil, ErrNotFragmented
-	}
-	if mvhd == nil {
-		return nil, nil, nil, errors.New("moov has no mvhd")
-	}
-	for _, t := range tracks {
 		if t.inMoov {
-			return nil, nil, nil, errors.New("fragmented file also has samples in moov; not supported")
+			return errors.New("fragmented file also has samples in moov; not supported")
 		}
-		d := trex[t.id]
-		t.defSDI, t.defDur, t.defSize, t.defFlags = d[0], d[1], d[2], d[3]
 	}
-	return mvhd, extra, tracks, nil
-}
-
-func parseRemuxTrak(trak []byte) (*rxTrack, error) {
-	t := &rxTrack{body: trak}
-	err := boxes(trak, func(typ string, body []byte) error {
-		switch typ {
-		case "tkhd":
-			if len(body) > 0 && body[0] == 1 {
-				t.id = u32(body, 20)
-			} else {
-				t.id = u32(body, 12)
-			}
-		case "mdia":
-			return boxes(body, func(typ string, body []byte) error {
-				switch typ {
-				case "mdhd":
-					ts, _, err := parseTimeHeader(body)
-					if err != nil {
-						return fmt.Errorf("mdhd: %w", err)
-					}
-					t.timescale = ts
-				case "hdlr":
-					t.video = len(body) >= 12 && string(body[8:12]) == "vide"
-				case "minf":
-					return boxes(body, func(typ string, body []byte) error {
-						if typ != "stbl" {
-							return nil
-						}
-						return boxes(body, func(typ string, body []byte) error {
-							switch typ {
-							case "stsd":
-								t.stsd = body
-							case "stsz", "stz2":
-								t.inMoov = t.inMoov || u32(body, 8) > 0
-							case "stts":
-								t.inMoov = t.inMoov || u32(body, 4) > 0
-							}
-							return nil
-						})
-					})
-				}
-				return nil
-			})
-		}
-		return nil
-	})
-	if err != nil {
-		return nil, err
-	}
-	if t.stsd == nil {
-		return nil, fmt.Errorf("track %d has no sample description", t.id)
-	}
-	return t, nil
+	return nil
 }
 
 // readMoof appends the samples of one fragment. It reports cut when a sample
@@ -360,7 +240,7 @@ func readMoof(moof []byte, moofOff, fileSize int64, byID map[uint32]*rxTrack) (c
 				if t == nil {
 					return nil
 				}
-				sdi, dur, size, flags = t.defSDI, t.defDur, t.defSize, t.defFlags
+				sdi, dur, size, flags = t.trex.sdi, t.trex.dur, t.trex.size, t.trex.flags
 				i := 8
 				need := 8
 				for _, f := range []struct {
