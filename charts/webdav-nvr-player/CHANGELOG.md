@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.2.1](https://github.com/rtan-hause/webdav-nvr-player/compare/webdav-nvr-player-chart-v0.2.0...webdav-nvr-player-chart-v0.2.1) (2026-11-08)
+
+
+### Bug Fixes
+
+* **main:** release 0.2.1 ([#16](https://github.com/rtan-hause/webdav-nvr-player/issues/16)) ([10e43b4](https://github.com/rtan-hause/webdav-nvr-player/commit/10e43b433d7137b99e02a5b69da99910c18e3ba3))
+
+
+### Miscellaneous
+
+* release 0.2.1 ([#13](https://github.com/rtan-hause/webdav-nvr-player/issues/13)) ([b43e9f0](https://github.com/rtan-hause/webdav-nvr-player/commit/b43e9f0ac615a0c1d0847291d1313d0c2332ed21))
+
 ## [0.2.0](https://github.com/rtan-hause/webdav-nvr-player/compare/webdav-nvr-player-chart-v0.1.2...webdav-nvr-player-chart-v0.2.0) (2026-11-08)
 
 
