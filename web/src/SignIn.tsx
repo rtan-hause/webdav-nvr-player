@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from 'react'
-import { HttpError, sendJSON, type AuthStatus } from './lib/api'
+import { HttpError, login, type AuthStatus } from './lib/api'
 
 // Sign-in page: the admin password (AUTH=password) or a button for the
 // OpenID Connect provider (AUTH=oidc).
@@ -27,7 +27,7 @@ export function SignIn({ auth, onSignedIn }: { auth: AuthStatus; onSignedIn: (a:
     setBusy(true)
     setError(null)
     try {
-      const a = await sendJSON<AuthStatus>('POST', '/api/login', { username, password })
+      const a = await login(username, password)
       if (a) onSignedIn(a)
     } catch (err) {
       setError(err instanceof HttpError ? err.message : 'Couldn’t reach the server. Check that it’s running.')
