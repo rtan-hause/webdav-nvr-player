@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:b22ccf83ebf2eac4cbf1f795e02c8a7e9d9461a20f20bc181512e029abc630cf",
+  "pageVersion": "sha256:a1e975b4e1af85d37383f2aba41bbe59a4f6a2d49646ccf8f8823e5afc1dbc7d",
   "claims": [
     {
       "id": "claim_f3d8354b07734247b041fc1c4f1d2a8c",
@@ -91,18 +91,32 @@
       "statement": "Clip and snapshot rows double as the work queue with one in-process dispatcher, so only one replica per database is supported.",
       "evidence": [
         {
-          "resource": "repo://docs/design-decisions.md#L17-L17",
-          "version": "repo-lines-v1:sha256:1296637670e7e6d5cd71597e24557814b76a8da703f9d426c27de2dff7c6c494:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMTI5NjYzNzY3MGU3ZTZkNWNkNzE1OTdlMjQ1NTc4MTRiNzZhOGRhNzAzZjlkNDI2YzI3ZGUyZGZmN2M2YzQ5NCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMTI5NjYzNzY3MGU3ZTZkNWNkNzE1OTdlMjQ1NTc4MTRiNzZhOGRhNzAzZjlkNDI2YzI3ZGUyZGZmN2M2YzQ5NCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMzMwMTVlM2M5ZjJmN2FhMjcxZGE4ZWFiYjQzOGM3YmNlMzA4MzFjNWZlYzRlM2I0N2UwOWY0ZWUzMTJmMGRlZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZDg4YjI0MWNkOWEwYmQwNzE3MjdjMjI2MTk2NDc3OTk3NTU5YWM0OTU3NDNlNjFlNzI4ZTAxYzgxZmRjOWQyOSJ9"
+          "resource": "repo://charts/webdav-nvr-player/README.md#L56-L56",
+          "version": "repo-lines-v1:sha256:cab49187972642f944b521db2728f3dee8a608652ccd5317326e160b797f37aa:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiY2FiNDkxODc5NzI2NDJmOTQ0YjUyMWRiMjcyOGYzZGVlOGE2MDg2NTJjY2Q1MzE3MzI2ZTE2MGI3OTdmMzdhYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiY2FiNDkxODc5NzI2NDJmOTQ0YjUyMWRiMjcyOGYzZGVlOGE2MDg2NTJjY2Q1MzE3MzI2ZTE2MGI3OTdmMzdhYSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOWQyOWI4NTM2NDNkZjBhNjcwYWQzMDg4ZTljMmVkMDJjMGQ3ZjQxOTE5OWQ3NTE2OTkzNzRlOTA5ZjhkNTg0NCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMzMwMzIwYjcxN2M5ZjBhYTNlMzg2YWZlMDllMGRiODMzNTQxZGZlYzk1YWQ3YThiNDJlMTE1MWIzYTk2NTdjZiJ9"
+        },
+        {
+          "resource": "repo://charts/webdav-nvr-player/templates/deployment.yaml#L10-L12",
+          "version": "repo-lines-v1:sha256:190bfafadc1e6b5155e6f6b8637ddb056c350473f4f13610f01bee644afdd658:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNzljMDVkNTk3M2Y2NjFjOTY4MTRiOTYzYjM1ZjY4ZmEzZmFlZTIyNzZjZmNmY2ZhOTg2YzE1MmUyZmVhOTU4YSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiN2JjMzNjYjc3MzhiNWVmYjk4ZmNlNTY2ZjIwZGQ4MmY3NjUwNDM2MmZmYmExMTk0NGJhMmVmODJiYjA5NDEzYSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTMwOGJkNzBmMGFlMmZmYjBlYjQ3NmIxZWNhMGUwYTAyODk3ZDNiZGFiZjY3ZTQyNjczZjE3ODI3NzNiNDZlNSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNjNhYjJiZDEzOTNlNDliOGU0ZGRlZjFjMTZkZmFlNTZiMzY2OTBjYmYyYmU1Y2FiMTRkNTc5MjE2Mzc4ZTE2OCJ9"
         },
         {
           "resource": "repo://internal/ingest/ingest.go#L1-L8",
           "version": "repo-lines-v1:sha256:7dce1b0a7c5a294c4f489228f73143c776024fc3df46a0e3cb4551eedf69fc45:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZGVkODg2YjFkN2Q1ZDhkMTViZjAzYWM0MmRiZDVmMmM5OGM4YWNjNjZkZjA3Y2UzOWFkMjY3Y2Q0MWY0NjYwYyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNTMzNjFhNGI0M2E3ZjVmODgzMGU0MTFkYWRkNmU1NjhmNGU3MDg0ODkxNzFjODVmMmEwN2VjYzFjZmZlNDQwMSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzJjOTRkNmVjOTQ2NjFjNjY2NTY5ZmJmMzJjMTE3YmQxZWUwNjU1MTRiZjUyN2JmNGM3OWZlOWM2N2I2OGRmNiJ9"
         }
       ]
+    },
+    {
+      "id": "claim_941f1225be764c92bd0ea5ae27e8acdf",
+      "statement": "MP4 box reading is shared between probing and defragmenting in internal/media/mp4.go, which serves small header reads from a cached window so walking boxes costs one range request per window.",
+      "evidence": [
+        {
+          "resource": "repo://internal/media/mp4.go#L11-L30",
+          "version": "repo-lines-v1:sha256:916835071cca0c75411beb12899dfd71c146d28bb477edcddd463358a6186ff1:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM5MWZiNTY4MWZlYmUyNTY5MDZlY2ZiYTkyZDdmYjM0MmQwZTNhNGUxN2Y0NzYxMGFiOWE1ZmJhOGFkYjc1NDEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijc5ZWRkNzJiYTZiNDAwODNjZTk1MjY5ZmE1NmZjZjNhYzFiZDk4MjIxYWE2NjIxYTY4M2Y3ZDU2MzJiYjIxZDUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImRhZTg3MDdhZDIwZDYzNTZkMGE2NTE4YTIxYzY5ZWE1YzVjMWVlZGVjNGM0MzAwMDVjNmMyMGEzOWVlY2E2OWMifQ"
+        }
+      ]
     }
   ],
   "verification": {
     "by": "openwiki/0.7.2",
-    "at": "2026-11-08T01:57:23.266Z"
+    "at": "2026-11-08T06:01:44.565Z"
   }
 }

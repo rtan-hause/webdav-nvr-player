@@ -1,34 +1,42 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:a61c93e455779d6b5384b9e3b4c63aae1f59622747bc0bb59779155a87c6afa9",
+  "pageVersion": "sha256:b22a9cdf4e2d3866106e300cf9cd8ecbe1a667488dc65e043a62d5e731d66baa",
   "claims": [
     {
       "id": "claim_0189b69f7c5a410b841ad38530d6ad02",
-      "statement": "App CI skips changes that only touch the chart, docs, Markdown, license, Renovate or release bookkeeping, and runs make lint and make test plus a non-pushing Docker build.",
+      "statement": "CI always starts on every PR and push to main; a paths-filter job decides whether the app, chart and workflow-lint jobs run, and a final ci-ok job fails only if a job failed or was cancelled, so PRs touching nothing testable still get a green check.",
       "evidence": [
         {
-          "resource": "repo://.github/workflows/ci.yaml#L1-L94",
-          "version": "repo-lines-v1:sha256:f0a0d614aec4b261925ccf1be44fe8c663de8f2fc19611d714af3abf4181b927:eyJzZWxlY3RlZExpbmVDb3VudCI6OTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU1OWUzYjlmMmNlZTBjMDgwOWJmNDA2NjFmZmYzZTJmZWQyNjQ0ZTFkMGUwN2NlMjIwNGVkMmJhMzllYTExYjMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNkNTJiZTEwNDQyNDU4MjBlOWRkNzg0ZmRiNjk2Yjk2YzZkNDgxYzAwMjY4NGYwNTVhODEyYWUzNzAxMDU0NDkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+          "resource": "repo://.github/workflows/ci.yaml#L1-L56",
+          "version": "repo-lines-v1:sha256:f3a5ecb0fcb1c5200a40aa327ab0346d3b30ea24eaf27d219d00ef960db7286a:eyJzZWxlY3RlZExpbmVDb3VudCI6NTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU1OWUzYjlmMmNlZTBjMDgwOWJmNDA2NjFmZmYzZTJmZWQyNjQ0ZTFkMGUwN2NlMjIwNGVkMmJhMzllYTExYjMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJlYzk1Yjc5NmYyODk0NzJjZDNmZGZkZjY5MDY3N2M0YjMwMTlkZjY3YzEzZDM1NzUzY2ExOGExMGQyYWEyNmQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImI2NWU2YTA3YWIyOWJkNzRmZGQwZjc0YjBiNmY5MWZmY2NmODFkNDU2ZDdiYjczYzljZjE5ZDZmZjJhZTUyYWIifQ"
+        },
+        {
+          "resource": "repo://.github/workflows/ci.yaml#L185-L195",
+          "version": "repo-lines-v1:sha256:a811093d1c7028a298ced717d96276866da796b9a927bbf628c8287835616de6:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY3OTU2MWQwNzNlZTkzNThjOGY4NDdkNDIzZWI0NTkwYTFiMjg3MzUwYzQwMjc3ZTNmYWI3OTliYjUxY2ZkOTEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ3YjlmMDZhN2Q0OGRlMTIwODk1Yjk1MDI3YjVjY2MxY2Y1YjY5OTdjY2RkNGE0NzliZTEzNWE2ZWEyYzQ4ODUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjU0NDAzNTA2ZTQyN2IwNjJjOTRhMTg1ZjEwNjMyMWE4NGI1MzBiYTBmZDYxYzcyZTU1ODViMDVlNjgwOTE1YzIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
         }
       ]
     },
     {
       "id": "claim_41810e42eccf4664b233c85be490ca2e",
-      "statement": "App CI runs a Postgres 18 service and sets NVR_TEST_POSTGRES_URL so store tests also run against Postgres, and installs ffmpeg 8.1 and gcc for race-enabled tests.",
+      "statement": "The CI test job runs a Postgres 18 service and sets NVR_TEST_POSTGRES_URL so store tests also run against Postgres, installs ffmpeg 8.1, checks go.mod is tidy, then runs make lint and make test.",
       "evidence": [
         {
-          "resource": "repo://.github/workflows/ci.yaml#L41-L81",
-          "version": "repo-lines-v1:sha256:76b0f3e9c6ae9fbd7e63c4f96f2dc25417b5e9aeaf2104a320c58c774f08b31d:eyJzZWxlY3RlZExpbmVDb3VudCI6NDEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImIyMDA1Nzc3NzZjNjY4YjcwMWQ3MTY1YTk3MmNiYWJiNmVkZWQxMjhiYjg1ZmE3MGMzMjYwYjU4ZTBlOWIwNDQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZmNzBhNjZiYjI5NDQ2ZjU4N2IyNjgyMjFjZTQwZDgyZTI3MjEwNGIwNTk4YmQwNzNlOTA1YzViMDIwZTEzNjQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjU3M2EyMmFmYjViODg3MjNmNjUwZDE3YWFjNTc1MTQ2NmZmOTNmY2Q3MDFhZDhlOTBiOGE1Yjc3YzQyN2I3ZGYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjY0YzE3NWI3ZjFkMzY1N2M3MmY0MjE5NmRkNzViMTgxZDFiYjRkMTg0MWMyMDEwNzE0MjdlYzBkZWExMDA2NzUifQ"
+          "resource": "repo://.github/workflows/ci.yaml#L58-L99",
+          "version": "repo-lines-v1:sha256:4d1a793346fb58ff5058e2a1debdaeccb1a8843211e9a0270382b146beac2898:eyJzZWxlY3RlZExpbmVDb3VudCI6NDIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImIyMDA1Nzc3NzZjNjY4YjcwMWQ3MTY1YTk3MmNiYWJiNmVkZWQxMjhiYjg1ZmE3MGMzMjYwYjU4ZTBlOWIwNDQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZmNzBhNjZiYjI5NDQ2ZjU4N2IyNjgyMjFjZTQwZDgyZTI3MjEwNGIwNTk4YmQwNzNlOTA1YzViMDIwZTEzNjQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjkzODI2MTc0NDczMzhmYzg4NzE1ODA3NzVmYjg1ZDc2OTcxMTg2ZTAxNTgyMjVjNGVmZDQ2ZDVjODJjY2VjZTIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImZhOTIzZjc0N2RhYzA1MmVjMGY4MzgyNjA2Mjk3NzVkZGUyYTdmNTk0NWY2ZjU0MjE5OWQ0YzA3MjBiZGJhNWQifQ"
         }
       ]
     },
     {
       "id": "claim_4ffac9a949724c32a720f12bf18a6dd0",
-      "statement": "Chart CI lints and renders the chart with each values file under charts/webdav-nvr-player/ci/ and only runs on chart changes.",
+      "statement": "The chart job in ci.yaml lints and renders the chart with each values file under charts/webdav-nvr-player/ci/ and only runs on chart or workflow changes.",
       "evidence": [
         {
-          "resource": "repo://.github/workflows/chart-ci.yaml",
-          "version": "repo-file-v1:sha256:ae86e92a68fa058d998219f1f7232152debc81ef6fce7745107fad4767b08c81"
+          "resource": "repo://.github/workflows/ci.yaml#L153-L166",
+          "version": "repo-lines-v1:sha256:dd43d06762114208fa481e50ca29660c3957c14598b0112a8029b35f1e7fa88c:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM4MTMzM2RmNjZkNTk1YzYyMjM3NDEyZTdkMTYwN2I1Y2ZiMDExNDdmMGYzYTlkYjdiN2FjNGU3MjljNDNkMjMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjYxMmMyMzY3NjY0NDU1YzY2MmRjNzJmMmVlZjJlOTk1ODYyMjJhMTA0Zjc3OWYyNTBhY2Y2MjA3NmFhZThkNGYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjI5Mjk2OGZlOTFhZjFiOGVkNmM0MDg2NjJlY2JhMGJkZmI3YWNiYTQ2ZGY2NmMxODYwNDJjMmM0Y2Y3MjlkNGQifQ"
+        },
+        {
+          "resource": "repo://.github/workflows/ci.yaml#L45-L52",
+          "version": "repo-lines-v1:sha256:6c515a28c53a9fe816b5359258fa354205c01bb529be1a9e7b4f59af4dec0ca4:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiN2Y1YjQzZGJlZTM3ZDdhNjJkYTgzMzEzNTA4OGM0ZjY5MjJiNTg5YzUzNDc4ZjdmNTU0ZjNhNGExYWQ3OTljYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiN2MxZGI4NGQ2MWYzM2VlMTI0YmQyMmE3N2FiMDllYmFiNDc0NTJhNGM0NTFkNDQzZTc0Zjg2ZjljNDFlODFjNSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNDk2Mjg1MmI2Nzk0YTIzYzdmZjBiNDM1OWQ2MzkwZTJkNWY5ZmFjZDY4ZDNhMWE3NGJjMGM3YjI2NGQwZDJlZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzUyMzBlYzc1YjJmM2MzMDk5MDA5MmYyY2U1NTdiZWEzOWUxY2YyZDkxNTYzNmU5MzgyNTVkMmI1NTRjNDExNSJ9"
         }
       ]
     },
@@ -37,8 +45,8 @@
       "statement": "App releases use release-please in simple mode with untagged component (vX.Y.Z tags), exclude chart paths, and write the version into the chart's appVersion.",
       "evidence": [
         {
-          "resource": "repo://release-please-config.json",
-          "version": "repo-file-v1:sha256:02aa5223aaffe99524c5fb62517d7a010083463b77b0c585c4eea175822210d2"
+          "resource": "repo://release-please-config.json#L4-L24",
+          "version": "repo-lines-v1:sha256:4be6182a91994e20f35100342acbc4d2d427c22612b58f046e5ee923c52c26b4:eyJzZWxlY3RlZExpbmVDb3VudCI6MjEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjkyYzAwNDdmN2NjNGM5NzFjYWRhYjRjMjk1NzUyNzZkY2JiMTJkZmMyM2E3ZDkwZWFlNTQyZTU3NWZlMjBjOWEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQxNTA4Njg0MmQzYWExODNiMmI0MmJiZmQ4NmNmYWMyMmM4NmJiM2MwYTA0MWEyN2ViZjY2MDhhY2Q0NmY1MmUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoyLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImRmNzM5YTA2YzFjYmIxMjQ0ZTMzNjNkMzhiY2Y5ZmE1MGNlODRmZWQzOTljMjE5M2EzYzdmMDhkNTk5MThiMmEifQ"
         }
       ]
     },
@@ -61,8 +69,8 @@
       "statement": "On an app release, a multi-arch (amd64, arm64) image is pushed to GHCR tagged with the full version, major.minor and latest, with VERSION passed as a build arg.",
       "evidence": [
         {
-          "resource": "repo://.github/workflows/release.yaml#L43-L75",
-          "version": "repo-lines-v1:sha256:0252aa848d5b6d0da38ffd61be8f75e9184b4872df499d48764ad4437f96a2db:eyJzZWxlY3RlZExpbmVDb3VudCI6MzMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNkOGEyNTU3ZGI5MGI2MDAxZmY5MDAzN2I5Mzk1OWEwNTAxYjczYjdhMzdlZDM3ZDM5NDMyM2JlZTAyNDljMWEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNkNTJiZTEwNDQyNDU4MjBlOWRkNzg0ZmRiNjk2Yjk2YzZkNDgxYzAwMjY4NGYwNTVhODEyYWUzNzAxMDU0NDkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImY0NjQ3YWUzMjlmZmFiZTAyYjU3Y2JmOWY0NjNiZmYzY2RiODMzNjgzMmQ1MDA2MWE1N2U5YmFhNDNlMjQwZDgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+          "resource": "repo://.github/workflows/release.yaml#L42-L74",
+          "version": "repo-lines-v1:sha256:73061eaaa58edb0c8911b2c6477eea17333e98b24e82c0bdf76054fa18077cbd:eyJzZWxlY3RlZExpbmVDb3VudCI6MzMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNkOGEyNTU3ZGI5MGI2MDAxZmY5MDAzN2I5Mzk1OWEwNTAxYjczYjdhMzdlZDM3ZDM5NDMyM2JlZTAyNDljMWEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNkNTJiZTEwNDQyNDU4MjBlOWRkNzg0ZmRiNjk2Yjk2YzZkNDgxYzAwMjY4NGYwNTVhODEyYWUzNzAxMDU0NDkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImY0NjQ3YWUzMjlmZmFiZTAyYjU3Y2JmOWY0NjNiZmYzY2RiODMzNjgzMmQ1MDA2MWE1N2U5YmFhNDNlMjQwZDgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
         }
       ]
     },
@@ -72,7 +80,7 @@
       "evidence": [
         {
           "resource": "repo://.github/workflows/chart-release.yaml#L29-L62",
-          "version": "repo-lines-v1:sha256:70ef7acc04b8f54d3b98b0e4e23538ab82541e63efbf51edefc505111731a025:eyJzZWxlY3RlZExpbmVDb3VudCI6MzQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU5ZDgwMTU0ZWQ0MmZjNWM3NzliMTMzMTU3OGI1OGI4OWM4MDFlYWNlNzRmMjRjZDQ4ZWI0YTIzNTc5NDBhOTUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjlhMzUyYmFlZjZmZjBlMjdhMDQ4NGYzMmIzOTQ0YjJkZjE1NzhhNzgwMzRlZjE1ZDdhZTA1ZjcwNThkMDliNGYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk0OTRkZjk2NDVjNzFlNmI2NjU4OTM2MjZkMmU1ZTgxNjQ4NDNjY2ZkYTFlM2YzNGY1YWNiOTg1OWY4NjFmYjkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+          "version": "repo-lines-v1:sha256:67f9e28b244229bb410e9123931ca5484c9f019e47735f6ca2a9a178e1aa8b47:eyJzZWxlY3RlZExpbmVDb3VudCI6MzQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU5ZDgwMTU0ZWQ0MmZjNWM3NzliMTMzMTU3OGI1OGI4OWM4MDFlYWNlNzRmMjRjZDQ4ZWI0YTIzNTc5NDBhOTUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjlhMzUyYmFlZjZmZjBlMjdhMDQ4NGYzMmIzOTQ0YjJkZjE1NzhhNzgwMzRlZjE1ZDdhZTA1ZjcwNThkMDliNGYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk0OTRkZjk2NDVjNzFlNmI2NjU4OTM2MjZkMmU1ZTgxNjQ4NDNjY2ZkYTFlM2YzNGY1YWNiOTg1OWY4NjFmYjkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
         },
         {
           "resource": "repo://release-please-config.chart.json",
@@ -86,17 +94,73 @@
       "evidence": [
         {
           "resource": "repo://.github/workflows/chart-release.yaml#L25-L42",
-          "version": "repo-lines-v1:sha256:e45696ef39fcf486d4ae8c54c3ccf88380713d43383a4dd33120075fd5436528:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg0YWZlMjRkYWYzNGQxYjVjZjgzZmNhYTNmNTZhYTRjMTA3YzA1ODAzOWM4NTdiY2I2ZDUxNmQ2MjE5NDdmMDUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk0NDBjYzRiNTkyMjI1NWJkMjMxYzQ3ZGE4NzBiMjNkMGJkM2MzNDNiYjQzZWViMzA2ZjRlMTc0YjU5OGM1M2MiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk3OTMxNTVkNjU0MzdkZmRkMjFhMjg2ZTM1YTQyODdlOGZmYjRiNTA3MzA4NzNkN2Y1ZjgwOWY3NmJlMmEyYTYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImYxMTk5ZDVjMGMyNTA5OTZhZWRkMjJkOGRmMmIzYzVjZGIzZDRkMjc1MGQ0OTlkYWExZGI0M2I1YTA4ZWIxYjgifQ"
+          "version": "repo-lines-v1:sha256:2796ec814fa04e76b1ef521f946b52aede4e70556596e9dfd57a2875dd2fcced:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg0YWZlMjRkYWYzNGQxYjVjZjgzZmNhYTNmNTZhYTRjMTA3YzA1ODAzOWM4NTdiY2I2ZDUxNmQ2MjE5NDdmMDUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk0NDBjYzRiNTkyMjI1NWJkMjMxYzQ3ZGE4NzBiMjNkMGJkM2MzNDNiYjQzZWViMzA2ZjRlMTc0YjU5OGM1M2MiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk3OTMxNTVkNjU0MzdkZmRkMjFhMjg2ZTM1YTQyODdlOGZmYjRiNTA3MzA4NzNkN2Y1ZjgwOWY3NmJlMmEyYTYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImYxMTk5ZDVjMGMyNTA5OTZhZWRkMjJkOGRmMmIzYzVjZGIzZDRkMjc1MGQ0OTlkYWExZGI0M2I1YTA4ZWIxYjgifQ"
         },
         {
-          "resource": "repo://.github/workflows/release.yaml#L24-L41",
-          "version": "repo-lines-v1:sha256:e181da7fd0cb0d1cd657d494578a04441585cd02bc7ad4a41454b8a99235d70b:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg0YWZlMjRkYWYzNGQxYjVjZjgzZmNhYTNmNTZhYTRjMTA3YzA1ODAzOWM4NTdiY2I2ZDUxNmQ2MjE5NDdmMDUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNjNTU5NDMxYWU3NTI1MGI0MzcwZTQyNDJmZTZhZGRmNmQxYTI0YWY1YzE1Y2NhNGU4YjUxMzUzMjU4NGQzMTIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk3OTMxNTVkNjU0MzdkZmRkMjFhMjg2ZTM1YTQyODdlOGZmYjRiNTA3MzA4NzNkN2Y1ZjgwOWY3NmJlMmEyYTYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImE3MGZmYjVjN2M5NzY0NjljOWNiMGQ4ZTQ5ODJjZDE2ZWYxOGVlM2E2ZTMzNjA0NGE0YjQ1YTFmZGEzZTczYmMifQ"
+          "resource": "repo://.github/workflows/release.yaml#L23-L40",
+          "version": "repo-lines-v1:sha256:d3570193f0593e2883d9428f336963310cdc609880d7bd3e88742c788f2984e6:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg0YWZlMjRkYWYzNGQxYjVjZjgzZmNhYTNmNTZhYTRjMTA3YzA1ODAzOWM4NTdiY2I2ZDUxNmQ2MjE5NDdmMDUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNjNTU5NDMxYWU3NTI1MGI0MzcwZTQyNDJmZTZhZGRmNmQxYTI0YWY1YzE1Y2NhNGU4YjUxMzUzMjU4NGQzMTIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk3OTMxNTVkNjU0MzdkZmRkMjFhMjg2ZTM1YTQyODdlOGZmYjRiNTA3MzA4NzNkN2Y1ZjgwOWY3NmJlMmEyYTYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImE3MGZmYjVjN2M5NzY0NjljOWNiMGQ4ZTQ5ODJjZDE2ZWYxOGVlM2E2ZTMzNjA0NGE0YjQ1YTFmZGEzZTczYmMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_45ad8d70e00542c694417e56dcee58bd",
+      "statement": "The CI image job builds both release platforms without pushing, then loads a native image and runs the Playwright end-to-end tests against it, uploading the report on failure.",
+      "evidence": [
+        {
+          "resource": "repo://.github/workflows/ci.yaml#L101-L151",
+          "version": "repo-lines-v1:sha256:6bfd11ad5e12459c08766a49065bac49e0422250aefecb68f566e75377c891dc:eyJzZWxlY3RlZExpbmVDb3VudCI6NTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU5NDgxYWJjMmNjYTE5NWE1NDJjNjczZjBjYWExMWIyNmYyNjlhZWEwN2NjN2NmYmI1OGI5ZmMxNmFmNDUxYWQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRiODUzNTViZTI3NWM4NDI0ODIwMzkzNDA5ZGE2MWQ0NGQzMjVkMjA5OGM3YjlhZWEyOWM3MTZjNDY5MDUzYzQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjgyMGNjYmQ4OTVlZTc0ZmI1MmNkNTJkMzJjZmU2MzM1MDhkZTZmY2M5MjY0ZjI1Zjk1NTk2MWJjOTZlMjRjOWMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjlmMmU0MWUwMTRmZGIxYTA2NDc4MDEzZTg5NTU0ZmQxZWM1NjhkZDc4ZGQ0YzdhODhmMTI5MjU3MzhkYjBhMDQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_00516b1aaa5c460e8f4940e63c83c544",
+      "statement": "All workflows run on GitHub-hosted ubuntu-latest runners so fork pull requests never reach self-hosted runners.",
+      "evidence": [
+        {
+          "resource": "repo://.github/workflows/chart-release.yaml#L31-L31",
+          "version": "repo-lines-v1:sha256:3337334aec0dcb24e40e3c20dc09d59af6743d027dbff50c1aca089747117670:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzMzNzMzNGFlYzBkY2IyNGU0MGUzYzIwZGMwOWQ1OWFmNjc0M2QwMjdkYmZmNTBjMWFjYTA4OTc0NzExNzY3MCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMzMzNzMzNGFlYzBkY2IyNGU0MGUzYzIwZGMwOWQ1OWFmNjc0M2QwMjdkYmZmNTBjMWFjYTA4OTc0NzExNzY3MCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNTBlNTkwNzFhMzc5MTU1ZmI0NDVhZTg4NmI3MTA1NjU4ZGE4NmQ2MDJkOTExN2I5MDdjYTgxN2U1OWI5ZmM2ZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNjQwMzQ1YWNmYjI2NTI2YWMwMzNiMTAxMmJkMTQ0MGQ2MWViOGJjZGMwMmRjZWVmMTljM2VmN2VmYzg0MTYwZCJ9"
+        },
+        {
+          "resource": "repo://.github/workflows/ci.yaml#L12-L13",
+          "version": "repo-lines-v1:sha256:bd5611f9745e4c190d6932a249bc4c9e3ff63ad277be62fefa093593c707235a:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNzYwNWY2ZmRkZTQ5MDJlYTdlNWM2NzhlNzRiYjM5MzYyMWM2ODRlODNhODQyNTM3N2MxZWY4M2NlMjk4ZDNhYiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiY2RiNmMwZmI2NzBjOTNjN2NjZTc5ZjFhZjM1ZGZhMDUzM2I5NzM3NmM4YTk5NzUxZGYwZmNhZGFhMTZiOTNkYSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTRkNzY0NGRmZDBhMmQzNzJjYTg0YzY2ZjMzNTkwMjlmNTc1YjdkYTdhMmI3MzM2YjJkOTRhMTUxMjNjNGMxYyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNGI4ZGNlYTE2MmMyOTFkMDQ3MTYyN2EyNjZjYzI0M2E2YmU4ZmI5NzcyMzkwNDJiOGVlY2I2NmRhZTJjODhiNCJ9"
+        },
+        {
+          "resource": "repo://.github/workflows/ci.yaml#L29-L29",
+          "version": "repo-lines-v1:sha256:3337334aec0dcb24e40e3c20dc09d59af6743d027dbff50c1aca089747117670:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzMzNzMzNGFlYzBkY2IyNGU0MGUzYzIwZGMwOWQ1OWFmNjc0M2QwMjdkYmZmNTBjMWFjYTA4OTc0NzExNzY3MCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMzMzNzMzNGFlYzBkY2IyNGU0MGUzYzIwZGMwOWQ1OWFmNjc0M2QwMjdkYmZmNTBjMWFjYTA4OTc0NzExNzY3MCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiY2M0NDQ2Njg2MDBkYTBjYmFkYTM0YjYxODMxMjA2NDc1ZjZiMDk0NWVjZDc0NjRhYzUxZGE4YzgzNWNiOTg0MCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMTkyNTI3NzZkZGNkM2ZkZjRkOGFlZGNjMzYxNzM0YzI2NjA5MmVkZjIxYjlhZGY1OGMxODJiYmU4NjU3NWUzZSJ9"
+        },
+        {
+          "resource": "repo://.github/workflows/release.yaml#L29-L29",
+          "version": "repo-lines-v1:sha256:3337334aec0dcb24e40e3c20dc09d59af6743d027dbff50c1aca089747117670:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzMzNzMzNGFlYzBkY2IyNGU0MGUzYzIwZGMwOWQ1OWFmNjc0M2QwMjdkYmZmNTBjMWFjYTA4OTc0NzExNzY3MCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMzMzNzMzNGFlYzBkY2IyNGU0MGUzYzIwZGMwOWQ1OWFmNjc0M2QwMjdkYmZmNTBjMWFjYTA4OTc0NzExNzY3MCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNTBlNTkwNzFhMzc5MTU1ZmI0NDVhZTg4NmI3MTA1NjU4ZGE4NmQ2MDJkOTExN2I5MDdjYTgxN2U1OWI5ZmM2ZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMjE0NmRmNDE3ZTE2NjYzZTJhN2UyMzVjMWI4NTcxMDU0YjNhZjc0N2U0N2RjMTQwYjU2Nzc0Y2IwYzk0MjU4NSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_a1ed4171e93c44899f88fe10c627ab66",
+      "statement": "Renovate automerges updates after a 3-day minimum release age but never automerges major updates, and groups the Go toolchain, Node, and e2e tooling into their own PRs.",
+      "evidence": [
+        {
+          "resource": "repo://renovate.json",
+          "version": "repo-file-v1:sha256:0d0ab24c59723522377e776c0288b485e4194f6f9733543bd48022a15416736a"
+        }
+      ]
+    },
+    {
+      "id": "claim_9e4936b7259445b0820463748f0e523e",
+      "statement": "The OpenWiki workflow runs only on manual dispatch (its schedule is commented out) and opens a docs: update OpenWiki pull request from the openwiki/update branch.",
+      "evidence": [
+        {
+          "resource": "repo://.github/workflows/openwiki-update.yml#L1-L12",
+          "version": "repo-lines-v1:sha256:feb56e037e0de4fe93ea490834ce9ef90085bce5717f8289307c929314062982:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA2MDI3ODdhZjZkY2MwODM0ZGUxMjFjYmIxY2I5NWY5NDU5YjcyMWVhYjAzNDlmMTA1MDFiOTk2YzFjNzdmZmYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU5ZDgwMTU0ZWQ0MmZjNWM3NzliMTMzMTU3OGI1OGI4OWM4MDFlYWNlNzRmMjRjZDQ4ZWI0YTIzNTc5NDBhOTUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImVjNWE4OTI3NzBhZTRmNTMzM2ZkN2M5ZTEyZTBhNmJjNDViMjZiNWJiNzc1M2UwMzlkZjhlZDQ5Yzk3Yjk2MDcifQ"
+        },
+        {
+          "resource": "repo://.github/workflows/openwiki-update.yml#L64-L72",
+          "version": "repo-lines-v1:sha256:e4f0c376295a0ab27415fbd9ed19def5186a7b603927304b523fd75ee9b15f04:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNDFjZmY0YWQzM2JhOTFiMTQ4ZTFiMWI4MjkwYjhmZmYyN2IyMDNmYWJmZWU1ODcwMjgyZGUzNjczODNiMWJlMiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNGRhNDE2NjQ5MGIxNzI5YjVlY2JmYWZiZGUyZjViYWIwOWQyZjdlZWZlNDRkZDVlZmQwNmRmZTIwNWJiNjFhNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMGJlMWFkYWRhMTdhZTJmNGYzZDhkNDc5N2RiMzZkNTI2NzU4YmY0OWE4YzRhNzQ5ODk4NjRhNDNjY2IxOGUxNSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZGQ4OWRkZTY2ODA4NTU2NGZiZGRjMWJkNzczMDEwYzI0Y2FkZWI5NWJjNDZlNzExMGIzMTk3Y2RiYmE3Y2RmOCJ9"
         }
       ]
     }
   ],
   "verification": {
     "by": "openwiki/0.7.2",
-    "at": "2026-11-08T01:57:23.266Z"
+    "at": "2026-11-08T06:01:44.565Z"
   }
 }

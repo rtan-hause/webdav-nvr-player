@@ -1,14 +1,18 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:bf24f1c67c094a61b073a636498898df54f3e4ba010344c431a664857d22cc43",
+  "pageVersion": "sha256:1ec7de424071adb6cdbc4f6c5fcff3e94448160c1d1d1a29d81f61618a8ed00b",
   "claims": [
     {
       "id": "claim_083c0b2344924a8dad0f7ab75679efde",
-      "statement": "make test runs go test -race over ./cmd/... and ./internal/... plus the frontend typecheck, and make lint runs go vet, a gofmt check and eslint; ./... is avoided because web/node_modules can contain Go packages.",
+      "statement": "make test runs go test -race over ./cmd/... and ./internal/... plus the frontend typecheck and Vitest suite, and make lint runs go vet, a gofmt check and eslint; ./... is avoided because web/node_modules can contain Go packages.",
       "evidence": [
         {
-          "resource": "repo://Makefile",
-          "version": "repo-file-v1:sha256:165c6e32402ab3f7425abc85d1bacc55c72064f646366e5424d2ed908ca93a2d"
+          "resource": "repo://Makefile#L25-L35",
+          "version": "repo-lines-v1:sha256:b86f6cd07e29b9be60b7b57a47eabb5298ec7e0db83bca20e238a92198d071d3:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFmMzFmZjQ3NmYwYmY3NTI0MTc1NzYwOTk4YTIzNDAzNTdkNGIyNWNiY2EyNTFiOTViYjBiZmMzMTNmZTIxZWYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIyMmRiYmNkMGU1Njg1Yzg5YmQyYzk3YWMzODIzOTRkMjAxZGFhNTZjZTU4OTBlZmY1NzRiMDIzMmQwNTc2ZTYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjJmNThhMThjMTNjNTU0ODExNGI4MzBjODU5YjY5MTYwNTE1Y2RjNTU1YjhhNGNhNzk1MmQyZTcyNjEzNjMyMTciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjU1NGUyY2RjZDY4N2QzNTEzZmFmOTQ0OGViNDljZjhhM2M4M2NiNTE4Zjg0ZmY1ZjgzZTMxYWIyMGYwZjA2ZDAifQ"
+        },
+        {
+          "resource": "repo://Makefile#L5-L6",
+          "version": "repo-lines-v1:sha256:6896c45bff5e6363edf4cac50a3ebfdfafd5c1b03ee2dab3cfd92e982df2cf56:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOWZkYzY5Yjk1OTQ3ZjI5NjU3M2Y1ZDdhY2JkMmQyYzk5MDllNDBhMTQxNjIzMmIwZjg5ZTc1MzBkZGRkNDExNCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMGI4Mjc5MDlkZDEzMjFjYTQ4MDhlN2I0OWM4MGE3MDJmNGQ5NDFjMTY0MTI5OTdiMGFiMzJhMDAyMjMwMDZlZiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMWY1MTdjYjMxNDI3OTc0N2U4OWYyMGU2MTYyOGI2ODdjZTU1OTY3NzY5OTgyMWVmZWNlNmFjYWE5Mzg5N2EzMiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMTQ4ZDQyNzM3NDA5OGY4MDk4NGE1N2JlMjkxYWI0NzMyMDIzNGY3OTY4MzE3MmIyNmE3YzUwMjJkODVhNjY4ZCJ9"
         }
       ]
     },
@@ -82,17 +86,31 @@
     },
     {
       "id": "claim_713f2e6e7c384e96a8af2975578c7998",
-      "statement": "The frontend has typecheck (native TypeScript compiler) and ESLint scripts, and the production build runs the typecheck first.",
+      "statement": "The frontend has typecheck (native TypeScript compiler), ESLint and Vitest scripts, and the production build runs the typecheck first.",
       "evidence": [
         {
-          "resource": "repo://web/package.json#L6-L12",
-          "version": "repo-lines-v1:sha256:c41b46ac693ec8fcdf674141b44fcb397aa5aacbf82157d039a6feaf8be5ded0:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzQ4MzNkNTk0OWMwM2E0MGNhOTUyNDkxNjEwYTY2NTk2NDRiM2FhNDY2MzYyZjc5OTAyMGRiZjE5ODE1NDdkYiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNGQ1Y2QyZmI0ZjNkZjg4NDUxNTI1NWIzOTUyM2YyZjhiNTQ3MmJlZWE5ZjU2NmZmY2EyMDRkYjgwMjU2MTA0MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiN2E2M2JmMDk0ZjUzYTg5MTIzMjc5MjRlMjllMTE5MzIzYjJjOTU5YWNjMDEzMmZhZmEyNzE1MmI1YmQ5Zjg2NyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZjE0NDJkMGFlNWJiMDEwZjExZDQ0N2Y1ZGExZjNkYWFhYmJkZmVjZTExMDdjMTVhM2RjMGU5OTM1ZjU4ODhlNSJ9"
+          "resource": "repo://web/package.json#L6-L13",
+          "version": "repo-lines-v1:sha256:de37eb0b172deac4f461d11bfbfa8f145f6844a38fc524c32393566faf17af28:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzQ4MzNkNTk0OWMwM2E0MGNhOTUyNDkxNjEwYTY2NTk2NDRiM2FhNDY2MzYyZjc5OTAyMGRiZjE5ODE1NDdkYiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNGQ1Y2QyZmI0ZjNkZjg4NDUxNTI1NWIzOTUyM2YyZjhiNTQ3MmJlZWE5ZjU2NmZmY2EyMDRkYjgwMjU2MTA0MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiN2E2M2JmMDk0ZjUzYTg5MTIzMjc5MjRlMjllMTE5MzIzYjJjOTU5YWNjMDEzMmZhZmEyNzE1MmI1YmQ5Zjg2NyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZjE0NDJkMGFlNWJiMDEwZjExZDQ0N2Y1ZGExZjNkYWFhYmJkZmVjZTExMDdjMTVhM2RjMGU5OTM1ZjU4ODhlNSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_764d05aef6a6496e98402c32f991bb98",
+      "statement": "make e2e builds the Docker image and runs the Playwright tests against it, starting the app beside a WebDAV server of generated clips and printing container logs when a run fails.",
+      "evidence": [
+        {
+          "resource": "repo://Makefile#L37-L39",
+          "version": "repo-lines-v1:sha256:019198c0886337ae593d8f281b70ce3a5825689593347d21b4356cb1b2640107:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMGRmMDBlYWRkYjE2MDU1NWIxYTU2MzViNGU2ZjdmOWI0N2NiNzNjYzk3ZjgzYzVmMTIxMjY3ZjM5NDVmMTUyZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZTZkZGY2YTQ0YzFlZDBhN2RkYjk2NzM5ODZiMTEzNTljZGUzYzU0NzczMjA4ZDZjZTFmMDM3ZjhjYTQ4MjdjYiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYWNmMDRmMGMyNDJkYzE5ZjFhYmNhMDkxZThhYjFhNmRkMzU1MjM5MzljNTI1NTU5NDljMTYwOWNiMWFiZDVkZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNjg4Y2ViMDRkMGY2OThkMmJhNmVmZTc4ZGM5NzEyMmU1NjBmZDUwZTBmY2MzNmQ0ZjMwZDU3ZDYzNjBlOGMzOSJ9"
+        },
+        {
+          "resource": "repo://e2e/run.sh#L1-L30",
+          "version": "repo-lines-v1:sha256:97248b57bcbb016a906b5f7ba96789410cc7313330f2d97e4ac2c806442db1cc:eyJzZWxlY3RlZExpbmVDb3VudCI6MzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFkOTVmYzA0YTgwYzk1MmY0OWNlNDE4ODYyN2M1M2IwZmJlOGM0NDA0MWI5NTJkNTkyYWNkMWRlOTk4NjE0NjYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjE1MDEwODA1MmM5OGE2MWRlOWQ0Y2Y0NmQzNDQxNGJjMmE3NmMwMTA1YzM2ZmQyMjEyMTVmMDhhZGRmOGYxNTYifQ"
         }
       ]
     }
   ],
   "verification": {
     "by": "openwiki/0.7.2",
-    "at": "2026-11-08T01:57:23.266Z"
+    "at": "2026-11-08T06:01:44.565Z"
   }
 }

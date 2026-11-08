@@ -3,9 +3,6 @@ type: subsystem
 title: Snapshot Pairing and Thumbnails
 description: How webdav-nvr-player matches camera JPEG snapshots to clips by time window, waits for late snapshots, falls back to an ffmpeg frame grab over a signed loopback URL, and stores and serves 480 px thumbnails.
 tags: [thumbnails, pairing, snapshots, ffmpeg, ingest]
-verified:
-  - by: openwiki/0.7.2
-    at: 2026-11-08T01:57:23.266Z
 sources:
   - id: openwiki-source-16d7758f33081cf8e163d06b
     resource: repo://cmd/nvr/main.go
@@ -18,6 +15,9 @@ sources:
   - id: openwiki-source-c50a8c71315e4a6d1b31e98b
     resource: repo://internal/thumbs/thumbs.go
 generated: { by: "claude-code", at: "2026-11-08T01:57:23.266Z" }
+verified:
+  - by: openwiki/0.7.2
+    at: 2026-11-08T06:01:44.565Z
 ---
 
 # Snapshot Pairing and Thumbnails

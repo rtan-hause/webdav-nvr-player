@@ -3,9 +3,6 @@ type: configuration-reference
 title: Configuration
 description: Every environment variable webdav-nvr-player reads, with defaults, validation rules and the components that use it, plus the one runtime setting (session lifetime) kept in the database.
 tags: [configuration, environment, settings, oidc, webdav]
-verified:
-  - by: openwiki/0.7.2
-    at: 2026-11-08T01:57:23.266Z
 sources:
   - id: openwiki-source-b79fbbd921df689b4bbdc82f
     resource: repo://docker-compose.yml
@@ -14,6 +11,9 @@ sources:
   - id: openwiki-source-a8910515ddd14810ad43f5c1
     resource: repo://internal/config/config.go
 generated: { by: "claude-code", at: "2026-11-08T01:57:23.266Z" }
+verified:
+  - by: openwiki/0.7.2
+    at: 2026-11-08T06:01:44.565Z
 ---
 
 # Configuration

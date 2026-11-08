@@ -3,19 +3,21 @@ type: subsystem
 title: MP4 Probing and Virtual Remux
 description: How webdav-nvr-player reads duration, codec and resolution from MP4 headers using small range requests, and how it serves fragmented camera uploads as a regular faststart MP4 by building a moov in memory and splicing it in front of the original bytes.
 tags: [media, mp4, fragmented-mp4, remux, streaming, probe]
-verified:
-  - by: openwiki/0.7.2
-    at: 2026-11-08T01:57:23.266Z
 sources:
   - id: openwiki-source-a6772a3d2ce2f1717dba565f
     resource: repo://internal/httpapi/remux.go
+  - id: openwiki-source-a0d63b624e54695bffe7cf77
+    resource: repo://internal/media/mp4.go
   - id: openwiki-source-0efa0f19ffd5cf26634375fc
     resource: repo://internal/media/mp4probe.go
   - id: openwiki-source-03556898a2d8207df157e85c
     resource: repo://internal/media/remux_test.go
   - id: openwiki-source-e02f409e9136b20b77209986
     resource: repo://internal/media/remux.go
-generated: { by: "claude-code", at: "2026-11-08T01:57:23.266Z" }
+generated: { by: "claude-code", at: "2026-11-08T06:01:44.565Z" }
+verified:
+  - by: openwiki/0.7.2
+    at: 2026-11-08T06:01:44.565Z
 ---
 
 # MP4 Probing and Virtual Remux
@@ -33,14 +35,16 @@ Cameras record HEVC (and some H.264) with AAC audio. Transcoding 4K would need a
 
 Reolink and most NVRs write **fragmented MP4**: an initial `moov` with `mvex` and no samples, then `moof`+`mdat` pairs of about 2 s each. That `moov` claims a duration of about one second and has no fragment index. Firefox trusts that duration and stops after the first fragment, and seeking doesn't work. The player can't rewrite files on the server (read-only WebDAV), so it builds the regular layout on the fly.
 
-## Reading boxes cheaply
+## Reading boxes cheaply (`internal/media/mp4.go`)
+
+The box reading that `Probe` and `Defragment` share lives in `mp4.go`: the `windowReader`, the top-level walk `walkTop`, the bounded `body` reader, the child-box iterator `boxes`, and the `moov`/`trak` parsers (`parseMoov`, `parseTrak`, `sampleEntry`) that produce a `movie` with its tracks. `mp4probe.go` and `remux.go` each pass `walkTop` a callback that decides what to do with each box.
 
 `windowReader` caches an **8 KiB window**. Walking top-level box headers then costs one range request per window rather than one per header, and a typical `moof` plus the next box header fit in one read. Both functions:
 
 - check that the first box is a known top-level type (`ftyp`, `moov`, `mdat`, `free` and so on), and otherwise return `ErrNotMP4`;
 - support 64-bit box sizes (`size == 1`) and boxes that run to the end of the file (`size == 0`);
 - refuse a `moov` over 64 MiB or a `moof` over 4 MiB;
-- tolerate a **truncated tail**: once the header is parsed, a cut-off final `mdat` or `moof` stops the walk and keeps the complete fragments. This handles files still uploading or cut short.
+- tolerate a **truncated tail** of a fragmented file. `walkTop` hands the callback boxes whose size runs past the end of the file, and the callback can stop cleanly instead of failing. Once the `moov` is parsed, `Probe` stops at a cut-off final `mdat` and counts the complete fragments; `Defragment` stops at a cut-off `mdat` *or* `moof`, and also keeps only the complete samples of a fragment whose data is cut short. Any other bad box size fails as a probable incomplete upload.
 
 ## `Probe(r, size) → Info`
 

@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:f732d207ad80277c73e28b8dfade78eca23602ae156c6d219749d1e0359218d0",
+  "pageVersion": "sha256:5c93d7c7c4ec595c6109185a1448f26772159d7dabd87c9ff7721072965f1239",
   "claims": [
     {
       "id": "claim_f48ce84e9abe4aa0aed954769c61ada3",
       "statement": "Ingest defaults are 2 workers, 5-minute recent scans, 24-hour full crawls, a 60-second settle window and 5 max attempts.",
       "evidence": [
         {
-          "resource": "repo://internal/ingest/ingest.go#L80-L108",
+          "resource": "repo://internal/ingest/ingest.go#L88-L116",
           "version": "repo-lines-v1:sha256:1b3fb09ff40e10da5372c19ca62a75e5cb632c696d4f6f46e2b1d94262bb98af:eyJzZWxlY3RlZExpbmVDb3VudCI6MjksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdmMDAzNzhmYzU3MTQwNGYxZDdjYWYyNjkwYzNhOGI5ZDU4YzU5MzMxMzZmM2U1OWFjZmYxMjQ4NjI3OGExYWYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjM2YzgwYWUzMmQyZWU4MGQ0YTVjMDVhODY3ZTc4NjBjNjZlM2M0OTdiYmVhMDRjMTc1NzEzZDZmYzRiZDEyN2EiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjJiMmE4NzNiODM5YzM4YmM4YjRlNjFjMmYxNTM1YTQxZWI3ZTYyMGI3MTU2MTY4Mzg5NzA3ZmJkNWU5ZmRhMjYifQ"
         }
       ]
@@ -17,7 +17,7 @@
       "statement": "Notify cleans the path, classifies it, stats only that single file, inserts it and wakes the dispatcher, without applying the settle window.",
       "evidence": [
         {
-          "resource": "repo://internal/ingest/ingest.go#L219-L236",
+          "resource": "repo://internal/ingest/ingest.go#L227-L244",
           "version": "repo-lines-v1:sha256:a109be0eba4d50577e5a56a38f6c2244e93ec402b778a08fe403f81633918922:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJlYzIxNGZkOTBmNmUyZGI0YzFjNGMxYWM4MWVjNWQ2ZmFlMDNhZDQ3OTJiNGZhYmE4MDA3OGFmZjI0NzU5YzQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImIxNzI0MjBjMTU3NDBhZmE2NDVkMDdhZTUxNGVjMzM5ZGFkZmVkN2U3NWFkZDc5ZDlmNWZhNTRkMDU2YzZlMmEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImIyZWVhY2U2ZDQ3ZmUyMjU0ZDU1NmVlNzcyMGQyZjg1ODFjNzI1YzFlOGViMDY5ZWMzY2Q5YTFlNWRmZjI3MWYifQ"
         }
       ]
@@ -27,7 +27,7 @@
       "statement": "ScanRecent lists the profile's date folders for yesterday and today in the camera time zone, skipping folders that don't exist, and reconciles deletions within them.",
       "evidence": [
         {
-          "resource": "repo://internal/ingest/ingest.go#L238-L257",
+          "resource": "repo://internal/ingest/ingest.go#L246-L265",
           "version": "repo-lines-v1:sha256:0c29bb5fe00dd196b4fef6e104998b7348243193cc5d16648cd3f9c3f4b49628:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjlmNWQ3M2RkZDM4ZTg0YzQxYjAxM2NkMWI4NDczMmRjYzM4ZDg2MDBhODA2Y2VlOWMzMjI2MDVmYmU4ZDA5N2EiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjEzODU0YTgzOGVhZDRiYWY0MzgyZjA4Y2YzZGEwMDAwNGIxMmU0NzZkNjQyYTQ4NmVkNTdmYTBmMmJmMjNkZTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjkxMThmNGIxZWM0MjYxODI3ZjBiZTMzMmI5MzE3MmI5Yjc5Y2M5MDU4Y2E3ZmI3MzlhYjFmNGYwZmMyMTJhNDcifQ"
         }
       ]
@@ -37,7 +37,7 @@
       "statement": "ScanAll walks the tree newest-folder-first to depth 8 and afterwards marks every previously live path not seen as deleted; a failed walk returns before marking deletions.",
       "evidence": [
         {
-          "resource": "repo://internal/ingest/ingest.go#L258-L307",
+          "resource": "repo://internal/ingest/ingest.go#L266-L315",
           "version": "repo-lines-v1:sha256:e7590075b58687a065bed37c13ca08a4411925f33527e33e35fa1defb1219b56:eyJzZWxlY3RlZExpbmVDb3VudCI6NTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhmOGNhNmU4MDM0YTJiNTQ1MWVjZmUwNmQ1Nzc1NmJiZjRmMTYzZjMyNjQ4ZWVjNWVjYzc4YTE1NjNkMmFiOTAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjAxZjA5MjU5ZGI3ODAwM2YxNjRjNDIwYTBhNTU4NmI0ZjYxZTBlODVhNGNhNjNiYjFhYzY2NzliOTlmNGRmY2EiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjVjOGVmN2Y2NTkwZDc1YzNmZGRlYTQ1OTI4Njk5NjlmMjkzZTFmY2ExNjJhYzQ2NjZmZjcyYmUwNmY3MmE5MzYifQ"
         }
       ]
@@ -47,7 +47,7 @@
       "statement": "Scans skip files modified more recently than the settle window, leaving files still uploading for a later scan.",
       "evidence": [
         {
-          "resource": "repo://internal/ingest/ingest.go#L309-L341",
+          "resource": "repo://internal/ingest/ingest.go#L317-L349",
           "version": "repo-lines-v1:sha256:07c219ab7f8563887b5358a662ed8d070677eb13f70b54935cecde39244ad964:eyJzZWxlY3RlZExpbmVDb3VudCI6MzMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIzZWJjZGZmZjVhMTk5ZWViNDAxMTg2MGI1ZTBmZGNkOTY3MmE2NzNhNTJkNzE0MDYwYmI0MGQwMmZmODRlNWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk3OGZhZmI3ODYyNDBjNzdiNWQ2ZGI0NzFiMmRmOTVhNTAxYTAzNzkwZmY1NjdhZWE2MTFkZjRjODBlOTBlZWEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQxODYxNzgwYzkwYzVlYmIxODQyZTcxZWZkNjJhNDRiZWJhNzI4Mjg2YjUxOTIxZmJhMmMxNzFhZTRmNjA2N2IiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImFiMDI2OTgxNTRjODNmZmNmOWQ2YmJjZjNlMTlhM2I0ODhkN2RmOGFkNzZiYjhjMWQyMDFiOTJjYzgyZTY2MGIifQ"
         }
       ]
@@ -57,8 +57,8 @@
       "statement": "A full crawl runs at startup and then on the full and recent schedules; only one scan runs at a time and overlapping scheduled scans are skipped; Rescan returns false when a scan is running.",
       "evidence": [
         {
-          "resource": "repo://internal/ingest/ingest.go#L148-L209",
-          "version": "repo-lines-v1:sha256:afbf16a89012ae5ac9b0fc8bf60ad21fa36de99148eefcea68dfd01de913aeb8:eyJzZWxlY3RlZExpbmVDb3VudCI6NjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNjNjlmNzVkYmQ0YTFmZDg2ZTI3MWJmZmRlNzUyZTZiMTA1YzdkNTA0YWFiYjlmZWZmNWViMTZkMmU1MWY0OTYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImMzMDk2ZWRiZDIxY2I0MTU2NmM4MDExMGFmMjA4YzI2Y2RmNjRjNjc1ZmFkYzUzODM1NjkwNzg2OWVlOGY3MjQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjlhNzA5YTc1Y2VkNTJiNzAyNzRiY2Y0YjlhM2Q2OTg2ODMxZWE1Mjk1OGIzMzVmYzFlNzk3ZjhkZTkwZWRiYmUifQ"
+          "resource": "repo://internal/ingest/ingest.go#L156-L217",
+          "version": "repo-lines-v1:sha256:064b7f117d83357a491207d0970ce1071524663eff6246215dc1b49ae577ba8f:eyJzZWxlY3RlZExpbmVDb3VudCI6NjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNjNjlmNzVkYmQ0YTFmZDg2ZTI3MWJmZmRlNzUyZTZiMTA1YzdkNTA0YWFiYjlmZWZmNWViMTZkMmU1MWY0OTYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImMzMDk2ZWRiZDIxY2I0MTU2NmM4MDExMGFmMjA4YzI2Y2RmNjRjNjc1ZmFkYzUzODM1NjkwNzg2OWVlOGY3MjQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjlhNzA5YTc1Y2VkNTJiNzAyNzRiY2Y0YjlhM2Q2OTg2ODMxZWE1Mjk1OGIzMzVmYzFlNzk3ZjhkZTkwZWRiYmUifQ"
         }
       ]
     },
@@ -67,7 +67,7 @@
       "statement": "The dispatcher hands due work to workers in priority order snapshots-to-pair, clips-to-probe, then clips-needing-thumbnails, in batches of 32, skipping rows already in flight by key.",
       "evidence": [
         {
-          "resource": "repo://internal/ingest/ingest.go#L447-L495",
+          "resource": "repo://internal/ingest/ingest.go#L455-L503",
           "version": "repo-lines-v1:sha256:f7b1bb06f8aacd1b7dfbe838519ad33a26489ab28b16abcca98ae4421d5ce003:eyJzZWxlY3RlZExpbmVDb3VudCI6NDksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU1Nzg2ZTgxNmI4YTk4OGFlY2JmMWJmNThhNWI3NGQzYWFkMzJlZDc1NzU3ZjU3YWM1NDNhMTRkZmMxNTgyMzYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImYyOTY0MDc5YzNjNWM4MTUyMGVmMzNhMmI5ZDJlMTVhMWI4NGQ3MjgwZGI4NTkwZGNkNjU3NDdlM2UwMTJhNDAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY5OTI5MTk2N2U4MzNhYmZlZjg0OThiZDhlNjIxYmM5YWYzZDJkNTAxOTc1YTYzOTVjOWVkOTM1MDM2OTFjMWQifQ"
         }
       ]
@@ -77,7 +77,7 @@
       "statement": "When idle the dispatcher sleeps until a poke, the store's next wake time plus 50ms, or at most 30 seconds.",
       "evidence": [
         {
-          "resource": "repo://internal/ingest/ingest.go#L418-L445",
+          "resource": "repo://internal/ingest/ingest.go#L426-L453",
           "version": "repo-lines-v1:sha256:0e259b085025ea1dc5da80d975cd5a663360e376c6b268c49da6ce3f244f30f8:eyJzZWxlY3RlZExpbmVDb3VudCI6MjgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFhYzk2YTE2YTRhM2FmMmE5YTQzNTJhNjdjODkxYmY0NDk0NmQzNjM4ODJmNzJhMGIwNjgzNWJhYTI0NWVmNzgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImVkOGFjNWQyYjE0N2U1NjM0ZThhMWVkNWJmYWQ2NzlkNGQzNDhiZDUzYWU3MTkxZGM2N2ZiNzE1YTg4ZGEzYTIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjMzOWFjNWM5ODRjMjhiNTVlYTE4YTgwMjYzYTRlNDg4MWI0YmJiZDk3NTliYjYyODZjNzYzYTVlMjI0ZmU0NjAifQ"
         }
       ]
@@ -87,7 +87,7 @@
       "statement": "Failed probes retry with exponential backoff from 30 seconds capped at 32 minutes, becoming permanent for non-MP4 files or after MaxAttempts; a missing file is marked deleted.",
       "evidence": [
         {
-          "resource": "repo://internal/ingest/ingest.go#L497-L516",
+          "resource": "repo://internal/ingest/ingest.go#L505-L524",
           "version": "repo-lines-v1:sha256:3895926c032c0080124b3720b977b6636993ad563f8e7f757629755902175183:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU0ZDk1ODU2NzEzNDNjMjM1MDA2ZTkxNTE2MjdhOWU2ODliOTAxNGVhZmNiZjQ4YTNmMzA1NGE3NmU0ZWQ4ZGYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjUwM2EyOGIyY2M0YWVlMWRhZTk3MGEyNjE5ZWQzZDI5ZmI1ZjFkZDdiMzdiZDc3ZjBiNmY4NGE0Yzc1MDZlZWMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA0MDJkNmQ1MmZmZmFlZWIzNjIxMjRjMDc5OGMxZWM4YTNjNTU2OWM2ZWJhMjBlNmY5N2IzNjcxNGYzMjFjNzAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjcwZDllNzYwNTJlNWZmYzBmNTYxZDA0YmRhN2Q2OTYyNGNkYzU2OGM5MTAyYTU3MTE3Y2Q5NTlmZjAxNzVmMDEifQ"
         }
       ]
@@ -97,8 +97,8 @@
       "statement": "After a successful probe the clip is paired with a deadline of its upload time plus the profile's Pairing.Wait, so backfilled old files don't wait for snapshots.",
       "evidence": [
         {
-          "resource": "repo://internal/ingest/ingest.go#L517-L534",
-          "version": "repo-lines-v1:sha256:b12e76f69d7f93f57ffa54fba75bfc4485db427f63144e6402e3053e78508a99:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImUzMzYxZmRmZTlkYzFkZGZiMGNiYTFhYWQ5MzkwMzdjNmYyODZiMDcxNGI1YTIxMjc4Yjk4Y2QwZTFlMWJlYzciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjlkOWEzZDRmYmM5MTYyNmJiYjQ3NjIyYzkwZGI0MzUxMzc0Yzk4MTJhM2QwOTI2YTVmNGExZWEzNjczNDg4MzQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImFjNDk2MmI0YmQ1NTMyYzQ3YWJhYzAyYThlODVhYWVlNWM2ZjkwYjU0YzY0YzIxYmNhMjdiZmQ0MGU1OTMzZWMifQ"
+          "resource": "repo://internal/ingest/ingest.go#L510-L536",
+          "version": "repo-lines-v1:sha256:c2564f766d9b04aca5ee701c084b178937acf217029e42c09f7716e51717abf3:eyJzZWxlY3RlZExpbmVDb3VudCI6MjcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdhNmJlMzM5MWE4NDFiMjIzNjZmMDA2MmYwOWNjN2M0NGEwMTc5YTAyNWVjYzM1Zjc2MTY0M2UxNTI2MTZjYWYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjNmODJlYTJhNDUzNmI1YTQyMTYxYjM5OWY0NGExOGQ5NGU4MGI2ZTU1ZjRlNjcxNWYzN2Y1YjBhODc4YjUxMDQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjhhY2M5NDM1MjY3OGZjYmZlNGFiYmQ2YjlmNDU4MTFhNGRkYmZhMTc1MGVhYTE4ZmI1NGM4YWRjYTdhZGUzMjUifQ"
         }
       ]
     },
@@ -107,12 +107,12 @@
       "statement": "All pairing decisions are serialized by a mutex so a snapshot can't be linked to two clips concurrently.",
       "evidence": [
         {
-          "resource": "repo://internal/ingest/ingest.go#L536-L543",
-          "version": "repo-lines-v1:sha256:3b3e4370c86c594239d3ff7ff3974b9213a1af5dbc10c8ccce35470ff9d05982:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYzM5Mzc5NTc2ZDgwYWNlMDQxMjE5YzZhOWQyZjgwOWFkNjVmYWZkMTIzOWRhZWQ5NzdlNTY2NWQ1N2YzNmEyNiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZjI5NjQwNzljM2M1YzgxNTIwZWYzM2EyYjlkMmUxNWExYjg0ZDcyODBkYjg1OTBkY2Q2NTc0N2UzZTAxMmE0MCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNjkyZjg0YjY2NmQ3Y2RmNWVmMDMzNWJkODVhOGY0NjY1Y2RlNDI0ZDQ3MWQ1YmI1M2Q2ZDJhYTIzYzEzYjc4ZSJ9"
+          "resource": "repo://internal/ingest/ingest.go#L538-L556",
+          "version": "repo-lines-v1:sha256:88f9293c378703976dc77103ad732d92a837d49c4be03eb03c8b22e4f4ea157e:eyJzZWxlY3RlZExpbmVDb3VudCI6MTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhmMzMxOWQ2ODRmYzUwYmE5NTZkOTlkYTdhMmVjNWQ4NjUwZDkyZTlmY2VhMjhkMzQ5YmRmYjAxMmIxMDRiYzYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImM1YmZiZjM4ZTdiOTMxZDlhYWNlOTU4NThlODA3ODkxMDFhM2JkZTFhMzZkYWE4NTAzYzk4OWI1MTNmMTE5NDQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjY5MmY4NGI2NjZkN2NkZjVlZjAzMzViZDg1YThmNDY2NWNkZTQyNGQ0NzFkNWJiNTNkNmQyYWEyM2MxM2I3OGUifQ"
         },
         {
-          "resource": "repo://internal/ingest/ingest.go#L60-L62",
-          "version": "repo-lines-v1:sha256:71a950358283ca20fd51750b0727bd07cb7187c8bbecaa236e3e4c1fe3a05b91:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMWM1MzM5NjE4Mzk4NzU4YjU2NjNjNWViMGY2ZDE5MWE5N2Q3YzI2NDZjOTdmOWY2ZmYwYjEzNzEwZWQ1ZTdlNyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDFiYTQ3MTljODBiNmZlOTExYjA5MWE3YzA1MTI0YjY0ZWVlY2U5NjRlMDljMDU4ZWY4Zjk4MDVkYWNhNTQ2YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYjhmM2VjMGIwY2ExYzU5MzNlY2JmYzQ2OWEyNzFhM2QzZmM0OWVmOGM3MzAxNTcyZTBjOTA5ZWJlNzI4ZDkzOCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMTk3MjU2YzVkMDY5MDQ3NzE1ODc1Yjc3YTI4YmE3Yjg1ZWY1ZjQyYTMzY2YyOTRmNzQ4NWJkNGIyYTQ4MDMyYyJ9"
+          "resource": "repo://internal/ingest/ingest.go#L60-L60",
+          "version": "repo-lines-v1:sha256:1c5339618398758b5663c5eb0f6d191a97d7c2646c97f9f6ff0b13710ed5e7e7:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMWM1MzM5NjE4Mzk4NzU4YjU2NjNjNWViMGY2ZDE5MWE5N2Q3YzI2NDZjOTdmOWY2ZmYwYjEzNzEwZWQ1ZTdlNyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMWM1MzM5NjE4Mzk4NzU4YjU2NjNjNWViMGY2ZDE5MWE5N2Q3YzI2NDZjOTdmOWY2ZmYwYjEzNzEwZWQ1ZTdlNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYjhmM2VjMGIwY2ExYzU5MzNlY2JmYzQ2OWEyNzFhM2QzZmM0OWVmOGM3MzAxNTcyZTBjOTA5ZWJlNzI4ZDkzOCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzY0ZmU4NmU0MjU3ZjkxMDI3MDBmYzA5MGI4OTFmYWNjMTg0MzIyODc4MzM5NDMyMmJiMzA0Y2M2YzE1YjUyYyJ9"
         }
       ]
     },
@@ -121,7 +121,7 @@
       "statement": "Marking files deleted also removes their thumbnail files from DATA_DIR.",
       "evidence": [
         {
-          "resource": "repo://internal/ingest/ingest.go#L394-L410",
+          "resource": "repo://internal/ingest/ingest.go#L402-L418",
           "version": "repo-lines-v1:sha256:ea4674b655adc59c59f3c61b641f7c8f2c75be0a8be2f0973d976351ea353b08:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ5MDE3YTMxMTdmMDFhZDlmMGUxZDQ0NGE5MjJjMDRhN2E5ODc4NTdiZjA5YWQ2YWY5MjUzYWYyZmEyZjA2MTAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjU0N2IyMjkzOWI0MTljNGMxMTI0ZTA3YjQwMWJhMWM3Njc0NWQxZmQzN2E4MTQzNWM5ODdhMDA3ZWJmYmVlYTQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQ3ZjFiYmJjNjFmZTA5NWE1ZDI2YWZhNTJkMmMwNjViNWY4NWZhODU1OWQ2NzRkMmY3MDk4ZTU1NGZkZjdiMWYifQ"
         }
       ]
@@ -129,6 +129,6 @@
   ],
   "verification": {
     "by": "openwiki/0.7.2",
-    "at": "2026-11-08T01:57:23.266Z"
+    "at": "2026-11-08T06:01:44.565Z"
   }
 }

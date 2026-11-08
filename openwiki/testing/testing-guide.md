@@ -3,10 +3,9 @@ type: guide
 title: Testing Guide
 description: How to run webdav-nvr-player's tests and lint, which optional dependencies (ffmpeg, Postgres, a live WebDAV server) enable extra coverage, the testing approach in each package, and where to add tests for common changes.
 tags: [testing, go-test, ffmpeg, postgres, lint, typecheck]
-verified:
-  - by: openwiki/0.7.2
-    at: 2026-11-08T01:57:23.266Z
 sources:
+  - id: openwiki-source-f98f3b8c5f118bbe7f2bfa45
+    resource: repo://e2e/run.sh
   - id: openwiki-source-b97cfe5637e5ff53f9cd1f3b
     resource: repo://internal/auth/auth_test.go
   - id: openwiki-source-e001b7c11d255b47bdb89127
@@ -25,7 +24,10 @@ sources:
     resource: repo://Makefile
   - id: openwiki-source-14e56945b7c632a3b335dcec
     resource: repo://web/package.json
-generated: { by: "claude-code", at: "2026-11-08T01:57:23.266Z" }
+generated: { by: "claude-code", at: "2026-11-08T06:01:44.565Z" }
+verified:
+  - by: openwiki/0.7.2
+    at: 2026-11-08T06:01:44.565Z
 ---
 
 # Testing Guide
@@ -33,16 +35,17 @@ generated: { by: "claude-code", at: "2026-11-08T01:57:23.266Z" }
 ## Running
 
 ```sh
-make test   # go test -race ./cmd/... ./internal/...  +  (web) npm run typecheck
+make test   # go test -race ./cmd/... ./internal/...  +  (web) npm run typecheck  +  (web) npm test
 make lint   # go vet, gofmt -l check, (web) eslint
+make e2e    # build the image and run the Playwright end-to-end tests against it (needs Docker)
 ```
 
 - The Go package list is spelled out as `./cmd/... ./internal/...` and **never `./...`**, because `web/node_modules` can contain stray Go packages.
-- `-race` needs cgo. The binary itself builds with `CGO_ENABLED=0`, but the tests need a C toolchain (CI installs `gcc`).
+- `-race` needs cgo. The binary itself builds with `CGO_ENABLED=0`, but the tests need a C toolchain (GitHub's `ubuntu-latest` runners already have one).
 - Both targets run `npm ci` first if `web/node_modules` is out of date.
 - `npm run build` in `web/` also runs the typecheck. The typecheck uses the native TypeScript compiler (`@typescript/native`).
 
-CI runs `make lint` and `make test` with Postgres and ffmpeg available. See [CI and Releases](../operations/release-and-ci.md).
+CI runs `make lint` and `make test` with Postgres and ffmpeg available, and the end-to-end tests against the built image. See [CI and Releases](../operations/release-and-ci.md).
 
 ## Optional dependencies
 
@@ -75,7 +78,8 @@ NVR_TEST_POSTGRES_URL=postgres://postgres:test@localhost:55432/postgres?sslmode=
 | `internal/auth` | `TestMain` lowers `bcryptCost` to the minimum, because full-strength hashing takes seconds under `-race`. Covers password sign-in, sliding expiry, settings and password change, the rate limit, `none` mode, reset, `safeNext`, and a full OIDC flow against an in-process fake provider (discovery, JWKS, token). |
 | `internal/httpapi` | `fakeIngest` and `fakeStream` (`httptest.ResponseRecorder` with real `Range` handling) plus a real store. Covers routes, ranges, the raw route's loopback and signature checks, webhook codes, status, fragmented-clip remux streaming, and sign-in guarding. `httpapi_test.go` covers SPA serving. |
 | `internal/signedurl` | Sign/verify round trip, tampering, expiry. |
-| `web/` | No unit tests. TypeScript strict typecheck and ESLint (`react-hooks`, `react-refresh`) are the gate. |
+| `web/` | Vitest (`npm test`, which is `vitest run`) for the logic that doesn't need a browser: `src/app/player.test.ts` drives the store's actions (day loading, zoom and pan, playhead moves, rates, boot) with the API mocked; `src/lib/time.test.ts` covers camera-time-zone dates, DST-length days and tick placement; `src/lib/clips.test.ts` covers the clip searches and span merging. TypeScript strict typecheck and ESLint (`react-hooks`, `react-refresh`) are also part of the gate. See [Player State and Playback Engine](../player/app-state-and-engine.md). |
+| `e2e/` | Playwright in Chromium (`e2e/tests/smoke.spec.ts`). `e2e/run.sh` builds the image (or uses `NVR_IMAGE` with `SKIP_BUILD=1`), starts it beside a WebDAV server of generated Reolink-style clips with `e2e/compose.yaml`, and checks indexing, thumbnails, streaming and the UI. Container logs are printed when a run fails. |
 
 ## Where to add tests for common changes
 
@@ -84,6 +88,7 @@ NVR_TEST_POSTGRES_URL=postgres://postgres:test@localhost:55432/postgres?sslmode=
 - **New camera vendor:** a table test from real names in the vendor's package.
 - **Changes to probing or remux:** add a layout to the ffmpeg-encoded cases and keep the packet-for-packet comparison passing.
 - **Ingest scheduling or pairing changes:** `ingest_test.go` with an injected `Now`.
+- **Player state changes** (anything in `web/src/app/` outside the engine): `player.test.ts`. Time-zone or date helpers: `time.test.ts`.
 
 ## Manual checks
 

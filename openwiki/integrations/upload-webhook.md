@@ -3,26 +3,28 @@ type: integration
 title: Upload Webhook (SFTPGo)
 description: How an upload server such as SFTPGo tells webdav-nvr-player about finished uploads through POST /api/ingest, covering the shared secret, the request and response contract, path alignment with WEBDAV_ROOT, the rescan endpoint, and the reference SFTPGo Event Manager and Terraform setup.
 tags: [webhook, sftpgo, ingest, integration, terraform]
-verified:
-  - by: openwiki/0.7.2
-    at: 2026-11-08T01:57:23.266Z
 sources:
-  - id: openwiki-source-5141266584974a63e46300c9
-    resource: repo://docs/sftpgo.md
+  - id: openwiki-source-77097e57ecff212cbb1e749c
+    resource: repo://charts/webdav-nvr-player/README.md
+  - id: openwiki-source-67e2f98afdca0e1b9703b13e
+    resource: repo://charts/webdav-nvr-player/values.yaml
   - id: openwiki-source-a8910515ddd14810ad43f5c1
     resource: repo://internal/config/config.go
   - id: openwiki-source-7aaec0c52e398dfd7e502e0b
     resource: repo://internal/httpapi/api.go
   - id: openwiki-source-37047f321b6d15c60cf15860
     resource: repo://internal/ingest/ingest.go
-generated: { by: "claude-code", at: "2026-11-08T01:57:23.266Z" }
+generated: { by: "claude-code", at: "2026-11-08T06:01:44.565Z" }
+verified:
+  - by: openwiki/0.7.2
+    at: 2026-11-08T06:01:44.565Z
 ---
 
 # Upload Webhook (SFTPGo)
 
 Without a webhook, new recordings show up when the next recent scan runs (every `SCAN_INTERVAL`, 5 min by default). With one, the upload server notifies the player as soon as each upload finishes, and new clips appear within seconds. **Rescans keep running either way** and catch anything the webhook missed. See [Ingest Pipeline](../ingest/pipeline.md).
 
-The step-by-step guide is in `docs/sftpgo.md`. This page summarizes the contract and what happens on the player's side.
+This page is the setup guide: turn the webhook on, point the upload server at it, and check the paths line up. The Helm chart's README has the same request in short form for in-cluster setups.
 
 ## Enabling it
 
@@ -68,10 +70,50 @@ curl -i -X POST http://localhost:8080/api/ingest \
 
 In SFTPGo's WebAdmin, under **Event Manager**:
 
-1. **Action**, type HTTP: `POST` to the player's `/api/ingest` URL (for example the in-cluster Service `http://webdav-nvr-player.nvr.svc.cluster.local:8080/api/ingest`), header `X-NVR-Secret`, body `{"path": "{{.VirtualPath}}"}`, timeout 10 s.
-2. **Rule**: trigger *Filesystem events*, event *Upload*, limited to the camera's upload user, running that action.
+1. **Actions → Add**, type **HTTP**:
+   - Endpoint: the player's `/api/ingest` URL. In Kubernetes that's the chart's Service, `http://<release>-webdav-nvr-player.<namespace>.svc.cluster.local:8080/api/ingest`. It must be reachable from the SFTPGo pod.
+   - Method: `POST`
+   - Header: `X-NVR-Secret` = your `INGEST_SECRET`
+   - Body: `{"path": "{{.VirtualPath}}"}`
+   - Timeout: 10 seconds
+2. **Rules → Add**: trigger **Filesystem events**, event **Upload**, limited to the camera's upload user (for example `reolink`), running the action above.
 
-`docs/sftpgo.md` also has an equivalent Terraform definition using the `drakkan/sftpgo` provider (`sftpgo_action` and `sftpgo_rule`), with the secret read from a Kubernetes Secret that the player's deployment also uses.
+### Terraform
+
+The same rule with the [`drakkan/sftpgo`](https://registry.terraform.io/providers/drakkan/sftpgo) provider. Field names follow provider 0.0.x; run `terraform validate` against your version.
+
+```hcl
+resource "sftpgo_action" "nvr_ingest" {
+  name = "nvr-ingest"
+  type = 1 # HTTP
+
+  options = {
+    http_config = {
+      endpoint = "http://webdav-nvr-player.nvr.svc.cluster.local:8080/api/ingest"
+      method   = "POST"
+      timeout  = 10
+      headers  = [{ key = "X-NVR-Secret", value = var.nvr_ingest_secret }]
+      # SFTPGo substitutes {{.Name}}-style placeholders (JSON-escaped).
+      body = jsonencode({ path = "{{.VirtualPath}}" })
+    }
+  }
+}
+
+resource "sftpgo_rule" "nvr_ingest" {
+  name    = "nvr-ingest"
+  status  = 1
+  trigger = 1 # Filesystem events
+
+  conditions = {
+    fs_events = ["upload"]
+    options   = { names = [{ pattern = "reolink" }] } # only the camera upload user
+  }
+
+  actions = [{ name = sftpgo_action.nvr_ingest.name }]
+}
+```
+
+Keep the secret in one place (for example a Kubernetes Secret) and feed it to both SFTPGo and the player's `INGEST_SECRET`, or the chart's `indexing.existingSecret`.
 
 ### Path alignment
 

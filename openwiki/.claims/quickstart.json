@@ -1,14 +1,18 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:8322ae98e2f6ee40822319a25983248345369b44889c1cb151c3cda3e7bcc5e6",
+  "pageVersion": "sha256:6a33ad31787bacdb55aae45c56362eb2619fb1c90c528ec59f18f6f6796a6973",
   "claims": [
     {
       "id": "claim_d4263e61bc344c36b55c784f26abe128",
       "statement": "The first make run creates .env from .env.example and stops so WebDAV settings can be filled in; make run then builds the UI and server and starts with .env.",
       "evidence": [
         {
-          "resource": "repo://Makefile",
-          "version": "repo-file-v1:sha256:165c6e32402ab3f7425abc85d1bacc55c72064f646366e5424d2ed908ca93a2d"
+          "resource": "repo://Makefile#L41-L43",
+          "version": "repo-lines-v1:sha256:1f27e2d5ed582c66382621198b5ba6f272b14f64407f3a7cb35dcce3aaed49da:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzM2YjBjMTUyNjAyMWExZDJlNzRkMWYyOTdkZjE3OThhYTZjNGFhNWU5OTkwYjFkMTk0NDMzMTY3ZTJkNTQ2YSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOGY2MzcyZWVkYjdiZjBhMDllZjIzNmE0NzMxZjcxMTI5OTJlYWRiOWYyOTg1ZjlkMmYzY2E4ZDhhOTg5MDc2OSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNGRjZTJkMWMwYmJhZDAzNGUwNDA4NjQzZTg5NTJmYjI1MTZkMjNkZTAyYzY0ZDMwZGM0YzE3N2E0MjQ1MjIzMyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOWQwN2M2YWFjNjEyZjA3YWRiNjlhMDIwN2EzNjlkZGU5NDhiZWQwMjMwNzk0NzQzNGZjZDBhYTRhMjRjMjNmOSJ9"
+        },
+        {
+          "resource": "repo://Makefile#L53-L60",
+          "version": "repo-lines-v1:sha256:8d0a3905f3d7b28e04155e7ed05c7a49e971bd6b737c7971fedb12ac9a409026:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZThkMjZjM2Y1ZWZiMmM0NGI0ZDczMDcwYWYxOGRmYzgyZjBhMTMzNDQ2Y2Y1ZWIyYjQ3MjhlMjIyODc3YmFjNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNjBjYTdmOTRjN2E2M2E2YjQ2YWQzZTlkZDVkYjBiZDc4YjQ4MTZkY2U5MzYwYzZlOWQ3MzMyNzZlYTYxYjc2MCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYTExMTg1YWUxMTUyN2Y1ZDI1YmM5MTgwYzA1NjZmYWMwOGJmZGM3YTg0ZGY4YzYyMjMwNjlkYWNmZTM0ZjFlOSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMzI1ZTk0ZjNmZmU3NjQ4YmQ4YWE4MDk4ZTEzNDdiZmQxMGQyZWQ5MjgwZjEzNWRhNmU5NTA0Zjc4MGFjMjkzZSJ9"
         }
       ]
     },
@@ -17,8 +21,8 @@
       "statement": "make reset-password builds the binary and prints a new admin password using the settings in .env.",
       "evidence": [
         {
-          "resource": "repo://Makefile",
-          "version": "repo-file-v1:sha256:165c6e32402ab3f7425abc85d1bacc55c72064f646366e5424d2ed908ca93a2d"
+          "resource": "repo://Makefile#L45-L47",
+          "version": "repo-lines-v1:sha256:823544eaca1f88bedeeee9bf1a737e3efbbb746d40d4538a8a55a27f01f36550:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDNkZDgzMjE2ZWU3M2FmZjU1Nzg5YjQ5N2E1OTJlYTFjMWE5MGEwZGVhNDNiYzU0ODAyOTY3ZGNiYzdjZWI3ZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZDMyN2RiOTBiOTdkNGRjODc4Mjk5NjdjZjA5YjM4ZTZmMTMzMjZmM2NhMTkyOWNlN2RlMTAzYjMzOTcxOWRkYiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNGI3OTdhY2IxODhlN2EzMzljMDliOTE0ODk4NmFlNjYyMTkzZjExZDNiYmQ2Y2NjYjRhMmE0MTg3YTQ4YjgzNyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYTAwOWJlOTQxYzc4M2MwMmRiNmUxMTdhYWMzZWE4YjhmYWFiMmRmMzI2YmRiN2FlMDI0M2FiZDRhODAyMmZiYyJ9"
         }
       ]
     },
@@ -34,11 +38,27 @@
     },
     {
       "id": "claim_a5302c0900854d8da09b5aecca153790",
-      "statement": "The project's design records one WebDAV source per deployment, UTC storage with camera-local file names, no transcoding, and one replica per database as deliberate constraints.",
+      "statement": "Deliberate constraints of the design are one WebDAV source and camera profile per deployment, UTC storage of camera-local file-name times, no transcoding, and one replica per database.",
       "evidence": [
         {
-          "resource": "repo://docs/design-decisions.md",
-          "version": "repo-file-v1:sha256:27721ff0d1b0bf6cab94e6a6aebe50e6835a00f9768eca29ed9e7e579cba70f7"
+          "resource": "repo://charts/webdav-nvr-player/templates/deployment.yaml#L10-L12",
+          "version": "repo-lines-v1:sha256:190bfafadc1e6b5155e6f6b8637ddb056c350473f4f13610f01bee644afdd658:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNzljMDVkNTk3M2Y2NjFjOTY4MTRiOTYzYjM1ZjY4ZmEzZmFlZTIyNzZjZmNmY2ZhOTg2YzE1MmUyZmVhOTU4YSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiN2JjMzNjYjc3MzhiNWVmYjk4ZmNlNTY2ZjIwZGQ4MmY3NjUwNDM2MmZmYmExMTk0NGJhMmVmODJiYjA5NDEzYSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTMwOGJkNzBmMGFlMmZmYjBlYjQ3NmIxZWNhMGUwYTAyODk3ZDNiZGFiZjY3ZTQyNjczZjE3ODI3NzNiNDZlNSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNjNhYjJiZDEzOTNlNDliOGU0ZGRlZjFjMTZkZmFlNTZiMzY2OTBjYmYyYmU1Y2FiMTRkNTc5MjE2Mzc4ZTE2OCJ9"
+        },
+        {
+          "resource": "repo://internal/config/config.go#L22-L22",
+          "version": "repo-lines-v1:sha256:0f82d8a448fd42dc7a8716a44916c245471126035c0c7f76876f12a1ebf71f29:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMGY4MmQ4YTQ0OGZkNDJkYzdhODcxNmE0NDkxNmMyNDU0NzExMjYwMzVjMGM3Zjc2ODc2ZjEyYTFlYmY3MWYyOSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMGY4MmQ4YTQ0OGZkNDJkYzdhODcxNmE0NDkxNmMyNDU0NzExMjYwMzVjMGM3Zjc2ODc2ZjEyYTFlYmY3MWYyOSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZDgyMjBhODhkNTNjM2YyOGJhMmU1YzgwNTU1NzFjYjMxMTBmMzU2ZWVjMTZlZDA5ZjExMDI1ZmFhZmYzMDA4ZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNWYzZTJlMWZiZWQ3MzdhZjIyYWQxZjhhYTRjODY1OGM3NTEyNmQ0YjA3YmQwZTA0YTQ1NmIyYTA1N2UyYjQ5MCJ9"
+        },
+        {
+          "resource": "repo://internal/config/config.go#L60-L60",
+          "version": "repo-lines-v1:sha256:d9184e8ea48fe9ab0cd0bec9b60d82af0aebe6b40d80bb91fd3b2f9eae6ded26:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZDkxODRlOGVhNDhmZTlhYjBjZDBiZWM5YjYwZDgyYWYwYWViZTZiNDBkODBiYjkxZmQzYjJmOWVhZTZkZWQyNiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZDkxODRlOGVhNDhmZTlhYjBjZDBiZWM5YjYwZDgyYWYwYWViZTZiNDBkODBiYjkxZmQzYjJmOWVhZTZkZWQyNiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMzU5YWE3M2FmOGE2Yzg1MTEwOGU3ODViYjM1MGViMTg4ZmRhMTNiZDljYzliYzg5NDM5YTJjZGQ0NzNmNzdkYiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYmViNDI1YjE1YWU2MDczMzc1MDMzOTMwNzUzMjI4YzNiZDU5NzVlODEyNzQ0ZjQ3N2I0MDljZmUxZmVmYTljOSJ9"
+        },
+        {
+          "resource": "repo://internal/httpapi/api.go#L241-L275",
+          "version": "repo-lines-v1:sha256:b662a16aa32458e5b75e36905165d56612f57e2e28ac6d97304796f9f82fed37:eyJzZWxlY3RlZExpbmVDb3VudCI6MzUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjEwNDVmOTA1M2NmMzUxZjNhMmI0N2UwZWUyZGNkOTI3YTcwMGZiNDhjOGU0OTBhNTAyMTlmZTg1YzBjYmViYTAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImE2OTRmMjI0MTVhYzliOTM1M2UwMGJhZWJkMjkyODI0MGZkMzM3NjJhNWM4YjZlNzdlODFkODdiNmIyYmJhYjUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjM3OWU4ZDJkYjkwYmZlZjFiYzczZDk0YWI3Njc4ZjdmNjYyMmU3MmJhNjExNmRlMzk2Mjg1ZTQ3ZDYzYjBjN2MifQ"
+        },
+        {
+          "resource": "repo://internal/store/media.go#L48-L56",
+          "version": "repo-lines-v1:sha256:798294374e8ae180264433c3d7a4b16276a5ee7902506f3c5c76b4d1f5ebaff2:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYTg1YzBiOWVlN2Q3MzJkZmUxOWE5NWJjMzI2ZjEyMzdjNGUxOTE4MzAwYjE4MzBiZjEyYzg3MzA0OGEyNWJiYiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMjZjOTcyYmMzZDcyYjU4MmFlZWIwMmY2MWZiMjEyMzJkOWNlOGQzYWRjZjFhZDFhZjc0ZjRmNWEzZjhiNmQzNSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNTNlMjY5ODdkZTJjN2ExNjZjMGE2M2UxMjU1ZDYzZDI3NWQ0NTg2NzI1OWMwY2U0NGUzZjkzOGViZmNlZmQzYyJ9"
         }
       ]
     },
@@ -47,18 +67,32 @@
       "statement": "Camera vendors are added as Go packages implementing profile.Profile, registered in init and blank-imported in cmd/nvr.",
       "evidence": [
         {
-          "resource": "repo://README.md",
-          "version": "repo-file-v1:sha256:ac82d36165a6f8b38c56aa5e9edfff66e986e36097ffccdc16b633823a3b7c60"
+          "resource": "repo://README.md#L64-L73",
+          "version": "repo-lines-v1:sha256:1aaa3a838a8840bad9eba5c05aad1bef065162533f53050c905a07a1e1d4b847:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZiYTc3ZWUzYWExYmZmNTVlMWYzNjk0NWVkY2RiYjdmNmJkYzA1ZWUzM2Q2MzQ1N2M0YTc5ZGFkN2RjYTQzMWQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIyMWUyN2NmM2Y1ZDY5ZmFhMmU5YjI4YWUzZWUyNWVmZDU5NDEyYTViZmY2MjAwNjI4ODUxMGQ3MDQwYjdjODAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImViN2NhNDFhZjg1Zjk5ZjUyMTJjMWE3OWJjOWNkNDI4ZTFkMTY5OTRiNjc4MTJmNTZhNjI1ZGU0YzFhOTc5ZTciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQ5NDZiNTFiODZhN2U4OGQwNmQ5ZGNmMDgwODlhY2I2YWE4NDQ2MDUwOGUyODg5YjM1N2JmMDQ2NTg3YjExYzIifQ"
+        },
+        {
+          "resource": "repo://cmd/nvr/main.go#L24-L24",
+          "version": "repo-lines-v1:sha256:0146ac7506d485148645f79af24c789bb8f03df5e76164cf4df61ceed79f1b32:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDE0NmFjNzUwNmQ0ODUxNDg2NDVmNzlhZjI0Yzc4OWJiOGYwM2RmNWU3NjE2NGNmNGRmNjFjZWVkNzlmMWIzMiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDE0NmFjNzUwNmQ0ODUxNDg2NDVmNzlhZjI0Yzc4OWJiOGYwM2RmNWU3NjE2NGNmNGRmNjFjZWVkNzlmMWIzMiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTJhOTM3MjA3NDFjNDM4ZjhmYjFkNmFiZTQwOGYwNzlhOTE2NjhhOTZhNTI0M2RmY2E4M2RkNWUyYzQzZjMyMyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZmQ3YmI4ZTVlOGMxY2FiNDhkOGM2ODJiMzlhMzI2YjkzMWI2MWQxMWQyYWFlOTZjZGY0MjhlODhiY2VjM2YxYyJ9"
         },
         {
           "resource": "repo://internal/profile/profile.go#L1-L6",
           "version": "repo-lines-v1:sha256:4a754c084494156a9203748fe84aee6b59ad32082ff2e73bc0154c97f32c2d24:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiODYyNTRlNTFiNzBjMTY0ZGRkYjVlMmNlZTA1NjM1YWZlYTA0MmM4ZmFkMjE1Mjg3ZTBkYWI4OGQ2NTQ5MTJkMCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDFiYTQ3MTljODBiNmZlOTExYjA5MWE3YzA1MTI0YjY0ZWVlY2U5NjRlMDljMDU4ZWY4Zjk4MDVkYWNhNTQ2YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOWY1NDY2NTNhNGRhOGYxYTJlZmYwYWVhZGM4ZDI4ZTZiOGQ4YzI4MTlkN2Q2MzgxMzc5NWUzOWNiOWIxNWJkNCJ9"
         }
       ]
+    },
+    {
+      "id": "claim_8166241cbbe145e6b054c3a64752f408",
+      "statement": "Security vulnerabilities are to be reported privately through GitHub's private vulnerability reporting, as described in SECURITY.md.",
+      "evidence": [
+        {
+          "resource": "repo://SECURITY.md",
+          "version": "repo-file-v1:sha256:fd7b8ab2f206e809717e38caaa83a9d2a105359da1c7a1c7c264a22dcdf8685b"
+        }
+      ]
     }
   ],
   "verification": {
     "by": "openwiki/0.7.2",
-    "at": "2026-11-08T01:57:23.266Z"
+    "at": "2026-11-08T06:01:44.565Z"
   }
 }

@@ -3,9 +3,6 @@ type: subsystem
 title: Sign-in and Sessions
 description: How webdav-nvr-player signs people in (local admin password, OpenID Connect, or none), how sessions are stored, extended and expired, what the API guard lets through, and the sign-in and settings screens.
 tags: [auth, sessions, oidc, password, security, cookies]
-verified:
-  - by: openwiki/0.7.2
-    at: 2026-11-08T01:57:23.266Z
 sources:
   - id: openwiki-source-b12cba1b5936a1da8739d39c
     resource: repo://internal/auth/auth.go
@@ -16,6 +13,9 @@ sources:
   - id: openwiki-source-929ec0c93a55f4b9a8006978
     resource: repo://web/src/SignIn.tsx
 generated: { by: "claude-code", at: "2026-11-08T01:57:23.266Z" }
+verified:
+  - by: openwiki/0.7.2
+    at: 2026-11-08T06:01:44.565Z
 ---
 
 # Sign-in and Sessions
