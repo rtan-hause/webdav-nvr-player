@@ -75,17 +75,17 @@ func errJSON(w http.ResponseWriter, status int, msg string) {
 
 // ClipJSON is a clip as the UI sees it. Times are Unix milliseconds.
 type ClipJSON struct {
-	ID        int64  `json:"id"`
-	CameraID  int64  `json:"camera_id"`
-	Start     int64  `json:"start"`
-	End       int64  `json:"end"`
-	Codec     string `json:"codec"` // display name, e.g. "HEVC"
-	Width     int    `json:"width"`
-	Height    int    `json:"height"`
-	Size      int64  `json:"size"`
-	File      string `json:"file"`
-	Thumb     bool   `json:"thumb"`
-	ThumbKind string `json:"thumb_kind,omitempty"`
+	ID        int64           `json:"id"`
+	CameraID  int64           `json:"camera_id"`
+	Start     int64           `json:"start"`
+	End       int64           `json:"end"`
+	Codec     string          `json:"codec"` // display name, e.g. "HEVC"
+	Width     int             `json:"width"`
+	Height    int             `json:"height"`
+	Size      int64           `json:"size"`
+	File      string          `json:"file"`
+	Thumb     bool            `json:"thumb"`
+	ThumbKind store.ThumbKind `json:"thumb_kind,omitempty"`
 }
 
 func clipJSON(c store.Clip) ClipJSON {
@@ -199,9 +199,9 @@ func (a *api) clip(w http.ResponseWriter, r *http.Request) {
 	}
 	writeJSON(w, http.StatusOK, struct {
 		ClipJSON
-		Path   string `json:"path"`
-		Status string `json:"status"`
-		Error  string `json:"error,omitempty"`
+		Path   string       `json:"path"`
+		Status store.Status `json:"status"`
+		Error  string       `json:"error,omitempty"`
 	}{clipJSON(c), c.Path, c.Status, c.Error})
 }
 

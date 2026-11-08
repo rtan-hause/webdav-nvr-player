@@ -113,7 +113,7 @@ func newFixture(t *testing.T) fixture {
 	thumbRel := thumbs.RelPath(ready.ID)
 	os.MkdirAll(filepath.Join(dir, filepath.Dir(thumbRel)), 0o750)
 	os.WriteFile(filepath.Join(dir, thumbRel), []byte("\xff\xd8jpeg"), 0o600)
-	st.SetThumb(ctx, ready.ID, thumbRel, "snapshot")
+	st.SetThumb(ctx, ready.ID, thumbRel, store.ThumbKindSnapshot)
 	ready, _ = st.Clip(ctx, ready.ID)
 
 	ing := &fakeIngest{}
