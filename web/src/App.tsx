@@ -1,23 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
 import './app/app.css'
-import {
-  app,
-  boot,
-  exitTheater,
-  jumpClip,
-  jumpToLatest,
-  refresh,
-  selectCamera,
-  setRoot,
-  skip,
-  stepRate,
-  syncURL,
-  toggleMute,
-  togglePlay,
-  toggleTheater,
-  zoomStep,
-  type Boot,
-} from './app/state'
+import { boot, type Boot, jumpToLatest, refresh } from './app/days'
+import { jumpClip, selectCamera, skip, togglePlay } from './app/playhead'
+import { stepRate, toggleMute } from './app/prefs'
+import { app } from './app/state'
+import { exitTheater, setRoot, toggleTheater } from './app/theater'
+import { syncURL } from './app/url'
+import { zoomStep } from './app/view'
 import { useStore } from './lib/store'
 import { ClipList } from './components/ClipList'
 import { Dock } from './components/Dock'
@@ -26,7 +15,7 @@ import { Viewport } from './components/Viewport'
 import { StatusPage } from './StatusPage'
 import { Settings } from './Settings'
 import { SignIn } from './SignIn'
-import { getJSON, SIGNED_OUT, type AuthStatus } from './lib/api'
+import { fetchAuth, SIGNED_OUT, type AuthStatus } from './lib/api'
 
 // Layout C "Split" (plan decision 14): clip list on the left, video and
 // timeline on the right; stacked on a phone. Theater mode (decision 18) puts
@@ -50,7 +39,7 @@ export default function App() {
 
   useEffect(() => {
     let live = true
-    getJSON<AuthStatus>('/api/auth')
+    fetchAuth()
       .then((a) => {
         if (live) setAuth(a)
       })

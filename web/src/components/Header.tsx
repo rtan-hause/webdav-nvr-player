@@ -1,6 +1,8 @@
 import { useRef } from 'react'
 import { addDays, fmtDay } from '../lib/time'
-import { app, goToDay, selectCamera } from '../app/state'
+import { goToDay } from '../app/days'
+import { selectCamera } from '../app/playhead'
+import { app } from '../app/state'
 import { useStore } from '../lib/store'
 import { Icon } from './Icon'
 
