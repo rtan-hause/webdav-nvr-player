@@ -1,0 +1,142 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:74d6895f247c11484650411597b59afda4a95d8db8274a5bca61c7c25343da36",
+  "claims": [
+    {
+      "id": "claim_ca1f1c699ae54f618767212c2e3bdf7c",
+      "statement": "Box walking uses a cached 8 KiB window so reading headers costs one range request per window, and moov is capped at 64 MiB and moof at 4 MiB.",
+      "evidence": [
+        {
+          "resource": "repo://internal/media/mp4probe.go#L44-L75",
+          "version": "repo-lines-v1:sha256:97390b4c433175987b86c71afb62c6b4192e3a78ac7509f2dff46b0feaa12b3a:eyJzZWxlY3RlZExpbmVDb3VudCI6MzIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQwZDk4NmIwZGY3ZTljNDdhYTc4MmIwNjYwOTQ2OWJjOGVlY2E0NzYxMmI4MzhjZjgyOWRkYTRiY2RkZDMzMjkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImY0OGNjMTY5YWMwNTI4OTNmMzJlMjFjZjcwY2E2N2NmOTgwNTlkMjZlMjQzNmI5MjI4YThjYmUzNjkwMmZmZjIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImM1NWZkMGU1ZWI0YjMzYjliMjk4ZjQyMzM3MWQ4OGJiYWE5MDkzNjgwMmZkYWUwYTJkZGJiYzFjYzgwM2E3Y2EifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_a33522c8b32b4aaeb3062cb59b840f54",
+      "statement": "Probe returns ErrNotMP4 when the first box isn't a known top-level MP4 box.",
+      "evidence": [
+        {
+          "resource": "repo://internal/media/mp4probe.go#L118-L123",
+          "version": "repo-lines-v1:sha256:8d7f527d785fdfa2ba00b8e1c9d2b8978e15e3ca8919bc012eb08d2d8c3166e5:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMmM0ZGRjYzdmZmQ1MTc5ZTgxYjVlN2RiMTRiN2IxZGRhM2NmNmIzNDYyYWU0NjcyODdkOWUxOWNlMjA3OGY4MSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2M4YmIwZjJiMWM5YjYyMzRmYTBiZTU4ODIzNWFlODZkOGE1MDQzNTAxY2JkMjY4YjRlNTUyZGM4YjUyZWYyMCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZmE1YzdiZWE4YTUyMGQwMDEyNDdjMmI2MzRiMmEwZDdjZjVlNWIyMzU2ODA2OWU4YWRiMDg0N2E1NzU5ODMzNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzY0MDFjODEyYzY1OWRjNWQ3OWZiYThiYTYwMWEwOTJlZmViYWI0MmU3Njc5ZjkwYzQzNjZiZGRjZDc0NjA1MSJ9"
+        },
+        {
+          "resource": "repo://internal/media/mp4probe.go#L41-L42",
+          "version": "repo-lines-v1:sha256:add0181696e993d7b0143f8d2c6f449d64cd44f3786539cb0cb9b61a5f4094b8:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiY2M2NzYxNmJmNDY3M2MxZjQwOWQ3NGFmYmRkZjc1ZGZmYTMwNzIwOWI0YzdlMmViNTU2MjFhY2YzMDdkMGVkNiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNmE0MWVhNTgxYWVkNzFkZDdmZmVhMmRjNmY0ZWNhNmFjMzMzMzY1MTkxYTQzY2ZmNTA2ZjA5OTQ3NWYxNDI1OCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZjI5NjQwNzljM2M1YzgxNTIwZWYzM2EyYjlkMmUxNWExYjg0ZDcyODBkYjg1OTBkY2Q2NTc0N2UzZTAxMmE0MCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMTRhN2RlMWI0MjI3M2I5MGJlOWIwNTJiMGM0N2Q3ZTk3NzE2MzZhZGY5MDg5MTA5NTQ5OTRiM2Y1OTdkZGJlYyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_786e53c5dd534a4cba9f427a2626cf41",
+      "statement": "For regular MP4s Probe takes duration from moov; for fragmented files it sums the video track's sample durations across every moof, reading only moof boxes, and falls back to the header duration if none.",
+      "evidence": [
+        {
+          "resource": "repo://internal/media/mp4probe.go#L87-L207",
+          "version": "repo-lines-v1:sha256:629d75e78febea2dac37bc9489d238659e9b4d54f1cece937d8934a8eaf37aa7:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIxLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJjYzcwNjQzNWRlOGMxZGU0NjYzNGFjYjU1YzViNDM3YmQxM2MyZDBlMjUyNDcwNDc2NTE5ODU1MjEzZjNlYzExIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0MTJjYTM0NWNjZjc1YmY5YzA4MDZiY2U2OTViZThkZTgwOGI3OTk4NDI1MWE3YTU0ZDIwMmNmNjEwMWRkNDUxIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiJmMDg5MTUyNGFkNTgyNWUzOGQwMDcxM2M2N2Y5YmRlZDZlMjMzNDYwYTgxZmNkMDU3ZDQzZWMyM2E5YWY1YzdiIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiI5M2ZjOTBmNGRhNTgwN2ZlMDY3YTAyZTRlZWMyNjUwZGY4MDkyMjYyMGY5YmI3ZmY0Yjk4ZWU2ZWQ2YTRiYzhiIn0"
+        }
+      ]
+    },
+    {
+      "id": "claim_5320f5d8a10743969e2b8aa2895597b6",
+      "statement": "Probe tolerates a truncated final mdat in fragmented files, counting complete fragments, but rejects other bad box sizes as incomplete uploads.",
+      "evidence": [
+        {
+          "resource": "repo://internal/media/mp4probe.go#L124-L129",
+          "version": "repo-lines-v1:sha256:2e4c558131ea1480c74a361ff33bbd1db5ea2a6decf3fde23cec281503fef861:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMjQ1NmUwNjZmZTYwYjZkZTEzMzBmMDkyMjVkN2YwOGYwODkyNGQxNTczMzZlZmJkYzU5MDI3MWFkODI0MjJhMCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOWU3YjNiOGMxYTE1YTBiMzUxNjg0NDk5YTllMWIzMGVkNGEzZDdlODc2ZWFhZGY0ODJjMDMxOWZhMTNlZDQ2NiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNTZjZDJmMmVhYjU5ZGU5NjIzNzc2YTE0YzQzYzRmMTJjMTQwOTllNWU2NzRlNjJjMmQ5Mjk5N2M3NTY3MGFmYiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiM2IwZmRmNGVkYTRjNGM4NTRkMDY5OGQ2NDQ3ZjQxYWE4YTJlOGVlZTBiY2Q2NGJkMmQxNDJkYjQwMTA0ZmQ4NSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_0654798e0d6743f18fbdd9a1bfecabfe",
+      "statement": "CodecName maps hvc1/hev1 to HEVC, avc1/avc3 to H.264, av01 to AV1 and vp09 to VP9.",
+      "evidence": [
+        {
+          "resource": "repo://internal/media/mp4probe.go#L23-L39",
+          "version": "repo-lines-v1:sha256:0c1a0735c7dd6021a150a1390ca60fd58522ac21f21bfcac63c2ffd4ce64c7d9:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2MTYyNmNiNGExYjVlMGY1OWJhMzE0YTM3Y2ZiODY5ODI5ZGQzMzQyZmQxMDE0ZTJmM2Y1Y2NhNWU1MmIwYzIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjZjMTBmMGY3ZWM5ZmE4NWJjZGNkYTRkYTYwNzhkY2EwY2Y2MDQzMmY0MmNlMmExMmJlODcwYmY1ZDlmZTdjYjQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjcwOWUwYzkzYmI4YzIyMjk4YmU2ZjVkZGVmZmM1MTAxNGYyM2UwODBiMGNlOWQ4ZWE1NmExNTJmNjhmNTMxMGIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_4eb7bc2c2a334c8aa2ddd2aa17a27a9f",
+      "statement": "A Remux is a virtual regular MP4 consisting of an in-memory Head (ftyp, rebuilt moov, mdat header) followed by the source bytes [DataStart, DataEnd), equivalent to ffmpeg -c copy -movflags +faststart.",
+      "evidence": [
+        {
+          "resource": "repo://internal/media/remux.go#L12-L30",
+          "version": "repo-lines-v1:sha256:b9b478811278697e9748d132d39b97b2a6ba0dd66ca3b510736de4684e1a4a6e:eyJzZWxlY3RlZExpbmVDb3VudCI6MTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIwNWUxZTI2MzhmNGFkODBjMTY0YmJlMzVmOTQ0ZDE3MWZmNjVlZmEyYzg0ODU1NDA1YzU5NWQzNmY5M2U2Y2UiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImYxYTIwYjU5NDdiOWRlMmQxNzJjMzcyM2Q5OGRiZTI1YjUwMzg1NDZjZGM3NDNiZDUyOGRiY2NlNjRhOGJjNzEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijc5ZWRkNzJiYTZiNDAwODNjZTk1MjY5ZmE1NmZjZjNhYzFiZDk4MjIxYWE2NjIxYTY4M2Y3ZDU2MzJiYjIxZDUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQwMmVlY2NkYjgyOGQxODc5OGE1YjYyOTUyNWZmNWVmZmExZjI2NzEyMWQ5ODA0ZGUyNWZiODhjYjFhN2U5ZGIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_58bd178d32eb4759a63f58aa130e2ddc",
+      "statement": "Defragment returns ErrNotFragmented for files whose moov has no mvex, keeps only complete samples of a cut-off upload, and requires a video track with samples.",
+      "evidence": [
+        {
+          "resource": "repo://internal/media/remux.go#L237-L283",
+          "version": "repo-lines-v1:sha256:3ec8aac5020b0c8c51c867016f4cccf08dce52f217992717348b49694cf7b75e:eyJzZWxlY3RlZExpbmVDb3VudCI6NDcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY4MDkyY2FkNTVmMWViZGQ0MzQxNWEwNzI0Y2VlZTYwZmI0OGZiNzZjZTQxMmVkMDhjMTUwYTE0YjI4NzM4NTkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImEwNGJiMGFlYmMzNzU2NDMyMDY2MGI5N2EwYzA3YmQxMGQ5NDMzZGI5ZGJiNmYzZjFhYTYwZTg1YTJmNzliNDAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImM4MDI5MjE5NzcwMWY0MzcyMmZhMjliNjdlMmQ4Y2Y1MGU5OThiNmM2MWY3OTE2M2EwNDE1Zjg2MDE2ZmM3MmQifQ"
+        },
+        {
+          "resource": "repo://internal/media/remux.go#L73-L193",
+          "version": "repo-lines-v1:sha256:f7dbe277edf9607726727f1e5ed37d2bfd6bf48098aedc9fd38070eab3859a32:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIxLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiIwZTMwNWE5N2Y4MDcxOTc5NjdmN2ZhYWRjYjY4OTZiMzA0YWE5YzM5MzU4NWQyZmFmMTUyODVmYWUyYjU0NThjIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI5MjdhZWMxNjdlNmY5ZGUyNjVhYjhhOTU2MTI1MThmZjY0NjgwYjQ5MmJhMjM4OTU0YzU3NThhNGI5Yzg2NmVhIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiJjZWU3NDhhNTM4NmYwNzM5ZjEzNjRlMTQ5MmM3MGNlNGI5MTc4YTlhNWU2N2E0ZDIwODUyYzZlMGFjNGQ2Yzc5IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiI4NmE4MTllMGIyY2VlYjdlYjZiNjVlMjBjY2M2NWYzNGI3NmJhMmE3OTA1N2MyNGQyMTYzYmE5NDg0NDE2MTc5In0"
+        }
+      ]
+    },
+    {
+      "id": "claim_7e58da0999ff47b686bd16f5de2fd9c0",
+      "statement": "Rebuilt sample tables use virtual chunk offsets (head length plus source offset minus DataStart), switching to co64 and a 64-bit mdat header beyond 4 GiB; the moov is built once to measure and again with the real base.",
+      "evidence": [
+        {
+          "resource": "repo://internal/media/remux.go#L195-L235",
+          "version": "repo-lines-v1:sha256:90abe45d8145e5ed653573a9066f40c6c83864a58880e4010b95c0519dee81e2:eyJzZWxlY3RlZExpbmVDb3VudCI6NDEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjEyZWNhY2M4ODQ4NDgyMjU4Yzk4ZDVhMzhhYzQ4YjExNDFiYTdmYjVjYjkyNzRlMjBjNDcwZmJmZmRlZTEyYjAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijg2NzhlMjEyODJlYTdlZTAzZTI0M2Q2ZWUwYWUwMmY5Njk0NTJiZWMyMzY0NjU0ZDRkZDFjOWQzOGMwZmZiZGQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImE5NWM3MjA4OTI5OWI0YzE3NmYyZGY0MjU0MTkyYmUwODgxMDEwNTIwOWUzZjA4ZGMzNjRkOTNmZjgxNGE1OTIifQ"
+        },
+        {
+          "resource": "repo://internal/media/remux.go#L493-L536",
+          "version": "repo-lines-v1:sha256:cf7242b1d9b1856f2e00c68d85627943d00252e7464bcf7e9589ce01054848b7:eyJzZWxlY3RlZExpbmVDb3VudCI6NDQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImYxMWNkNzhmOTlkODY0MjQyMWI3MDFmYWU2MmM5NGEwNTk1Y2Q5NWNhYTNhMDdhMzhhYThlODc4NDc5YjdlZmQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdiZTc5ZjRiOTBjYTY2OGQ0YjdlZDQyNjNlNDBhM2JmODEwYTgzZWU4YThkOTA2ZDUzNzk5NzdiODVkMDU2MTciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE1MTA5OGE2YTVmYzc4NTdlYzBhYTAxZWIzNGRmOTIwOTkzYTMyNGViMWJjMzEyMDA5NzQyYTM1MTFhNDQyYmQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImYxZjY5NmY3NDQwZmYyN2IxNzdjOGM0MjEwY2RjOTU0MGIwYjNiZjNjMmQ4YjEyYjdkNDk3YzAyZjA3OGMwMDYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_f89bb62b940c49d2b3c06dcb6ef4a3ab",
+      "statement": "fixEdits stretches the last edit-list entry to the real track length because fragmented writers usually record 0 there.",
+      "evidence": [
+        {
+          "resource": "repo://internal/media/remux.go#L652-L700",
+          "version": "repo-lines-v1:sha256:0b9894b2d5e024036ff8c213ec3f6712a525c95362dbb297417344de79a7dcac:eyJzZWxlY3RlZExpbmVDb3VudCI6NDksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjE4ZDU5ZmMyYzIxYjY3ODcyZGM4YjExZWY2NmE1OGQ2NDg2NDQ2NDk5NGRmMGU2ZGE0ZDFlMDlkNTJmMzExNTMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA0MGI1Y2U0NGMxZjUxOTdiZDM5OTA3NzVkZDY3Y2U1YzEyNTUxMmVkNTAzZGUxMjgzMmMwNjU4YWJlZTIwY2MiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjkxYjI2NmZiMDNmNjUzODQyN2RjZTMwNzZlMjZjNGIzZGNlNDYyYjM0ZmQ3Yjk4ZDEyMTdjZGM0M2ExMjMzYjAifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_93cb5e7079e54315ace1283a6a9e9223",
+      "statement": "Tests verify the remux matches ffmpeg's faststart remux packet for packet using framemd5, skipping when ffmpeg is unavailable.",
+      "evidence": [
+        {
+          "resource": "repo://internal/media/remux_test.go#L85-L155",
+          "version": "repo-lines-v1:sha256:df05a3adb41e0beeb2196df4c27f3154562ebb0f23d8b95bf018256180514f5f:eyJzZWxlY3RlZExpbmVDb3VudCI6NzEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImUyYjU1YTMxYjI0ZTY2YzdiNDEwMjE1NmQ2ZjZjOWFmYTdhZGQ1MjlhMjk2N2Y2YTg0YzFmM2JiNWZkYzExY2YiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA0MGI1Y2U0NGMxZjUxOTdiZDM5OTA3NzVkZDY3Y2U1YzEyNTUxMmVkNTAzZGUxMjgzMmMwNjU4YWJlZTIwY2MiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjhhZjQ3NGVjMGVjMjAxNzdhZTJjMjNhYzVjY2EwMTlmMmY1MzE2MDFlNjA2ZGFmNDE1NjliZGQzNGI1ZmJkOGQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_0bc586e29f184ef5b91b28353df0b9da",
+      "statement": "The stream handler distinguishes source network errors from unremuxable files via an errReader, passing unremuxable or regular files through to WebDAV.",
+      "evidence": [
+        {
+          "resource": "repo://internal/httpapi/remux.go#L84-L118",
+          "version": "repo-lines-v1:sha256:374a83238b81d53581af08590b20f8addad38dff14eeaa2dbb55921796dbbde5:eyJzZWxlY3RlZExpbmVDb3VudCI6MzUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU4NjdhMTZlYTE5YzE3NmI2ZDcxNzg1OWU5OGZiN2ZhNGNjNDQ2NmVjY2EyZjFlZGFjM2VjYjVjZDE4Mzc4ODkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImYyOTY0MDc5YzNjNWM4MTUyMGVmMzNhMmI5ZDJlMTVhMWI4NGQ3MjgwZGI4NTkwZGNkNjU3NDdlM2UwMTJhNDAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImIzMzBjZjhlZTYxN2I5NmQxN2RiNjQ5MjI1ZjUyNzY1ZjMzNmFmZWI0MjIyZDg0NWJlMTAyMmQ2YTI3ZjMzYzgifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_806922f2c6874dd197b769b54592cd51",
+      "statement": "remuxFile serves the head from memory and the media via a single streaming range request per seek, failing if the upstream doesn't answer 206 at the requested offset.",
+      "evidence": [
+        {
+          "resource": "repo://internal/httpapi/remux.go#L151-L236",
+          "version": "repo-lines-v1:sha256:b85a7000399b5155a33b00e1e201c063bae37a6bee0246dfcc356e0906e469a2:eyJzZWxlY3RlZExpbmVDb3VudCI6ODYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM0OWQwODAzYTI2ZGMyNDZiODBhMzZiM2ViYWVkMTQxMjgwNDI5YzEyNjY0MDFmMDA1N2ZkYjg5ODZlN2RkMTMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjRkZDQ5NzBlMWVkY2FjNDQ2NGRkOTMwMWEzZWU5YWRkYWRmODAyMTcyNTZlOGZlYmUxOGU4M2ZjODc3ZGI3NDkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.7.2",
+    "at": "2026-11-08T01:57:23.266Z"
+  }
+}

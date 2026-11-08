@@ -1,0 +1,132 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:255bc956c032b946e2ed3edf9b23e0aaa46e68fac7b2e85d0af0e62290727ca4",
+  "claims": [
+    {
+      "id": "claim_42646a485d5f44cf92795ef890c85a8c",
+      "statement": "The WebDAV client is read-only: it lists via PROPFIND, stats, fetches small files, reads ranges and passes GET/HEAD through, never writing to the server.",
+      "evidence": [
+        {
+          "resource": "repo://internal/source/webdav/webdav.go#L1-L3",
+          "version": "repo-lines-v1:sha256:76fdf360ab45eb3698adca50015fbf6ff6f06aff4fc046293ad5a5dd11766241:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZmY1ZTJkNmU3OWVkNzAwOTJjNWYxY2FmNWM0NGQxNTdlNzM2NDIwOTE0YjBkNWRjOWI1MjY3MzYwOTBmMzJjYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYjZlNDZlMzc5ZDVjM2I4NDVhMDUxMjA4YmY1NzFlZDBjMWNmMzU3NDcyM2JiMTViYjY0OTNjOTM2NGY2NWRiMCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzJjOTRkNmVjOTQ2NjFjNjY2NTY5ZmJmMzJjMTE3YmQxZWUwNjU1MTRiZjUyN2JmNGM3OWZlOWM2N2I2OGRmNiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_44133f4cd73740d3ac7f5003cab0aebd",
+      "statement": "All client paths are relative to a base URL formed from the share URL plus WEBDAV_ROOT, and file URLs are escaped per segment so names with spaces work.",
+      "evidence": [
+        {
+          "resource": "repo://internal/source/webdav/webdav.go#L44-L66",
+          "version": "repo-lines-v1:sha256:5e8c534bfd026560e90088d92659ed04a497616c771141b7fe2dadb3bb40c62a:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk4YzE3MjY3ZGRkODBkZDYzMmU4NjIxMmZiNGNiMWIxOWJjOGM5MjJhNjFiMTU4YzJiNzZiYTUxMzMwNzgwM2UiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjhmODk4ZGMyYTZmYmY0YjE2NmJjMzg5Y2E0MDY1YThhYzc4NTk2ZjlhNDk3YjcyYTZjNjA4MDQxNDAxNzBhY2UiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjEyYmNiZjQxYTM5MDJmMTVjZmViNzY2Y2VmYTU0ZTIwNmMzNjY4ODE5NmI4N2RlNzI2NTZiMWIyNTVkNGFkZDcifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_b2842a56b7084bdfa7ab2281977408dc",
+      "statement": "Credentials are sent as HTTP Basic auth per request and the reported URL never includes them.",
+      "evidence": [
+        {
+          "resource": "repo://internal/source/webdav/webdav.go#L59-L77",
+          "version": "repo-lines-v1:sha256:810bea5dc52b397bd14021dda68e825aa6485c83c1b8a095b9100759f98b3fa2:eyJzZWxlY3RlZExpbmVDb3VudCI6MTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRhNDczZjU4NWViMTM5NWQxODI5YzAxMzNhMjU2MjE5YWYyZGZjNzhjYmVjY2I5ZTVlMmFkMTk2NjAzODAxZmYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjMyYzMyMTg2NzEyZjQwMzhkNTU4ZWY1MDA2YTRmZWUwODM1ZGMyYmU1OGI0M2JlZGJjY2FkZWM3YzZmNDcxM2IiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImRhNjYzODE0NmQzYTRiZDk1MDZkNDNhN2NlN2JiNWMyZWZiZGUwMjQ0ZTU5MzMxZTU5NWVjMzJkZGQ0NmVhZDAifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_48fba29f01434964859ac3528fc691ef",
+      "statement": "Stream forwards Range, If-Range, If-None-Match and If-Modified-Since, disables the client timeout so long streams are bounded by the request context, and returns server error statuses as responses.",
+      "evidence": [
+        {
+          "resource": "repo://internal/source/webdav/webdav.go#L92-L113",
+          "version": "repo-lines-v1:sha256:d2fcd04bb0208ac30f4e04aef2f7c7a83602d2225ccf4c5ad11551edf3caad29:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjEzOWRhMWNlMGI4ZThkYWU1MmVjYjUzYmU1NDg4ODg4NGFjZTQ5MjRiOTAxYzRiNzVmYzIxM2E0MjMwNTEwZTciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijc0NGI3YTQ3MTc0NWEwOWQ5NDIzMGMxY2E2YzUwNmU0OTM1MzQyY2RiNzIxMGMyNDc0N2Y4MjdjYjc5NDczYzIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImMyZDI3NDZkMWZkODg5OTJlYWVjNWNkNzRmNjNjYTZmNmFmNjkxMzAzM2E2OGUzNTc3MWM2NjVjNDczZjRjZjEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_96cc893db93b448bb262e45c9630c749",
+      "statement": "Fetch downloads a whole file but refuses anything larger than the given maximum.",
+      "evidence": [
+        {
+          "resource": "repo://internal/source/webdav/webdav.go#L115-L137",
+          "version": "repo-lines-v1:sha256:a02b7cdcf76428852458ecb0a88bcb54a4fe9345802dba71ddd421e1e4957245:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM0Y2I4MTU4NTBlNmZiMWY5ZDY3YjczMmNiMDk1ZjVkZjk3ZmRlZThkOGFkNzUyMWVhOGQ5NTQwMmNiZTMwNTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjM4NjhiZGU2Y2M2MGJjYjgxNmMzNWVhNTNjNTQ1YjAyZmZhODQ0YzA3Zjc1ODU0ZDAzZGY3NWI3NzQ3NmVhZTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjZmYTUyNjMwNjI2MjI1NmQxNTY4NjFkYTRjMTlkZjVhZGFjMGU2NzliZjFjMTY5YjY3MzNiZDMzZjk2NWJjNzIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_53fe634956b543178a31e530242f3075",
+      "statement": "ReaderAt issues one HTTP range request per call; a 200 response is an error because range support is required, and 416 maps to EOF.",
+      "evidence": [
+        {
+          "resource": "repo://internal/source/webdav/webdav.go#L139-L178",
+          "version": "repo-lines-v1:sha256:28832acccb2095a618a2e8808e17301b6ed8215a126fbb65125ce22f9ee1da9f:eyJzZWxlY3RlZExpbmVDb3VudCI6NDAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA1YmUyZDMyZWI0ZTUzOWYwZmY0ZTg4MGU1MWMxMzc4YmI1ZjNiNzdkMDEwODVmMTE2OTE3ZDNhZDlkMTRmNjgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjYxMDk5YTgyYzExMjliMjhhZGJjY2MzMDJkNjEwOTJkYzQ4NmM1ZDNjNTVjNmI2OGViY2JiMzE5NmRmNzZlNWMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImE5YmFhNDYwMTBjMWM3ODVhYmJmMGJlODE5YmU4ZDZmNjA3Y2M5MDNmNTE5ZGM4OTBlOGU1YTFhYmNkNTI0YWUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_a508a153fcc448fd80d0b7d3cf1fc56d",
+      "statement": "List uses PROPFIND Depth 1 returning direct children folders first then by name; Stat uses Depth 0 and maps a missing target to ErrFileNotFound.",
+      "evidence": [
+        {
+          "resource": "repo://internal/source/webdav/webdav.go#L185-L218",
+          "version": "repo-lines-v1:sha256:ab58bc470e1d33e990ec6bc005064a319b20d3cbd2a897e1f48231bd0f7b7a65:eyJzZWxlY3RlZExpbmVDb3VudCI6MzQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImMyNDFjMTU0YjNiYTYyZmVhYjQ3MDhkYWRjMjU4YmFiMTM3NTIwNDJkNWJiY2Q4NmZiNTllZDA2N2ZiMTA4ODUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjliMjg1OTJjYjg2OTM4NjU3MWMzMmI2MDQwNjBlYWVjNDU3ZmY4MDlkZDJhNWQ0Njc4YzQ3ZmFlZDVmZTEyMmMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImYzZjVjZWQ5ZTFjMjhkMTkwZmJjZmZkOTI5ZTQ2M2E3ZWU4NGRhZmJlZjlkYjg1MWYzZWYxOTBkMDM5MTRmNDQifQ"
+        },
+        {
+          "resource": "repo://internal/source/webdav/webdav.go#L289-L299",
+          "version": "repo-lines-v1:sha256:ea2e1eb1f0c98ddfcaaaa93e6d62ea655dcd0bf4b2929ca7e52b0ac975d83c53:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImMwZjkwZmQ0Mzk1YmI2MjA3ZWEzNzYyMGQ3NWExZTgyNzQ4M2E1ZjUwZTA5Y2I0ZGY2ZWFmMTE3MmU4MDNiYWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImE3Y2M5NzkxMTA3MWZmNTAyNjdkM2NmMGIxNDc0MjkyODJhN2Q5NjU2ZTAzMjI5N2I0ZThmNzE0YzU0NTQ1MDciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjFkZjQ2ZTNjNjM0ZDcwMGMyOWM0ZTRlYTdiOGI1MTU1ZmQ1ZGE0OTgwODBkYmNkNGVmYjFkMTMwNTdiOWYyZGIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_09d78d7fc25a48faa6e810b9d037fcd6",
+      "statement": "PROPFIND requires a 207 response, maps 401/403 to ErrUnauthorized and 404 to ErrNotFound, and caps the XML at 64 MiB.",
+      "evidence": [
+        {
+          "resource": "repo://internal/source/webdav/webdav.go#L220-L250",
+          "version": "repo-lines-v1:sha256:005a449a0a3042c11fbb0e361db60f9b610f60f82fc7af3e90b79cb8329b4804:eyJzZWxlY3RlZExpbmVDb3VudCI6MzEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjlmMjYzZTgwMTZmOGZiZmFlZGNmM2JhZTZjZjRmYTc2YjRiYTE5ZmU1YTJkZDcyNzEzOWJiMjg0MWE4ODkxOWYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImE2OGYwZDg5ZDA5YzRiYWFkNTMwMjkyODI1N2JmZTMwYTY5Yjg3ODZiZTc2NWYxMTVlM2ZhMGNjZTdhYzQ2MWEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijc3Y2E2YjA1MjcxMjEzYjY1NGM1YWJkMGJkMzY0ODNjYWY1OGMwMzdlNDBiNjgxYWRhMjFlZjk1NDQwOTUyM2EifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_ec3821bd4be145b5855d36351b7334ba",
+      "statement": "Listing entries are made relative to the root, skip the listed folder itself, and merge properties from all 200 propstats since servers split found and missing properties.",
+      "evidence": [
+        {
+          "resource": "repo://internal/source/webdav/webdav.go#L252-L287",
+          "version": "repo-lines-v1:sha256:c1ebf92c8df0aa0cfe9cecefea0f2775875aaac5d706b890b73bc68e6f7d3fe5:eyJzZWxlY3RlZExpbmVDb3VudCI6MzYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg2NjlkZjk3YmY2MmU4NDIxNWNkNTAxM2U0YTc2YmM2NTUzZjcwYzdkNmEwZmI3OWJlNGVkNDRhMjEwMWQwM2QiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImE2MWIyMjA5MjI2OWQyZmNiZDZkNmMzNDg1MzI5ZWYzM2JkZmJkZGZlZmVhYTZiOTgyYzg2YWE5YzJjYjlkY2EiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjliNmEyNWM4MDZmM2NkMGUwMjAwM2ViYTMzMjg0Y2EyNTVkN2Y5YjE0OWMzODlhZjM0N2MyMmQ2N2RlOGZhODYifQ"
+        },
+        {
+          "resource": "repo://internal/source/webdav/webdav.go#L324-L348",
+          "version": "repo-lines-v1:sha256:34247002954f7badd0c8bb91057847c259c4164af3df86e3ca2cc319983c0361:eyJzZWxlY3RlZExpbmVDb3VudCI6MjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjExNTRhYzU4YTgzMGM0ZjA4OWRlMGFhMmFiNWI3ZGIzNDdkMDIwNzYzZWExNTE5YWZiZmQ3YjQzMDQ5YTI5ZGEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjI0NzFjZmNjMmM0YmMzYWU1YjY3YjE1MTVjMTE5MTAzNDk3ZDU0YzZjOGQ2ZmY2NTNkZjdlYThmYzkzOTgzMjciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_4d9c367ab3704298adbff9f0958a7a9d",
+      "statement": "A file-level 404 yields ErrFileNotFound, which ingest and the API treat as the recording having been deleted from the server.",
+      "evidence": [
+        {
+          "resource": "repo://internal/ingest/ingest.go#L502-L516",
+          "version": "repo-lines-v1:sha256:fd06403da8548b44bce9b2000bbafa28fe7679c2519b396d3dd5e09781ace456:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdhNmJlMzM5MWE4NDFiMjIzNjZmMDA2MmYwOWNjN2M0NGEwMTc5YTAyNWVjYzM1Zjc2MTY0M2UxNTI2MTZjYWYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjUwM2EyOGIyY2M0YWVlMWRhZTk3MGEyNjE5ZWQzZDI5ZmI1ZjFkZDdiMzdiZDc3ZjBiNmY4NGE0Yzc1MDZlZWMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjNmODJlYTJhNDUzNmI1YTQyMTYxYjM5OWY0NGExOGQ5NGU4MGI2ZTU1ZjRlNjcxNWYzN2Y1YjBhODc4YjUxMDQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjcwZDllNzYwNTJlNWZmYzBmNTYxZDA0YmRhN2Q2OTYyNGNkYzU2OGM5MTAyYTU3MTE3Y2Q5NTlmZjAxNzVmMDEifQ"
+        },
+        {
+          "resource": "repo://internal/source/webdav/webdav.go#L79-L90",
+          "version": "repo-lines-v1:sha256:ae418112bbdb576484d957ee894a2f88e06e3500b00ef73f5226792e9c1988ba:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJjM2E5MTQwMGU0NTA1ZGI4MzkyOTA0ZDViZGI3NTZkYWRlMzc5YzdlNmU4ZWY1NGIyMDM5NDA0ODU4ZjAxNzUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI4MjgyMTNjZDEzODYwZmZmY2M1YWQ5YjMyMWQ4YmU4MjM0MTI0ODk0MGI4YjJjOWQxNTdiYjQ2OWVjZDkwNGYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk2Nzg3MjFkMzhlYTIwZmNlNWZiNGVjNzBiMGM5OTQ3M2JlYzJkNGNiZWMxYmFhMDhmZGY1ZDg4MzNjNTMxYjkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImNhYzdkMGZjOTg0NTZiOGE1NGMwMDlkYTBlNjllMWYwMjAzY2JhM2ZkNTEyZmU0YjdhMzc0ZmRhNjM1YzMyMmUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_d4eaf10e96064cceac5360dbf41a1496",
+      "statement": "The live-server integration test only runs when WEBDAV_TEST_URL is set and is read-only.",
+      "evidence": [
+        {
+          "resource": "repo://internal/source/webdav/integration_test.go#L10-L22",
+          "version": "repo-lines-v1:sha256:f9edd0550e28fc8a878dbc22b0e5306e7b5f8782915db713bddea675de430a11:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM3MzliNjQzMTFhNmJmMmY5MDkyMDM3MTU0NjFkOTU0NjQwNGRhZWFhZjkwMzU4NjEyZmQ1YmRiY2I0ZjI2NzMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVkZGM0NTNjODZhMjkyYzVhZmIwNTMwMTE3MTI3MTllNWU4YzdkYWUzYjc2NGI1ODhhNjE2NjJlMjNjZDViOTQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijc5ZWRkNzJiYTZiNDAwODNjZTk1MjY5ZmE1NmZjZjNhYzFiZDk4MjIxYWE2NjIxYTY4M2Y3ZDU2MzJiYjIxZDUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjEwMDBjZTgxZjBlMjNiODk4OGRkNjE5MjdlZjQ5YjlkMzc1NDNiNDhhZWVhYTJlNjkyMDI1ZWQ5OWZmYWRiYzIifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.7.2",
+    "at": "2026-11-08T01:57:23.266Z"
+  }
+}

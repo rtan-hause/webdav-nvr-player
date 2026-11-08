@@ -5,7 +5,7 @@ IMAGE ?= webdav-nvr-player:dev
 # web/node_modules can contain stray Go packages, so never use ./...
 GOPKGS := ./cmd/... ./internal/...
 
-.PHONY: all web build test lint run dev reset-password docker clean
+.PHONY: all web build test lint e2e run dev reset-password docker clean
 
 all: web build
 
@@ -32,6 +32,10 @@ lint: web/node_modules
 	go vet $(GOPKGS)
 	@test -z "$$(gofmt -l cmd internal)" || (gofmt -l cmd internal; exit 1)
 	cd web && npm run lint
+
+## e2e: build the Docker image and run the Playwright tests against it (e2e/run.sh)
+e2e:
+	NVR_IMAGE=$(IMAGE) ./e2e/run.sh
 
 ## run: build the UI and server, then start it with the settings in .env
 run: .env all

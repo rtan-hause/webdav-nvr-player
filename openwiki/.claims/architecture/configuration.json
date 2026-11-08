@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:9de872e6b33fcc85d552958a7e48358b7c1470a0e2d2972a96289573caf3c3e1",
+  "claims": [
+    {
+      "id": "claim_0ef394d43c58493c8091e8d89ab83f42",
+      "statement": "All startup configuration is read from environment variables by config.FromEnv, which takes a getenv function so tests can supply a map.",
+      "evidence": [
+        {
+          "resource": "repo://internal/config/config.go#L69-L72",
+          "version": "repo-lines-v1:sha256:29bc5d24b611a18141e38a64a48199e2290c989f01d14321095010b7331d9a60:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNjBmYTRhNjcyMDZkMDJmMDA4YTIwOGFhNTQ2OThmYmQzOTE3ZDI1ZTc0NGFmMDgzZTM2YzJhMzVkOWVjYzBiNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiODYxNGNlY2ViMzcwYjU2YjY3NTk4OTZkODIxMDQ2ODhhMGIwMTExMWM5YTQzMDJhNzJkNjYxNzE3YThkOTYxNSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTQ1NmRiM2MzYjhkOWFhZGY3ZTJlMDE4ZGIzYTRkODU0MzIzOWIyYTc5NWNjYzQ1MDU5OTYxMTliZDYyZWYzZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNWFlNDc0NjQ4YjQxN2Q2Nzk4ZDQ5OThmYTA0NjEyYTcxNmU0MDVkNDBkMzQzYzhjNTcxNzU1MzIzODkwNTMwNCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_a1c1c4e30dcc4b07977510884a26d24c",
+      "statement": "Defaults are PORT 8080, DATA_DIR ./data, LOG_LEVEL info, CAMERA_PROFILE reolink and camera time zone UTC.",
+      "evidence": [
+        {
+          "resource": "repo://internal/config/config.go#L72-L72",
+          "version": "repo-lines-v1:sha256:8614ceceb370b56b6759896d82104688a0b01111c9a4302a72d661717a8d9615:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiODYxNGNlY2ViMzcwYjU2YjY3NTk4OTZkODIxMDQ2ODhhMGIwMTExMWM5YTQzMDJhNzJkNjYxNzE3YThkOTYxNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiODYxNGNlY2ViMzcwYjU2YjY3NTk4OTZkODIxMDQ2ODhhMGIwMTExMWM5YTQzMDJhNzJkNjYxNzE3YThkOTYxNSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYmUxY2RhODViMGExZWIwNGQzZDE1MmE2MGExYTM3OTU1MzI1MzRmMTY2YTk0MTM2N2VjYTM2MjQ5MjEwMWQyOCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNWFlNDc0NjQ4YjQxN2Q2Nzk4ZDQ5OThmYTA0NjEyYTcxNmU0MDVkNDBkMzQzYzhjNTcxNzU1MzIzODkwNTMwNCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_27a736d4b63f4be5aa76544aebcf7f3f",
+      "statement": "WEBDAV_URL must be an http(s) URL with a host and must not embed credentials; credentials come from WEBDAV_USERNAME and WEBDAV_PASSWORD or WEBDAV_PASSWORD_FILE (not both).",
+      "evidence": [
+        {
+          "resource": "repo://internal/config/config.go#L90-L111",
+          "version": "repo-lines-v1:sha256:91f7c5e50c6be87415a8f183b5aba7403d653c9e347531eae6fe41b03f50c9f4:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFjMzlkNmY5M2Y2ZGNjYzkxNzk5N2Q1NTgzOTA4NDU4YjI2MTIwZWYzMDIwNDgxZGQ1OTE4MGI1NWFhMzdlZmMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY3Y2RhODJkYTYwNjIzOGUwNWU2MjM5OTU2OWM1ZWUwMzk5MzQxOTY0OGFlNWQ0M2EyYmY4Y2Q2MzQ3ZjgyNjMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjIyZjJmZjVmZWVjNjBmNTg3YzhmYWU0ZTg3ZjgwOWE2NjFjZmZlZDZiNDdhYWU1ZjZkNmEyNjUzYWE4OTUyZWYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImFlODBlNzFjYjY1NGRlODY5NjRiOTA5MTNiMTFjYTA5YzMzMzlkMjkzYTMxNmU0ZDljNWQ1ZTJiZDJmYzY5MGIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_a79f63a892fd4f198c67ed6e0807fb05",
+      "statement": "WEBDAV_ROOT is normalized to have leading and trailing slashes, defaulting to /.",
+      "evidence": [
+        {
+          "resource": "repo://internal/config/config.go#L112-L115",
+          "version": "repo-lines-v1:sha256:2272d8f5759441811f9b8505a23cb7bd852ea6b82f4fda8c3f3310e7f686ece2:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZmQ3ZTZhYmRhYTFiMzYwYmViNTg1OGZhYzc4M2ZjMDllYTk4NTA1ZTFiM2EzNTliMjJmODgyN2YxYjM0YzY5MCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNjdjZGE4MmRhNjA2MjM4ZTA1ZTYyMzk5NTY5YzVlZTAzOTkzNDE5NjQ4YWU1ZDQzYTJiZjhjZDYzNDdmODI2MyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNjc1Mzk5ZGE3YzNmNTQwZmY0YjI1NDIxN2ZjZmQzNTllZjAzZjk1N2Y5ZDU4ZDlkNWRiYWUzZDMwN2Y1YTYyYiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZmQ0ZDczOGI1NmM3NDM5OWNlYzNhNjI2ZDFkYzE4NDBkYTQzYjg5MWE4MDQ0OGVjODkxOTRmYjg0YTVmMTRlYyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_a6f22be07aa04412a1656abcfeedd52f",
+      "statement": "CAMERA_TZ falls back to TZ and must be a loadable IANA zone name.",
+      "evidence": [
+        {
+          "resource": "repo://internal/config/config.go#L120-L130",
+          "version": "repo-lines-v1:sha256:32d09bd91a0c67218342029e9bef1ae1577289e0ff743a68e01d3b3b00044869:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM4NzQ3OTZkY2ZiMjZlY2EzOWU3NzRjYTg3NmU0YTgxY2Y2N2FmOTJjODhkMGZkYTgyZDRiODE0NDUxMjQzZjYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY3Y2RhODJkYTYwNjIzOGUwNWU2MjM5OTU2OWM1ZWUwMzk5MzQxOTY0OGFlNWQ0M2EyYmY4Y2Q2MzQ3ZjgyNjMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImM2OThlODA5YjZmMDM2NDQ1OWUwMjFlMjhhZjA4NWIyNTNjNDI0NjQxYmZiNjdkYjE0ZmQwNDZkMDI4ZTY4YzciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImM0Y2U1MGNkMzQwYmQzNmVhY2Y5ZDAyNDFkODY1OTA4YmU4N2I2Y2RkM2U3ZTc0ZjFiY2ZkZDM1NDBmMDY0MGUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_9ef9265966014433ad613ac544b7af3f",
+      "statement": "DATABASE_URL must be empty (SQLite) or a postgres:// / postgresql:// URL; INGEST_SECRET when set must be at least 16 characters; INGEST_WORKERS must be 1–32 (default 2).",
+      "evidence": [
+        {
+          "resource": "repo://internal/config/config.go#L132-L147",
+          "version": "repo-lines-v1:sha256:38c7e8b502ede3aac68e684516384be277de9c77621648c5c850201eff78fcc1:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFkMjM0OWZiZGU0MmYzZThlMjc4MzY1ZWI2MjIzMDg2YzIxOWM0ZmFiZTFhNzhjYmI3YmVhNGIwNTkyYTI4OGMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY3Y2RhODJkYTYwNjIzOGUwNWU2MjM5OTU2OWM1ZWUwMzk5MzQxOTY0OGFlNWQ0M2EyYmY4Y2Q2MzQ3ZjgyNjMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk4YmM3N2E0NDhmYzg2NjZmMjQ4MWYzZTdjNWYzYTQ3NDQ5ZTFkZWRlYWY2MWFjOTQ2MDVhYzM2OTMxYjZjM2YiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImVmM2FmZDdmY2I1N2RkN2UyZmE1OThhNzllY2ZjMjY4NTQ2MWFlYjYyOTlmODI3MGYxZmU4OWZmM2RhYjhkMjQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_7e73e00788c64636831736b395727fe9",
+      "statement": "SCAN_INTERVAL defaults to 5m with a 1-minute minimum and FULL_SCAN_INTERVAL defaults to 24h with a 1-hour minimum.",
+      "evidence": [
+        {
+          "resource": "repo://internal/config/config.go#L148-L154",
+          "version": "repo-lines-v1:sha256:a2735a6248f6c0d6c05a39cf1d753bff34532560755e908baf9d8f0addc50e1f:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNzFmMGMxNmIzMWI2MTJiN2E1NjQ0NmM0NDM2OTY2NDlhYWQ2MmRhYTJmMzY1NTkzMTNjYmRjMDc3MGQxNTc2MSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNjdjZGE4MmRhNjA2MjM4ZTA1ZTYyMzk5NTY5YzVlZTAzOTkzNDE5NjQ4YWU1ZDQzYTJiZjhjZDYzNDdmODI2MyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNGIyOWQwOGIxYzZjOGE2MDhkMWEzMWMxNDhkMGYzMWU3NWUyMmEyZTUyNTU2MzUwNjQxODVhYmY5YzA2Mjk4NiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNjM0MzVhYmUwODI5NTFmZWZjNTgwMWFkMDM3MTE3M2JkODk0MGNiN2NlN2FmYzM5NDUzYWQ4ZGZkOTkzY2JmYiJ9"
+        },
+        {
+          "resource": "repo://internal/config/config.go#L220-L232",
+          "version": "repo-lines-v1:sha256:820b58b31ba872538abcea09203ace41ba3bed1c79bf5ab82e9eac3ae952d30a:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZmODAzZTgxODgyMTJjNDRkNzFmOGY4ZGFjM2ZiOWU2MDJmM2ZiNGNmNzgxMDM0ZTFkYWFlZTA0NWRhYmNjZWYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE2MzFiNmUyY2EwN2Q4YmFmMGViNDRlNzQ5ZGJmNDkwYjM5MmUzYTUzNGVmNjEwMjI3NzExNDZjZGY5YWYxYTIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_9629b40f3bd74251908f44774aca06f6",
+      "statement": "AUTH accepts password (default), oidc or none; PUBLIC_URL must have no path; AUTH=oidc requires OIDC_ISSUER, OIDC_CLIENT_ID and PUBLIC_URL, with default scopes openid email profile and default button label 'single sign-on'.",
+      "evidence": [
+        {
+          "resource": "repo://internal/config/config.go#L165-L218",
+          "version": "repo-lines-v1:sha256:23404460b7163c12ce016b0178af26cb758ad978d8883694c02265b9e7bf277f:eyJzZWxlY3RlZExpbmVDb3VudCI6NTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRmMGVhNmYyYmVmZjVjOGZmZmVkNTM3YWQ3Nzg4ZDhmNGYwYjAxZjU5YTEzZTM3ODNhYjM3Yjk4OWUxNTA3YzIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImU5M2VkMmE0NDEwZTc1ZDFjYjQyM2IwYzBjODEyMzg0ZDA4OWI5MTU1MWI0ODEyZmVmZThhMjM1YWU3ZTQ2NjkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjUzZGExYjAyNGNlMjY5MmE4ZDczOGRjYTQwZTE2NTJjNmEyOGVhM2VlZjAyMTM1MDAyYTc5NDhlM2ZiNTJkODIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_84fc9fb750ae4948827c8b180bb38e1d",
+      "statement": "Session lifetime is a database setting (session_days) defaulting to 30 days and settable to 1–365 via PUT /api/settings.",
+      "evidence": [
+        {
+          "resource": "repo://internal/auth/auth.go#L362-L380",
+          "version": "repo-lines-v1:sha256:d886a381c3789c57234a8aa76154a9f0a50fc01e7b1b89b0e57dc379a134dda5:eyJzZWxlY3RlZExpbmVDb3VudCI6MTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM5NjU2OGI4NWQyYTJkMzE5YzUwOGI4NGQ3NTI0ZmI0MmY2ZDhjOWQ3MzlmOTMwZDdmNTQ3ZjJiZDZiOWM4ZjUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE4YjhmMzA5NTE5MGIxMDIwMzFmZmNlNmMwYjM3MWVlMTYxNjQ0ODYwNmNkYTY5YTExZjc5NmVkNzk4YjM4OGIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjYyNDhjZTgxOTJhMGMzOTA4NWI2MmU3M2FlM2ZiYzQ3OWNkZWU5OWQ0MGQ3ZDhmZDE5MWViYTJjMjY5OGM1YTQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImEwMjEwMWQxMzkzN2U0MmE5N2Y0MmQzMmI2YzE1ZGQyYzQ4ZTlhNDFlZDAxNzEwZjU4N2RiZWFiYzU0NGU2ZjUifQ"
+        },
+        {
+          "resource": "repo://internal/auth/auth.go#L38-L44",
+          "version": "repo-lines-v1:sha256:e9c16902d9338d652afd60da48b246448ab07820c35be41d1e9fb1ade3f35030:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZjJkYjY1NmMzYjJiMmE4NGY5NjdjZGRlZGU0ZjIwNDQ4NjJlZTA4YTlhNThjZDU2MmJlZGNiOWMxZjBiZmZhMyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjM1ZDJiYTFjMWIwMzUyMzNmMmRmYjJjNTkxMTRkMTQ5ZTA0ODBhMzMxYzk5ZDNkMjNlYmE4NWJhZmY0NzgwNiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNzM2N2Q5OGQ3MGM1MWE4ZjZkMDU0MjQ1YTcyOGI1ODUxYWFhMzdlZWZlZmI1MjYzMDUxMTY4YTFjNjQzOTQ1YyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMmRmZmYxN2FiMGU1NmNlYjBmNzJiYTNmMTE0MWQ2ZTVlNDJhNDgyOTRjZWZlOGRjODJkZjMxZmQxM2MwMTY5OSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_82c7b7e9f8f4405996f16f29ea60ef2d",
+      "statement": "docker-compose loads .env optionally and pins DATA_DIR=/data and PORT=8080 inside the container with a named volume at /data.",
+      "evidence": [
+        {
+          "resource": "repo://docker-compose.yml",
+          "version": "repo-file-v1:sha256:0338f1d2e1acd173276eea4e94a59158b5e60227a95675da26d6e8c31c35d7ac"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.7.2",
+    "at": "2026-11-08T01:57:23.266Z"
+  }
+}

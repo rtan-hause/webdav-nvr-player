@@ -1,0 +1,74 @@
+# End-to-end stack: the built image indexing a WebDAV server of fixture clips.
+# Run through e2e/run.sh (or `make e2e`), which builds the image, brings this
+# up, runs the Playwright tests and tears it down.
+#
+# Fixtures go into a named volume instead of a bind mount so this also works on
+# runners where the Docker daemon can't see the job's filesystem (ARC dind).
+name: nvr-e2e
+
+services:
+  # Writes a day of Reolink-style uploads with the ffmpeg in the app image, so
+  # the clips exercise the same ffmpeg build that makes thumbnails.
+  fixtures:
+    image: ${NVR_IMAGE:-webdav-nvr-player:e2e}
+    user: root
+    entrypoint: ["/bin/sh", "-euc"]
+    command:
+      - |
+        d=/srv/2026/01/15
+        mkdir -p "$$d"
+        enc="-loglevel error -y -f lavfi -i testsrc2=size=640x360:rate=15 -t 6 -c:v libx264 -pix_fmt yuv420p -g 15"
+        # Front Door: plain MP4 plus the camera's snapshot a second later.
+        ffmpeg $$enc "$$d/Front Door_00_20260115100000.mp4"
+        ffmpeg -loglevel error -y -f lavfi -i testsrc2=size=640x360 -frames:v 1 "$$d/Front Door_00_20260115100001.jpg"
+        # Driveway: fragmented MP4 like Reolink uploads, no snapshot, so the
+        # server remuxes it for playback and grabs a frame for the thumbnail.
+        ffmpeg $$enc -movflags frag_keyframe+empty_moov+default_base_moof "$$d/Driveway_00_20260115100030.mp4"
+        # The camera's "test FTP" file; must be ignored.
+        echo test > "$$d/Driveway_00_20260115095900.txt"
+        # Old modification times, so nothing waits for a late snapshot.
+        touch -d "2026-01-15 10:00:10" "$$d"/Front*
+        touch -d "2026-01-15 10:00:40" "$$d"/Drive*
+        chmod -R a+rX /srv
+        ls -lR /srv
+    volumes:
+      - recordings:/srv
+
+  dav:
+    image: rclone/rclone:1.76.0
+    # Mounted at /dav/ like SFTPGo, which is what the README documents.
+    command: serve webdav /srv --addr :8080 --baseurl /dav --user nvr --pass e2e-pass --read-only
+    volumes:
+      - recordings:/srv:ro
+    depends_on:
+      fixtures:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://nvr:e2e-pass@127.0.0.1:8080/dav/"]
+      interval: 2s
+      timeout: 2s
+      retries: 30
+
+  nvr:
+    image: ${NVR_IMAGE:-webdav-nvr-player:e2e}
+    environment:
+      WEBDAV_URL: http://dav:8080/dav/
+      WEBDAV_USERNAME: nvr
+      WEBDAV_PASSWORD: e2e-pass
+      CAMERA_PROFILE: reolink
+      CAMERA_TZ: UTC
+      AUTH: password
+      LOG_LEVEL: debug
+    ports:
+      - "127.0.0.1:${NVR_PORT:-18080}:8080"
+    depends_on:
+      dav:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "-qO", "/dev/null", "http://127.0.0.1:8080/healthz"]
+      interval: 2s
+      timeout: 2s
+      retries: 30
+
+volumes:
+  recordings:

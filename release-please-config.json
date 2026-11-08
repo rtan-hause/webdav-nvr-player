@@ -12,7 +12,6 @@
         "charts",
         "release-please-config.chart.json",
         ".release-please-manifest.chart.json",
-        ".github/workflows/chart-ci.yaml",
         ".github/workflows/chart-release.yaml"
       ],
       "extra-files": [

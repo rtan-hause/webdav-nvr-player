@@ -1,0 +1,174 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:7290977c4a32da889ab0ac97993364ce198534076ed153fc6dc5b5180202c31b",
+  "claims": [
+    {
+      "id": "claim_c6eced69b2734425b003d856d291a978",
+      "statement": "Session cookies hold a random 32-byte token while the database stores only its SHA-256, so a database copy cannot be used to sign in.",
+      "evidence": [
+        {
+          "resource": "repo://internal/auth/auth.go#L162-L212",
+          "version": "repo-lines-v1:sha256:d6a6cbf6ff00264d16b24411e415fca020e00da89d98288d28c42fdfd64cdb84:eyJzZWxlY3RlZExpbmVDb3VudCI6NTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE5Y2UwMjMxYjQyOWQ5MDllZDUwYzAyMzI0MmM1NzNjNDRhMjU4NzFhNTg0YjZjMjdhZWJjMGI2ZjQ3MTRjZmMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjYwMjMyMjU5MjBmOTZhMGIwODBhZDVlOTMxZjg4MDk0N2FhNTliZjc1ODdjZGVlNjY0MWZhMTU2NzY5NWE0N2IiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQzYzEyNzA1Yjc4Njk3MTYyZmUzNWQ3NTM5NzZmODYzMGU4YTU5YzMwYWNjNjA1ODZhZjJiY2NjZWYzMTFkN2MifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_6664827f8be14b5b9f35f08eaff8e5ad",
+      "statement": "Sessions slide: when a session was last seen at least 10 minutes ago, its expiry is pushed out by the configured session length and the cookie is reissued.",
+      "evidence": [
+        {
+          "resource": "repo://internal/auth/auth.go#L214-L237",
+          "version": "repo-lines-v1:sha256:463ecf7f5582e5d8e02945e41f1f5b91579e2fdb199282235d511be7537fc70e:eyJzZWxlY3RlZExpbmVDb3VudCI6MjQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQwN2Q0MTYxZGEwNmE1ZWZkZjg0M2IyMTQ5ZTYzYzU0MTBmN2Q4MDE1ZTYwMzc0OWU4MWNlYjAwN2I4YjFmMDEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE2MzFiNmUyY2EwN2Q4YmFmMGViNDRlNzQ5ZGJmNDkwYjM5MmUzYTUzNGVmNjEwMjI3NzExNDZjZGY5YWYxYTIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImNmMzhiZjUyNDBlMTRiZTEyMjAzNzM1NDFkYmYzYjdkY2JmMWEzMTVjOWQwOGUzZWNmNTQ2YjUxNTI4MjUwNjkifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_c84705a94e7a43d48768ce605f5aa1cf",
+      "statement": "Session length comes from the session_days setting, defaulting to 30 days when unset or invalid.",
+      "evidence": [
+        {
+          "resource": "repo://internal/auth/auth.go#L167-L177",
+          "version": "repo-lines-v1:sha256:b1a01e32833c5e83c2c45f1edfc1c544e7223f0475dbb40d1ca1e4e86aab7673:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZlNWYzYjRjMDVjNThlNzc5MmY5ODE4Y2U2NjQ0OGU3YTJiMGRjNmRiMDNkMjcxOWQwMmZmMGYwYmQ4YmZhOTYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImE3ZTZjMWUyZGE2ZTA1N2FjZWNiMGRkMjEzM2E0YThkMTk0MWZkMzg1NmE1NjdmZTI4Mzk0NjRmODExZDQ0NTIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjA5YzQyYjEzOGU3OGJkOGZhMjUwZDZlYjk5ZjM0ZGE5MmQ5NWI3NTY4MDdhZmM3ZTNjYTZkMDU2YTI4ZjU4MWIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_50f3ea4ce06044b5b8b328169398b6ad",
+      "statement": "Cookies are HttpOnly, SameSite=Lax, and Secure when the request is TLS, X-Forwarded-Proto is https, or PUBLIC_URL is https.",
+      "evidence": [
+        {
+          "resource": "repo://internal/auth/auth.go#L179-L192",
+          "version": "repo-lines-v1:sha256:94ac61bc4a596e46a9a98c998af2eb0bd51d044255c98fbbef820f5cb8c46c2b:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVlYzIxOWU3OWNiZGU0ODA2NjA3OTRlOWMwZTM5ZTFiNzIxYWUyZDJkNDJlZTMwNTBmN2FjYTgxYmRlYjFmMDUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk4ZWZmZDg1NzRhNTAyODk0NWRhMjZlZGJmYTZmZmYxYWY2NDlhZjEwOTc0M2QwNjNlZTMxNTU0ODQxNTFlMDYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjI4NzZiYmE3Y2ZjMzQ2ZmFhMDk5MjlhNDhiYjAwZDJlMGMxY2MyZjYwZTk5MjU3ZDU5OTI0MWMwNGExMTM4NmYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_c771e905588e450faddc4684221f1ca6",
+      "statement": "Protect lets through AUTH=none, non-/api paths and an allow-list (version, auth status, login, logout, ingest, rescan); other /api requests without a valid session get 401.",
+      "evidence": [
+        {
+          "resource": "repo://internal/auth/auth.go#L239-L267",
+          "version": "repo-lines-v1:sha256:93a6b4a4cdb0356fbdd5dff3c59fce93bdac52957c48258b4fb6a86e9f6a4fa9:eyJzZWxlY3RlZExpbmVDb3VudCI6MjksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRiZGI5YWYxMmZjYjVlZDRlMTkwY2YwNDNlNDJiNDQxOWU0M2RhNTAyY2Q2YWFmNDM5YjYwYTg1NmVjNmNjZjkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImRmYzA5MzU4YzRkMWEwZDQ1NDg3ZTIwZjUwZmYyNzgzZjE1NmM0MTYwNjA1YWQ2MjBhNjVjMjFjNzFiMzQ3NGEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjEyOGQzNTAyYmVmMzQ4NjUyMzZlMWU4Y2E1YWVkYmQzMGUzMWMzZjZjNDU1ZDEyNTc4ZTJiMTMxMWQ5NWIxYzQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_44f93fd61bd44c84a56c48619471750b",
+      "statement": "In password mode the first start creates an admin user with a generated ~79-bit dash-grouped password from a look-alike-free alphabet, hashed with bcrypt cost 12.",
+      "evidence": [
+        {
+          "resource": "repo://internal/auth/auth.go#L48-L49",
+          "version": "repo-lines-v1:sha256:a47f2512e205927ce4b5c75199f12c3518ca6558ae1f1c330dfea5acacf03c76:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZjBiNmU4NmI2ZGUwNGIxMmQ5ODkwMWEyNDIyMzZmNTc5OWQ3MTE3YjY4ZGQ4ZmJhZWY1OGMxM2ZmZWNlMGFkYyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjI3MGM3ZmVjNTY2YTc5MjYwNjgwZmY4NDUwOTdlNTRhNDFlNDliM2FiZWY3NGEyMmJlNjAyODc0NzVmYjJlMSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMmRmZmYxN2FiMGU1NmNlYjBmNzJiYTNmMTE0MWQ2ZTVlNDJhNDgyOTRjZWZlOGRjODJkZjMxZmQxM2MwMTY5OSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZThiNWVjYmFkNzY5NmJmMjAxZDllMzFmMDZjNWMyZWRhOTQxMTBiZjBjYWMzZjNmNGMxZTMwMWVkMTJkNmNhZCJ9"
+        },
+        {
+          "resource": "repo://internal/auth/auth.go#L90-L145",
+          "version": "repo-lines-v1:sha256:6cdf8aa210b9ad091a90e7ff1d37b233bdeebe3c4632dc95c0ccdd179249ab88:eyJzZWxlY3RlZExpbmVDb3VudCI6NTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIxZWYzYjQ3ZWE2ZTY1YWY3YzI4YjdmZjEwNDc5NzY1OTExNGVlMjhkODNlN2Y4N2E0MDYxMjgwZmRjZjEwMmQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjYxMWNhODEwODBmOTUyY2MxM2NiZTA0ZWY0NmU2MTQ1YjhjZjAxNjdjMTYyZGNmYmZlODk4MzZlOTE5NDhjOTciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY2NzMyMWI2MjhkZjZhMmU2N2UzZTY5OTc1NzRlYjg5MTExMjIzODY0NWFlMzMxNjYxOTVjODRhODM5ZDgxYWEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_35615ff77268476f924957ca2d0ae9e2",
+      "statement": "Login compares against a dummy bcrypt hash for unknown users to avoid username timing leaks, and rate-limits to 10 failures per IP+username per 15 minutes.",
+      "evidence": [
+        {
+          "resource": "repo://internal/auth/auth.go#L310-L350",
+          "version": "repo-lines-v1:sha256:32def0a9cb52407f9c6cd540f99d3d8c7c8ef08e094ff6e187e27776bba9f01f:eyJzZWxlY3RlZExpbmVDb3VudCI6NDEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNlNDQ2MGNkNWFlYWMwZmQ2MTM5YTkzMGYzMWRkYTQ3YTEwMDJiNmExYWYyZmVhYWI0YTdlOWUxZGIzMDI4ZjgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFhYTZkMzVlZjNkNTUwNGJhNzNiNGNiYjdjMzY4MmRlMTcwZDViMjNhZjdhNGUxMzYxZjkzYmZlYWY2ZGYyZWQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjFhNTMxNzA1MGY0ZjMyY2E5NzA3NGI1NDUzZWIzODEzOWVkYzcwNTdiOGNkYzRkY2NjYjcwNDY2MzBlZWYxNzAifQ"
+        },
+        {
+          "resource": "repo://internal/auth/auth.go#L72-L80",
+          "version": "repo-lines-v1:sha256:69a6829056e2db24e292e69f91b807136c138bd4ee5468a8f26cd7207db8c5ff:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOWFmNDkyYTIzZTcxMzdjYTkzODlhZjZmNDEzYTE2MjQ0NWJjNTJmOTdjMTk5ZGIyNzBkZTIxNWJhMWFhM2UxMCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYzExYjA3OWY1YWEwY2JlZjdlODVhZmEwM2VlZmM2MWQ0ODQ1MWQ0YjU0YzQ3YTY2ODc2MTQ3OTZhMGY0YzY0YyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNWUzNjg0YTFjMjZjOGY3ODc2NjE1ODc5ODIyNTkzZDRkMzZjMzAzNDgzNTJhYzIyNzU2NDRmZjA4YjczNzdjNyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMWZiYmI1ZmM1ZmNhODU3NmNhZmEyMWIxMWJkYTNhYTkxN2Y2NWE2YTU0OTIwMjhlYzlkNTE0MGVhN2VjNDZiMSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_6cbe89094c0d4071b3af2c250e6a3895",
+      "statement": "JSON endpoints require Content-Type application/json and cap bodies at 64 KiB, which also blocks cross-site form posts.",
+      "evidence": [
+        {
+          "resource": "repo://internal/auth/auth.go#L451-L463",
+          "version": "repo-lines-v1:sha256:4fb241bf38bb21c6052964e3a789b1d542cd0e8f53fcd3c5d3b965f79d304a5d:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImMyMzYxMDAyM2MzYzYyMDhlOTg5Mzk3Y2Y2MmVlZjIwNGVmM2IzZmIzMTY1NTQ1OWNjNjA4NzgzMzc2ZWI0ZmQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImNjNjcxMTdjMDkxNjVhMjk5OTEwZDhhZmI3MmQ1ZTNmMDY3YzI5NmU0ZDViODE1YWY4OTU5MDQ0YzFiYmEzZTciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjBmYmNhYjQzYmYxY2E2ZDY0NDc4YmI0MjZjMGM0MGI3N2FjMzE2NzUyN2IyYWYxNjBiMmJhOGQ1MmZmMTcxOTMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_62efc734328b49009141a754a9c43587",
+      "statement": "Behind a proxy on a loopback or private address, the client IP is taken from the last X-Forwarded-For entry.",
+      "evidence": [
+        {
+          "resource": "repo://internal/auth/auth.go#L465-L480",
+          "version": "repo-lines-v1:sha256:4719b76b298ae2658332ff54f9c42f672757c5156f8c688cba1f905397890d30:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM4NGQ0MDU1NmNkMmE2OGI2MmJlNGYyNzA0MTE5NDQ2NzYwZjQ5ZTlkMDhiZjQyNGY3Njg4YzNkMDllYmY5MDMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjljNWZmMTI0OGM0OTY4Mzc3NjgwODhmODgxOTAyYTc1NDRjMGIzYTliZWNjOTE0MzU1YThlY2QwZWU0YzExYjEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImE5MzhkOTIxMzNjYjZhMTM2ZmMyYTY5ZmQwMWI4MTk2OGNjNTY0NjBlNjYzZjBmN2QwOTI4MGNjY2FkOTdlOGUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_9c212ba3e87c4c919bcdc5ba6aa90727",
+      "statement": "Changing the password requires the current password and at least 10 characters, and signs out the user's other sessions; reset-password creates the user if missing and signs out all its sessions.",
+      "evidence": [
+        {
+          "resource": "repo://internal/auth/auth.go#L110-L126",
+          "version": "repo-lines-v1:sha256:8c86c87488806b49d2aa47f5d143312dc1ad9f12de51010cb8b7d9ed2e44f571:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVhNzJiYzg1NTZlYTZhNTNiMTkyMmU4ZjNkM2ExOGZiZDk4MWZiZWQ0NmUyNWJmYzBmMDk1ZDQyZmNkMzQzOTgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQ1ZTMzZjIxYzNhZGI2Y2E3MDExMGE5OWVmM2RhYWU1ZjM3MDk5ZDM5NzVmY2UyZjlmNjliYWFhZWNiMDY4M2QiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjUyYzYzM2ExODI2N2EzZDA0OTg3NjU3MGRkZDc5Njc0ODcwM2NlNjllMzFkZjEwMjhkNWEwMGJiYmIyZWU0YWUifQ"
+        },
+        {
+          "resource": "repo://internal/auth/auth.go#L386-L431",
+          "version": "repo-lines-v1:sha256:f293c4a7f533181c1e9eb19cfcd98838295da90e1c3301b78a9a7f380dfe9050:eyJzZWxlY3RlZExpbmVDb3VudCI6NDYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJiNjI4MjA5MzIwMWU0NzJlMTI2MGIzNjZmYWEwNTBiNWM0MzZlZjYzZDM5N2E0OGYwMTcxMmVjNjExOWUxMDIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjcwNTFhOGNiMWNhMmEyNTQ1MDM3Zjg0NGE4NzMzMWUxYTRjMWRlMzljMjhjMTFmNWJkYTQ1NWY2Yjc5MjFiMzEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijc0ZDg2NjA4ZWIwNjkwNjJmYWViN2JmNmRiOTFhM2U0YmRkMGM0YjA0NzZlODBjMjgxYzQ1MWMwMjMzZGU1YTgifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_74e9e3b8b96f4e32af7f8b5a042fa170",
+      "statement": "OIDC uses authorization code flow with PKCE, state and nonce carried in a short-lived HMAC-signed cookie scoped to /auth/oidc/, with provider discovery deferred to first sign-in.",
+      "evidence": [
+        {
+          "resource": "repo://internal/auth/oidc.go#L122-L135",
+          "version": "repo-lines-v1:sha256:4f5a03b6265985745b05b4c65319cc7b8e4245b989f442e083c961fe7886d765:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjUzZjlmMGQ0OGY5ZGI4YjM3MzdlNzQwNGNlYzdkNzM3YWEwZThiMDQ4MjY3ZGQyNWNhZjk3MTAyNGQwM2MzMzYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijg4NmRlNWQ5NDRlMGVmODJlMzRkM2ZhNzZiMGQ4ZTYxNDIxMWEyNTAyODdjNDdiMzZhNjYzOTA2NTFhNWI3MDgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQ1MzE2NWU4MjlmMmQ3YWRjNWU4MWE5YWQzMjE2NjgzYjU5MDQ3NGIxODMyYzQ2NGUwMjEwYTQ2NDFiYjhiYjEifQ"
+        },
+        {
+          "resource": "repo://internal/auth/oidc.go#L25-L62",
+          "version": "repo-lines-v1:sha256:b92239b5b42a7bbbb5f4621897da79691a65be439790a89c538a0441b68bb132:eyJzZWxlY3RlZExpbmVDb3VudCI6MzgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ1ZjdlY2UxN2Y1ODhmYmU3NjVmNWQzYjI5YjFjMDBiMTE0ZDQwNzUxNjZkMTg0MGViOGVkNzk3YzQ4OWIzNDIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjU5MGFjNTkyMDQ2ZTNkNWEzN2Q1OGY3ZTdkODM3YzcxZTExNjAzMzJmZTk3MDU4ZWE5YjIwOWQ5ZWI3Nzk3YzgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImFhYjA1NmIxZTE2YTVmN2ExNzI3NDU4OWQ0OTU1YzRlM2ZiZWQ4MDExYjg1ZWY1YmFjMWQ3NjUzNzcyYTVkYjQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_1a0cc8717f29417882ac49cc0e8326de",
+      "statement": "The OIDC callback verifies state, exchanges the code with the PKCE verifier, verifies the ID token and nonce, and names the user by email, then preferred_username, then subject.",
+      "evidence": [
+        {
+          "resource": "repo://internal/auth/oidc.go#L137-L198",
+          "version": "repo-lines-v1:sha256:670b5a55f575d4e5be0ad1ba8b9e629f8c1b16325f17869766019d0a4de4142a:eyJzZWxlY3RlZExpbmVDb3VudCI6NjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImEzMTgwMTM4MTE0ZTMzZDZkOTIyZDAwZGVjN2JjNmE0YjExOWM3ZGQxNDRlOGJmYjYwYjk5MjdjZGMyNjk2ODAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjNjM2Y5YzAwYjRlYzMxZjE0OWJlZWQ3NWE2Zjg4ODVhYzc2ZjQ4MzhhNThhNmE5NGVhY2ViYzAzM2M4M2M2MWEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_9bbb2ec8b89a4dceb3b1caf5c8276211",
+      "statement": "OIDC failures redirect to /?auth_error=..., and the post-sign-in redirect is restricted to same-site paths by safeNext.",
+      "evidence": [
+        {
+          "resource": "repo://internal/auth/oidc.go#L109-L120",
+          "version": "repo-lines-v1:sha256:046e77f01f732b592c66c7e663bf639a0b1e778d913df93be7615b3954d1f3a6:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI4ZjM0YzIzNDUwYjEzMTYyYTJkMWRkNzk1ZDAzNTlmZDA0MzRjY2YyNDJhYWRlY2ZjMmM4Y2ExZjdjNTVlOGEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQwM2EzODMwZTlmMzhiZDk2MDZlNTg2N2NjMDkwN2EyOGMwNmM1Y2RhZDQzNmIzMzY3ODk3YWNmNWM0NGVjMjYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImVlOTcxNjI4M2IxODY3MWQ0MjVkZjdkZTZjNjg3ZGFjNThiYmNjNjJhNWFkMGNhZDliZjE0NzEzYWZhNjc1MTcifQ"
+        },
+        {
+          "resource": "repo://web/src/SignIn.tsx#L7-L15",
+          "version": "repo-lines-v1:sha256:23462f7d5b32293854c2ac8217615c10ec0d5a4c83725840800c73ac0668e770:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMGJiN2RjMDk5MTk5NzNhOTc1NGVhNGUyYjdkY2ViOTI2MTdkM2I5ZTk1YTg1NDlhYTVjNmY4ZmRlNWZiNDI3YSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjdlNTc4OGQ1ZDlkNzNkMjRhODFkYmMwYTVhNzRiZmE4MmM5YzNiM2FmOTllNTJhZjc5NmU5MGI0NjhhOGEzZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYTUzZTA2MGM0OThkNjUxODk5YjVlNTFlMjUyY2E4YThlYmQ2MjIzYmI3MjA4OTdlNDgxMDdlNzRkZTgyZjQ0MCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzBjNTU3ZjFiZWRkZjdlNmIwNmM2MDJjY2JmZTRkZWFjYWExZmM3Zjg4ZWY3ODcyNzY0NWU5NDBhMjIyYTgzNCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_2dfa283a2f704bb7911dfbe7c7fd0e91",
+      "statement": "sign-out-others deletes every session except the caller's across all users.",
+      "evidence": [
+        {
+          "resource": "repo://internal/auth/auth.go#L433-L441",
+          "version": "repo-lines-v1:sha256:b6b13aba15ba3c495bfad9f4c9fe1a87d32ffa685a20c4db88248b60f9f13a58:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMWQyMmVlYjRmMzY4NGRiYjFmNTlhZmYwMzA5YjQwYWMyYjUzOWE4ZGI2YWVjMmQ0NmU2MWQwNWIwNzIxYzkzYiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNjI0OGNlODE5MmEwYzM5MDg1YjYyZTczYWUzZmJjNDc5Y2RlZTk5ZDQwZDdkOGZkMTkxZWJhMmMyNjk4YzVhNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTVhN2MzOGFmZmI1MDNiZjkxZGRkNzk0NzNlYjI2ZjhkYjgxYmRmZWJjNDMxODI2Nzk4ZDUxNGQ0YzQ2OTc1YSJ9"
+        },
+        {
+          "resource": "repo://internal/store/auth.go#L90-L98",
+          "version": "repo-lines-v1:sha256:53c42c8d9948f7fd542b24073177fc3a5af1d4f04871f01458c35afc94e432da:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMjMzZmEwNzY4NmY0NWNhZjVlZDEzN2JhMGYwMjQ2MjYzN2FlNTZjOTc4ZmZhOWU1Y2E3OWNhNGE1ZjEzYTZhOCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTU3ZDMxMGVlODc1YmIwYzYwMWQzZjZhOGFiMDk0OWRjZTBhNmM4NmMyMjhhMzM0OGI1YTk4OGEwYTJiNzBlNiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZjFiMjAwZWE3YjQyMGQ0YzJmNTU5Y2Q0ZDEzODdhZmM1Y2U3NWIwZjFhYWVlZjk1NmI1OTU3MTlkYjNjMjUxMCJ9"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.7.2",
+    "at": "2026-11-08T01:57:23.266Z"
+  }
+}

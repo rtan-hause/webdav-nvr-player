@@ -24,7 +24,10 @@ make run        # build the UI and server, start on :8080 with .env
 make test       # Go tests + frontend typecheck
 make lint       # go vet, gofmt, eslint
 make docker     # build the container image
+make e2e        # build the image and run the Playwright tests against it (needs Docker)
 ```
+
+The end-to-end tests ([e2e/](e2e)) start the image next to a WebDAV server of generated Reolink-style clips, then check indexing, thumbnails, streaming and the UI in Chromium. CI runs them on every PR, and Renovate automerges a dependency PR only after it's rebased on `main` and every check, including `ci-ok`, is green.
 
 ### Kubernetes
 

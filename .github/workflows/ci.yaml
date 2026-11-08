@@ -1,45 +1,64 @@
 name: ci
 
-# App CI: Go/web lint + tests and a Docker build. Skipped when a change only
-# touches the Helm chart (chart-ci.yaml covers that), docs, or release-please
-# bookkeeping, which also keeps release PRs from running the full suite.
+# All PR and main-branch checks: Go/web lint + tests, a multi-arch image build,
+# end-to-end tests of that image, Helm chart lint, and workflow lint.
+#
+# The workflow always runs and jobs skip themselves based on what changed, so
+# every PR gets a `ci-ok` status. `ci-ok` is the required check on main (set in
+# infra-terraform/github-hause), and Renovate automerges only when it passes. A
+# PR that touches nothing testable (docs, renovate.json) still gets a green
+# check instead of waiting forever on a workflow that never started.
+#
+# Runs on GitHub-hosted runners: this repo is public, and fork PRs must never
+# reach the self-hosted runners in the cluster.
 on:
   pull_request:
-    paths-ignore:
-      - charts/**
-      - docs/**
-      - "**.md"
-      - LICENSE
-      - renovate.json
-      - release-please-config*.json
-      - .release-please-manifest*.json
-      - .github/workflows/chart-ci.yaml
-      - .github/workflows/chart-release.yaml
-      - .github/workflows/release.yaml
   push:
     branches: [main]
-    paths-ignore:
-      - charts/**
-      - docs/**
-      - "**.md"
-      - LICENSE
-      - renovate.json
-      - release-please-config*.json
-      - .release-please-manifest*.json
-      - .github/workflows/chart-ci.yaml
-      - .github/workflows/chart-release.yaml
-      - .github/workflows/release.yaml
 
 permissions:
   contents: read
+  pull-requests: read
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      app: ${{ steps.filter.outputs.app }}
+      chart: ${{ steps.filter.outputs.chart }}
+      workflows: ${{ steps.filter.outputs.workflows }}
+    steps:
+      - uses: actions/checkout@v7
+      - id: filter
+        uses: dorny/paths-filter@v4
+        with:
+          # Anything that ends up in the image, or tests it.
+          filters: |
+            app:
+              - cmd/**
+              - internal/**
+              - web/**
+              - e2e/**
+              - go.mod
+              - go.sum
+              - Dockerfile
+              - .dockerignore
+              - Makefile
+              - .github/workflows/ci.yaml
+            chart:
+              - charts/**
+              - .github/workflows/ci.yaml
+            workflows:
+              - .github/workflows/**
+
   test:
-    runs-on: self-hosted-hause
+    needs: changes
+    if: needs.changes.outputs.app == 'true'
+    runs-on: ubuntu-latest
     services:
       postgres:
         image: postgres:18-alpine
@@ -51,10 +70,6 @@ jobs:
     env:
       NVR_TEST_POSTGRES_URL: postgres://postgres:test@localhost:5432/postgres?sslmode=disable
     steps:
-      # The ARC runner image is minimal: make for the Makefile, gcc for
-      # go test -race (cgo), xz to unpack ffmpeg.
-      - name: Install build tools
-        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends make gcc libc6-dev xz-utils
       - uses: actions/checkout@v7
       - uses: actions/setup-go@v7
         with:
@@ -76,19 +91,105 @@ jobs:
             | tar -xJ -C "$RUNNER_TEMP/ffmpeg" --strip-components=1
           echo "$RUNNER_TEMP/ffmpeg/bin" >> "$GITHUB_PATH"
           "$RUNNER_TEMP/ffmpeg/bin/ffmpeg" -version | head -1
+      # Dependency updates must leave go.mod/go.sum tidy and verifiable.
+      - name: Check go.mod is tidy
+        run: go mod tidy -diff && go mod verify
       - run: make lint
-      # The docker job builds the frontend and binary, so no `make web build` here.
+      # The image job builds the frontend and binary, so no `make web build` here.
       - run: make test
 
-  docker:
-    runs-on: self-hosted-hause
+  # Builds the image for every platform the release publishes, then runs the
+  # end-to-end tests against the native build: the real binary, frontend
+  # bundle, base image and ffmpeg, indexing a WebDAV server in a browser.
+  image:
+    needs: changes
+    if: needs.changes.outputs.app == 'true'
+    runs-on: ubuntu-latest
+    env:
+      NVR_IMAGE: webdav-nvr-player:e2e
     steps:
       - uses: actions/checkout@v7
+      - uses: docker/setup-qemu-action@v4
       - uses: docker/setup-buildx-action@v4
-      - name: Build image (no push)
+      - name: Build all release platforms (no push)
         uses: docker/build-push-action@v7
         with:
           context: .
+          platforms: linux/amd64,linux/arm64
           push: false
           cache-from: type=gha
           cache-to: type=gha,mode=max
+      - name: Build native image for the e2e tests
+        uses: docker/build-push-action@v7
+        with:
+          context: .
+          load: true
+          tags: ${{ env.NVR_IMAGE }}
+          cache-from: type=gha
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 26
+          cache: npm
+          cache-dependency-path: e2e/package-lock.json
+      - name: Install Playwright
+        working-directory: e2e
+        run: |
+          npm ci --no-audit --no-fund
+          npx playwright install --with-deps chromium
+      - name: End-to-end tests
+        env:
+          CI: "1"
+          SKIP_BUILD: "1"
+        run: e2e/run.sh
+      - name: Upload Playwright report
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: playwright-report
+          path: |
+            e2e/playwright-report
+            e2e/test-results
+          retention-days: 14
+
+  chart:
+    needs: changes
+    if: needs.changes.outputs.chart == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: azure/setup-helm@v4
+      - name: Lint and render the Helm chart
+        run: |
+          for f in charts/webdav-nvr-player/ci/*.yaml; do
+            helm lint charts/webdav-nvr-player -f "$f"
+            helm template ci charts/webdav-nvr-player -f "$f" > /dev/null
+          done
+
+  # Catches action input renames and expression mistakes in workflow updates
+  # (Renovate bumps actions in release workflows that only run on main).
+  actionlint:
+    needs: changes
+    if: needs.changes.outputs.workflows == 'true'
+    runs-on: ubuntu-latest
+    env:
+      # renovate: datasource=github-releases depName=rhysd/actionlint
+      ACTIONLINT_VERSION: v1.7.12
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-go@v7
+        with:
+          go-version-file: go.mod
+          cache: false
+      - run: go run "github.com/rhysd/actionlint/cmd/actionlint@${ACTIONLINT_VERSION}" -color
+
+  ci-ok:
+    needs: [changes, test, image, chart, actionlint]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fail if any job failed or was cancelled
+        if: contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled')
+        run: |
+          echo "changes=${{ needs.changes.result }} test=${{ needs.test.result }} image=${{ needs.image.result }} chart=${{ needs.chart.result }} actionlint=${{ needs.actionlint.result }}"
+          exit 1
+      - run: echo "all checks passed or were not needed"

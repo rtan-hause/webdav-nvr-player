@@ -1,0 +1,98 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:bf24f1c67c094a61b073a636498898df54f3e4ba010344c431a664857d22cc43",
+  "claims": [
+    {
+      "id": "claim_083c0b2344924a8dad0f7ab75679efde",
+      "statement": "make test runs go test -race over ./cmd/... and ./internal/... plus the frontend typecheck, and make lint runs go vet, a gofmt check and eslint; ./... is avoided because web/node_modules can contain Go packages.",
+      "evidence": [
+        {
+          "resource": "repo://Makefile",
+          "version": "repo-file-v1:sha256:165c6e32402ab3f7425abc85d1bacc55c72064f646366e5424d2ed908ca93a2d"
+        }
+      ]
+    },
+    {
+      "id": "claim_19876204dd3341c584d191acff218c53",
+      "statement": "Store tests run every case against a temporary SQLite database and also against Postgres when NVR_TEST_POSTGRES_URL is set, dropping all app tables first.",
+      "evidence": [
+        {
+          "resource": "repo://internal/store/store_test.go#L10-L45",
+          "version": "repo-lines-v1:sha256:a1bd59e4520c0333c7b420e6fe332572fa31e2dcc2f741517d1d34f432ac26db:eyJzZWxlY3RlZExpbmVDb3VudCI6MzYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAyYjg4MGRkNGM0NzQxMTRiMWQwYmE4MjM3N2VjMGI1M2Y4ODNhMDNmNTQ5OWY4ZTg5OWQxZDY2MzZkNzIyYzkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjMzZTljYzQ5MGMxMDE3OTYwOGZiMGI1MmViMjZkMDM2NGRiYjM3Zjg0YzMxYjQ1MDhmMzZlNjg3Zjk4YjhiZWQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjIyZWM2M2IyZjE1YWM5YzdmODdiMTA5MjY1NWJiMjk2MmRlZjAxMWE4Mjk2MGYwYWJmNWQzN2ExYmFhYzdhMDgifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_cf4e0c909ff1422eb9e269998a6641a0",
+      "statement": "Media tests encode clips with ffmpeg and skip when ffmpeg or the encoder is missing; the remux is compared packet for packet to ffmpeg's faststart output via framemd5.",
+      "evidence": [
+        {
+          "resource": "repo://internal/media/mp4probe_test.go#L25-L37",
+          "version": "repo-lines-v1:sha256:69692734b1d9fb4d36f47b506ccec2583d8bc8188e5a9a9b1c4922c75651bc47:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3MGU0ODY2ZjU5NTY3ZTczZWYwMmRmYTg5MGYyNTIzODUwNTQ4OGM1NjI0ZWMwYWEzMzY3ODNhODNiZTBmMmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY3Y2RhODJkYTYwNjIzOGUwNWU2MjM5OTU2OWM1ZWUwMzk5MzQxOTY0OGFlNWQ0M2EyYmY4Y2Q2MzQ3ZjgyNjMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjU0Mjk3YTkwZGYwNGI3OWZiZmU0ZTdmN2FlMTJjMjAxNjk0MzAyOWJlZGVhM2FhOWM3MzA0OGIwZTFiMDkwN2QiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjBjN2M1ZTZiMzdmNTFkNTA0ZmE3NmYxY2I3ZTI5NmU0YzU1MDIyNzExYzE5NmU1MWI0MmZkNzhhNGE5NmE2ODQifQ"
+        },
+        {
+          "resource": "repo://internal/media/remux_test.go#L21-L35",
+          "version": "repo-lines-v1:sha256:aff5e49bf5377a0783224cfc02c7c959df2c12021bc7273f7663f402a146d86c:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImIxZjQzNjQ5YTc3ZmQ1NzE2MWNlMzhmODRjNzFlNTE5YzBlNTQ5MjkxMmQ3MmU2NWFiMzMyOWNjNTVlMDQwMzQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxN2RiZDVjN2VmZWVhNmYyMTU5ZWNiNzZkMTYxZjA5ZWM2NTVjNDIxZTc4ZjIwNzc0OTFiYTQxNGY4OGEwMWEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjZmZThiNmFlNGFmOGRhNGUyMTczNWE0YWM1MzQ1NGNkNmIyMjhiZTQ1NmQ5YzVmMDQ4YTBlMjQ1Mjg2ZGFkYTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjhmMzZlNDliNTQzMzJiM2FlOGNiNzYzYzVmYjljNTBkNjNiMDlkYmY3ODdkZGRiNjVjYjQxNTZkYmFkNjA1MzEifQ"
+        },
+        {
+          "resource": "repo://internal/media/remux_test.go#L85-L155",
+          "version": "repo-lines-v1:sha256:df05a3adb41e0beeb2196df4c27f3154562ebb0f23d8b95bf018256180514f5f:eyJzZWxlY3RlZExpbmVDb3VudCI6NzEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImUyYjU1YTMxYjI0ZTY2YzdiNDEwMjE1NmQ2ZjZjOWFmYTdhZGQ1MjlhMjk2N2Y2YTg0YzFmM2JiNWZkYzExY2YiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA0MGI1Y2U0NGMxZjUxOTdiZDM5OTA3NzVkZDY3Y2U1YzEyNTUxMmVkNTAzZGUxMjgzMmMwNjU4YWJlZTIwY2MiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjhhZjQ3NGVjMGVjMjAxNzdhZTJjMjNhYzVjY2EwMTlmMmY1MzE2MDFlNjA2ZGFmNDE1NjliZGQzNGI1ZmJkOGQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_dd2b7a0cdb29460d82bba9066ff5da3a",
+      "statement": "The live WebDAV integration test only runs when WEBDAV_TEST_URL is set.",
+      "evidence": [
+        {
+          "resource": "repo://internal/source/webdav/integration_test.go#L10-L22",
+          "version": "repo-lines-v1:sha256:f9edd0550e28fc8a878dbc22b0e5306e7b5f8782915db713bddea675de430a11:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM3MzliNjQzMTFhNmJmMmY5MDkyMDM3MTU0NjFkOTU0NjQwNGRhZWFhZjkwMzU4NjEyZmQ1YmRiY2I0ZjI2NzMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVkZGM0NTNjODZhMjkyYzVhZmIwNTMwMTE3MTI3MTllNWU4YzdkYWUzYjc2NGI1ODhhNjE2NjJlMjNjZDViOTQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijc5ZWRkNzJiYTZiNDAwODNjZTk1MjY5ZmE1NmZjZjNhYzFiZDk4MjIxYWE2NjIxYTY4M2Y3ZDU2MzJiYjIxZDUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjEwMDBjZTgxZjBlMjNiODk4OGRkNjE5MjdlZjQ5YjlkMzc1NDNiNDhhZWVhYTJlNjkyMDI1ZWQ5OWZmYWRiYzIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_c9538e75936a4a3291375486a9a1f3e3",
+      "statement": "Ingest tests use an in-memory fake recordings source with modification times together with a real store and the Reolink profile.",
+      "evidence": [
+        {
+          "resource": "repo://internal/ingest/ingest_test.go#L24-L60",
+          "version": "repo-lines-v1:sha256:0507db82a278b21ceabdc39e0a6b93858bb87e379b485ba82f67977692c7ff30:eyJzZWxlY3RlZExpbmVDb3VudCI6MzcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRiMGQyMjc2YWE1N2NjYjI0YjVhMTg1ZWUyNWRhYzdlYzEwZTc3OWU1NTQxNjE2Mjc0ZDEzMzBiNTdlMmQzZmUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjBiZWY2YmI0YmQ1YzUzNDI3MTI3MDExMzQxOGY1YjExOWJkZDJjMmQ0YTg1NmRkNTY3NWM2ZjM1ZjkwM2ZlZDEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImZjOWY2ZjM2NGRkNDk1NjU4N2RjN2YxYjdkNzU3NzU5NGQ2ODdiYjYyYzBhNDQ3MWE1NGRkYWQ0ODFmMDNiYzEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_4d11d0e400884be88c1075eec5943f8b",
+      "statement": "HTTP API tests use fake ingest and an in-memory streamer with real Range handling.",
+      "evidence": [
+        {
+          "resource": "repo://internal/httpapi/api_test.go#L33-L60",
+          "version": "repo-lines-v1:sha256:8bb9846c66ff8a27a916ad214f657777d132fc6e828904d73a4611f4b00865f8:eyJzZWxlY3RlZExpbmVDb3VudCI6MjgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjEwMGJjMzg5ZmRkOTUzNDkxZTU4Y2NmZmViNTYwMGM4ZWJiZTE1MjhiYjRiMDBjODEwMGVjNjRiNjllOWFjM2MiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQ1YjFmMzhhNjEzNzlmMDlmNzdhOTgzMzcyODRhZDI1NDg0NTcyZDIxNTJjZGU4MTlmMDk1ZjQwODhmNjlkYmIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImYwMGIzYWQyNDdmNTdlM2RkMzE5ZTU3N2UwZTY0ZWI3YjA0OThiM2Y4ZmRhYjEyYWI0N2FhZWE4MDRmNjFiNjEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_0794229d00ba4abb988c57130902e1bf",
+      "statement": "Auth tests lower the bcrypt cost in TestMain because full-strength hashing is slow under the race detector.",
+      "evidence": [
+        {
+          "resource": "repo://internal/auth/auth_test.go#L102-L107",
+          "version": "repo-lines-v1:sha256:77f7ab152fb14470faa18563d57ff842f42341aff5c780f18124384a2339e69b:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMTRiMTEwMzVlMTY5OTJjNzRhNDUyZjg1MGRhYTFiMjRjMzgwZWMwZjc3YzM2OTZjZGFhMDQwZTU2ODhhOGMyYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDFiYTQ3MTljODBiNmZlOTExYjA5MWE3YzA1MTI0YjY0ZWVlY2U5NjRlMDljMDU4ZWY4Zjk4MDVkYWNhNTQ2YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiY2RjYjcwMDdiZjdlYTRiNGRlNGYzOTdiYjA2ZGRmZGI1MjRjMTQxMWY5YzZiMTY2ODBkMDk3MDNlMzdlMjMzZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZmU5NDg0ODJlYTAyMmViMjdiNTA3NDkxYmQ4ZmE3NjY5NDZiODgwYTYwYWI5YzYzMzEyNzM4NTQ0MjZjMDczZCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_713f2e6e7c384e96a8af2975578c7998",
+      "statement": "The frontend has typecheck (native TypeScript compiler) and ESLint scripts, and the production build runs the typecheck first.",
+      "evidence": [
+        {
+          "resource": "repo://web/package.json#L6-L12",
+          "version": "repo-lines-v1:sha256:c41b46ac693ec8fcdf674141b44fcb397aa5aacbf82157d039a6feaf8be5ded0:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzQ4MzNkNTk0OWMwM2E0MGNhOTUyNDkxNjEwYTY2NTk2NDRiM2FhNDY2MzYyZjc5OTAyMGRiZjE5ODE1NDdkYiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNGQ1Y2QyZmI0ZjNkZjg4NDUxNTI1NWIzOTUyM2YyZjhiNTQ3MmJlZWE5ZjU2NmZmY2EyMDRkYjgwMjU2MTA0MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiN2E2M2JmMDk0ZjUzYTg5MTIzMjc5MjRlMjllMTE5MzIzYjJjOTU5YWNjMDEzMmZhZmEyNzE1MmI1YmQ5Zjg2NyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZjE0NDJkMGFlNWJiMDEwZjExZDQ0N2Y1ZGExZjNkYWFhYmJkZmVjZTExMDdjMTVhM2RjMGU5OTM1ZjU4ODhlNSJ9"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.7.2",
+    "at": "2026-11-08T01:57:23.266Z"
+  }
+}

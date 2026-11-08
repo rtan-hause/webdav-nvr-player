@@ -1,0 +1,142 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:5146dcba277785a6d84b331c3087fdbbe63830b0963d79ad076990d9a234ada0",
+  "claims": [
+    {
+      "id": "claim_c0ef0f6c5ae44995951073679af4969f",
+      "statement": "store.Open uses Postgres via pgx for postgres:// or postgresql:// URLs (max 10 connections) and otherwise SQLite at DATA_DIR/nvr.db with WAL, busy_timeout, foreign keys and a single open connection to serialize writers.",
+      "evidence": [
+        {
+          "resource": "repo://internal/store/store.go#L31-L72",
+          "version": "repo-lines-v1:sha256:88226cda61e9bb57f1d86788190744d9c009e5213d5cf69930e2d95179c1b599:eyJzZWxlY3RlZExpbmVDb3VudCI6NDIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY5YzAwNmUzZDFhMzIzYTgxZTJkNDM5MzBiOGRmZTljYWMzZmZkYjQyODRlMGZiMjFhMzkyZTc4YWU5Nzk0YzciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjE4NDBiOGRiZTY5NmM0Y2NmMDZmZTY5ODU0OWIyMDI1ZmNlNjdhNTAyM2MxZDY2OTYwNmJkYmU2ZmFiMTcyMTkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImIwZTFiODMyZjVkNmZmOTkwNzI1ZDZjYjc0MmJiMzM2MDljYjc0YzI4OGZjMTQwMmE4ODM3NGZkZDhmZTIyNzgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjM4ZGVjNGRmMTNkZjY1NWNkMjdiYzMxYzdjMDExMTE2Y2I5ZDdmYWNhYjU5NzA3ZjllM2UwYzg1M2M5ZGU0OTgifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_f78a998609f74d73b34d93eaa0b2e868",
+      "statement": "Queries use ? placeholders that Store.q rewrites to $N for Postgres, relying on no query containing a literal question mark.",
+      "evidence": [
+        {
+          "resource": "repo://internal/store/store.go#L83-L99",
+          "version": "repo-lines-v1:sha256:fc754368c7a02aadc5c7d251ccc7d7bb183e07edc42461c69809c76602d8417d:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjMxYTc0MDNmNzE5MTg5ZTc1ZmEwYmNlZTc2OTg4NDlhOGI2OGQ5NzRlYTM5OWJmYTM1MTMxZTIwNTU4OGY5NTIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM2MjA2NGRmYjM1NDExNTliYjVhZTA4NjAyMDA1MTFjNDFlNWE5ZGUyZjQxY2Q1MzBjMTllYjZlMjAxOTg3MGUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZmZTY3MTZkNjQ0MjdlMDdmNjFhYzAxOGU5NDNhYTFhYWVmMTQxYmQ0ZDg1YjY3NDg3MTRmYWNhMGM3NDEyNDUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjEzMGRiMzMxYzhhYTNkMzJkZWUwNDY0NDYxY2YyNzM3OGU1N2I5NjRlNTlhYTk0NTY3ZWUzMTFjMGYzZTZhZmQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_4a50bf1d71654670a8be5efe22c7b2c2",
+      "statement": "Migrations are embedded per dialect, applied in name order with the numeric prefix as version, recorded in schema_migrations, and each file runs in one transaction split on semicolons.",
+      "evidence": [
+        {
+          "resource": "repo://internal/store/store.go#L101-L157",
+          "version": "repo-lines-v1:sha256:5dd62d263ea458356297777bccc835f783282d7bc102f3387156ade9ac7a31d1:eyJzZWxlY3RlZExpbmVDb3VudCI6NTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJjNTk2ZmUyOWRkMzYzNzRhMjYzMjcxZDFhMjY5NjIwOTdhYjhiMmRkZTRlMWU0NGQzZDBhZTIyMmQzODcxYmEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjkwN2EzMGU4ZmY1YTdiYTg1OWFhZTIyYzIyZGQ1YjQyMzAzNTFmYjQ3YzA0NGM4Njk0YzZlNjNlNjY1MWYxOTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_3172d9759c9841c99436e07483fbd3a2",
+      "statement": "The Postgres schema uses COLLATE \"C\" on path columns so path prefix range scans are byte-ordered like SQLite.",
+      "evidence": [
+        {
+          "resource": "repo://internal/store/media.go#L401-L425",
+          "version": "repo-lines-v1:sha256:c89b335707c1505ce6eea4642e800620a1d369fded09c93f51250245e93b9c6f:eyJzZWxlY3RlZExpbmVDb3VudCI6MjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRkZDkyNzM5YmQ2ZDY4YTJkODJhMjBmY2NkNTFkYjYwNjRhM2YzNGIzNWNhZjkwNzk4ZGI5ZTI5YTFkNTAzNTciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjM0MmM3YzU5Y2FmODZjNzM2YTNhOTU2MGNiMTg5NWQ2MWI3MGIwZGNmNDFiZjVkOGRiNjI0N2RlOGIzYjEyZDEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImI3ZDA2N2MyYzVmZjA3ZTgzZmU3MTc5OTgyNzAzNTRkZDAyMWJiNGE5MWU0OTAxMDgzYjZkZjIwOTBkMjAyYmIifQ"
+        },
+        {
+          "resource": "repo://internal/store/migrations/postgres/0001_init.sql",
+          "version": "repo-file-v1:sha256:71e577a39166a0a8694316cf184751fe0b896fa51173563a55bda9a35265dbd8"
+        }
+      ]
+    },
+    {
+      "id": "claim_ee9f653b862547e0bd0700643486ce5f",
+      "statement": "Clip status moves pending -> ready on probe, back to pending with incremented attempts on error, to failed when permanent, and deleted when the file disappears; thumbnail state goes none -> waiting/snapshot/frame -> done or failed.",
+      "evidence": [
+        {
+          "resource": "repo://internal/store/media.go#L10-L26",
+          "version": "repo-lines-v1:sha256:ebb377cbc5a2d2620d5c25d154fbda21977d2b0bba8eeabf2598dcbe9e195cbf:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNhMzYwM2RhMTkyODNhNDI0ZWFiYmQ4NzFjY2I2ODhhZTg5MTI2MGMxMjMzNDBkZDU1NDkwNjNiNTU4MWY4ZWIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZhZmJhMDUyN2MzOTUzYzRiNmUwZTViNTczOWJhODM2MTJmODA1M2JjZGM5NDY2NzMwMTkzY2QxZDU5MGI0MDgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjRkNWRlNjczOTBjZTMyYmZmZWYwZGU5NjRjMWM3MjAwOTk1ZDY4Y2EzZWVjYWRlYjNkZDA5Yjg3MmE1NGViNzciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImVhNDc4YjdmMjZhYmUyMjdjY2QxNDE3NTBiODY0NGM5ODZkYjMyOTdiYmU5YTEyOTg4NWQ1YWI4NGJmMTM2ZTYifQ"
+        },
+        {
+          "resource": "repo://internal/store/media.go#L252-L268",
+          "version": "repo-lines-v1:sha256:dc57126ba758d411fbcc61ecbc1a30b35c082433241e19bbb9b29bdfeb27cbb3:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRkNzUzZjlkOTIzODJlZmFhMGU0MDMwOGE5MTE1OWI2ZTE1ZWY1ZTY0ODVlMjUzNDYzZmUwZDk3YTk2ZTkyNTMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjZhM2E4MjVhZWRhMzBkMWRlZDE2NzIyNGUxMzk2OTM0ZGQzMDM0OGZjZGQyOTkyNmI3ZWUyYjVhNzJiODA5ZWMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImJiZGFmZTllNjI0MDFiMWMxMWY1ZTAzZGU1NGEzMzY3MWE3OGY0YjUxMGRlOGUyNmE5ZWZkMjFhMGQ3NjRjNTgifQ"
+        },
+        {
+          "resource": "repo://internal/store/media.go#L382-L397",
+          "version": "repo-lines-v1:sha256:7f6ba6c7c65dcb9ca0bc3e6128f9aeae9b1f1d52a82848f94fe15a54617e535c:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJiZmQ2ODAzMTBkZmMxOWI4ZjExN2M5MjllZGIwNjgxN2VhYzk1OGUyYTU1YzkyNWNlY2I0ODc5MjY4NDYwNmUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjhjN2JiNDZjOWU5Y2FmM2U4YTJhYTg5MzE2MjVhYjcxYzEwOThjNGRkMDQ5NTZkMDEzYTFlNzI5MmE4M2RkODgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjM0MmM3YzU5Y2FmODZjNzM2YTNhOTU2MGNiMTg5NWQ2MWI3MGIwZGNmNDFiZjVkOGRiNjI0N2RlOGIzYjEyZDEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_4d9a1032bf8a4a549f7faa91e53819f5",
+      "statement": "AddClips and AddSnapshots are idempotent: on a path conflict they only update rows marked deleted, reviving them with all derived columns reset.",
+      "evidence": [
+        {
+          "resource": "repo://internal/store/media.go#L148-L190",
+          "version": "repo-lines-v1:sha256:a301b873e7cf7f69d719e3089c87bf16847214c28c897e24ca83c72f249afcc1:eyJzZWxlY3RlZExpbmVDb3VudCI6NDMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJlZTViOGJkY2RhOTAzZDM2NTJiMWRjYzIyNzNiMTg0YTM3YmVlYTUzNzkwZDVlNTJjMGM1OGY3OWY0OTQ3OTgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY3Mzk1OTU3NTBhZTkzZDIyODFhNGI3ZWQwYjk4NzdiNjA4ZmRhOGU4NzIwMWNkNzUzMzdmMTZhYTNmNDc2M2QiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjIyNTc0NTVlMzg4YzI0Y2I3NmJmZmQ0YzAyYmZmYjM5ZmJkMjhmN2UzNmI5ZTBkMmZiMzc3YjQzY2IyZDgyMGUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_64885a4fd40a43708886e06cbe7914da",
+      "statement": "The work queue is read with ClipsToProbe, SnapshotsToPair and ClipsNeedingThumb (newest first), and NextWakeMS returns the earliest future pairing deadline or retry time.",
+      "evidence": [
+        {
+          "resource": "repo://internal/store/media.go#L192-L232",
+          "version": "repo-lines-v1:sha256:a4e2b565f194162bc6c1c6a4c069f8351a2319de74d758f3325071412dd75d9e:eyJzZWxlY3RlZExpbmVDb3VudCI6NDEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdkZDI0OWJhZjI2OTliZjVmOGVmNDI4NjcyYTkwOWI2ZjU1YzIxYTFjNjI2Mjg2MDM2MDE3NWIwMWE5ODA2ZmMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY3MGIzYjZmOGI4NDYwZmEwOWEwYWU4ZGE3NWRiYmIwZjA2ZjY3ZGRhNWY4YzY4ZmNhMDAwZjE1ODViYzgyN2IiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImYzNTdhMDdlNjFkOGE0MTM3MzYxNzAwOTg3MmUyMjFlYTFlNGQyMTY4MGY0NWFmN2EyNGRmOTEzODNkMDkyNzcifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_4eb0d524479f41b8baa2228a1fc6b7b6",
+      "statement": "PairClip links a ready clip to the closest unpaired ready snapshot of the same camera between beforeMS ahead of its start and its end; otherwise it sets thumb_state waiting until the deadline or frame if the deadline passed, without downgrading a done frame thumbnail.",
+      "evidence": [
+        {
+          "resource": "repo://internal/store/media.go#L272-L314",
+          "version": "repo-lines-v1:sha256:97b2374d84f4cdbc6c6a0a9d12ec5a3b6268608079e8589786586d31abdf22ca:eyJzZWxlY3RlZExpbmVDb3VudCI6NDMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFkZWRkOTg0ZTY2MTY1YmFjZjZmY2U4OTVlYTRkNmIyZTY4Y2EzNmQ4MzUyZDY0MzQwMDU5ZjNlZGUwN2ViN2QiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImJiZGFmZTllNjI0MDFiMWMxMWY1ZTAzZGU1NGEzMzY3MWE3OGY0YjUxMGRlOGUyNmE5ZWZkMjFhMGQ3NjRjNTgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjMyODBmZGU2YjhhMTg4NmZjMGM2OTIxOWExYzZlNDc3NTJjNzIwY2M2YTExMWFjNjYzNTQ4YjM5MDkyNjRjNzMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_e69be65545b04cf9a1f0e73557b69dc9",
+      "statement": "Linking a snapshot to a clip sets thumb_state to snapshot and resets attempts, upgrading a clip that already had a frame thumbnail.",
+      "evidence": [
+        {
+          "resource": "repo://internal/store/media.go#L355-L362",
+          "version": "repo-lines-v1:sha256:3fa3691a7e3d2b3c3c21f243b23c89a9594e21d8d8c89dbe2050b8bb829b5f48:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWY4OTYwOWY1ZDg4N2VhZjAwOGU0ZWY2ZjQ2NzEyZDdmNTgyMWZlODlmNjU2ZDk1NDEzNjVhZmYwMzExYWYyZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiODQ4MWY3ODJlMjFjNDExOTdkYTE1YjU3MjEwNzk3MDJkYzdjMWJjNDEwMTliMzQ2Zjk3MWM2NWNiNzdiZjZlNSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNTliMGY3ZDlmYmZmNDU5YWZmYTZhOThhMjY2MzAwNTBiN2U5N2ViNDY2Mjk5OWFmZTJlNGEzOTY0NTAzNTY1NyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_94c2640624b04eccad8eae88334080d4",
+      "statement": "MarkDeleted marks clips deleted, clears their thumbnail and snapshot link and returns thumbnail paths for removal, while deleted snapshots keep thumbnails already made from them.",
+      "evidence": [
+        {
+          "resource": "repo://internal/store/media.go#L435-L470",
+          "version": "repo-lines-v1:sha256:425adc603b396273be12bddb6cf2635d2baf3fcfbae7dd3c5eea9ffcfc533985:eyJzZWxlY3RlZExpbmVDb3VudCI6MzYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk1NzY3YWFkM2JlYjM3NDYxNzZmYzJlODIwMjcyYWM3NjAzZmU5MzYxMTBjN2UzYWYyNzk3NmFmNzg2NmNlYmUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA0M2I5NWZhMzM3YjFkYWY2ZmMzZGE5NTBlNzJmZmZhM2NhODRlYWNjNTQyNjI4NjI4MjRhMWMwZjFmOTBlNmQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQ0MzdhZDQwNjkwNjYzOTQ5ZTZlYTUxMjM4NDhjMGJlMmU1ODM2YjA3YThkMDQ5ZDkyOWU1MDQ4NmE4MjUzNmYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_12dc168702bb4a66ba5dedca9219a962",
+      "statement": "ClipsBetween returns ready clips overlapping the window but only considers clips starting at most MaxClipMS (1 hour) before the window so it can use the start index.",
+      "evidence": [
+        {
+          "resource": "repo://internal/store/media.go#L474-L483",
+          "version": "repo-lines-v1:sha256:d8c516f594b21ca9ac64c7fc999d3428cc1234af21b56f7ccce05217c24822a6:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFjNDkyYjE4MmQ2NjAwMmIwNDU1MDViNmFkM2M5MWNkMTMxMzMxMmQxMGZlZTZkYTlhMGI0NTNiZTQ5MTgwODEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQ0MzdhZDQwNjkwNjYzOTQ5ZTZlYTUxMjM4NDhjMGJlMmU1ODM2YjA3YThkMDQ5ZDkyOWU1MDQ4NmE4MjUzNmYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImFkYWJiOTMxZjg2NGViMDlkNTQxNmM2ZGEwNTJmMzZkNjZkM2U5ZGUxNzNkZmI2ODFiNWNmMWIzMzg3MDg0ZGMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_f8261a68691b41c1851438989a654f2a",
+      "statement": "Store tests run against SQLite always and also against Postgres when NVR_TEST_POSTGRES_URL is set.",
+      "evidence": [
+        {
+          "resource": "repo://internal/store/store_test.go#L11-L30",
+          "version": "repo-lines-v1:sha256:fce5280ed324ff0f129b336979b490a75db5af63da36d8118b9fcd8ea58707b5:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFkZmUxMWY3MWY1ZGM2ZGMzMGRhMDY4NWU2YjZjNzBjZWU3NDJjOTAyNGNjNWJlNTNkY2NmOGE3YmQ3ZDVkOTYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRjMTU0Y2RhZWY4MmJhMzM4NjZhZjgzYTBmYjQ2Mjc3MDlmZGUwYWRmNmIzNWVjZTE2MzU1ZjQ1N2Y1NWVkNzQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQyZTc4OWMwZDAyNTJjNzkxZjBhNGVmZmY1NjQxNjJlOTk3YjZkMTA5ZGM1MzljNmE0YzJhNGMwMjNkNzczMGIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjhhNTNiOWU4ZGQ4ZjU4NGMxMGUyM2U5YTJhYzEwYzgwY2E0NDUzNTU5MzM5YmU1Yjk2YjViOWFiNWRhNzhlOWQifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.7.2",
+    "at": "2026-11-08T01:57:23.266Z"
+  }
+}

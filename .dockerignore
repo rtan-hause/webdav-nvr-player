@@ -8,3 +8,4 @@ internal/webui/dist/*
 !internal/webui/dist/README.md
 *.local
 .env*
+e2e/node_modules

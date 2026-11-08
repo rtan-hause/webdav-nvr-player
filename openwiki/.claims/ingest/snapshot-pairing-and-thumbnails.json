@@ -1,0 +1,120 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:02b1b1f9630ad12ce437a00bbe1d7940023b40e8d9eb6e9227566e9c3c1c6aa8",
+  "claims": [
+    {
+      "id": "claim_d1ed405b0dc145de8522795fa33f2f07",
+      "statement": "Snapshots pair with clips of the same camera by time window (from Pairing.Before ahead of the clip start through the clip end), choosing the snapshot closest to the clip start, because snapshot names are often a second or more off.",
+      "evidence": [
+        {
+          "resource": "repo://internal/profile/profile.go#L48-L57",
+          "version": "repo-lines-v1:sha256:58fd0b0f79a62453e3ae6f80059a8f3862707b5ff80e20f2ce8aac8e9e37c17b:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRkOGJkMmUxN2Y1ZmY1N2Y1NDVlOTJmMTUwY2I0MjkwZTgyNTIzMjlkZTkwZDZjOWEzZDk3OTM3MzM2N2I4NmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImMwMmM3MmJjOWFmMDNiNWQ4ODk3NzNjZDYzYThlYThkYmQ1ZGFiMWRhYWZlODEwOTg3ZWI4MjM4ZmJlY2U2OGEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQ4ZGEzZDkxN2FjMjMzNjkwZDUyMGZiNTI4ZGFhODg3MmNmYzIzMTk4M2M4OTM5NGVhNDkyZDM5OGI4YzVhOTEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjBmNjQ1MmY1NTdhODM4YzRlOTRmOGE5MGExNWE0MWQ5OGI5N2U3YTY1ZmMxN2I1NzZmYmY2NjlhZGYyNDE5OTUifQ"
+        },
+        {
+          "resource": "repo://internal/store/media.go#L272-L314",
+          "version": "repo-lines-v1:sha256:97b2374d84f4cdbc6c6a0a9d12ec5a3b6268608079e8589786586d31abdf22ca:eyJzZWxlY3RlZExpbmVDb3VudCI6NDMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFkZWRkOTg0ZTY2MTY1YmFjZjZmY2U4OTVlYTRkNmIyZTY4Y2EzNmQ4MzUyZDY0MzQwMDU5ZjNlZGUwN2ViN2QiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImJiZGFmZTllNjI0MDFiMWMxMWY1ZTAzZGU1NGEzMzY3MWE3OGY0YjUxMGRlOGUyNmE5ZWZkMjFhMGQ3NjRjNTgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjMyODBmZGU2YjhhMTg4NmZjMGM2OTIxOWExYzZlNDc3NTJjNzIwY2M2YTExMWFjNjYzNTQ4YjM5MDkyNjRjNzMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_52ed2599b1854668b49b730428432afd",
+      "statement": "Pairing is attempted from both directions: PairClip after a clip is probed and PairSnapshot when a pending snapshot is processed, so arrival order doesn't matter.",
+      "evidence": [
+        {
+          "resource": "repo://internal/ingest/ingest.go#L517-L543",
+          "version": "repo-lines-v1:sha256:e431cefaa32343bd3a8774aa3880c1e6c2342da5529977845e50e6eb1cf0d15f:eyJzZWxlY3RlZExpbmVDb3VudCI6MjcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImUzMzYxZmRmZTlkYzFkZGZiMGNiYTFhYWQ5MzkwMzdjNmYyODZiMDcxNGI1YTIxMjc4Yjk4Y2QwZTFlMWJlYzciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjlkOWEzZDRmYmM5MTYyNmJiYjQ3NjIyYzkwZGI0MzUxMzc0Yzk4MTJhM2QwOTI2YTVmNGExZWEzNjczNDg4MzQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjY5MmY4NGI2NjZkN2NkZjVlZjAzMzViZDg1YThmNDY2NWNkZTQyNGQ0NzFkNWJiNTNkNmQyYWEyM2MxM2I3OGUifQ"
+        },
+        {
+          "resource": "repo://internal/store/media.go#L316-L353",
+          "version": "repo-lines-v1:sha256:1d90977fabad64283321de59ffad2e74e7d75ad47d055be4942ec5248fd0c1ee:eyJzZWxlY3RlZExpbmVDb3VudCI6MzgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjlkNzcyOTNhNjczMTk0ZWZjYjhiNGRmNTE4OWU0ODFlNGM2ZDBkNDc3YzUyNDUyODVhMWJhNGRhZmQyNTAxODIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQyYjZmYTM3OGFiYzk5YTc4MDY2M2NmYjU4NjA0ODQ0ZGQ4ZjAwZWY2M2ViOWZiNDFkYWY0MDk4ZGRjM2Q2NDciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjU2YjA2NTMzNzM2ZmYzMGNlYjlkNzg1YTBhNmJmNjZhNmNkOTI5OThjNTk0ZjdkYTc5NDMwNzVjYjgxNzZkYTAifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_98f76bfd1944491dab4dbd848c314755",
+      "statement": "A clip that already has a frame thumbnail is upgraded to the snapshot when a matching snapshot is linked later.",
+      "evidence": [
+        {
+          "resource": "repo://internal/store/media.go#L355-L362",
+          "version": "repo-lines-v1:sha256:3fa3691a7e3d2b3c3c21f243b23c89a9594e21d8d8c89dbe2050b8bb829b5f48:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWY4OTYwOWY1ZDg4N2VhZjAwOGU0ZWY2ZjQ2NzEyZDdmNTgyMWZlODlmNjU2ZDk1NDEzNjVhZmYwMzExYWYyZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiODQ4MWY3ODJlMjFjNDExOTdkYTE1YjU3MjEwNzk3MDJkYzdjMWJjNDEwMTliMzQ2Zjk3MWM2NWNiNzdiZjZlNSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNTliMGY3ZDlmYmZmNDU5YWZmYTZhOThhMjY2MzAwNTBiN2U5N2ViNDY2Mjk5OWFmZTJlNGEzOTY0NTAzNTY1NyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_09bcd217f6a24e6c9727863191772ebd",
+      "statement": "When a waiting clip's deadline passes, makeThumb makes one last pairing attempt before falling back to a video frame.",
+      "evidence": [
+        {
+          "resource": "repo://internal/ingest/ingest.go#L545-L563",
+          "version": "repo-lines-v1:sha256:a84dd28147ed79b7e936d5cf29df93a86d1afbcd75b4c7ad565fb3195e587f00:eyJzZWxlY3RlZExpbmVDb3VudCI6MTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3NmVlYzVhNTVjNmZmODFmNzk2OTM3MjU0ODRmY2UzMmJkNjFiOTYzMzRmYTc2MDYwMTdmOTMzOTM1NzFiZjAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImYyOTY0MDc5YzNjNWM4MTUyMGVmMzNhMmI5ZDJlMTVhMWI4NGQ3MjgwZGI4NTkwZGNkNjU3NDdlM2UwMTJhNDAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjgwNWRkYjliMDE4NDMxMmUyNTViNmY0NmQ4OTQ2MTYxOWM1YjM4NGM1MGVmOWNhNjhhNGM2ZTE3ZjNlNDNhM2QifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_01d60f72892848e7b4b9156bfc1ffeac",
+      "statement": "Snapshot thumbnails fetch the JPEG from WebDAV (up to 32 MiB); a missing or undecodable snapshot unpairs the clip so a frame is used next, while network errors retry with backoff.",
+      "evidence": [
+        {
+          "resource": "repo://internal/ingest/ingest.go#L564-L594",
+          "version": "repo-lines-v1:sha256:e62a30650f07eda6b2f7e581c13cecb82820375a77b8355353f13296ebe18235:eyJzZWxlY3RlZExpbmVDb3VudCI6MzEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhMjZmODI5ZTMzMjQ4Nzk3NjNmMTVlNjM4YzA5NTg4MzY1ZDM5NmJjODIwZTA2NWZjOGU3ZTczMjUwZTFmYjgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZkM2E3YmFlZTNhYzk5ZmI4MzVjOWUwZGM2YTg0ZjI5YmRjYTE4Nzc4ZDNjNmY2MjRjYWE0M2ZmMTdhMzljYTQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjIyZjJmZjVmZWVjNjBmNTg3YzhmYWU0ZTg3ZjgwOWE2NjFjZmZlZDZiNDdhYWU1ZjZkNmEyNjUzYWE4OTUyZWYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjAwMTM3MGI3MjA2ZWQ3ODBlNzYyMGFjMzgwYTI5YzBlOThlMWZmMTllMzEzMjllNGQ3MTdhNGE1Zjk0MGZlMDUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_308d7931e07d463baea156833e684939",
+      "statement": "Frame thumbnails are grabbed with ffmpeg at 10% into the clip from the loopback FrameURL; thumbnail failures become permanent after MaxAttempts without affecting clip playability.",
+      "evidence": [
+        {
+          "resource": "repo://internal/ingest/ingest.go#L595-L607",
+          "version": "repo-lines-v1:sha256:da46f95406e46918d47acc948e6e7bae2da70622a526afaf4a36447ba02f7d51:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjEwZDczMjI5NWFiNDM5ZGFhMDk1YjkxODNjYzc0ZTZiNGY1ZDZiOGRkZDZjMzU0MDMwYTMxMTJlNzJiMzJiMTciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUwOGVlZjczNDE1ZmI0ODllNmVkZDg0OTIyZmFiOTFmYTAyMDg3MjkzOTcxM2E0Y2Q5NmVjNWI2MmM3NTBkZWYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://internal/thumbs/thumbs.go#L78-L105",
+          "version": "repo-lines-v1:sha256:c496a54f264c61af300d6f52d0edf480080497ac98df0f5e8c253ef092ae1784:eyJzZWxlY3RlZExpbmVDb3VudCI6MjgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI0ODQ5ZTkyMGI3Njg5NWY3NmQ2M2MxMDVkODdhYjAxMWVkNTk1Zjk1YjM1MWMyNGE3ZjM1YzlmZWQ3ZWFmYTkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQ2NTAxZjI2NDIzMDRmOWY1Yzk1NmRiOTcyOWEzYzk1NDZiYTFlMmVhZTNhMGFiNzRlMjFhNjE0NjY0MTgzYzAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImU2NmI5YWE4MmVlYjVlZDhmYmRmNjQ3MGVhMGIyZTkxYmY4MjU5NjgzMzM4YzFmNDY0Y2RlYmQ4NDQwZTg1MmIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_6fba7e33d09349d3b0169fd2ed6bb13e",
+      "statement": "Thumbnails are 480px-wide JPEGs (snapshots scaled bilinearly at quality 78, never upscaled) written atomically to DATA_DIR/thumbs/<id/1000>/<id>.jpg.",
+      "evidence": [
+        {
+          "resource": "repo://internal/thumbs/thumbs.go#L107-L131",
+          "version": "repo-lines-v1:sha256:0a90e03bd8c0533e79bc8fa9f032b58e849e7cd3e8d7268a466daa438087548b:eyJzZWxlY3RlZExpbmVDb3VudCI6MjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg4Yzg0MGNlOTk2NmNkOGNlYzUzMWY5MmJhNzQ3NGVjOWM3ZjA0ZDMxZmUyNWI2YWViYjA5ZmZmYTYzMWE2MjYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjBhNjg1NmMxNGEwZGY0YWE5ZDBiNTdjYjMwNGZiZTI1MTExODZjNWZlNWNjY2Q1YTg5NTY4YTVjMTZjNzA2YTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://internal/thumbs/thumbs.go#L21-L76",
+          "version": "repo-lines-v1:sha256:fd60ab2f1f2c3927968743f0c6efef03dd167b38b92b22946d675177ac6d5a19:eyJzZWxlY3RlZExpbmVDb3VudCI6NTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM0NDBhMTA0NTNhN2NhNzcxNWJiNGI4NjIyYTRiNGY0NmVmYTFiZmUxOGVlYTIwMmJiOTY3MjA2NmU5N2E4MDkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijg0NzIyNWYzMTRhMDdjMjAzY2M1MmRmNTQ2YmExNTc3ZThlMzZhZDYyYjg4Yjg4MDBjMjMzN2ZiOWNiNmQ0MDciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjZiYTFhMWM0ZTNmYmRkMjk4NTliOWVmMDE1NzAzMGRjNGUwNzBiYzhmMmM4ZGMwMjQyM2E2Yzg3ODhmYTM4ZDgifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_f31c62e30e9641e49e73895490cb6317",
+      "statement": "Maker.Abs refuses thumbnail paths that don't resolve under thumbs/.",
+      "evidence": [
+        {
+          "resource": "repo://internal/thumbs/thumbs.go#L36-L43",
+          "version": "repo-lines-v1:sha256:a5833cb81265fc55a14ea81a286c19f3680608a7d4a6e68d0ebe561cb8dbe0a1:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZGI0MzljZTY0ZThlYjIyNTlmZTgwY2EyYWZmMTQyN2VjOWFhZWQ1M2RmMDEyYzk3OTdiNTRhMDVkODcwOGQ1MCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOWMzOWVmNWI5N2ZmMGRmZGRjZjU1YWU2MDIxNjM0OGY0YTlmNTU5NWU4NDg0NGRmOTM4N2MzMTg4YzIzOWZkNiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMTZmOTNhOTAwMDIxZmQzZjU3M2MzMDE2ZDJlNGJkMzEwNzJkYzQ0MWI0MTk4ZDUwNTJkNDJlY2M3M2M5OWQ3ZiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_13578df528284a358962797661b1ec99",
+      "statement": "ffmpeg reads recordings through a credential-free loopback URL because its command line is visible in the process list.",
+      "evidence": [
+        {
+          "resource": "repo://cmd/nvr/main.go#L145-L151",
+          "version": "repo-lines-v1:sha256:8d9a46faac5683ef268eb44d258ccfd76fa350056e585e4cdc0c5034051f411a:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMjhlNTU5MzI4MDkyZjU2OWQ2ZjYxMGJhYjZjYzc3NWIxMTliZDljOTkxYzEzMjcyYjQyYjgyMDQxM2VjYzEwMiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZTdlMWM3ZWEzYzcwNjI0OTllNzIzNDU3ZTNlMDYzMDIyYTMzYzA5YTAwOGVkZTc4ZGEyZTg1MGEwYjA5ZGMyNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYmU1ZmI2ZTAxYTBhOTZlZWY0YTc3N2YxMWE4NGEzMTEzMTc4YzczOWYzZGViMWI0MjIyMzdmNzAzMWFjZjY3ZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiM2I2NTkwYWM0NmRhZmJkNjRkYmVjYjI0NjNmNzc5MjFiZDJhMjA5MjM1NjgzYWE2MTNjOTY5Y2JiYzYxNWE2YSJ9"
+        },
+        {
+          "resource": "repo://internal/thumbs/thumbs.go#L78-L80",
+          "version": "repo-lines-v1:sha256:527d0dae6c0ca225f99fa593848643c035c5e0b24647d03efb44addb30add387:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMjQ4NDllOTIwYjc2ODk1Zjc2ZDYzYzEwNWQ4N2FiMDExZWQ1OTVmOTViMzUxYzI0YTdmMzVjOWZlZDdlYWZhOSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiN2E1NTU3YzVlOTQxMDBiZDIwZjY2YjU4M2ViZTQ0M2VlNWQ5M2ZiM2VlYmIzNDBlYzI2ODBmOGQyODliYThjNCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNDY1MDFmMjY0MjMwNGY5ZjVjOTU2ZGI5NzI5YTNjOTU0NmJhMWUyZWFlM2EwYWI3NGUyMWE2MTQ2NjQxODNjMCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZDMwNzk2MzM0ZjNhNGY1ZmU4OTQ1MjhiZDFhYzQ5MTIzZjgyOTJkMWUwMDZiNjZkMGRiMDgzMjQxYTExMGNjMyJ9"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.7.2",
+    "at": "2026-11-08T01:57:23.266Z"
+  }
+}

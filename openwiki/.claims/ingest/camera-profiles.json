@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:83501837c86cc1b6b84564a4883895f1cf3db27684b611ebc259fb74830e2520",
+  "claims": [
+    {
+      "id": "claim_08344b36c7354825836cc154f053fda2",
+      "statement": "A profile exposes ID, Name, Classify (path to clip/snapshot/ignore with camera, channel and local wall-clock time), DateDirs (folders for a camera-local day) and Pairing.",
+      "evidence": [
+        {
+          "resource": "repo://internal/profile/profile.go#L32-L76",
+          "version": "repo-lines-v1:sha256:a6aa99d4751adc26c76baac46fc965e527f54a8050d7aa24f84a0eb2200efe50:eyJzZWxlY3RlZExpbmVDb3VudCI6NDUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY4MWViMDYwYTA3ODg4NWIxYWE0M2E5NDUzZDUyNGVmYjQ2MmRkMDRlZDRhZTMyYTAyNjJhYzc3ZmI3MzIyOTciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjRiYjJhMTU0NDhjMTNhYjU4ZGI2MTUzNDQ2NGYwNjc0Nzg1ZTE5ZDI0OGQ1OTgzNTBmNWJkMThiZDIxNmZiNWQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImM2NTBlZjVlZGZlZTNjMTMyOTgwNzdmNTdhZDM2YTdmZTQxM2Q2ZDI2YzViOThmYTYxYTMwOTkzZGM0MjM2ZWQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_6eaae01d43904cc49ffaa09ba3366b1d",
+      "statement": "Media.In applies the camera time zone to the wall-clock time parsed from the file name.",
+      "evidence": [
+        {
+          "resource": "repo://internal/profile/profile.go#L42-L46",
+          "version": "repo-lines-v1:sha256:9c3c9fd0755d56da9e6068e685e3219c3f316190fd56611e9b7d925735656067:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiN2EwZmU2ZTE3M2M5OTVjOWY2YmZiZDgwMDEzNmU0YzEzNjUzMDMwZmJkNDc4MDMwYjA4MzU0NjMyOWZlZDlhMSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYTM1ZjVkMjk2MjczMWNjOTkwMWRjN2RjOTUyYTBhOGMyNGZjMTQ2NTEwNzUzOTVlMDNhNjQ3ZTc1YTI1MjM0YSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNGNkMTYzODM0NmZhY2FmMTExMzhlMDQ4ZGE1NzhkY2VhYzRjOTRmZjE3YjdjOWJlZTM1NGNjZjdlMDc2MDIwYSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMTVhNDU5NTBiN2JmNGJmMTUyMzg0ZmUwMWU2NjhiM2NjMDA2MmM0ZTYyMzNmOTQ5NDBiMTczYWQ2ODBlZDQ1NyJ9"
+        },
+        {
+          "resource": "repo://internal/profile/reolink/reolink_test.go#L51-L61",
+          "version": "repo-lines-v1:sha256:3b37c344c35014b8e6d7f59625b5dd4dcefa18c41952689a5d44e6af2c71898b:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk2YWEwMDE2N2JjZmM0ZDkyYmJkZDIxZTRiNTUxZDlkYTU4ZTFlYWZlYzIzMjYyNWQ0ZTgyNDBmOGQ0MzY3ZjUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImYyOTY0MDc5YzNjNWM4MTUyMGVmMzNhMmI5ZDJlMTVhMWI4NGQ3MjgwZGI4NTkwZGNkNjU3NDdlM2UwMTJhNDAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjA3NzFmM2Y0MTI1ZWFmYTAyMjI2YjllMDhlNmZkYWVhYmIwOWM2NTM5ZjkzNTljYTg3MTE1ZTkyN2M3NGI5NWUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_341156765ae3420eadd88016f0fe0444",
+      "statement": "Pairing.Before defines how far ahead of a clip's start a snapshot may be stamped, with the closest-to-start snapshot winning and each snapshot pairing once; Pairing.Wait is how long a clip waits for its snapshot before frame extraction.",
+      "evidence": [
+        {
+          "resource": "repo://internal/profile/profile.go#L48-L57",
+          "version": "repo-lines-v1:sha256:58fd0b0f79a62453e3ae6f80059a8f3862707b5ff80e20f2ce8aac8e9e37c17b:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRkOGJkMmUxN2Y1ZmY1N2Y1NDVlOTJmMTUwY2I0MjkwZTgyNTIzMjlkZTkwZDZjOWEzZDk3OTM3MzM2N2I4NmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImMwMmM3MmJjOWFmMDNiNWQ4ODk3NzNjZDYzYThlYThkYmQ1ZGFiMWRhYWZlODEwOTg3ZWI4MjM4ZmJlY2U2OGEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQ4ZGEzZDkxN2FjMjMzNjkwZDUyMGZiNTI4ZGFhODg3MmNmYzIzMTk4M2M4OTM5NGVhNDkyZDM5OGI4YzVhOTEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjBmNjQ1MmY1NTdhODM4YzRlOTRmOGE5MGExNWE0MWQ5OGI5N2U3YTY1ZmMxN2I1NzZmYmY2NjlhZGYyNDE5OTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_868e135e255442d5ae8a5361dba2b4a4",
+      "statement": "Profiles register from init via profile.Register, which panics on duplicate ids; Lookup errors with the list of supported ids for unknown ones.",
+      "evidence": [
+        {
+          "resource": "repo://internal/profile/profile.go#L78-L113",
+          "version": "repo-lines-v1:sha256:154ccc48b5cd3ea2029b697af718ca0f67394cf423031b82652fac1b3790c6fd:eyJzZWxlY3RlZExpbmVDb3VudCI6MzYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjU4M2UwNWIzYTlmMDVhZmNjZmNmYTc0MjUyYTg3OWQ1NjkyNDRiOGM5MzI5YzFmMjI1ZmY4NTUzNDFmNGQ3YjAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_1e08ac5cb31c4e169397d7839e089ad9",
+      "statement": "cmd/nvr blank-imports the reolink package to register it and resolves CAMERA_PROFILE at startup, failing on an unknown id.",
+      "evidence": [
+        {
+          "resource": "repo://cmd/nvr/main.go#L129-L133",
+          "version": "repo-lines-v1:sha256:6ead662f9b6351acb78e9311708f681bebfe01aef3bf97dfdb5cf2d9982e1b6d:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMmYzNDNlMzU3YjFmNTgzMzRlNzcyZTUxMDQ3NjE2ZmFjYWNmYWZhMjUwMjA0MGExMDQyM2QzNmQ1ZDkzOTEyYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNjRlZmM0OTQxOGQyNmRjZjEyOWIyMmE2YWEyMTEwOGNlZWMzNzY3N2EzMmQwOGU5ZDVmZWUzNWRkYTY2YmI5ZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDBkYzc5NDE4NzQyY2ZlN2EzOTQzOWU2YjU3NjMyYWZiODhjNjNhMzBlOTViM2UyNDViOTczMjc5YjRmNjc4ZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZDZiZjRlMzU2YmNlNGY3NWI2NmU4ZWQxY2NiODFiOTE0ZWZmNWFlNjcyNWI0NDUxMzAzZDEzYjRjYTQwZmYwOCJ9"
+        },
+        {
+          "resource": "repo://cmd/nvr/main.go#L23-L23",
+          "version": "repo-lines-v1:sha256:4b0d2276aa57ccb24b5a185ee25dac7ec10e779e5541616274d1330b57e2d3fe:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNGIwZDIyNzZhYTU3Y2NiMjRiNWExODVlZTI1ZGFjN2VjMTBlNzc5ZTU1NDE2MTYyNzRkMTMzMGI1N2UyZDNmZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNGIwZDIyNzZhYTU3Y2NiMjRiNWExODVlZTI1ZGFjN2VjMTBlNzc5ZTU1NDE2MTYyNzRkMTMzMGI1N2UyZDNmZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNmIyMGZkNDhkODEzMmU3NWI5NDkzZGZlMzgwZDVmZDgyOTJlMzQ5ZGM1MTE3NjZmMWYxMmQzOTE1NGJlOTA3ZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMTAwNGEwMzI1ZGJkNzk0ZjI0OGE2MzVhYmU1MGNjZmI5OWE0NThiOTk0YWRlZmIyNDI3NGNlOTBiMzM2NDI1NyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_24b2c2426aa648d1869ccb297a51a9cf",
+      "statement": "The Reolink profile parses <Camera>_<CH>_<YYYYMMDDHHMMSS>.<ext> from the base name only, treating mp4 as clips and jpg/jpeg as snapshots and ignoring other extensions, invalid timestamps and empty camera names.",
+      "evidence": [
+        {
+          "resource": "repo://internal/profile/reolink/reolink.go#L24-L55",
+          "version": "repo-lines-v1:sha256:b26c0b1acf028fe7d2cf69515c82077c55f9523b8a05fc1bab3a99229864c0ba:eyJzZWxlY3RlZExpbmVDb3VudCI6MzIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImEwMzZkMzcyYTMyNzY0M2Q5NDgyZDE4MjVlOWIzMzBmMTU0YzYxOTYyZjAxYjZiYjNiMTU3NmNhODQyMTZkODgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU4MWQyNDM1YTQwNjA1ZjU3ZmI4NzM1MmJlMDBkNThlNzI5NGRmNThlOTBkMmI5MmQ5ODE5NGMxMTZmNGY0YjMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQ3N2Y1YWQxZGZjMTAyOGY5OGI0M2Q5OGFiNmM3NTc3ZDVkNWRlZTUxYjY1MGU0Y2Y3YjE4MTRmOThhMjYxZjEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImNkNzEwMmExY2QxNTcxNTgwYTJmYmY1MmJmNmU1Y2NlNzVmYmFlZjA2YTFiMzAyMGNmZWU0N2JmZjMwNmQ2YWIifQ"
+        },
+        {
+          "resource": "repo://internal/profile/reolink/reolink_test.go#L10-L49",
+          "version": "repo-lines-v1:sha256:63d78a62c9dcf6dc529f53ade45818dbc6776b2edfa2af2de232e13e08db2afd:eyJzZWxlY3RlZExpbmVDb3VudCI6NDAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM1MTE5NDU2ZjQ3N2Y5M2UwYzgzODkwZThmMGExZDc3NjYxYzYyY2MyODk0NDYzMjMwYjk4YWE5ZGM5OWRlNjgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY0YzlmNGZjYzAxMTQ2MGE0ZGFkMjQ4NjA3YjdhYWU4YWE3ZTRhM2VmZWUyZmNmMmY2MjcwMWU2NjYyYjViOTkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjA0MTExMmJhMjExOWIzZTlkYTM1MTQ0MjhmMGUzOGYxYTU5MThiZDBiMGIxZDYyY2M0MDBhZDU1MTJjNmYxMDQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_c6e5ed6c8d5f4030b27e43727ccae6d8",
+      "statement": "Reolink DateDirs returns a single YYYY/MM/DD folder per day.",
+      "evidence": [
+        {
+          "resource": "repo://internal/profile/reolink/reolink.go#L57-L59",
+          "version": "repo-lines-v1:sha256:f53583b378686a42483891c3b95eb7cebcfd0c4f2b05b34e3c39bbbe5bc9ee33:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDFiYTQ3MTljODBiNmZlOTExYjA5MWE3YzA1MTI0YjY0ZWVlY2U5NjRlMDljMDU4ZWY4Zjk4MDVkYWNhNTQ2YiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYzhmMWM0OWE2ZmYyNzY0MGIzMTNmNTY3NmFjZTQzNjcyNTVhNDU2M2E4YmIyMWIyODU0ZDA5OWI0NWFhNjZhMSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZDRmY2ExMmRiNzNjYmVkOWJjZGUwZWVjYjY2MGVjMWVkOTFiOTM4NGYwOGZkOTVmZjYyYTc4MzRhMjcyNmUzNSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiY2VmNWJlN2QyNjhhYjNlYWE1MzgwZGRmMjQ1NDExZjYwYWY0ZjdhZDZhOGYyYjdhNDkyMzE3NTc4ZmViYjVjOCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_dea2e8e2ba3848038395453489580a14",
+      "statement": "Reolink pairing allows snapshots up to 2 seconds before a clip and waits 60 seconds for a snapshot, based on measurements over 323k clips.",
+      "evidence": [
+        {
+          "resource": "repo://internal/profile/reolink/reolink.go#L61-L67",
+          "version": "repo-lines-v1:sha256:6a71032c673b48b4e4d7ec351708a1072487e56999be013d5684623bb17af0e2:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDFiYTQ3MTljODBiNmZlOTExYjA5MWE3YzA1MTI0YjY0ZWVlY2U5NjRlMDljMDU4ZWY4Zjk4MDVkYWNhNTQ2YiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiY2UyODM4N2NjOWUyOTNiOGI0YzczNWE1M2ZiMjI1YzNkMGQwZjE3YjIyM2ZiOTZkNDUyYjdjMzAyOTdjMzE2MSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.7.2",
+    "at": "2026-11-08T01:57:23.266Z"
+  }
+}

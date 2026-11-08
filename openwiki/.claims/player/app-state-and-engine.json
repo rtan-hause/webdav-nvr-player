@@ -1,0 +1,182 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:38e2acf0c1b33391b56107aad33b4170160ad3719d3dad84e9e4929225bdaa04",
+  "claims": [
+    {
+      "id": "claim_6f8a85a6a35b4a6ca6027a5eca229439",
+      "statement": "The frontend uses a tiny external store whose set is a no-op when no patched key changes, read through useSyncExternalStore selectors so frequent playhead updates only re-render subscribers of the changed slice.",
+      "evidence": [
+        {
+          "resource": "repo://web/src/lib/store.ts",
+          "version": "repo-file-v1:sha256:8ef6eca82412ba47743800a8184d088680f2d96e3d49544cafa1c221d75e796c"
+        }
+      ]
+    },
+    {
+      "id": "claim_dea6f0fdff484f848bf502f22f3508dd",
+      "statement": "App state is built around a single playhead t on one day for one selected camera, with a seek counter bumped only by user-initiated moves.",
+      "evidence": [
+        {
+          "resource": "repo://web/src/app/state.ts#L159-L179",
+          "version": "repo-lines-v1:sha256:48b9913230b89d7749fd305a0152310671ad035eb09198f589c98f1a745dd152:eyJzZWxlY3RlZExpbmVDb3VudCI6MjEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFkZWMzYWI2ZjQ1MmI5NzVjZDA4NjI4MmRmYmQzYWYxNzJkMWU5ZmE3MWMwZmQ4MzQ2MWU1ODdmYWY2ZDM1YmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjU3NDJkOTM2Y2YwYjBiZDViNzU4YjVlMTRjMTQ1MGRmMWMxYzJmNGJmZGU4YjU5NzZhNDUxN2ZlMDAwYzY0ZGIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjBhOWUyNjRmNzZlYjZiZDU3NTI2YmEwMjEyMWZhZTMzNDZmNjM2MTlkY2QzYmQ0NGJiOWQ1NWE2NzZjZTY1NmMifQ"
+        },
+        {
+          "resource": "repo://web/src/app/state.ts#L6-L52",
+          "version": "repo-lines-v1:sha256:2c4fd55662f03d291cb96e21eefc945166c477f4754804a3c2d06e10fe475c5b:eyJzZWxlY3RlZExpbmVDb3VudCI6NDcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM5ZTgyNjIzZTkwMjMwM2Q0MmM0NGQ4ZmQ2ODY1MzdjOTFiMTVhNzlkZjY2MzgzNzRmNzVhNGIyZmEyNGMyZTYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjEwMDA3ZmIyYTExOGY1OTY3ZGM1MWQ4ZGY5Mjc0MTdiOWFlYjk0Njc2OTBlOWUxYjFmNGZkMjhjZGZjNGUxODgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjU0ZGY4MGQ3ZjM0MGU2NjE5YjgyNzBmZTU0ZWFjOWRiNjUyNjRkMzZjNGE5YzAyMjkyODUzYmU4M2I5MDc0NzYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_3bce5e584ae043bb9ffb3fad90c03a84",
+      "statement": "While playing, the timeline view pages forward when the playhead nears the right edge, and never moves while the user is panning or pinching (viewLocked).",
+      "evidence": [
+        {
+          "resource": "repo://web/src/app/state.ts#L119-L127",
+          "version": "repo-lines-v1:sha256:76f336a3f91ca2c133055c91b05d03255dc3be60019199e7071b50527300d3d6:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYjE3MTk0OTNhMGEzYTkzZjExYjBlNDZjYjE2ZmI2YmYxNzMyZTFiMDIyYWIyYWMzYzVmYjRiMjg1YzllYjhjMyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZDBmZjNhOGJkNDcyOWQwNmJkZWExMmZmMjVlZWNkZWVhYWUzMzJlYjcwYjUwZDJiNmNmYzZlOGFmYTUzMmI4NiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZDY2NmJlZDJmZWM4ZGQ1YTBlYzEzYjcxYmZhZDU0MmM4ZTM3MGIyZWYyODE5YWYxNzA3OTYxNjBjYmJkYmZmNiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_62b3adc17510455496c94f3f67b2de0d",
+      "statement": "Timeline zoom is clamped between 4 minutes and the day length, and zoom steps go through 24h, 6h, 1h, 15min and 5min around the playhead.",
+      "evidence": [
+        {
+          "resource": "repo://web/src/app/state.ts#L129-L150",
+          "version": "repo-lines-v1:sha256:ec43ed27c90031d3c357e8dbcf070f9b5141e11fdce3bf111cdb97b7b9d07448:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjkyNDMzNDFjYTVjMWY2NzBlZjZiM2IxNGJlMDAzNTdhOWZkNTRkZjMyODRlYmJhYTJjYzU3NTllNTU0NDNjZGEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjFlN2VkYTdjYjE3MjNmOWQzYzA2MjFjZGIyNTNjYjFiZmQ2MjVlOGZmMDNjY2QzMzUwZWM4MjNkMmZjNGJmMzciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjhjODM0YWIwNGUyMmZjNzJmMDg4NjAxZTJhYmM2MmUyZGViMDBmMTY5Mzk3NDMzNTgzMTBiYmFhNzYzNDZhMjMifQ"
+        },
+        {
+          "resource": "repo://web/src/app/state.ts#L52-L56",
+          "version": "repo-lines-v1:sha256:3a96dfa412af99034d897aa599c8ded68acc3d42c1233652395b770650616c4e:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDFiYTQ3MTljODBiNmZlOTExYjA5MWE3YzA1MTI0YjY0ZWVlY2U5NjRlMDljMDU4ZWY4Zjk4MDVkYWNhNTQ2YiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYzk1NDhlZTY3ZWQyYjNhZGQwZWRlYjcwMWI4ZjQ4ZTIwMTZhODAyMDY0YTUzOTE1ZDA0MmViMTM1YjM0NjU3YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNGY0ZTA0ZTkyZjk3Y2I4OGUzYjJkOGQ1NTUxMGYzOGJmZDFkMmRkNzg0M2NiOTFhZDZhNDgwOWZmNzhjN2FlNSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMmQ2NTRmMzM3NThmODVjZmU5NWUxMTFhMmVlYjg4YTdiMzc2ZWY3NWIwOTBiNjA3ZjlhNWVhOWJjMjMxMGJiZSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_2d83896a3a44469ab2f9cd0440c3b155",
+      "statement": "playOnFrom jumps to the next clip, toasting gaps over 2 seconds, and stops with an end-of-recordings toast when there is none.",
+      "evidence": [
+        {
+          "resource": "repo://web/src/app/state.ts#L199-L211",
+          "version": "repo-lines-v1:sha256:9e0afd3db17bd6d2ba296d1a664761fd765886e00fd1c0ff37bf7a8978742675:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjViNTFlNjAxMzgzYjkyYzU1MzkwMjA2NTliZmY3NjFmNWQ4OTJkNWYwMGNlNzllOWY4NzYyMmVhMjVjNjMwYTEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjMxMDI3YWUzYTM1ZWY2YWY5YzcxNTBjYTA1MjA0ZDYyYWViMDIwMjJlYmEwNDNlNTI5NjYyNThhYzBiOTVmNDMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImU1YmRjYWI1MGM3NWFmMTFhZDRiMGU2M2M0ZWVhNGIzODY0ODdlYzhlZjkyMmUwNjc3MzgzNDFkZjRhMTFmODIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_cd95aa75d8f1442cbe0b38032b084e48",
+      "statement": "Playback rate and sort order are persisted in localStorage with failures ignored, and audio starts muted.",
+      "evidence": [
+        {
+          "resource": "repo://web/src/app/state.ts#L257-L273",
+          "version": "repo-lines-v1:sha256:8a41dc7402ff0ce25493abf09156f715c0eacfce5d291163569ec5e99ff67953:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFlMGZkNWRhMTY3NzE3NTE2NzhiMWYxMTAxNzY0ZTYzNjJhZjc0N2FjMGU2OTBiOTc4YWUxYWE0MDUzYzMyNWIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQ2YTFiOTA2OGI4ZTdhOGI0YWZkZWM1YjE0ZjcxMzE0OWExMTBmZTgwNjU2NTZiNGE2MTBiNWM2NjUwMDYwNWIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjE5ODQxMWYzMzI4NjRmYTA4ZWRhZmRmZTIxYTM0NDY5OWU2OGNiMmFmMzA2MDcxNjg0MTM2YmZjOTJmODgwY2YifQ"
+        },
+        {
+          "resource": "repo://web/src/app/state.ts#L53-L103",
+          "version": "repo-lines-v1:sha256:ecff9a0f3e08325ad53aaff2c6082260ae8a1b587080dd40459233f92945f739:eyJzZWxlY3RlZExpbmVDb3VudCI6NTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFkZmZjNGU2Mjg5YTY2YWQ3NTQ4M2UyMTlkYzQ0ZjcyM2JkZjVjNzJhNDE4YzdjYjE4NDRmOTI2NDQxNDUyOWYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg1ODBiNzY1MThkYWU5NzlmYWViZDAyMzY3YTI5MjkyYTUwZDk3NjA5MjI1MWEzOGE2Y2UzMDg4MGJhNDI4MjUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImRlNmI0MDNmZjFjMzYzODJkMTdiNGVhYjA1YTNkMDc2ODQzZjNlN2M2YTA2NzJlMmMzMjgxNjUwMDg5NWViOTQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImNlZDliMGZmMTgzOWVhZDI1ZmQ3OTYxOWViZGUzZTgyMzVlZmE3ZTU3NjAxOGY1MzhmZGQ5OWZiMDE4MWJlNGQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_533fc488619c4bf48df16c2d2eb903bb",
+      "statement": "loadDay fetches all cameras' clips for the camera-local day, aborting earlier loads; quiet refreshes never override a day the user picked; the playhead keeps its time of day or moves to the nearest clip, never past now.",
+      "evidence": [
+        {
+          "resource": "repo://web/src/app/state.ts#L318-L367",
+          "version": "repo-lines-v1:sha256:0aee49c219cb54b94341b5745a18efd01d7801ff290002ae1c4c503cb8836d70:eyJzZWxlY3RlZExpbmVDb3VudCI6NTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImM2NzY0NWFlN2I1YTczYTQ4NTVkZjFmM2UxNzliZGFlYmZlZDA3MDJiOTU1NDg1YjlmNDc0NDAyMDNlMjY5ZGEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUyY2JhMDU2NzE0M2Y2N2ZkNGJkOTY1MjVjN2Q5NzY1NzY2ODA0ODNjYjg4Zjg4YmU2ZWFlN2YwYjk5NDc3ZDgifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_b569b8b8a5ba46938ef1f1aacdfdc5e1",
+      "statement": "Boot falls back to the status page when the API returns 503, there are no cameras, or no clips are indexed, and otherwise starts on the URL's t/cam or the camera with the newest clip.",
+      "evidence": [
+        {
+          "resource": "repo://web/src/app/state.ts#L388-L427",
+          "version": "repo-lines-v1:sha256:8fb8304e47b05508074c4e2e2f38e433819aca91973f8d9312b187c3d42d482d:eyJzZWxlY3RlZExpbmVDb3VudCI6NDAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNjMjM3OTM4NDQyZmExOWU4NjkxOWJlZWNmMmEzYTkzOGJlMDI0ZjlhNDJjNDk3ZGMwNWZiODVmNDcyODU5ZmEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImVmYjE1NGFiMjVmZTljNWE0ZTIzYmRkZTAxZGI5YWQ3MDcwOTVmOTE1N2I4M2E4N2I2YTY4NTE3M2IzZGFjMzIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjAwYjg5ZDliY2I2YjU0MDc5NTVhOWYzNDdjYTlhZmE2OTQ2MTFlZDNkMGNjNmVmZGZmNzUwYjllODU0Mzk5MDIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_9efc55530dc540c2bf9cd159c2c33424",
+      "statement": "The URL is kept in sync with ?cam=&t= every 2 seconds and today's clips and the day list are refreshed every 30 seconds.",
+      "evidence": [
+        {
+          "resource": "repo://web/src/App.tsx#L217-L218",
+          "version": "repo-lines-v1:sha256:ab9f7804b795c16403799634cbf0b99e80ac52d1167c7f8e14c8f58d4f833054:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZmVhNDgwN2ZkZmZjNmQ0ZTA2YzRlMWI3MjQ1ZjE3ODJiNWNkZmE1MzRlNWY0Nzg5ODE2M2ZkODcwNzc1Y2U3YiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjU2MTk0ZDM4MjcwNzgyOTA5MmJlOGZjZGE3MjJlNWNjNDRkODhhZGVhMWQ3MGYyZjIxNzhjZGU3OThjNWY3ZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMGZiMGM3YzA4NWY4ZmE4YmZhMDk2N2Q5ZWUwOTE4MzMyNGNkZGQxMDk5YmEzNWQ5ZDUyZTAyNjE2MTI2Yjc3NyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTI5MTVlYzUwNmEzNzc4YzU1ZTE4ODk5N2IyMWM2ZGMzOTY1NjIxY2Y3OGY5N2Q3ZmVlNDEyNGY2Njc4OWY1MiJ9"
+        },
+        {
+          "resource": "repo://web/src/app/state.ts#L375-L386",
+          "version": "repo-lines-v1:sha256:43942c928f0955a2d98785e145066a456cafbd16c8bf60d722fb248ef42a0e86:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNiZmRjYmM4MmU3YTA2YTVkNDE3NTAyZWJlMWI2Mjg1ZjdiMmRkOWZhYzc0OTRlNDY5M2QyZWM4ZmQ0YWNhYTgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA3M2M2NjE2YzU4MDIwOWZmNDJhNTM5YjFlMTg3YWQ2NzA1ODUwNjM4ZmFhOGU3N2Q3YzJkM2MzNTM3NWRkZWIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjAyYzZiYzE4NmU3NjRkOWM2M2MwYjRlOGJlYjMzZjc0NWVlNTVmMDQzZDI0YWFhZDMxZDY4MjVmZDZhYjNlMGUifQ"
+        },
+        {
+          "resource": "repo://web/src/app/state.ts#L429-L439",
+          "version": "repo-lines-v1:sha256:6218697682174ab282fb26e4920a551eb97790242b52694c6330a5cd9cd13701:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZmN2Y5MjkzYWMwOGVmMmIzZjQ4YjQ0NzI5YTQyMjUwYmY0MjVmZWM0YTkxMDFjODA1NDcwNDZjYzY3YTdlZTUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjVjNTZiOWQ0YzM5M2NiZjMzMTQzNDQxZjYyY2QwMThkMDhjYjQyNmNhYmM1YjhiMTUzNTVjYWIwOGYwZjkyZTEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_544400d594054ec5b62fe405f7350fba",
+      "statement": "Day boundaries and labels use the camera time zone via Intl.DateTimeFormat, producing 23 or 25 hour days across DST.",
+      "evidence": [
+        {
+          "resource": "repo://web/src/lib/time.ts#L1-L57",
+          "version": "repo-lines-v1:sha256:5651e5466d0b0f512f0cd5c1fd3f267ae267c69cdaca179fa97ab68135a89570:eyJzZWxlY3RlZExpbmVDb3VudCI6NTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZlMjUxOWQwMmI2NGRiYzQyYjVjZWRlY2JiMzcyOGQ3MDUwYzhiOWM1YmQyOTYwNjYxNTZmODY5NzkwYWY2NzUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjNkYzZhMGNjYjE2YWM0M2VmYzA1NzEyYmYzODYwYWZiOWZjOGU5ZmJlMjhmNTZmY2RlZWNlNDMyMjU3YmRiZDYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_5c2fb3aa55e947da89bc224bdf535fea",
+      "statement": "The playback engine drives two video elements outside React: it swaps to a slot already holding the clip under the playhead, and preloads the next clip into the other slot when less than 12 seconds remain.",
+      "evidence": [
+        {
+          "resource": "repo://web/src/app/engine.ts#L146-L163",
+          "version": "repo-lines-v1:sha256:0772c1b51cf7f2763ce6a6648ffcddea681085e8f9012a1664b35efc40c4b630:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImEzMDFlZjlhMDc5Njg0ZTNjNmM2M2M5M2Y2ZjEyNjBkNDRlMDBjODliNzkyMzZkNDI2YWQ0NWRhMDUxOGE5MDciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjIzMGI5ZTY2NWM1MDY5NjQyMjAwNDdkYTg4ZmFiNzJmY2UwZWFmMTJmYWQ2MDMzZDQzOTlhZThlYjM0OTJhYmUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQzN2UxOTExODM1YWZmNjlhMjFlNzBiMGE4N2EzNjYxNTkwZDBmM2ZhMzdhZDZjMWJmMDA0NWE4ZDBmZjI2NDIifQ"
+        },
+        {
+          "resource": "repo://web/src/app/engine.ts#L6-L16",
+          "version": "repo-lines-v1:sha256:f8d177c5b2cb7e9c049ec5cf6a77d68b9d2e2a2dd94f5d813120aeba8ef754b3:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU5MDNjMGJjMTVjNzgwYThjMzg1ZmU1YjBlNWRkZGIyMGM1MDhiMmIxYWZjZmM0ZWZkN2QwN2M1MWZkYTg4M2MiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjEzNDQyN2NjY2QzOTFmMjA4NTAyNWVmNzljZTNjYWQ2NGM4ZTNjN2QzNzJmNDhlNzZjNzdhNjlkZTRmYzhiY2UiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjNhZWE3NjA3ODhmMTc0ODE1ZGNjYjI1ZjY0MzIwNWVmNmUwODY2ZGM4MDA2YWQ5ODFjZjAyNjZmNmYyZTEzODEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImMwNWU5ZjgyMjA3YzQ0MjMxNTczNmNiMjBmMTk1NzllMjE0NjhkNWJhMWVkMDFlMzM5MTU1YjYxODFhOTM1NDcifQ"
+        },
+        {
+          "resource": "repo://web/src/app/engine.ts#L91-L107",
+          "version": "repo-lines-v1:sha256:fa8a2bb906b567763b38f2350694e9abbccbe312f50844391b79d40c08db2667:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJmYzY0N2YxZjc3OTFmNGMzZjY5NmFjZTE3MTRjZjBlOTJkNzIyMDgzOWE2OWZlZmY1NDhlYTYxNTZkNDNmMWEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjMyZWU0MWNlMmM2M2ZkNzFlMWJlYmM5MGYwMjJkZDlhZjAwNTkyYjk5M2RjMDM3ZTczOTk2YWZlNmU1NDliMzQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjRmMzdiMzQ3NmQ4MzlhYTM5YWJiYmQyNjJlMDcwZDc3NDgxMTRiNjE4NDdhN2YzMzRkY2I0ZjMyNzE2NGJkN2YifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_85f701b9a3ff4a34a70c23a89505f3dc",
+      "statement": "While scrubbing, the engine seeks a clip that is already loaded but shows the thumbnail (preview) for clips that aren't, avoiding network loads during drags.",
+      "evidence": [
+        {
+          "resource": "repo://web/src/app/engine.ts#L109-L124",
+          "version": "repo-lines-v1:sha256:5b74b6aee696e09a4cfdec546bead335c7037098cc5b1010ab55a1f7b3d3c22e:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImYyYTg5MGU2ZmFhOTQ1OTJmZWJiOTNjYTY0ZDNkODcyMzc3YWI5ODViNTgzMmFkNjc0ZWViZWQ5NTg1ZjkwNTEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjgwNWEyNDUyZjEyYWQxOTMwMzY4NjJlNmUyODZlOTQ2MjI4MzEzNDIzMzA1NGZiOGJhMmRiZTQ4Nzk4Zjc1NWEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImNmMDMwNzg5ZDc0YWM4MjZmOTgxYTY1YjlhMDVkOTkyN2E3MzZiZmI2MDcyZjdmNjBjYjdmN2JlYjIzZmM1ZmEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_a34372f695b04643b7c5d8b946fa30bb",
+      "statement": "If autoplay with sound is blocked the engine mutes and retries; a failed active clip toasts an error and continues with the next clip, while preload failures are ignored.",
+      "evidence": [
+        {
+          "resource": "repo://web/src/app/engine.ts#L126-L144",
+          "version": "repo-lines-v1:sha256:793940dd8bc4e8b1c066c950c98be06d7a5d9c3861f4142d9fad8271d0d835b7:eyJzZWxlY3RlZExpbmVDb3VudCI6MTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZiNTlhYmIwM2RlOGE1YTk0MDkyNTRhNTRhODYwNDcyM2IwMTkxYzNlYzBlNTVkNjRjZmNkNjIwMDE5NjM5ZTkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjgwNWEyNDUyZjEyYWQxOTMwMzY4NjJlNmUyODZlOTQ2MjI4MzEzNDIzMzA1NGZiOGJhMmRiZTQ4Nzk4Zjc1NWEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjIxMWFhZWMxYTNlMWE4NDg1ZGE2MzczN2MwYThmYjdhNjcyZmU1ZDEyODY1NDBiMWQ5N2QxNjcwZDlmOGUwN2QifQ"
+        },
+        {
+          "resource": "repo://web/src/app/engine.ts#L170-L178",
+          "version": "repo-lines-v1:sha256:ecc2e75a7c4a50b882388a20ea0a19e696f0d2043d13ebeab4ad4951f059f890:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDRhZDdkYWE4YTM0OTYzZDg5ZjExM2VmYWExMmQwYWU5ODMwZmI2MDU5OWIzNDM1YjQzNmY5ODM3N2NlMjhiYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjdlNTc4OGQ1ZDlkNzNkMjRhODFkYmMwYTVhNzRiZmE4MmM5YzNiM2FmOTllNTJhZjc5NmU5MGI0NjhhOGEzZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNTQ1NTdlOTUwYTcxODNkNTcyNTNjYjA5MDI2NmU4OWVlM2I0NGYxNDM3M2MwMGZlMDgyMTk1MzMzMjM3MTBiOSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjEsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_48ad6bb8eb7043e188d287ef1460a83a",
+      "statement": "The app shell checks /api/auth, shows sign-in or the player, routes #/settings and #/status by hash, and returns to sign-in on the nvr:signed-out event.",
+      "evidence": [
+        {
+          "resource": "repo://web/src/App.tsx#L47-L115",
+          "version": "repo-lines-v1:sha256:ed4abc62949097f0469f3306a1bb1435d9e889e0fd3a8a95cfcaf0e5b2df56df:eyJzZWxlY3RlZExpbmVDb3VudCI6NjksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI4NTcxMjhiMjU2NzBhMDE1OTY1NDliYzRkNmM2YmI2Y2QyMmNhM2I4Mjk1NjZiMTRlZWJjZmUyMWQwNDY4ZDciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc4ZTFmNTE0NGNkZTQ5OWQ0Njc2YTUzN2ZlOTI0MzEyYzc1YmNlNzU2MTI0ZTBmMDVlODI1OWVkOTY5NTFmZTgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjRhOWQzMTc3Mjk5ZDAzNDRlOTA0OTdlYmMzMTc3ZjJhN2Q1ZGJkNzBmOGY2YjkyZmYzNjVlODU0NDI1ZjM2YWMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjdiYjBjNmE1M2I0MWM2NDZkY2M4ODJmZjQ1OWMyNWIzZDFkNTdjMjcyYWJkZWJmZWZjOTk5YTE5YTRhYTlhZGIifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.7.2",
+    "at": "2026-11-08T01:57:23.266Z"
+  }
+}

@@ -1,0 +1,108 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:b22ccf83ebf2eac4cbf1f795e02c8a7e9d9461a20f20bc181512e029abc630cf",
+  "claims": [
+    {
+      "id": "claim_f3d8354b07734247b041fc1c4f1d2a8c",
+      "statement": "The store is always opened at startup because sign-in needs it even when no WebDAV server is configured.",
+      "evidence": [
+        {
+          "resource": "repo://cmd/nvr/main.go#L102-L107",
+          "version": "repo-lines-v1:sha256:d165b59e4059c1e85e4d247cdb4ebaca1fffbe6a0583eecd9b13897af40c79e0:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiN2E1MWUxNTc5YTAyZGVjMWZhMjYwNmE5YzY3NDYyZDUxZjEyN2Q5ZDdiYWE3NDcwMjI3YTlmZTc3ZGJlMzBhYiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNTFmZjBjZmY1N2RhZDgzOWMyNjg3OTIxZmQ3OWQ1ODEzM2NjMjQ2YWUwOGMxNzZiOWEzZWZjYjVkNmQ2MjEwNCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOGQ3NWQ2MmI5NjMyZjk4NTIxZDYwM2M2ZDllYTkxODRiNWZjYWQ5YzdhOGY4ZDIwN2RhNTBkZTlmMDE3YzRjYiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNTEwMTk2NjI1YTE4MzRlMWIyMGNiOTVjMDBhYjRiNjFmY2YwYjRkYWI2MTIxZTkyNDk1NTFmYWEwZmNkZjNhZSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_045331bb90b94b0f9a6e187d14ab06b6",
+      "statement": "In password mode startup bootstraps the admin user and logs its generated password once; a goroutine prunes expired sessions hourly.",
+      "evidence": [
+        {
+          "resource": "repo://cmd/nvr/main.go#L109-L125",
+          "version": "repo-lines-v1:sha256:2f0cb3957e9179a18b11580dc6ad303a88fe23cef819337dcc487fb3bb9a08a4:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFkZTI5YTRhMjJkY2U3NGYzN2JjZmEyOTM5ODBlZmQ0OGJjMjYzNjZiMGZmZTJkMDI0ZTdmYTQ5NDliYzkwYjIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFhYjI3YTRlNjgxYzE4OWIxNGMyNWU5Y2UyM2IzNzJmOGJiZTg2OTE0MTQ3YzJmOTExYWZmMGIzNTFjYmY2NjMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA0NjI4YTEwOTJkNzc5NGVkZDMyMzg3MjFjNzE5NGQzNWMyZTllNTkwOGI5ZjY3YTdjYjk4NzU1YmY5ZTIxMWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjAwZGM3OTQxODc0MmNmZTdhMzk0MzllNmI1NzYzMmFmYjg4YzYzYTMwZTk1YjNlMjQ1Yjk3MzI3OWI0ZjY3OGYifQ"
+        },
+        {
+          "resource": "repo://cmd/nvr/main.go#L201-L215",
+          "version": "repo-lines-v1:sha256:38c01965548d263bbf322ec8daacd31a441ba180997777bd5f488f8ae7c948b5:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjE5MjY2NGM1YjczMDYwOGNkMTk4NGFhNzNlNjdlNmFjNDQxNzY2MWZkZTljOTcxMDY2ZmIzYTdjNjdiYjI3ZTIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImU1N2QzMTBlZTg3NWJiMGM2MDFkM2Y2YThhYjA5NDlkY2UwYTZjODZjMjI4YTMzNDhiNWE5ODhhMGEyYjcwZTYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImEyNzI5MmYyOTlmODQwZjhkZWY4ZDE0MWMyMzY5N2FlMmRkMGJmNmIxMWQzNmEyYzU3MTBhNTA0ODI0ZmVhZGEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_08d936ce14b24c58a0f539c2cf8d7341",
+      "statement": "The index, ingester, signer, thumbnail maker and source check are only built when WEBDAV_URL is configured; an unknown CAMERA_PROFILE is fatal.",
+      "evidence": [
+        {
+          "resource": "repo://cmd/nvr/main.go#L127-L160",
+          "version": "repo-lines-v1:sha256:6acdf4e463d1401721a55bf78e82beca35fcd791f382716a87e5e0cc39faec6a:eyJzZWxlY3RlZExpbmVDb3VudCI6MzQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZiZjgzNTdmNDgyMmNmNzRlNjMzYTdiM2JjMTgxMTliNmMzZDJhZjQwYjE0ODIwZWFmNzVmN2IxMDFkNjZkNjkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY3Y2RhODJkYTYwNjIzOGUwNWU2MjM5OTU2OWM1ZWUwMzk5MzQxOTY0OGFlNWQ0M2EyYmY4Y2Q2MzQ3ZjgyNjMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE5YWU1NzExNTY2YzgwNmFjMWJlYzU0ZWNlYzJhMzQyZjNjNGQzNDRiYjAwMDc1ZjU0M2JlNDA0MzFmZTE1ZWQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjZhZDBkMjY2Y2NmZmQ3MDQzZjg0ZmVjZGM1ZmZjODkyMWExMzc1YjkwNzkwZTQ0OTk1YzYxNzdmYzg1ZWMzZTIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_4d484c222946400e9789016283ab4c0d",
+      "statement": "The ingester's FrameURL points ffmpeg at the loopback /internal/raw route on the bound port with a 10-minute signed token.",
+      "evidence": [
+        {
+          "resource": "repo://cmd/nvr/main.go#L139-L151",
+          "version": "repo-lines-v1:sha256:45122fe746189d40c1991cea6e6cc88fb039a67d3a3b5bd6caa6c931f725469d:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhhY2IyMjg3MzY3ZWIxOTJkN2RmODIxOTczMjYwN2FmMTczZTliZDhkZGI3ZGUyZDIyYzk5Y2NhZTEzMTRiNzMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU3ZTFjN2VhM2M3MDYyNDk5ZTcyMzQ1N2UzZTA2MzAyMmEzM2MwOWEwMDhlZGU3OGRhMmU4NTBhMGIwOWRjMjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjZkYzdjYzdjNzIxMGI2MjNjNzJmZDRkZmQ3MzEwMzliZGMxMzY3MmQyODI3YWI0NzY0NDJjZDFiYTIyNmU0M2YiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjNiNjU5MGFjNDZkYWZiZDY0ZGJlY2IyNDYzZjc3OTIxYmQyYTIwOTIzNTY4M2FhNjEzYzk2OWNiYmM2MTVhNmEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_b3101e110b9a4bfea573d80502e36187",
+      "statement": "After the HTTP server starts, a goroutine runs one WebDAV connection check and then runs the ingester; shutdown gives HTTP 15 seconds and then waits for ingest to stop.",
+      "evidence": [
+        {
+          "resource": "repo://cmd/nvr/main.go#L162-L199",
+          "version": "repo-lines-v1:sha256:f194931f6da0bffadeb7531c15297b66c5a1733959894d9b14f1fec463a83018:eyJzZWxlY3RlZExpbmVDb3VudCI6MzgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ1OTNkNjllY2QwMGZhMTA1ZjQ1YmE1NTk4ZjUwMzlhMjFmZjliNTI3OWI0MWFjYmFjYTUyNDU5M2FkYmE4MmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjlhNDhhMWNmYThiZjY2NjNiZTBmYWYwZmFmNzE5MDZkMDViOGFhZWFkODMwNjM1YjBjNDNiMDgyYmYxNTAyOGYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjViNmQzNTdmZmVhODY2MjI4NDY0NWE0NDViNmIxZTM2ZjM1MjQzOGNhNTgwODAwMjM2MmIzYzI0YWZjM2IyNjIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_f8dbc12a7e3944638d6d8ba00b8be97c",
+      "statement": "Startup checks the port is free on IPv4 because macOS allows binding the IPv6 side while another program holds IPv4, making localhost reach the wrong program.",
+      "evidence": [
+        {
+          "resource": "repo://cmd/nvr/main.go#L217-L230",
+          "version": "repo-lines-v1:sha256:7a5ead2858f26a7b1c12786fa89643b7f2a2fed04b047443ff6a470505de8ed6:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjMwODEyYzQ0MzZjZTk5YzMzNjYwYzNhZDlmZTE4NTRjMTNkMjEwODY4OWNjZmY2OGQ1YjUxZTY5ZDdkM2Q2NTMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImYyOTY0MDc5YzNjNWM4MTUyMGVmMzNhMmI5ZDJlMTVhMWI4NGQ3MjgwZGI4NTkwZGNkNjU3NDdlM2UwMTJhNDAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjIwNDE5YTBlZGIzNDkwNmViZWUxODRkM2Q4ZWY2YjhlZGJkNDBmYWJmOWM4MzMzYWYzZGUxYzY5YzI5NGIwZGIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_6896de11a21142a987e04695da06b738",
+      "statement": "nvr reset-password prints a new password for a user (default admin), signs out their sessions, and only works with AUTH=password.",
+      "evidence": [
+        {
+          "resource": "repo://cmd/nvr/main.go#L52-L79",
+          "version": "repo-lines-v1:sha256:0b63eb8e0a07d92f1eb003d15639ec7abbe4b540235c280928c6893c87df6dc6:eyJzZWxlY3RlZExpbmVDb3VudCI6MjgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFiZWMxMzM4YjMyNGExNDRhMTAxNmJhYmI1ZTg3ZWY2MDRlOTAxYjdjN2M3NjdmNTE3YjhkNWNiNmUzYjgwOTAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImYyOTY0MDc5YzNjNWM4MTUyMGVmMzNhMmI5ZDJlMTVhMWI4NGQ3MjgwZGI4NTkwZGNkNjU3NDdlM2UwMTJhNDAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjBjOTFkMjBjZGIwYzdkMWVmNzU0ZDgzY2U2ZjhhOGU0MmRjZDhhYjUwNjdmNzdkYjAzNTVmOWY3MjYzYzk3OGUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_14c2ec98613c413fa663ffea08c620c4",
+      "statement": "The web UI is embedded with go:embed all:dist; dist always contains README.md so the embed compiles before the UI is built.",
+      "evidence": [
+        {
+          "resource": "repo://internal/webui/embed.go",
+          "version": "repo-file-v1:sha256:f3474a3689afc57d8738f68289f4ba3d9d6c5f1c6d221523703dc5bf5ff4b6ca"
+        }
+      ]
+    },
+    {
+      "id": "claim_bc4f28e24093445d9e50cbacb2a8854b",
+      "statement": "Clip and snapshot rows double as the work queue with one in-process dispatcher, so only one replica per database is supported.",
+      "evidence": [
+        {
+          "resource": "repo://docs/design-decisions.md#L17-L17",
+          "version": "repo-lines-v1:sha256:1296637670e7e6d5cd71597e24557814b76a8da703f9d426c27de2dff7c6c494:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMTI5NjYzNzY3MGU3ZTZkNWNkNzE1OTdlMjQ1NTc4MTRiNzZhOGRhNzAzZjlkNDI2YzI3ZGUyZGZmN2M2YzQ5NCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMTI5NjYzNzY3MGU3ZTZkNWNkNzE1OTdlMjQ1NTc4MTRiNzZhOGRhNzAzZjlkNDI2YzI3ZGUyZGZmN2M2YzQ5NCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMzMwMTVlM2M5ZjJmN2FhMjcxZGE4ZWFiYjQzOGM3YmNlMzA4MzFjNWZlYzRlM2I0N2UwOWY0ZWUzMTJmMGRlZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZDg4YjI0MWNkOWEwYmQwNzE3MjdjMjI2MTk2NDc3OTk3NTU5YWM0OTU3NDNlNjFlNzI4ZTAxYzgxZmRjOWQyOSJ9"
+        },
+        {
+          "resource": "repo://internal/ingest/ingest.go#L1-L8",
+          "version": "repo-lines-v1:sha256:7dce1b0a7c5a294c4f489228f73143c776024fc3df46a0e3cb4551eedf69fc45:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZGVkODg2YjFkN2Q1ZDhkMTViZjAzYWM0MmRiZDVmMmM5OGM4YWNjNjZkZjA3Y2UzOWFkMjY3Y2Q0MWY0NjYwYyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNTMzNjFhNGI0M2E3ZjVmODgzMGU0MTFkYWRkNmU1NjhmNGU3MDg0ODkxNzFjODVmMmEwN2VjYzFjZmZlNDQwMSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzJjOTRkNmVjOTQ2NjFjNjY2NTY5ZmJmMzJjMTE3YmQxZWUwNjU1MTRiZjUyN2JmNGM3OWZlOWM2N2I2OGRmNiJ9"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.7.2",
+    "at": "2026-11-08T01:57:23.266Z"
+  }
+}

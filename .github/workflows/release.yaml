@@ -13,7 +13,6 @@ on:
       - charts/**
       - release-please-config.chart.json
       - .release-please-manifest.chart.json
-      - .github/workflows/chart-ci.yaml
       - .github/workflows/chart-release.yaml
 
 permissions:
@@ -27,7 +26,7 @@ concurrency:
 
 jobs:
   release-please:
-    runs-on: self-hosted-hause
+    runs-on: ubuntu-latest
     outputs:
       release_created: ${{ steps.release.outputs.release_created }}
       tag_name: ${{ steps.release.outputs.tag_name }}
@@ -43,7 +42,7 @@ jobs:
   image:
     needs: release-please
     if: needs.release-please.outputs.release_created == 'true'
-    runs-on: self-hosted-hause
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
         with:

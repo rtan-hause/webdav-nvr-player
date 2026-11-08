@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:c5f7ad0fc17e823d40a60d684fa5dcb5f6a30d9b131a63a6d84e5cbeff35c42a",
+  "claims": [
+    {
+      "id": "claim_a2eab25567cf4bb696f544dd9a0e3b8e",
+      "statement": "The Dockerfile builds the frontend and cross-compiles a static CGO-free Go binary on the build platform, then runs it on Alpine with ffmpeg, tzdata and CA certificates as non-root user nvr (uid 1000).",
+      "evidence": [
+        {
+          "resource": "repo://Dockerfile",
+          "version": "repo-file-v1:sha256:598a879bd012bf4a7992573b32bfa9d0f42068be9ccea9f9aec7354b4f0663a8"
+        }
+      ]
+    },
+    {
+      "id": "claim_02c2e146606141f3bc0844d1ecec359c",
+      "statement": "The image sets DATA_DIR=/data and PORT=8080, declares /data as a volume, and health-checks /healthz.",
+      "evidence": [
+        {
+          "resource": "repo://Dockerfile",
+          "version": "repo-file-v1:sha256:598a879bd012bf4a7992573b32bfa9d0f42068be9ccea9f9aec7354b4f0663a8"
+        }
+      ]
+    },
+    {
+      "id": "claim_ca52016dd30549a9ac3e950d3e7a3ca7",
+      "statement": "The Helm deployment runs exactly one replica with the Recreate strategy because the SQLite index is on a ReadWriteOnce volume and the indexing queue is in-process.",
+      "evidence": [
+        {
+          "resource": "repo://charts/webdav-nvr-player/templates/deployment.yaml#L9-L14",
+          "version": "repo-lines-v1:sha256:ec25198d7ddab02d9f37bbea822bf80ee14be6cc9e25877d44e1a5d0f616d03b:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWU5MWU1MWNlNTM4ZWYxMjBlZTIwY2JkZjk0MTU4YmFjZTFjYzExNzkwNmY4NjRmZWQyZDk0ZTM3MTEwY2IyNiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNzlhY2Q5YTI4YzVlNWE2NGU3MTJmNDc5NmUyNTBmMzMyYmM5M2Q4MjQ1OGY0OWJkMGI2NWY0MGUyMjE5MzZlNSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYjMyMWE4NGQ5Y2QwZDE4NWRjNThkZDY5MmVjMjhkYzM0OGI0M2UyZDRjYzYxMzBkODkxZWM4NjdlZTM1OTNjYyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZWY3N2FlYTgzMjcwNjcwOTkyOTJkNTlhYTdlNDBkMWJlYjZmOTdhYjYyOTQzYmJmN2MzODQ3YWMyOGM2ZDY2ZCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_c5577496b87e47ad8db3936cbdaf57c0",
+      "statement": "The pod template carries a checksum of the chart-generated secret data so secret changes roll the pod.",
+      "evidence": [
+        {
+          "resource": "repo://charts/webdav-nvr-player/templates/deployment.yaml#L18-L24",
+          "version": "repo-lines-v1:sha256:d47789841ac588030e7d86333982947331e323ca62ac97f20fba7910ed6ee728:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNDIzZjU0MzE1NDdlODEyYzZlMjQ3ZmQwYzU5OWI1NmI5ODY5N2Y3YjA1YzcxOWM4YzdiZjY2YjU4YmE3MGJkZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiY2U0MWY2ZDgzZDlmYTgwYWIyNDFhZWRmNTRhOTIyNjcyOGQxMmFlMjMwM2YwZDUzNjA4NGRjYmQ0MWQ3YmFhOCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZWY3N2FlYTgzMjcwNjcwOTkyOTJkNTlhYTdlNDBkMWJlYjZmOTdhYjYyOTQzYmJmN2MzODQ3YWMyOGM2ZDY2ZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNzJkNTVmOGQ1ZGU5ODc2MDMwZDllOTFkZmJkMTFiYzJlNGRjMGY4YzdlN2MzNjk4NDdiZjFlNWJkZTdlYWJmMyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_aff46f2bb6304c3ca278979748684f91",
+      "statement": "Chart values map to the app's environment variables, with WebDAV, ingest, OIDC and database secrets taken either from a chart-created Secret or an existing Secret.",
+      "evidence": [
+        {
+          "resource": "repo://charts/webdav-nvr-player/templates/deployment.yaml#L52-L149",
+          "version": "repo-lines-v1:sha256:e16a466a323ccb400f52423d9c2b9e04f07ba5a8e0b650b2589700d0eb81d54f:eyJzZWxlY3RlZExpbmVDb3VudCI6OTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM1MmE1ODdlNGFjNTdhYjE2NmVlMTJjYTFiNTA4ZjQ2NzY0OWQ1Y2M0ZGQ2YWYzNWI4MzhkOTNhNTJmYmEzZGIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY4MGQ3MzYyMmE5NWZiNGJjODkzYTNhYWIwYjNkNzY0ODY5ZGY5OGM0ZDQxNTFjN2RhMWRiM2NiNzMyMmFmNDkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjNjZTY5YjgyZmZmZDAyNTE2NzU2ZWZhYzFkOWU3YjNmNzFlYTU2ZGZlNTQwYTI3Njc4NmQyYmM4MjYxOTI5MGYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjY2ZDk3YzFkZGY0OTViNDAyZjZlMzRlODdmYTA4MzIzMTE4ODkwM2Q3ODliOWQyOGRiZjJiNWNhNjQ4MTU0MDgifQ"
+        },
+        {
+          "resource": "repo://charts/webdav-nvr-player/values.yaml#L13-L92",
+          "version": "repo-lines-v1:sha256:5dfc1fd0a30292759d66936c557f6254d90115ce12adb0292c01583e7c68dfe7:eyJzZWxlY3RlZExpbmVDb3VudCI6ODAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM5MjJkYTI5ZDY2Y2M3MmM4MjA2ZTE4OTRjMTA2YzE4ODRkODhlOGM1NTQzYTM1ZDY0ZmIyMWQxN2JjMTVmY2IiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjcwZTVjOTUzNDU1NmY5ZWU1OGZmNjlkYTZjNWNjMmE4MzRmMzk2ZWY1OGQzNjVmYjJkNWUwNDViYmZkMGY0MDYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk4YmYwZTI5YTljZGQxN2JlNWU2ZjJlZmU4MTM3MzdhNTJkMDJkNmQ1NzI1YTYzMTFkNWMxNzQyMmU2YjM5YWEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk4Nzg2MjY5NmVjNTJkYjY4MTljZDZjNzA1NGJmZGJkODI0NTJkYTMyNWE4ZTE0NDUzNmI4NjM0OTYzY2Q2NjQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_918c519d7cbf4260a62097442ce610e3",
+      "statement": "Startup, liveness and readiness probes all use /healthz, and the pod mounts a /tmp emptyDir alongside the /data volume to support a read-only root filesystem.",
+      "evidence": [
+        {
+          "resource": "repo://charts/webdav-nvr-player/templates/deployment.yaml#L150-L184",
+          "version": "repo-lines-v1:sha256:5ed16d2632a5504866a280c3ff1dd65093ab61f86af1a26c98f658ef47af3853:eyJzZWxlY3RlZExpbmVDb3VudCI6MzUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImIwM2NmOTNhMWY0MWVkMzQ0M2I0ZTdlNjBkMmJmYjMxZDk1ZjdhYTkxMmQzNDg5ZDI3Yzc5ZmYzZWViNWQ2MWEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZhNWY5YzA4OTg2MDg3MGZiYzJjMjYyZDZlMDExYjMzODQ1ZWRhOTEzM2Q3NTk1NWE5ZDBjYjkwMTFjMmI2MDEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImVjYmY1MjZkNGQzYWY0NDFlZjc1YzBkOTJiYTdmNmIwNmQ0Y2YxOTI3NmEyZTRiZGNiNmIyNGUwNjAyMTBlNTgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjIwZGY0NjQwNjlhNTdjNDZiZjJjM2U2MTc5NzY1MzcyNWZiOGU0NDk5MGUxNTMzNzczYjIwNDJjY2FjZTFmMmUifQ"
+        },
+        {
+          "resource": "repo://charts/webdav-nvr-player/values.yaml#L129-L142",
+          "version": "repo-lines-v1:sha256:638f10f7f80353727b72b7c60e3e43fee3af14838450f07c82bf5e60c0a76e4c:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBmNjQxYjI0NmJmZjVkMmU4YWYyNDEyYjUyMjRmZTFlYmVlZjY5MWQ2ODg1OTdhOThmZTBiODExNGRmMzllZmMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY2OTQyODFjMTBlZjBjNGRjYzc2YjhkZDU2MTI0ZjY3M2ViZmZjMTAyOGI5MzM3Zjc1NmU3MjVkZmM4NjQ1YmEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjI2MTY1YmYxYTFhMTU1NmFiZjQ0ZjEzZmE5NjhkMjBkNmE1NDllMTY3OWQ0OTNkYTNmNTA4MDBmZWE4ZDYyMTgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjY1M2RmNjQ5NTBmNTk3YWU2ZjI5N2U4ZTlmMDc3NjZiMDc1MDNlNTU4NWUwYWNhOWFiZTQwNDNkM2ViY2Q2MzQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_d6ac54760aba4dd0ac9ce8f8d292c1f9",
+      "statement": "The chart-created PVC is annotated helm.sh/resource-policy: keep so the index and thumbnails survive uninstall.",
+      "evidence": [
+        {
+          "resource": "repo://charts/webdav-nvr-player/templates/pvc.yaml",
+          "version": "repo-file-v1:sha256:41d95f93ba7bd0f54314ee254f13eaba4fb1e5e79e0efefc986478f7a1e5f24d"
+        }
+      ]
+    },
+    {
+      "id": "claim_0fecb68d51af4062ac228526c17393e1",
+      "statement": "The chart's validation fails rendering for an invalid auth mode, incomplete OIDC settings, a WebDAV URL without credentials, or a webhook secret shorter than 16 characters.",
+      "evidence": [
+        {
+          "resource": "repo://charts/webdav-nvr-player/templates/_helpers.tpl#L55-L73",
+          "version": "repo-lines-v1:sha256:154cdf741fa5d40fee7afce4a170855cbee2722a991437d54892491c695d2770:eyJzZWxlY3RlZExpbmVDb3VudCI6MTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU5MDM2NWZjMmRmZjY4MzU5ZTJkNTY3NWE2YTU1OWUxZjYzYmYzMWFjNGUzMzdjMTYwZGIwNzI1NTc2NDM1ZjYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJjM2VkZjJlYzRlOGRiYWVjYTg5OTJmYmMwMWE3NzdiNmQ5NTFlMTYzZDEzMWU5NmRmMTUzY2NkNThkZmRiYTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk0ZGNjOTZiMzQ0MjM1NmM0ZWFhNDI4YTk4YjE0YmZlNGVkMzE4NWUwYzM2YTNiOTVhN2M5ZGIxZjgzNDRmMDYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_4ce3e68dc2f74377b81205d601843e6a",
+      "statement": "Default resources request 50m CPU and 128Mi memory with a 1Gi memory limit to accommodate ffmpeg frame grabs from 4K HEVC.",
+      "evidence": [
+        {
+          "resource": "repo://charts/webdav-nvr-player/values.yaml#L144-L150",
+          "version": "repo-lines-v1:sha256:f691bbd7bf5b08283f4cca18fe06368b25f3ca7413e9f60149923e14cb339aff:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMWQyNGQ1ZjFkMmRkZDk5NGVhYWRkOTE1NTI1OTBiYzE5OTIzMTk5MGU1ZGQzOWNhOTg1NzQ0NWQ5MGFlNjkyMSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZWY3MWI0ZDk1NDJmY2JkZjk0NGI1MjgwOGFhZjRkYTAwNzhhMzY0ZjJhMmMwYjZmY2RkNjFmNzhjYWJjOTMzMCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDA0MmZjNTJhMjhmNGZjYjY3M2MxMTFmYzFmYzEwNjQzZDVkNDYwYmUwYzQ2MzFjNzA1OGY1M2JlNmM3N2NkOCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZDg2Y2QzZWIyNWExNDQxODc2YWFiYWI0OTRjNTc3YTM5MTIwMWUwNDI2ODM1OGNhNDVjNjFiOGQ5ZTAwMGI5ZSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_0f5a131e51444794a71ae82ca94f6135",
+      "statement": "docker-compose runs the GHCR image with an optional .env, pinned DATA_DIR and PORT, port 8080 published and a named data volume.",
+      "evidence": [
+        {
+          "resource": "repo://docker-compose.yml",
+          "version": "repo-file-v1:sha256:0338f1d2e1acd173276eea4e94a59158b5e60227a95675da26d6e8c31c35d7ac"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.7.2",
+    "at": "2026-11-08T01:57:23.266Z"
+  }
+}

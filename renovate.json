@@ -1,3 +1,50 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json"
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    ":semanticCommits",
+    "customManagers:githubActionsVersions"
+  ],
+  "labels": ["dependencies"],
+  "timezone": "America/Los_Angeles",
+  "postUpdateOptions": ["gomodTidy", "gomodUpdateImportPaths"],
+  "minimumReleaseAge": "3 days",
+  "internalChecksFilter": "strict",
+  "automerge": true,
+  "automergeType": "pr",
+  "platformAutomerge": true,
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": ["before 6am on monday"]
+  },
+  "packageRules": [
+    {
+      "description": "Majors need a human: read the changelog, then merge by hand.",
+      "matchUpdateTypes": ["major"],
+      "automerge": false,
+      "labels": ["dependencies", "major"]
+    },
+    {
+      "description": "0.x minors can break; the only one today is eslint-plugin-react-refresh, so keep CI as the judge but wait longer.",
+      "matchCurrentVersion": "/^v?0\\./",
+      "matchUpdateTypes": ["minor"],
+      "matchManagers": ["npm"],
+      "minimumReleaseAge": "7 days"
+    },
+    {
+      "description": "One PR for the Go version: go.mod's go/toolchain lines and the golang build image.",
+      "matchDepNames": ["go", "golang"],
+      "groupName": "go toolchain"
+    },
+    {
+      "description": "Node is pinned to a major in several places; move them together.",
+      "matchDepNames": ["node"],
+      "groupName": "node"
+    },
+    {
+      "description": "Test-only services and tools: patch/minor updates can't affect the shipped image.",
+      "matchFileNames": ["e2e/**"],
+      "groupName": "e2e tooling"
+    }
+  ]
 }
