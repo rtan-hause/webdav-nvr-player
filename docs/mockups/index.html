@@ -1,0 +1,834 @@
+<title>webdav-nvr-player mockups</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a mockup bench. One working player is rearranged three ways inside a desktop or phone frame.
+   Single dark theme on purpose: footage viewers stay dark so the video is the brightest thing on screen. */
+:root{
+  color-scheme: dark;
+  --ink-0:#0c1114; --ink-1:#131a1e; --ink-2:#1b2429; --ink-3:#253139; --line:#2a373f;
+  --text:#dce4e6; --muted:#8c9ba2; --faint:#5c6b72;
+  --sodium:#f2a33a; --sodium-ink:#1e1404;
+  --clip:#3e7898; --clip-hi:#8cc3df; --snap:#c9d6db;
+  --rec:#e5484d; --warn:#e8b04a;
+  --f-display:"Barlow Condensed","Arial Narrow",sans-serif;
+  --f-body:"Barlow",system-ui,-apple-system,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+html,body{background:var(--ink-0);color:var(--text)}
+body{font-family:var(--f-body);font-size:15px;line-height:1.45;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 56px}
+button{font:inherit;color:inherit}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+
+/* ---------- bench chrome ---------- */
+.bench{max-width:1240px;margin-inline:auto;display:flex;flex-wrap:wrap;gap:18px 32px;align-items:flex-end;justify-content:space-between;padding-block:28px 20px}
+.eyebrow{font-family:var(--f-display);font-weight:600;text-transform:uppercase;letter-spacing:.14em;font-size:13px;color:var(--sodium);margin:0 0 6px}
+h1{font-family:var(--f-display);font-weight:600;font-size:clamp(30px,4.2vw,46px);line-height:1;margin:0 0 10px;text-wrap:balance}
+.lede{color:var(--muted);max-width:62ch;margin:0}
+.bench-controls{display:flex;flex-wrap:wrap;gap:10px}
+.seg{display:inline-flex;background:var(--ink-1);border:1px solid var(--line);border-radius:999px;padding:3px;gap:2px}
+.seg button{border:0;background:none;cursor:pointer;font-family:var(--f-display);font-weight:600;font-size:14px;letter-spacing:.07em;text-transform:uppercase;padding:8px 14px;border-radius:999px;color:var(--muted)}
+.seg button b{color:var(--sodium);margin-right:6px}
+.seg button[aria-pressed="true"]{background:var(--ink-3);color:var(--text)}
+.seg button:hover{color:var(--text)}
+button:focus-visible,input:focus-visible{outline:2px solid var(--sodium);outline-offset:2px}
+
+.stage{max-width:1240px;margin-inline:auto}
+.device{container:dev / inline-size}
+.stage[data-device="phone"] .device{width:min(390px,100%);height:800px;margin-inline:auto;border:10px solid #04070a;border-radius:38px;overflow:auto;background:var(--ink-1);scrollbar-width:none;box-shadow:0 0 0 1px var(--line)}
+.stage[data-device="phone"] .device::-webkit-scrollbar{display:none}
+
+/* ---------- the app ---------- */
+.app{position:relative;display:grid;background:var(--ink-1);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.stage[data-device="phone"] .app{border:0;border-radius:0;min-height:100%}
+
+.top{grid-area:top;display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;padding:12px 14px;border-bottom:1px solid var(--line);transition:opacity .3s}
+.brand{display:flex;align-items:center;gap:8px;font-family:var(--f-display);font-weight:600;font-size:16px;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap}
+.brand i{width:8px;height:8px;border-radius:50%;background:var(--rec);box-shadow:0 0 0 3px rgba(229,72,77,.18)}
+.cams{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;min-width:0;flex:1 1 auto}
+.cams::-webkit-scrollbar{display:none}
+.cam{flex:none;display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--ink-2);color:var(--muted);border-radius:999px;padding:6px 12px;cursor:pointer;font-weight:500;font-size:14px;white-space:nowrap}
+.cam kbd{font-family:var(--f-mono);font-size:11px;color:var(--faint)}
+.cam .n{font-family:var(--f-mono);font-size:12px;color:var(--faint)}
+.cam[aria-pressed="true"]{border-color:var(--clip-hi);color:var(--text);background:rgba(140,195,223,.1)}
+.cam[aria-pressed="true"] .n{color:var(--clip-hi)}
+.daynav{display:flex;align-items:center;gap:2px;margin-left:auto}
+.daynav .label{font-weight:600;padding:0 6px;white-space:nowrap}
+.daynav input{background:var(--ink-2);border:1px solid var(--line);border-radius:8px;color:var(--muted);font:12px var(--f-mono);padding:5px 6px;width:34px;color-scheme:dark}
+.icon{border:0;background:none;cursor:pointer;width:34px;height:34px;display:inline-grid;place-items:center;border-radius:8px;color:var(--text)}
+.icon:hover{background:var(--ink-2)}
+.icon svg{width:18px;height:18px;fill:currentColor}
+.icon:disabled{opacity:.3;cursor:default;background:none}
+
+.player{grid-area:player;position:relative;aspect-ratio:16/9;background:#000;overflow:hidden}
+.player canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.badge{position:absolute;top:10px;right:10px;font:500 11px var(--f-mono);padding:4px 8px;border-radius:6px;background:rgba(6,9,11,.74);color:var(--text);letter-spacing:.02em}
+.badge.warn{color:var(--warn);border:1px solid rgba(232,176,74,.5)}
+.gap{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;gap:12px;text-align:center;padding:16px;color:var(--muted)}
+.gap strong{display:block;color:var(--text);font-family:var(--f-display);font-weight:600;font-size:22px;letter-spacing:.02em}
+.ghost{border:1px solid rgba(242,163,58,.55);background:rgba(242,163,58,.08);color:var(--sodium);border-radius:999px;padding:8px 14px;cursor:pointer;font-weight:600}
+.ghost:hover{background:rgba(242,163,58,.16)}
+.toast{position:absolute;left:50%;bottom:14px;transform:translate(-50%,8px);background:rgba(6,9,11,.88);border:1px solid var(--line);padding:6px 12px;border-radius:999px;font-size:13px;opacity:0;transition:opacity .2s,transform .2s;pointer-events:none;white-space:nowrap}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+.dock{grid-area:dock;background:var(--ink-1);border-top:1px solid var(--line);transition:opacity .3s}
+.transport{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;padding:10px 14px}
+.tgroup{display:flex;align-items:center;gap:4px}
+.tgroup.right{margin-left:auto;gap:8px}
+.play{border:0;cursor:pointer;width:44px;height:44px;border-radius:50%;background:var(--sodium);color:var(--sodium-ink);display:grid;place-items:center}
+.play svg{width:20px;height:20px;fill:currentColor}
+.play:hover{filter:brightness(1.08)}
+.clock{display:flex;flex-direction:column;line-height:1.15;min-width:0}
+.clock .time{font:500 22px var(--f-mono);font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.clock .meta{font-size:13px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.seg.small button{padding:6px 9px;font-size:13px}
+.zoomctl{display:inline-flex;align-items:center;background:var(--ink-1);border:1px solid var(--line);border-radius:999px}
+.zoomctl .icon{width:30px;height:30px;border-radius:999px;font-size:18px;font-weight:600}
+.zoomctl span{font:500 12px var(--f-mono);min-width:48px;text-align:center;color:var(--muted)}
+.only-theater{display:none}
+.drawerbtn{border:1px solid var(--line);background:var(--ink-2);border-radius:999px;padding:6px 12px;cursor:pointer;font-family:var(--f-display);font-weight:600;letter-spacing:.08em;text-transform:uppercase;font-size:13px}
+.drawerbtn[aria-expanded="true"]{border-color:var(--sodium);color:var(--sodium)}
+.tl-wrap{height:132px;border-top:1px solid var(--line)}
+.tl-wrap canvas{display:block;width:100%;height:100%;touch-action:none}
+
+.events{grid-area:events;display:flex;flex-direction:column;min-width:0;background:var(--ink-1)}
+.ev-head{display:flex;align-items:center;gap:10px;padding:10px 14px}
+.sortbtn{margin-left:auto;border:1px solid var(--line);background:var(--ink-2);border-radius:999px;padding:5px 11px;cursor:pointer;font-size:13px;font-weight:500;color:var(--text);white-space:nowrap}
+.sortbtn::after{content:" ↕";color:var(--sodium)}
+.sortbtn:hover{border-color:var(--faint)}
+.ev-head h3{margin:0;font-family:var(--f-display);font-weight:600;font-size:14px;letter-spacing:.12em;text-transform:uppercase}
+.ev-head span{font:12px var(--f-mono);color:var(--faint)}
+.list{display:flex;gap:10px;overflow-x:auto;padding:0 14px 14px;scrollbar-width:thin;scrollbar-color:var(--ink-3) transparent}
+.ev{border:0;background:none;cursor:pointer;flex:0 0 150px;display:grid;gap:3px;text-align:left;padding:0;border-radius:8px}
+.thumb{display:block;aspect-ratio:16/9;background:var(--ink-2);border-radius:6px;overflow:hidden;outline:2px solid transparent;outline-offset:-2px}
+.thumb img{display:block;width:100%;height:100%;object-fit:cover}
+.ev .t{font:500 13px var(--f-mono);font-variant-numeric:tabular-nums}
+.ev .m{font-size:12px;color:var(--muted)}
+.ev:hover .thumb{outline-color:var(--ink-3)}
+.ev.active .thumb{outline-color:var(--sodium)}
+.ev.active .t{color:var(--sodium)}
+
+/* A — Stack */
+.app[data-layout="stack"]{grid-template-columns:minmax(0,1fr);grid-template-areas:"top" "player" "dock" "events";max-width:1100px;margin-inline:auto}
+.app[data-layout="stack"] .events{border-top:1px solid var(--line)}
+
+/* C — Split */
+.app[data-layout="split"]{grid-template-columns:312px minmax(0,1fr);grid-template-areas:"top top" "events player" "events dock"}
+.app[data-layout="split"] .events{contain:size;border-right:1px solid var(--line);overflow:hidden}
+.app[data-layout="split"] .list{flex-direction:column;overflow-x:hidden;overflow-y:auto;flex:1;min-height:0;gap:2px;padding:0 8px 10px}
+.app[data-layout="split"] .ev{flex:none;grid-template-columns:112px minmax(0,1fr);grid-template-rows:auto auto;column-gap:12px;align-content:center;padding:6px}
+.app[data-layout="split"] .ev .thumb{grid-row:span 2}
+.app[data-layout="split"] .ev .t{align-self:end}
+.app[data-layout="split"] .ev .m{align-self:start}
+.app[data-layout="split"] .ev:hover{background:var(--ink-2)}
+.app[data-layout="split"] .ev.active{background:var(--ink-2)}
+
+/* B — Theater */
+.app[data-layout="theater"]{grid-template-areas:"s";grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr);height:min(80vh,760px);min-height:460px;background:#000}
+.app[data-layout="theater"]>*{grid-area:s}
+.app[data-layout="theater"] .player{aspect-ratio:auto;height:100%}
+.app[data-layout="theater"] .badge{top:auto;bottom:calc(var(--dock-h,170px) + 10px)}
+.app[data-layout="theater"] .top{align-self:start;z-index:3;border:0;background:linear-gradient(rgba(4,6,8,.86),rgba(4,6,8,0));padding-bottom:30px}
+.app[data-layout="theater"] .dock{align-self:end;z-index:3;border:0;background:linear-gradient(to top,rgba(4,6,8,.95) 72%,rgba(4,6,8,0))}
+.app[data-layout="theater"] .transport{padding-top:22px}
+.app[data-layout="theater"] .tl-wrap{border-top:0}
+.app[data-layout="theater"] .only-theater{display:inline-flex}
+.app[data-layout="theater"] .events{align-self:end;z-index:4;margin-bottom:var(--dock-h,170px);background:rgba(11,15,18,.95);border-top:1px solid var(--line);transform:translateY(calc(100% + var(--dock-h,170px)));visibility:hidden;transition:transform .25s ease,visibility 0s linear .25s}
+.app[data-layout="theater"].drawer .events{transform:none;visibility:visible;transition:transform .25s ease,visibility 0s}
+.app[data-layout="theater"].idle .top,.app[data-layout="theater"].idle .dock,.app[data-layout="theater"].idle .badge{opacity:0}
+.app[data-layout="theater"].idle{cursor:none}
+.stage[data-device="phone"] .app[data-layout="theater"]{height:100%;min-height:0}
+/* theater entered from split/stack: take over the window (or the screen, where the browser allows it) */
+.app.focus{position:fixed;inset:0;z-index:100;height:auto;min-height:0;max-width:none;margin:0;border:0;border-radius:0}
+.app.focus .top{padding-top:max(12px,env(safe-area-inset-top,0px));padding-left:max(14px,env(safe-area-inset-left,0px));padding-right:max(14px,env(safe-area-inset-right,0px))}
+.app.focus .dock{padding-bottom:env(safe-area-inset-bottom,0px)}
+.stage[data-device="phone"] .app.focus{position:static}
+
+/* phone-width rules, driven by the frame width */
+@container dev (max-width: 640px){
+  .top{padding:10px 12px;gap:8px 10px}
+  .cams{order:3;flex-basis:100%}
+  .cam kbd{display:none}
+  .transport{padding:8px 12px;gap:6px 10px}
+  .clock{order:-1;flex-basis:100%;flex-direction:row;justify-content:space-between;align-items:baseline;gap:10px}
+  .clock .time{font-size:20px}
+  .tl-wrap{height:120px}
+  .ev{flex-basis:132px}
+  .app[data-layout="split"]{grid-template-columns:minmax(0,1fr);grid-template-areas:"top" "player" "dock" "events"}
+  .app[data-layout="split"] .events{contain:none;border-right:0;border-top:1px solid var(--line)}
+  .app[data-layout="split"] .list{overflow:visible}
+}
+
+/* ---------- notes ---------- */
+.notes{max-width:1240px;margin:28px auto 0;display:grid;gap:28px}
+.note-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.note{border:1px solid var(--line);border-radius:12px;padding:16px 18px;background:var(--ink-1);cursor:pointer;display:grid;gap:8px;align-content:start}
+.note[aria-current="true"]{border-color:var(--sodium)}
+.note h2{margin:0;font-family:var(--f-display);font-weight:600;font-size:20px;letter-spacing:.04em;text-transform:uppercase}
+.note h2 b{color:var(--sodium);margin-right:8px}
+.note p{margin:0;color:var(--muted);max-width:60ch}
+.note p.trade{color:var(--text);font-size:14px}
+.howto{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px 40px}
+.howto h3{margin:0 0 8px;font-family:var(--f-display);font-weight:600;font-size:15px;letter-spacing:.12em;text-transform:uppercase;color:var(--sodium)}
+.howto ul{margin:0;padding-left:18px;display:grid;gap:6px;color:var(--muted);max-width:62ch}
+.howto li strong{color:var(--text);font-weight:600}
+kbd.k{font:12px var(--f-mono);border:1px solid var(--line);border-bottom-width:2px;border-radius:4px;padding:0 4px;color:var(--text);background:var(--ink-2)}
+
+@media (prefers-reduced-motion: reduce){
+  .toast,.top,.dock,.app[data-layout="theater"] .events{transition:none!important}
+}
+</style>
+
+<header class="bench">
+  <div>
+    <p class="eyebrow">webdav-nvr-player · layout mockups</p>
+    <h1>Split layout</h1>
+    <p class="lede">Layout C is the pick. A and B stay here for comparison. The footage is drawn from made-up recordings for your four cameras on Nov 1–6. The real app will show actual camera frames.</p>
+  </div>
+  <div class="bench-controls">
+    <div class="seg" role="group" aria-label="Layout">
+      <button type="button" id="lay-split" data-layout="split" aria-pressed="true"><b>C</b>Split</button>
+      <button type="button" id="lay-stack" data-layout="stack" aria-pressed="false"><b>A</b>Stack</button>
+      <button type="button" id="lay-theater" data-layout="theater" aria-pressed="false"><b>B</b>Theater</button>
+    </div>
+    <div class="seg" role="group" aria-label="Frame">
+      <button type="button" id="dev-desktop" data-device="desktop" aria-pressed="true">Desktop</button>
+      <button type="button" id="dev-phone" data-device="phone" aria-pressed="false">Phone</button>
+    </div>
+  </div>
+</header>
+
+<div class="stage" id="stage" data-device="desktop">
+  <div class="device" id="device">
+    <div class="app" id="app" data-layout="split">
+      <div class="top">
+        <div class="brand"><i aria-hidden="true"></i>NVR</div>
+        <div class="cams" id="cams" role="group" aria-label="Camera"></div>
+        <div class="daynav">
+          <button type="button" class="icon" id="dayPrev" aria-label="Previous day"><svg viewBox="0 0 24 24"><path d="M15.4 6.4 14 5l-7 7 7 7 1.4-1.4L9.8 12z"/></svg></button>
+          <span class="label" id="dayLabel">Fri, Nov 6</span>
+          <button type="button" class="icon" id="dayNext" aria-label="Next day"><svg viewBox="0 0 24 24"><path d="m8.6 17.6 1.4 1.4 7-7-7-7-1.4 1.4 5.6 5.6z"/></svg></button>
+          <input type="date" id="dayPick" min="2026-11-01" max="2026-11-06" value="2026-11-06" aria-label="Pick a day">
+        </div>
+      </div>
+
+      <div class="player" id="player">
+        <canvas id="screen" aria-label="Camera footage"></canvas>
+        <div class="gap" id="gap" hidden>
+          <div><strong id="gapTitle">No recording</strong><span id="gapSub"></span></div>
+          <button type="button" class="ghost" id="gapNext">Jump to next clip</button>
+        </div>
+        <div class="badge" id="badge">HEVC · 3840×2160 · 25 fps</div>
+        <div class="toast" id="toast" role="status" aria-live="polite"></div>
+      </div>
+
+      <div class="dock" id="dock">
+        <div class="transport">
+          <div class="tgroup">
+            <button type="button" class="icon" id="prevClip" aria-label="Previous clip"><svg viewBox="0 0 24 24"><path d="M6 5h2v14H6zM20 5v14L9 12z"/></svg></button>
+            <button type="button" class="play" id="play" aria-label="Play"><svg viewBox="0 0 24 24" id="playIcon"><path d="M8 5v14l11-7z"/></svg></button>
+            <button type="button" class="icon" id="nextClip" aria-label="Next clip"><svg viewBox="0 0 24 24"><path d="M16 5h2v14h-2zM4 5v14l11-7z"/></svg></button>
+          </div>
+          <div class="clock"><span class="time" id="clockTime">17:42:05</span><span class="meta" id="clockMeta">Front of House</span></div>
+          <div class="tgroup right">
+            <div class="seg small" id="rates" role="group" aria-label="Playback speed">
+              <button type="button" id="rate-1" data-rate="1" aria-pressed="true">1×</button>
+              <button type="button" id="rate-2" data-rate="2" aria-pressed="false">2×</button>
+              <button type="button" id="rate-4" data-rate="4" aria-pressed="false">4×</button>
+              <button type="button" id="rate-8" data-rate="8" aria-pressed="false">8×</button>
+            </div>
+            <div class="zoomctl">
+              <button type="button" class="icon" id="zoomOut" aria-label="Zoom out">−</button>
+              <span id="zoomLabel">24 h</span>
+              <button type="button" class="icon" id="zoomIn" aria-label="Zoom in">+</button>
+            </div>
+            <button type="button" class="drawerbtn only-theater" id="drawerBtn" aria-expanded="false">Clips</button>
+            <button type="button" class="icon" id="theaterBtn" aria-label="Theater mode (F)" title="Theater mode (F)"><svg viewBox="0 0 24 24" id="theaterIcon"><path d="M4 4h6v2H6v4H4zM14 4h6v6h-2V6h-4zM4 14h2v4h4v2H4zM18 14h2v6h-6v-2h4z"/></svg></button>
+          </div>
+        </div>
+        <div class="tl-wrap"><canvas id="tl" aria-label="Timeline: click or drag on a lane to move the playhead, tap a lane to switch camera"></canvas></div>
+      </div>
+
+      <aside class="events" id="events" aria-label="Clips">
+        <div class="ev-head"><h3>Clips</h3><span id="evCount"></span><button type="button" class="sortbtn" id="sortBtn">Newest first</button></div>
+        <div class="list" id="list"></div>
+      </aside>
+    </div>
+  </div>
+</div>
+
+<section class="notes">
+  <div class="note-grid">
+    <article class="note" data-for="split" aria-current="true">
+      <h2><b>C</b>Split · chosen</h2>
+      <p>The day's clips in a scrolling column on the left, video and timeline on the right. On a phone the clip list moves under the timeline.</p>
+      <p class="trade">Newest clips are on top. The button above the list flips the order. The expand button, <kbd class="k">F</kbd>, or a double-click on the video switches to theater mode, and <kbd class="k">Esc</kbd> comes back.</p>
+    </article>
+    <article class="note" data-for="stack" aria-current="false">
+      <h2><b>A</b>Stack</h2>
+      <p>Closest to the current app, without the archive grid, calendar and storage meter. One column: video, controls, camera lanes, then the day's events.</p>
+      <p class="trade">Reads the same on every screen. On a big monitor the video stops at about 1100 px wide and the events strip sits below it.</p>
+    </article>
+    <article class="note" data-for="theater">
+      <h2><b>B</b>Theater</h2>
+      <p>Video fills the frame. While playing, the controls fade after 3 seconds; move the pointer or tap to bring them back. Events slide up from the dock.</p>
+      <p class="trade">Most picture per pixel and closest to the Reolink phone app. The controls cover the bottom of the picture while they're showing.</p>
+    </article>
+  </div>
+  <div class="howto">
+    <div>
+      <h3>Try it</h3>
+      <ul>
+        <li><strong>Click or drag on a lane</strong> to move the playhead across the day. Tapping a lane also switches to that camera.</li>
+        <li><strong>Zoom</strong> with − and +, the scroll wheel (zooms where the pointer is), or a pinch. The day starts fully zoomed out.</li>
+        <li><strong>When zoomed in,</strong> drag the time axis or the thin overview strip at the top to move along the day. The amber box in the strip shows the part on screen.</li>
+        <li>While playing, the view pages forward so the playhead stays visible. The hatched area is time that hasn't happened yet.</li>
+        <li><strong>Theater mode:</strong> press <kbd class="k">F</kbd>, double-click the video, or use the expand button next to the zoom control. The video takes over the screen, controls fade while playing, and the clip list slides up from <strong>Clips</strong>. <kbd class="k">Esc</kbd> or the same button brings you back to Split, at the same moment.</li>
+        <li><strong>Keys:</strong> <kbd class="k">Space</kbd> play/pause, <kbd class="k">←</kbd> <kbd class="k">→</kbd> 10 s, <kbd class="k">[</kbd> <kbd class="k">]</kbd> previous/next clip, <kbd class="k">1</kbd>–<kbd class="k">4</kbd> camera.</li>
+        <li><strong>Press play just before a gap.</strong> Playback skips to the next clip and says how much it skipped.</li>
+        <li>The codec badge really checks your browser for HEVC support.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Decided</h3>
+      <ul>
+        <li><strong>Layout C</strong>, with the clip list on the left on desktop.</li>
+        <li><strong>Every clip is listed</strong>, newest first, with a toggle for oldest first.</li>
+        <li><strong>The playhead moves</strong> across the day, and the day is zoomable.</li>
+        <li><strong>Colours stay</strong> for now and may change later.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<script>
+(() => {
+  const $ = (s) => document.querySelector(s);
+  const CAMS = [
+    { id: 'front', name: 'Front of House', short: 'Front' },
+    { id: 'back', name: 'Backyard', short: 'Back' },
+    { id: 'living', name: 'Living Room', short: 'Living' },
+    { id: 'garage', name: 'Garage', short: 'Garage' },
+  ];
+  const DAY = 86400, TODAY = 6, NOW = 21 * 3600 + 59 * 60 + 30, MIN_SPAN = 240;
+  const ZOOMS = [86400, 21600, 3600, 900, 300];
+  const css = getComputedStyle(document.documentElement);
+  const C = {};
+  ['ink-0','ink-1','ink-2','ink-3','line','text','muted','faint','sodium','clip','clip-hi','snap'].forEach(k => C[k] = css.getPropertyValue('--' + k).trim());
+  const MONO = '"IBM Plex Mono", ui-monospace, Menlo, monospace';
+
+  // ---------- fake recordings ----------
+  function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+  function poisson(r, l){const L=Math.exp(-l);let k=0,p=1;do{k++;p*=r()}while(p>L);return k-1}
+  const RATES = {
+    front: h => (h >= 7 && h < 21) ? 8 : 2,
+    back: h => (h >= 7 && h < 19) ? 4 : 1,
+    living: h => (h >= 6 && h < 8) ? 3 : (h >= 17 && h < 23) ? 6 : 0.4,
+    garage: h => ((h >= 7 && h < 9) || (h >= 17 && h < 19)) ? 1.2 : 0.1,
+  };
+  const MEAN = { front: 4, back: 4, living: 3, garage: 2 };
+  const cache = {};
+  function genDay(d){
+    if (cache[d]) return cache[d];
+    const out = {}, end = d === TODAY ? NOW : DAY;
+    CAMS.forEach((c, ci) => {
+      const r = mulberry32(d * 97 + ci * 7919 + 13);
+      const starts = [];
+      for (let h = 0; h < 24; h++){ const n = poisson(r, RATES[c.id](h)); for (let i = 0; i < n; i++) starts.push(h * 3600 + r() * 3600); }
+      starts.sort((a, b) => a - b);
+      const events = [], clips = []; let cursor = -10;
+      for (const s0 of starts){
+        const s = Math.max(s0, cursor + 6);
+        if (s >= end - 30) break;
+        const n = 1 + Math.floor(-Math.log(1 - r()) * (MEAN[c.id] - 1));
+        const ev = { id: c.id + '-' + d + '-' + events.length, cam: ci, start: s, end: s, clips: [], seed: r() };
+        let t = s;
+        for (let k = 0; k < n && t < end - 20; k++){
+          const cl = { id: ev.id + '-' + k, cam: ci, start: t, end: Math.min(t + 26 + r() * 4, end), ev };
+          clips.push(cl); ev.clips.push(cl);
+          t = cl.end + (r() < 0.6 ? 0 : r() * 1.2);
+        }
+        ev.end = ev.clips[ev.clips.length - 1].end;
+        events.push(ev); cursor = ev.end;
+      }
+      const snaps = []; const ns = 6 + Math.floor(r() * 10);
+      for (let i = 0; i < ns; i++) snaps.push(r() * end);
+      snaps.sort((a, b) => a - b);
+      out[c.id] = { events, clips, snaps };
+    });
+    return cache[d] = out;
+  }
+  function lastStartLE(arr, t){let lo=0,hi=arr.length-1,ans=-1;while(lo<=hi){const m=(lo+hi)>>1;if(arr[m].start<=t){ans=m;lo=m+1}else hi=m-1}return ans}
+  function itemAt(arr, t){const i=lastStartLE(arr,t);return i>=0&&t<arr[i].end?arr[i]:null}
+  function nextAfter(arr, t){const i=lastStartLE(arr,t);return arr[i+1]||null}
+
+  // ---------- state ----------
+  const S = { day: TODAY, cam: 0, t: 0, playing: false, rate: 1, view0: 0, span: DAY, layout: 'split', scrubbing: false, drawer: false, newestFirst: true };
+  let data = genDay(S.day);
+  const cur = () => data[CAMS[S.cam].id];
+  const dayEnd = () => S.day === TODAY ? NOW : DAY;
+  const clampT = (t) => Math.min(dayEnd() - 0.5, Math.max(0, t));
+  let dirty = true;
+  { const ev = cur().events.find(e => e.start > 17 * 3600 + 40 * 60) || cur().events[0]; S.t = ev.start + 8; }
+
+  const pad2 = (n) => String(n).padStart(2, '0');
+  function fmt(sec){ sec = Math.max(0, Math.floor(sec)); return pad2(Math.floor(sec / 3600)) + ':' + pad2(Math.floor(sec / 60) % 60) + ':' + pad2(sec % 60); }
+  function fmtHM(sec){ return pad2(Math.floor(sec / 3600)) + ':' + pad2(Math.floor(sec / 60) % 60); }
+  function fmtDur(s){ s = Math.round(s); if (s < 60) return s + ' s'; const m = Math.floor(s / 60); if (m < 60) return m + 'm ' + pad2(s % 60) + 's'; return Math.floor(m / 60) + 'h ' + pad2(m % 60) + 'm'; }
+  const dayLabel = (d) => new Date(2026, 10, d).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+  const fileName = (cl) => CAMS[cl.cam].name + '_00_202611' + pad2(S.day) + fmt(cl.start).replace(/:/g, '') + '.mp4';
+  const sizeMB = (cl) => ((cl.end - cl.start) * 6.34 / 8).toFixed(1);
+
+  // ---------- scene drawing ----------
+  const smooth = (a, b, x) => { const t = Math.min(1, Math.max(0, (x - a) / (b - a))); return t * t * (3 - 2 * t); };
+  function light(sec, cam){
+    const h = sec / 3600, day = smooth(6, 7.5, h) * (1 - smooth(17, 18.5, h));
+    if (cam === 2){ const lamps = (h >= 17 && h < 23.5) || (h >= 6 && h < 8); return { ir: day < 0.3 && !lamps, lvl: Math.max(day * 0.95, lamps ? 0.78 : 0, 0.15), lamps }; }
+    return { ir: day < 0.3, lvl: day < 0.3 ? 0.72 : 0.28 + 0.72 * day };
+  }
+  function tone(c, L){
+    if (L.ir){ const y = (c[0] * .3 + c[1] * .59 + c[2] * .11) * L.lvl; return 'rgb(' + (y * .93 | 0) + ',' + (y | 0) + ',' + (y * .96 | 0) + ')'; }
+    return 'rgb(' + (c[0] * L.lvl | 0) + ',' + (c[1] * L.lvl | 0) + ',' + (c[2] * L.lvl | 0) + ')';
+  }
+  const noise = document.createElement('canvas'); noise.width = noise.height = 160;
+  { const n = noise.getContext('2d'), im = n.createImageData(160, 160); for (let i = 0; i < im.data.length; i += 4){ const v = Math.random() * 255; im.data[i] = im.data[i + 1] = im.data[i + 2] = v; im.data[i + 3] = 255; } n.putImageData(im, 0, 0); }
+
+  function drawScene(ctx, x0, y0, w, h, cam, sec, ev, day, grain){
+    const L = light(sec, cam);
+    const R = (x, y, ww, hh, c) => { ctx.fillStyle = tone(c, L); ctx.fillRect(x0 + x * w, y0 + y * h, ww * w, hh * h); };
+    const poly = (pts, c) => { ctx.fillStyle = tone(c, L); ctx.beginPath(); pts.forEach(([x, y], i) => i ? ctx.lineTo(x0 + x * w, y0 + y * h) : ctx.moveTo(x0 + x * w, y0 + y * h)); ctx.fill(); };
+    const circ = (x, y, r, c) => { ctx.fillStyle = tone(c, L); ctx.beginPath(); ctx.arc(x0 + x * w, y0 + y * h, r * h, 0, 7); ctx.fill(); };
+    let ground = 0.6;
+    if (cam === 0){
+      const g = ctx.createLinearGradient(0, y0, 0, y0 + .4 * h); g.addColorStop(0, tone([105, 145, 195], L)); g.addColorStop(1, tone([180, 192, 205], L));
+      ctx.fillStyle = g; ctx.fillRect(x0, y0, w, .4 * h);
+      [[.02,.21,.18,.17,[125,100,88]],[.24,.25,.15,.13,[155,142,120]],[.44,.19,.21,.19,[105,98,104]],[.69,.24,.17,.14,[142,120,100]],[.89,.2,.13,.18,[118,110,96]]].forEach(([x,y,ww,hh,c]) => {
+        poly([[x - .01, y], [x + ww / 2, y - hh * .45], [x + ww + .01, y]], [80, 70, 68]);
+        R(x, y, ww, hh, c); R(x + ww * .14, y + hh * .35, ww * .2, hh * .26, L.ir ? [90,90,90] : [60,70,82]); R(x + ww * .62, y + hh * .35, ww * .2, hh * .26, L.ir ? [90,90,90] : [60,70,82]);
+      });
+      R(0, .38, 1, .13, [70, 72, 76]);
+      for (let i = 0; i < 9; i++) R(i * .12 + .02, .44, .06, .006, [190, 180, 120]);
+      R(0, .51, 1, .03, [165, 160, 150]);
+      R(0, .54, 1, .46, [72, 108, 62]);
+      poly([[.42, .54], [.62, .54], [.92, 1], [.28, 1]], [138, 132, 124]);
+      R(.5, .7, .22, .15, [62, 74, 98]); R(.53, .63, .16, .08, [86, 98, 120]); circ(.54, .86, .03, [20, 20, 22]); circ(.68, .86, .03, [20, 20, 22]);
+      ground = .53;
+    } else if (cam === 1){
+      R(0, 0, 1, .22, [120, 160, 200]);
+      circ(.15, .16, .14, [52, 92, 52]); circ(.32, .12, .11, [62, 100, 58]); circ(.82, .14, .15, [48, 86, 50]);
+      R(0, .2, 1, .26, [128, 96, 68]);
+      for (let i = 0; i < 25; i++) R(i * .04, .2, .004, .26, [92, 68, 48]);
+      R(0, .46, 1, .54, [84, 124, 62]);
+      poly([[0, .7], [.38, .66], [.46, 1], [0, 1]], [148, 140, 130]);
+      R(.08, .62, .1, .1, [40, 40, 44]); R(.1, .58, .06, .04, [70, 70, 74]);
+      ground = .72;
+    } else if (cam === 2){
+      R(0, 0, 1, .7, [205, 195, 175]);
+      const win = L.lamps || L.ir ? [26, 32, 46] : [160, 192, 220];
+      R(.58, .1, .3, .36, [235, 230, 220]); R(.6, .12, .26, .32, win); R(.725, .12, .01, .32, [235, 230, 220]);
+      R(0, .7, 1, .3, [128, 96, 70]); poly([[.15, .78], [.75, .78], [.85, .98], [.05, .98]], [140, 72, 62]);
+      R(.08, .5, .38, .22, [82, 86, 114]); R(.06, .44, .42, .1, [92, 96, 124]);
+      R(.12, .26, .26, .16, [18, 18, 22]);
+      if (L.lamps && !L.ir){ const rg = ctx.createRadialGradient(x0 + .5 * w, y0 + .32 * h, 2, x0 + .5 * w, y0 + .32 * h, .45 * h); rg.addColorStop(0, 'rgba(255,200,120,.35)'); rg.addColorStop(1, 'rgba(255,200,120,0)'); ctx.fillStyle = rg; ctx.fillRect(x0, y0, w, h); circ(.5, .32, .03, [255, 220, 160]); R(.497, .35, .006, .36, [60, 50, 40]); }
+      ground = .8;
+    } else {
+      R(0, 0, 1, .62, [152, 152, 148]);
+      R(.08, .08, .5, .54, [178, 178, 172]);
+      for (let i = 1; i < 5; i++) R(.08, .08 + i * .108, .5, .006, [140, 140, 136]);
+      R(.66, .14, .3, .02, [110, 90, 70]); R(.66, .3, .3, .02, [110, 90, 70]);
+      R(.68, .08, .06, .06, [150, 60, 50]); R(.78, .1, .05, .04, [60, 90, 140]); R(.7, .24, .08, .06, [90, 110, 60]);
+      R(0, .62, 1, .38, [110, 110, 108]);
+      R(.62, .56, .38, .22, [64, 84, 106]); circ(.7, .8, .045, [20, 20, 22]); circ(.92, .8, .045, [20, 20, 22]);
+      ground = .84;
+    }
+    if (ev){
+      const p = Math.min(1, Math.max(0, (sec - ev.start) / Math.max(1, ev.end - ev.start)));
+      const ltr = ev.seed < .5, px = ltr ? -.08 + 1.16 * p : 1.08 - 1.16 * p;
+      if (cam === 0 && ev.seed > .62){
+        const cy = .41; R(px - .09, cy, .18, .07, [150, 44, 40]); R(px - .05, cy - .04, .1, .045, [120, 130, 150]);
+        circ(px - .055, cy + .07, .018, [15, 15, 15]); circ(px + .055, cy + .07, .018, [15, 15, 15]);
+      } else {
+        const gy = cam === 0 ? .53 : ground, s = cam === 0 ? .17 : cam === 2 ? .42 : .3;
+        const step = Math.sin(sec * 7) * .15;
+        const body = L.ir ? [210, 210, 210] : [58, 64, 82];
+        R(px - .012 * s * 4, gy - s * .55, .024 * s * 4, s * .32, body);
+        R(px - .01 * s * 4 + step * .02, gy - s * .25, .009 * s * 4, s * .25, [40, 44, 58]);
+        R(px + .002 * s * 4 - step * .02, gy - s * .25, .009 * s * 4, s * .25, [40, 44, 58]);
+        circ(px, gy - s * .64, s * .09, L.ir ? [235, 235, 235] : [196, 160, 132]);
+      }
+    }
+    if (grain){ ctx.save(); ctx.globalAlpha = L.ir ? .11 : .06; ctx.fillStyle = ctx.createPattern(noise, 'repeat'); ctx.translate(Math.random() * 160, Math.random() * 160); ctx.fillRect(x0 - 160, y0 - 160, w + 160, h + 160); ctx.restore(); }
+    const vg = ctx.createRadialGradient(x0 + w / 2, y0 + h / 2, h * .4, x0 + w / 2, y0 + h / 2, w * .7);
+    vg.addColorStop(0, 'rgba(0,0,0,0)'); vg.addColorStop(1, 'rgba(0,0,0,.45)'); ctx.fillStyle = vg; ctx.fillRect(x0, y0, w, h);
+    const fs = Math.max(8, h * .043);
+    ctx.font = '500 ' + fs + 'px ' + MONO; ctx.fillStyle = '#fff'; ctx.shadowColor = 'rgba(0,0,0,.85)'; ctx.shadowBlur = 3;
+    ctx.textBaseline = 'alphabetic'; ctx.textAlign = 'left';
+    ctx.fillText('2026-11-' + pad2(day) + ' ' + fmt(sec), x0 + fs * .8, y0 + fs * 1.6);
+    ctx.fillText(CAMS[cam].name, x0 + fs * .8, y0 + h - fs * .9);
+    ctx.shadowBlur = 0;
+  }
+
+  // ---------- DOM refs ----------
+  const app = $('#app'), stage = $('#stage'), screen = $('#screen'), sctx = screen.getContext('2d');
+  const tl = $('#tl'), tctx = tl.getContext('2d'), list = $('#list');
+  function fit(cv){ const r = cv.getBoundingClientRect(), d = window.devicePixelRatio || 1; const W = Math.max(1, Math.round(r.width * d)), H = Math.max(1, Math.round(r.height * d)); if (cv.width !== W || cv.height !== H){ cv.width = W; cv.height = H; } return { w: r.width, h: r.height, d }; }
+
+  // codec badge (real check)
+  { const v = document.createElement('video'); const ok = v.canPlayType('video/mp4; codecs="hvc1.1.6.L153.B0"') || v.canPlayType('video/mp4; codecs="hev1.1.6.L153.B0"');
+    const b = $('#badge'); if (!ok){ b.textContent = 'HEVC · this browser can’t decode it'; b.classList.add('warn'); } }
+
+  // ---------- player render ----------
+  let lastGapKey = '';
+  function renderPlayer(){
+    const { w, h, d } = fit(screen);
+    sctx.setTransform(d, 0, 0, d, 0, 0);
+    sctx.fillStyle = '#000'; sctx.fillRect(0, 0, w, h);
+    let vw = w, vh = w * 9 / 16; if (vh > h){ vh = h; vw = h * 16 / 9; }
+    const x0 = (w - vw) / 2, y0 = (h - vh) / 2;
+    const clip = itemAt(cur().clips, S.t);
+    const gap = $('#gap');
+    if (clip){
+      drawScene(sctx, x0, y0, vw, vh, S.cam, S.t, clip.ev, S.day, true);
+      if (!gap.hidden){ gap.hidden = true; lastGapKey = ''; }
+    } else {
+      sctx.fillStyle = '#07090b'; sctx.fillRect(x0, y0, vw, vh);
+      const nx = nextAfter(cur().clips, S.t);
+      const key = S.cam + '|' + S.day + '|' + Math.floor(S.t) + '|' + (nx ? nx.start : '');
+      if (key !== lastGapKey){
+        lastGapKey = key;
+        $('#gapTitle').textContent = 'No recording at ' + fmt(S.t);
+        $('#gapSub').textContent = CAMS[S.cam].name + ' wasn’t recording.';
+        const b = $('#gapNext');
+        if (nx){ b.hidden = false; b.textContent = 'Jump to next clip · ' + fmt(nx.start); } else { b.hidden = true; $('#gapSub').textContent = 'No more recordings from ' + CAMS[S.cam].name + ' this day.'; }
+      }
+      gap.hidden = false;
+    }
+  }
+
+  // ---------- timeline: fixed, zoomable day; the playhead moves ----------
+  const AXIS = 20, MINI = 12, LGAP = 3;
+  function laneGeom(H){ const top = MINI + 4; const laneH = (H - AXIS - top - LGAP * 3) / 4; return { top, laneH, y: (i) => top + i * (laneH + LGAP) }; }
+  const T = (x) => S.view0 + x * S.span / tl.clientWidth;
+  function clampView(){ S.span = Math.min(DAY, Math.max(MIN_SPAN, S.span)); S.view0 = Math.min(DAY - S.span, Math.max(0, S.view0)); }
+  function zoomLabel(){ $('#zoomLabel').textContent = S.span >= 3600 ? (Math.round(S.span / 360) / 10) + ' h' : Math.round(S.span / 60) + ' min'; }
+  function zoomTo(span, anchorT, frac){ S.span = Math.min(DAY, Math.max(MIN_SPAN, span)); S.view0 = anchorT - frac * S.span; clampView(); zoomLabel(); dirty = true; }
+  function zoomAroundPlayhead(span){
+    const f = (S.t - S.view0) / S.span;
+    if (f >= 0 && f <= 1) zoomTo(span, S.t, f); else zoomTo(span, S.t, .5);
+  }
+  // keep the playhead in view: page forward while playing, recentre after jumps
+  function follow(paging){
+    const a = S.view0, b = S.view0 + S.span;
+    if (paging && S.t > b - S.span * .02 && S.t <= b + S.span * .5){ S.view0 = S.t - S.span * .1; clampView(); return; }
+    if (S.t < a || S.t > b){ S.view0 = S.t - S.span / 2; clampView(); }
+  }
+  let hatch = null;
+  function makeHatch(){ const c = document.createElement('canvas'); c.width = c.height = 8; const x = c.getContext('2d'); x.strokeStyle = C.line; x.lineWidth = 1; x.beginPath(); x.moveTo(0, 8); x.lineTo(8, 0); x.stroke(); hatch = tctx.createPattern(c, 'repeat'); }
+  function tickStep(span){ return span > 43200 ? 10800 : span > 10800 ? 3600 : span > 2400 ? 600 : span > 600 ? 120 : 30; }
+  function renderTimeline(){
+    const { w: W, h: H, d } = fit(tl);
+    if (!hatch) makeHatch();
+    tctx.setTransform(d, 0, 0, d, 0, 0);
+    tctx.clearRect(0, 0, W, H);
+    tctx.fillStyle = S.layout === 'theater' ? 'rgba(14,19,22,.55)' : C['ink-1'];
+    tctx.fillRect(0, 0, W, H);
+    const X = (t) => (t - S.view0) * W / S.span;
+    const { top, laneH, y: laneY } = laneGeom(H);
+
+    // overview strip: whole day, selected camera's activity, visible window
+    const mx = (t) => 4 + t / DAY * (W - 8);
+    tctx.fillStyle = C['ink-2']; tctx.beginPath(); tctx.roundRect(4, 3, W - 8, 7, 3.5); tctx.fill();
+    tctx.fillStyle = 'rgba(140,195,223,.5)';
+    for (const ev of cur().events) tctx.fillRect(mx(ev.start), 4, Math.max(1, mx(ev.end) - mx(ev.start)), 5);
+    if (S.span < DAY){
+      tctx.strokeStyle = C.sodium; tctx.lineWidth = 1.5; tctx.beginPath();
+      tctx.roundRect(mx(S.view0), 1.5, Math.max(4, mx(S.view0 + S.span) - mx(S.view0)), 10, 3); tctx.stroke();
+    }
+    tctx.fillStyle = C.sodium; tctx.fillRect(mx(S.t) - 1, 1, 2, 11);
+
+    // no data yet (after now)
+    if (S.day === TODAY && X(NOW) < W){
+      const a = Math.max(0, X(NOW)); tctx.fillStyle = hatch; tctx.fillRect(a, top, W - a, H - AXIS - top);
+      if (X(NOW) > 0){ tctx.fillStyle = C.muted; tctx.fillRect(X(NOW), top, 1, H - AXIS - top); tctx.font = '500 10px ' + MONO; tctx.textAlign = 'right'; tctx.fillText('NOW', X(NOW) - 4, H - AXIS - 4); }
+    }
+    // hour/minute ticks
+    const step = tickStep(S.span);
+    tctx.font = '500 11px ' + MONO; tctx.textBaseline = 'alphabetic';
+    for (let tt = Math.ceil(S.view0 / step) * step; tt <= S.view0 + S.span; tt += step){
+      const x = Math.round(X(tt)) + .5;
+      tctx.fillStyle = 'rgba(140,155,162,.16)'; tctx.fillRect(x, top, 1, H - AXIS - top);
+      tctx.fillStyle = C.muted; tctx.textAlign = x < 20 ? 'left' : x > W - 20 ? 'right' : 'center';
+      tctx.fillText(step < 60 ? fmt(tt) : fmtHM(tt), x, H - 6);
+    }
+    // camera lanes
+    const narrow = W < 560, useEvents = S.span >= 10800;
+    CAMS.forEach((c, i) => {
+      const y = laneY(i), sel = i === S.cam, src = data[c.id];
+      if (sel){ tctx.fillStyle = 'rgba(140,195,223,.07)'; tctx.fillRect(0, y, W, laneH); }
+      const arr = useEvents ? src.events : src.clips;
+      tctx.fillStyle = sel ? C['clip-hi'] : C.clip;
+      for (let k = Math.max(0, lastStartLE(arr, S.view0)); k < arr.length && arr[k].start <= S.view0 + S.span; k++){
+        const a = arr[k], x1 = X(a.start), x2 = X(a.end); if (x2 < 0) continue;
+        tctx.fillRect(x1, y + 2, Math.max(1.5, x2 - x1 - (useEvents ? 0 : 1)), laneH - 4);
+      }
+      tctx.fillStyle = C.snap;
+      for (const s of src.snaps){ const x = X(s); if (x < -3 || x > W + 3) continue; tctx.beginPath(); tctx.arc(x, y + laneH / 2, 2, 0, 7); tctx.fill(); }
+      const label = narrow ? c.short : c.name;
+      tctx.font = (sel ? '600 ' : '500 ') + '12px ' + getComputedStyle(document.body).fontFamily;
+      const tw = tctx.measureText(label).width;
+      tctx.fillStyle = 'rgba(12,17,20,.86)'; tctx.beginPath(); tctx.roundRect(4, y + laneH / 2 - 9, tw + 12, 18, 9); tctx.fill();
+      tctx.fillStyle = sel ? C['clip-hi'] : C.muted; tctx.textAlign = 'left'; tctx.textBaseline = 'middle';
+      tctx.fillText(label, 10, y + laneH / 2 + 1); tctx.textBaseline = 'alphabetic';
+    });
+    // playhead
+    const px = X(S.t);
+    if (px >= -6 && px <= W + 6){
+      tctx.fillStyle = C.sodium; tctx.fillRect(Math.round(px) - 1, top - 2, 2, H - AXIS - top + 6);
+      tctx.beginPath(); tctx.moveTo(px - 6, top - 4); tctx.lineTo(px + 6, top - 4); tctx.lineTo(px, top + 3); tctx.fill();
+    }
+  }
+
+  // ---------- clip list ----------
+  let activeId = null, listHover = false;
+  const io = new IntersectionObserver((ents) => {
+    ents.forEach(e => { if (!e.isIntersecting) return; const img = e.target; io.unobserve(img); img.src = thumbFor(img.dataset.id); });
+  }, { root: null, rootMargin: '200px' });
+  const thumbs = new Map(), clipById = new Map();
+  const tcan = document.createElement('canvas'); tcan.width = 256; tcan.height = 144; const tc = tcan.getContext('2d');
+  function thumbFor(id){
+    if (thumbs.has(id)) return thumbs.get(id);
+    const cl = clipById.get(id);
+    drawScene(tc, 0, 0, 256, 144, cl.cam, cl.start + (cl.end - cl.start) * .4, cl.ev, S.day, false);
+    const url = tcan.toDataURL('image/jpeg', .72); thumbs.set(id, url); return url;
+  }
+  function renderList(){
+    const src = cur(); list.textContent = ''; clipById.clear(); activeId = null;
+    $('#evCount').textContent = src.clips.length + ' clips';
+    const sb = $('#sortBtn');
+    sb.textContent = S.newestFirst ? 'Newest first' : 'Oldest first';
+    sb.setAttribute('aria-label', 'Sorted ' + (S.newestFirst ? 'newest' : 'oldest') + ' first. Switch to ' + (S.newestFirst ? 'oldest' : 'newest') + ' first.');
+    const arr = S.newestFirst ? src.clips.slice().reverse() : src.clips;
+    const frag = document.createDocumentFragment();
+    arr.forEach(cl => {
+      clipById.set(cl.id, cl);
+      const b = document.createElement('button'); b.type = 'button'; b.className = 'ev'; b.dataset.id = cl.id;
+      b.innerHTML = '<span class="thumb"><img alt="" data-id="' + cl.id + '"></span><span class="t">' + fmt(cl.start) + '</span><span class="m">' + fmtDur(cl.end - cl.start) + ' · ' + sizeMB(cl) + ' MB</span>';
+      b.setAttribute('aria-label', 'Clip at ' + fmt(cl.start) + ', ' + fmtDur(cl.end - cl.start));
+      frag.appendChild(b);
+    });
+    list.appendChild(frag);
+    list.scrollTop = 0; list.scrollLeft = 0;
+    list.querySelectorAll('img').forEach(i => io.observe(i));
+  }
+  function updateActive(force){
+    const src = cur(); const i = lastStartLE(src.clips, S.t); const id = i >= 0 ? src.clips[i].id : null;
+    if (id === activeId && !force) return;
+    if (activeId){ const o = list.querySelector('[data-id="' + activeId + '"]'); if (o) o.classList.remove('active'); }
+    activeId = id;
+    const el = id && list.querySelector('[data-id="' + id + '"]');
+    if (el){ el.classList.add('active'); if (!listHover) scrollListTo(el); }
+  }
+  function scrollListTo(el){
+    const vertical = getComputedStyle(list).flexDirection === 'column' && list.scrollHeight > list.clientHeight;
+    const behavior = matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+    if (vertical) list.scrollTo({ top: el.offsetTop - list.offsetTop - list.clientHeight / 2 + el.offsetHeight / 2, behavior });
+    else if (list.scrollWidth > list.clientWidth) list.scrollTo({ left: el.offsetLeft - list.offsetLeft - list.clientWidth / 2 + el.offsetWidth / 2, behavior });
+  }
+  list.addEventListener('pointerenter', () => listHover = true);
+  list.addEventListener('pointerleave', () => listHover = false);
+  list.addEventListener('click', (e) => { const b = e.target.closest('.ev'); if (!b) return; const cl = clipById.get(b.dataset.id); S.t = cl.start; follow(false); setPlaying(true); dirty = true; });
+  $('#sortBtn').addEventListener('click', () => { S.newestFirst = !S.newestFirst; renderList(); updateActive(true); });
+
+  // ---------- chrome ----------
+  function renderCams(){
+    const box = $('#cams'); box.textContent = '';
+    CAMS.forEach((c, i) => {
+      const b = document.createElement('button'); b.type = 'button'; b.className = 'cam'; b.id = 'cam-' + c.id;
+      b.setAttribute('aria-pressed', String(i === S.cam));
+      b.innerHTML = '<kbd>' + (i + 1) + '</kbd>' + c.name + '<span class="n">' + data[c.id].clips.length + '</span>';
+      b.addEventListener('click', () => selectCam(i));
+      box.appendChild(b);
+    });
+  }
+  function selectCam(i){ if (i === S.cam) return; S.cam = i; renderCams(); renderList(); updateActive(true); dirty = true; }
+  function setDay(d){
+    d = Math.min(TODAY, Math.max(1, d)); if (d === S.day) return;
+    S.day = d; data = genDay(d); thumbs.clear(); S.t = clampT(S.t); follow(false);
+    $('#dayLabel').textContent = dayLabel(d); $('#dayPick').value = '2026-11-' + pad2(d);
+    $('#dayPrev').disabled = d <= 1; $('#dayNext').disabled = d >= TODAY;
+    renderCams(); renderList(); updateActive(true); dirty = true;
+  }
+  $('#dayPrev').addEventListener('click', () => setDay(S.day - 1));
+  $('#dayNext').addEventListener('click', () => setDay(S.day + 1));
+  $('#dayPick').addEventListener('change', (e) => { const m = /^2026-11-(\d\d)$/.exec(e.target.value); if (m) setDay(+m[1]); else e.target.value = '2026-11-' + pad2(S.day); });
+  $('#dayLabel').textContent = dayLabel(S.day); $('#dayNext').disabled = true;
+
+  const PLAY = '<path d="M8 5v14l11-7z"/>', PAUSE = '<path d="M7 5h4v14H7zM13 5h4v14h-4z"/>';
+  function setPlaying(p){ S.playing = p; $('#playIcon').innerHTML = p ? PAUSE : PLAY; $('#play').setAttribute('aria-label', p ? 'Pause' : 'Play'); poke(); }
+  $('#play').addEventListener('click', () => setPlaying(!S.playing));
+  function jumpClip(dir){
+    const arr = cur().clips; const i = lastStartLE(arr, S.t);
+    if (dir > 0){ const n = arr[i + 1]; if (n) S.t = n.start; }
+    else { const c = arr[i]; if (c && S.t - c.start > 2) S.t = c.start; else if (arr[i - 1]) S.t = arr[i - 1].start; }
+    follow(false); dirty = true;
+  }
+  $('#prevClip').addEventListener('click', () => jumpClip(-1));
+  $('#nextClip').addEventListener('click', () => jumpClip(1));
+  $('#gapNext').addEventListener('click', () => { const n = nextAfter(cur().clips, S.t); if (n){ S.t = n.start; follow(false); dirty = true; } });
+  document.querySelectorAll('#rates button').forEach(b => b.addEventListener('click', () => {
+    S.rate = +b.dataset.rate; document.querySelectorAll('#rates button').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+  }));
+  $('#zoomIn').addEventListener('click', () => { const z = ZOOMS.find(v => v < S.span * .98); zoomAroundPlayhead(z || MIN_SPAN); });
+  $('#zoomOut').addEventListener('click', () => { const z = [...ZOOMS].reverse().find(v => v > S.span * 1.02); zoomAroundPlayhead(z || DAY); });
+
+  let toastTimer = 0;
+  function toast(msg){ const t = $('#toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove('show'), 2400); }
+
+  // layout + device switching
+  // theater can be entered from any layout; leaving it returns to the layout you came from
+  let baseLayout = 'split';
+  const EXPAND = '<path d="M4 4h6v2H6v4H4zM14 4h6v6h-2V6h-4zM4 14h2v4h4v2H4zM18 14h2v6h-6v-2h4z"/>';
+  const COLLAPSE = '<path d="M8 4h2v6H4V8h4zM14 4h2v4h4v2h-6zM4 14h6v6H8v-4H4zM14 14h6v2h-4v4h-2z"/>';
+  function updateTheaterBtn(){
+    const on = S.layout === 'theater', b = $('#theaterBtn'), label = on ? 'Exit theater mode (Esc)' : 'Theater mode (F)';
+    $('#theaterIcon').innerHTML = on ? COLLAPSE : EXPAND; b.setAttribute('aria-label', label); b.title = label;
+  }
+  function enterTheater(){
+    setLayout('theater'); app.classList.add('focus');
+    if (stage.dataset.device === 'phone') $('#device').scrollTop = 0;
+    else if (document.fullscreenEnabled && app.requestFullscreen) app.requestFullscreen().catch(() => {});
+    dirty = true;
+  }
+  function exitTheater(){
+    app.classList.remove('focus');
+    if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
+    setLayout(baseLayout);
+  }
+  const toggleTheater = () => S.layout === 'theater' ? exitTheater() : enterTheater();
+  document.addEventListener('fullscreenchange', () => { if (!document.fullscreenElement && app.classList.contains('focus')) exitTheater(); });
+  function setLayout(l){
+    if (l !== 'theater'){ baseLayout = l; app.classList.remove('focus'); }
+    S.layout = l; app.dataset.layout = l; setDrawer(false); updateTheaterBtn();
+    document.querySelectorAll('.bench button[data-layout]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.layout === l)));
+    document.querySelectorAll('.note').forEach(n => n.setAttribute('aria-current', String(n.dataset.for === l)));
+    app.classList.remove('idle'); dirty = true; requestAnimationFrame(() => updateActive(true));
+  }
+  document.querySelectorAll('.bench button[data-layout]').forEach(b => b.addEventListener('click', () => setLayout(b.dataset.layout)));
+  document.querySelectorAll('.note').forEach(n => n.addEventListener('click', () => setLayout(n.dataset.for)));
+  document.querySelectorAll('button[data-device]').forEach(b => b.addEventListener('click', () => {
+    stage.dataset.device = b.dataset.device;
+    document.querySelectorAll('button[data-device]').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+    dirty = true; requestAnimationFrame(() => updateActive(true));
+  }));
+  function setDrawer(open){ S.drawer = open; app.classList.toggle('drawer', open); $('#drawerBtn').setAttribute('aria-expanded', String(open)); if (open) requestAnimationFrame(() => updateActive(true)); }
+  $('#drawerBtn').addEventListener('click', () => setDrawer(!S.drawer));
+  $('#theaterBtn').addEventListener('click', toggleTheater);
+  $('#player').addEventListener('dblclick', (e) => { if (!e.target.closest('button')) toggleTheater(); });
+  new ResizeObserver(() => { app.style.setProperty('--dock-h', $('#dock').offsetHeight + 'px'); dirty = true; }).observe($('#dock'));
+  new ResizeObserver(() => { dirty = true; }).observe(app);
+
+  // theater: fade controls while playing
+  let idleTimer = 0;
+  function poke(){ app.classList.remove('idle'); clearTimeout(idleTimer); idleTimer = setTimeout(() => { if (S.playing && S.layout === 'theater' && !S.drawer && !S.scrubbing) app.classList.add('idle'); }, 3000); }
+  app.addEventListener('pointermove', poke); app.addEventListener('pointerdown', poke);
+
+  // ---------- timeline input ----------
+  // lanes: press or drag to move the playhead (a tap also picks that camera)
+  // overview strip / time axis: drag to move along the day when zoomed in
+  // wheel zooms around the pointer, horizontal wheel or shift+wheel pans, two fingers pinch-zoom and pan
+  const ptrs = new Map(); let g = null;
+  const region = (y, H) => y < MINI + 2 ? 'mini' : y > H - AXIS ? 'axis' : 'lane';
+  function miniPan(x){ const W = tl.clientWidth; S.view0 = ((x - 4) / (W - 8)) * DAY - S.span / 2; clampView(); dirty = true; }
+  tl.addEventListener('pointerdown', (e) => {
+    tl.setPointerCapture(e.pointerId); ptrs.set(e.pointerId, { x: e.offsetX, y: e.offsetY });
+    if (ptrs.size === 2){
+      const [a, b] = [...ptrs.values()], mid = (a.x + b.x) / 2;
+      g = { kind: 'pinch', d0: Math.hypot(a.x - b.x, a.y - b.y) || 1, span0: S.span, anchorT: T(mid) }; S.scrubbing = false; return;
+    }
+    if (ptrs.size > 2) return;
+    const r = region(e.offsetY, tl.clientHeight);
+    if (r === 'mini'){ g = { kind: 'mini' }; miniPan(e.offsetX); }
+    else if (r === 'axis'){ g = { kind: 'pan', x0: e.offsetX, v0: S.view0 }; }
+    else { g = { kind: 'scrub', x0: e.offsetX, moved: false }; S.scrubbing = true; S.t = clampT(T(e.offsetX)); dirty = true; }
+  });
+  tl.addEventListener('pointermove', (e) => {
+    if (!ptrs.has(e.pointerId)){ tl.style.cursor = region(e.offsetY, tl.clientHeight) === 'lane' ? 'pointer' : (S.span < DAY ? 'grab' : 'default'); return; }
+    ptrs.set(e.pointerId, { x: e.offsetX, y: e.offsetY });
+    if (!g) return;
+    const W = tl.clientWidth;
+    if (g.kind === 'pinch' && ptrs.size === 2){
+      const [a, b] = [...ptrs.values()], mid = (a.x + b.x) / 2;
+      S.span = Math.min(DAY, Math.max(MIN_SPAN, g.span0 * g.d0 / (Math.hypot(a.x - b.x, a.y - b.y) || 1)));
+      S.view0 = g.anchorT - mid * S.span / W; clampView(); zoomLabel(); dirty = true;
+    } else if (g.kind === 'mini'){ miniPan(e.offsetX); }
+    else if (g.kind === 'pan'){ S.view0 = g.v0 - (e.offsetX - g.x0) * S.span / W; clampView(); dirty = true; }
+    else if (g.kind === 'scrub'){ if (Math.abs(e.offsetX - g.x0) > 4) g.moved = true; S.t = clampT(T(Math.min(W, Math.max(0, e.offsetX)))); dirty = true; }
+  });
+  function endPtr(e){
+    if (!ptrs.has(e.pointerId)) return;
+    ptrs.delete(e.pointerId);
+    if (g && g.kind === 'scrub' && !g.moved && e.type === 'pointerup'){
+      const { laneH, y } = laneGeom(tl.clientHeight);
+      for (let i = 0; i < 4; i++) if (e.offsetY >= y(i) - 1 && e.offsetY <= y(i) + laneH + 1){ selectCam(i); break; }
+    }
+    if (g && g.kind === 'pinch' && ptrs.size < 2) g = null;
+    if (ptrs.size === 0){ g = null; S.scrubbing = false; poke(); }
+  }
+  tl.addEventListener('pointerup', endPtr); tl.addEventListener('pointercancel', endPtr);
+  tl.addEventListener('wheel', (e) => {
+    e.preventDefault();
+    const W = tl.clientWidth;
+    if (e.shiftKey || Math.abs(e.deltaX) > Math.abs(e.deltaY)){ S.view0 += (e.deltaX || e.deltaY) * S.span / W; clampView(); }
+    else zoomTo(S.span * Math.exp(e.deltaY * 0.0016), T(e.offsetX), e.offsetX / W);
+    dirty = true;
+  }, { passive: false });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.target.closest && e.target.closest('input')) return;
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    if (e.key === 'Escape'){ if (S.drawer) setDrawer(false); else if (S.layout === 'theater') exitTheater(); else return; }
+    else if (e.key === 'f' || e.key === 'F'){ toggleTheater(); }
+    else if (e.key === ' '){ e.preventDefault(); setPlaying(!S.playing); }
+    else if (e.key === 'ArrowLeft'){ e.preventDefault(); S.t = clampT(S.t - (e.shiftKey ? 60 : 10)); follow(false); dirty = true; }
+    else if (e.key === 'ArrowRight'){ e.preventDefault(); S.t = clampT(S.t + (e.shiftKey ? 60 : 10)); follow(false); dirty = true; }
+    else if (e.key === '['){ jumpClip(-1); }
+    else if (e.key === ']'){ jumpClip(1); }
+    else if (e.key >= '1' && e.key <= '4'){ selectCam(+e.key - 1); }
+    else if (e.key === '+' || e.key === '='){ $('#zoomIn').click(); }
+    else if (e.key === '-'){ $('#zoomOut').click(); }
+    else return;
+    poke();
+  });
+
+  // ---------- playback ----------
+  function advance(ds){
+    const arr = cur().clips; const clip = itemAt(arr, S.t); const nt = S.t + ds;
+    if (clip && nt < clip.end){ S.t = nt; return; }
+    const from = clip ? clip.end : S.t;
+    const nx = nextAfter(arr, clip ? clip.start : S.t);
+    if (!nx){ S.t = clip ? clip.end - 0.05 : S.t; setPlaying(false); toast('End of recordings from ' + CAMS[S.cam].name + ' for this day'); return; }
+    const gap = nx.start - from;
+    if (gap > 2) toast('Skipped ' + fmtDur(gap) + ' with no recording');
+    S.t = gap > 0.5 ? nx.start : nt;
+  }
+  function renderClock(){
+    $('#clockTime').textContent = fmt(S.t);
+    const clip = itemAt(cur().clips, S.t);
+    $('#clockMeta').textContent = clip ? fileName(clip) : CAMS[S.cam].name + ' · no recording';
+  }
+  let last = performance.now();
+  function frame(now){
+    const dt = Math.min(.25, (now - last) / 1000); last = now;
+    if (S.playing && !S.scrubbing){ advance(dt * S.rate); if (!g) follow(true); dirty = true; }
+    if (dirty){ dirty = false; renderPlayer(); renderTimeline(); renderClock(); updateActive(false); }
+    requestAnimationFrame(frame);
+  }
+
+  renderCams(); renderList(); zoomLabel(); updateTheaterBtn();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { dirty = true; });
+  requestAnimationFrame((t) => { last = t; updateActive(true); frame(t); });
+})();
+</script>
