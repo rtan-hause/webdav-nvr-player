@@ -14,6 +14,9 @@ on:
       - release-please-config.chart.json
       - .release-please-manifest.chart.json
       - .github/workflows/chart-release.yaml
+  # Path-filtered push workflows skip pushes that change no files, so an empty
+  # "Release-As: X.Y.Z" commit never reaches release-please. Run it by hand.
+  workflow_dispatch:
 
 permissions:
   contents: write
