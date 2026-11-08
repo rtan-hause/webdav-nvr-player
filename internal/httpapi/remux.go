@@ -13,6 +13,7 @@ import (
 	"sync"
 	"time"
 
+	"github.com/rtan-hause/webdav-nvr-player/internal/httpx"
 	"github.com/rtan-hause/webdav-nvr-player/internal/media"
 	"github.com/rtan-hause/webdav-nvr-player/internal/source/webdav"
 	"github.com/rtan-hause/webdav-nvr-player/internal/store"
@@ -127,11 +128,11 @@ func (a *api) stream(w http.ResponseWriter, r *http.Request) {
 	case err != nil && r.Context().Err() != nil:
 		return // client went away
 	case errors.Is(err, webdav.ErrFileNotFound):
-		errJSON(w, http.StatusNotFound, "this recording is no longer on the server")
+		httpx.Error(w, http.StatusNotFound, "this recording is no longer on the server")
 		return
 	case err != nil:
 		slog.Warn("stream failed", "path", c.Path, "err", err)
-		errJSON(w, http.StatusBadGateway, "couldn't read this recording from the server")
+		httpx.Error(w, http.StatusBadGateway, "couldn't read this recording from the server")
 		return
 	case rx == nil:
 		a.proxy(w, r, c.Path)

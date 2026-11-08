@@ -1,5 +1,6 @@
 import { fetchClips, fetchDays, getJSON, HttpError, type Camera, type Clip, type IndexStatus } from '../lib/api'
 import { itemAt, lastStartLE, mergeSpans, nextAfter } from '../lib/clips'
+import { loadSetting, saveSetting } from '../lib/storage'
 import { createStore } from '../lib/store'
 import { addDays, atLocalTime, dateOf, dayBounds, fmtDay, fmtDur } from '../lib/time'
 
@@ -56,22 +57,7 @@ const SORT_KEY = 'nvr.newestFirst'
 export const MIN_SPAN = 4 * 60_000
 const ZOOMS = [6 * 3600_000, 3600_000, 15 * 60_000, 5 * 60_000]
 
-function stored(key: string): string | null {
-  try {
-    return localStorage.getItem(key)
-  } catch {
-    return null
-  }
-}
-function store(key: string, value: string) {
-  try {
-    localStorage.setItem(key, value)
-  } catch {
-    // private window or blocked storage: the setting just isn't remembered
-  }
-}
-
-const savedRate = Number(stored(RATE_KEY))
+const savedRate = Number(loadSetting(RATE_KEY))
 
 export const app = createStore<AppState>({
   tz: 'UTC',
@@ -91,7 +77,7 @@ export const app = createStore<AppState>({
   muted: true,
   view0: 0,
   span: 86_400_000,
-  newestFirst: stored(SORT_KEY) !== 'false',
+  newestFirst: loadSetting(SORT_KEY) !== 'false',
   layout: 'split',
   drawer: false,
   idle: false,
@@ -256,7 +242,7 @@ export function selectCamera(id: number) {
 
 export function setRate(rate: number) {
   app.set({ rate })
-  store(RATE_KEY, String(rate))
+  saveSetting(RATE_KEY, String(rate))
 }
 
 export function stepRate(dir: 1 | -1) {
@@ -269,7 +255,7 @@ export const toggleMute = () => app.set((s) => ({ muted: !s.muted }))
 export function toggleSort() {
   const newestFirst = !app.get().newestFirst
   app.set({ newestFirst })
-  store(SORT_KEY, String(newestFirst))
+  saveSetting(SORT_KEY, String(newestFirst))
 }
 
 let toastId = 0
