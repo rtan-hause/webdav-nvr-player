@@ -3,7 +3,8 @@
   "extends": [
     "config:recommended",
     ":semanticCommits",
-    "customManagers:githubActionsVersions"
+    "customManagers:githubActionsVersions",
+    "helpers:pinGitHubActionDigests"
   ],
   "labels": ["dependencies"],
   "timezone": "America/Los_Angeles",
