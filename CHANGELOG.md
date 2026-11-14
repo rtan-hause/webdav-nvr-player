@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.2.2](https://github.com/rtan-hause/webdav-nvr-player/compare/v0.2.1...v0.2.2) (2026-11-14)
+
+
+### Bug Fixes
+
+* **deps:** update module golang.org/x/crypto to v0.59.0 ([#31](https://github.com/rtan-hause/webdav-nvr-player/issues/31)) ([cb27650](https://github.com/rtan-hause/webdav-nvr-player/commit/cb27650a70e98db585c688110dfd86aaca5f5731))
+* **deps:** update module golang.org/x/image to v0.48.0 ([#27](https://github.com/rtan-hause/webdav-nvr-player/issues/27)) ([4884733](https://github.com/rtan-hause/webdav-nvr-player/commit/48847337e20822e0d0108b584abe78c5cb941929))
+* **deps:** update module golang.org/x/oauth2 to v0.38.0 ([#22](https://github.com/rtan-hause/webdav-nvr-player/issues/22)) ([4962f63](https://github.com/rtan-hause/webdav-nvr-player/commit/4962f63dda5d49eacf5150466e35d6afb3b5f9ef))
+
 ## [0.2.1](https://github.com/rtan-hause/webdav-nvr-player/compare/v0.2.0...v0.2.1) (2026-11-08)
 
 
